@@ -138,7 +138,7 @@
                      'news'=>'组合图文回复',   
                      'add_news'=>'编辑图文',
          	      )
-               ),                
+               ),
               'admin/plugin'=>array(
                 'name' =>'插件管理',
                 'action'=>array(
@@ -187,7 +187,7 @@
                          'remittance'=>'汇款记录',
                          'rebate_log'=>'分成记录',
                		)
-               ),        
+               ),
 
     );
 ?>

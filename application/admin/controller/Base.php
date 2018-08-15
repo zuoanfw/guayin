@@ -36,13 +36,13 @@ class Base extends Controller {
         Session::start();
         header("Cache-control: private");  // history.back返回后输入框值丢失问题 参考文章 http://www.tp-shop.cn/article_id_1465.html  http://blog.csdn.net/qinchaoguang123456/article/details/29852881
         parent::__construct();
-        $upgradeLogic = new UpgradeLogic();
+        /*$upgradeLogic = new UpgradeLogic();
         $upgradeMsg = $upgradeLogic->checkVersion(); //升级包消息        
-        $this->assign('upgradeMsg',$upgradeMsg);    
+        $this->assign('upgradeMsg',$upgradeMsg); */
         //用户中心面包屑导航
         $navigate_admin = navigate_admin();
         $this->assign('navigate_admin',$navigate_admin);
-        tpversion();
+        //tpversion();
    }
     
     /**

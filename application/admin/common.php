@@ -43,7 +43,7 @@ function getAdminInfo($admin_id){
 function tpversion()
 {     
    //在线升级系统
-    if(!empty($_SESSION['isset_push']))
+    /*if(!empty($_SESSION['isset_push']))
         return false;    
     $_SESSION['isset_push'] = 1;    
     error_reporting(0);//关闭所有错误报告
@@ -62,7 +62,7 @@ function tpversion()
             );     
      $url = "http://service.tp-shop.cn/index.php?m=Home&c=Index&a=user_push&".http_build_query($vaules);
      stream_context_set_default(array('http' => array('timeout' => 3)));
-     file_get_contents($url);       
+     file_get_contents($url);  */
 }
  
 /**

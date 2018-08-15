@@ -110,7 +110,4 @@ class Index extends Base {
             M($table)->where([$id_name => $id_value])->save(array($field=>$value)); // 根据条件保存修改的数据
     }	    
 
-    public function about(){
-    	return $this->fetch();
-    }
 }
