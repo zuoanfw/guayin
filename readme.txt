@@ -1,24 +1,24 @@
-TPshop2.0 °²×°²¿Êð·½Ê½
-±ØÐë°²×°ÔÚÓòÃû¸ùÄ¿Â¼ÏÂ, ²»ÄÜÈ¦Ì×È¦Ì×ÔÚÄ³¸öÄ¿Â¼ÏÂ ·ñÔò»áÂ·¾¶³ö´í
+å®‰è£…éƒ¨ç½²æ–¹å¼
+å¿…é¡»å®‰è£…åœ¨åŸŸåæ ¹ç›®å½•ä¸‹, ä¸èƒ½åœˆå¥—åœˆå¥—åœ¨æŸä¸ªç›®å½•ä¸‹ å¦åˆ™ä¼šè·¯å¾„å‡ºé”™
 
-°²×°ÐèÒªhostÒ»¸öÓòÃû¸ùÄ¿Â¼ÏÂ°²×°. apacheÅäÖÃÒ»¸öÐéÄâÖ÷»ú ²»ÄÜÈ¦Ì×ÔÚÄ³¸öÄ¿Â¼ÏÂ
-Ê¾Àý:
- http://www.xxx.com/index.php   ÕýÈ·
+å®‰è£…éœ€è¦hostä¸€ä¸ªåŸŸåæ ¹ç›®å½•ä¸‹å®‰è£…. apacheé…ç½®ä¸€ä¸ªè™šæ‹Ÿä¸»æœº ä¸èƒ½åœˆå¥—åœ¨æŸä¸ªç›®å½•ä¸‹
+ç¤ºä¾‹:
+ http://www.xxx.com/index.php   æ­£ç¡®
   
- http://www.xxx.com/TPshop/index.php   ´íÎó (ºÜ¶àÂ·¾¶³ö´í)
+ http://www.xxx.com/TPshop/index.php   é”™è¯¯ (å¾ˆå¤šè·¯å¾„å‡ºé”™)
  
-ÊÖ»ú·ÃÎÊÄ¿Â¼ http://www.xxx.com/index.php/Mobile  ×îºÃÓÃÊÖ»ú»òÊÖ»úä¯ÀÀÆ÷´ò¿ª²âÊÔ PC¶Ëä¯ÀÀÆ÷»áÓÐ¼æÈÝÎÊÌâ
+æ‰‹æœºè®¿é—®ç›®å½• http://www.xxx.com/index.php/Mobile  æœ€å¥½ç”¨æ‰‹æœºæˆ–æ‰‹æœºæµè§ˆå™¨æ‰“å¼€æµ‹è¯• PCç«¯æµè§ˆå™¨ä¼šæœ‰å…¼å®¹é—®é¢˜
 
 
-Èç¹ûÄãÊÇnginx ·þÎñÆ÷  lnmp °²×°µÄ, ²¢ÇÒÊÇ°´ÕÕ lnmp ¹ÙÍø±ê×¼°²×°µÄ Äã¿ÉÒÔ Ö±½ÓÄÃµ±Ç°¸ùÄ¿Â¼ÏÂµÄ nginx.conf2 ÎÄ¼þ ¸ÄÃû×Ö¸²¸ÇÄãµÄ ¶ÔÓ¦ÓòÃûµÄÎÄ¼þ. È»ºóÐÞ¸ÄÀïÃæµÄ "www.tp-shop.cn"  ÓòÃû»»³ÉÄãµÄ¼´¿É
+å¦‚æžœä½ æ˜¯nginx æœåŠ¡å™¨  lnmp å®‰è£…çš„, å¹¶ä¸”æ˜¯æŒ‰ç…§ lnmp å®˜ç½‘æ ‡å‡†å®‰è£…çš„ ä½ å¯ä»¥ ç›´æŽ¥æ‹¿å½“å‰æ ¹ç›®å½•ä¸‹çš„ nginx.conf2 æ–‡ä»¶ æ”¹åå­—è¦†ç›–ä½ çš„ å¯¹åº”åŸŸåçš„æ–‡ä»¶. ç„¶åŽä¿®æ”¹é‡Œé¢çš„ "www.tp-shop.cn"  åŸŸåæ¢æˆä½ çš„å³å¯
 
-±ÈÈçÎÒµÄTPshopÏîÄ¿ÔÚ  D:\www\tpshop2.0  ÓòÃûÓ¦¸ÃÖ¸Ïòµ½ D:\www\tpshop2.0  ÒòÎªindex.php ÔÚ D:\www\tpshop2.0 ÏÂÃæ
+æ¯”å¦‚æˆ‘çš„TPshopé¡¹ç›®åœ¨  D:\www\tpshop2.0  åŸŸååº”è¯¥æŒ‡å‘åˆ° D:\www\tpshop2.0  å› ä¸ºindex.php åœ¨ D:\www\tpshop2.0 ä¸‹é¢
 
-apacheÅäÖÃÓ¦¸ÃÊÇ
+apacheé…ç½®åº”è¯¥æ˜¯
 
 <VirtualHost *:80>
      DocumentRoot "D:\www\tpshop2.0\"
      ServerName www.tpshop.cn
 </VirtualHost>
 
-Èç¹û»¹ÓÐÊ²Ã´²»¶®µÄµ½tpshop¹ÙÍøÏÂÔØÒ³Ãæ ÏÂÔØ¿´°²×°ÊÓÆµ½Ì³Ì
+åº”ç”¨ä»£ç å’Œæ¨¡æ¿
