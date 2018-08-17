@@ -48,17 +48,18 @@ class Goods extends Base
             $this->error('该商品已经下架', U('Index/index'));
         }
         if (cookie('user_id')) {
+            //用户浏览记录
             $goodsLogic->add_visit_log(cookie('user_id'), $goods);
         }
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
-        $filter_spec = $goodsLogic->get_spec($goods_id);
+        $filter_spec = $goodsLogic->get_spec($goods_id);//规格参数
         $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
         $commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
-        $point_rate = tpCache('shopping.point_rate');
+        $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航

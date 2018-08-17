@@ -1,125 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录-{$tpshop_config['shop_info_store_title']}</title>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
-    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="__PUBLIC__/static/js/layer/layer.js" type="text/javascript"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+    <title>注册-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.css"/>
+    <link href="__STATIC__/css/register.css" rel="stylesheet" />
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/bootstrap/js/bootstrap.js"></script>
+    <script src="__PUBLIC__/js/layer/layer.js"></script><!--弹窗js 参考文档 http://layer.layui.com/-->
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/md5.min.js"></script>
 </head>
 <body>
-<div class="loginsum_cm">
-    <div class="w1224 p">
-        <div class="login-dl">
-            <a href="/index.php" title="首页">
-                <img src="{$tpshop_config.shop_info_store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}"/>
-            </a>
+<div class="container reg_head">
+    <div class="row">
+        <div class="col-md-8">
+            <a class="m-fnlogoa fn-fl" href="/" >
+                <img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}" style="width: 159px;height: 58px;vertical-align: top;"/></a>
+            <span class="m-fntit"><h3>登录</h3></span>
         </div>
-        <div class="login-welcome">
-            <span>欢迎登录</span>
+        <div class="col-md-4">
+            <img src="/public/static/images/logo/telephone.png" style="width: 266px;height: 69px;float: right;">
         </div>
     </div>
 </div>
-<div class="loginsum_main" style="background: #bf1919;">
-    <div class="w1224 p">
-        <div class="advertisement">
-            <adv pid="11" item="v" key="k">
-                <a href="{$v[ad_link]}">
-                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
-                </a>
-            </adv>
-        </div>
-        <div class="login_form">
-            <div class="lo_intext">
-                <div class="layel1">
-                    <span>账户登录</span>   
-                     <p style="font-size:12px;line-height:35px;">测试账号:13800138006密码:123456</p>                 
-                </div>                
-                <form id="loginform" method="post">
-                    <div class="layel2">
-                        <div class="text_uspa">
-                            <label class="judgp uspa_user"></label>
-                            <input type="text" autofocus="autofocus" class="text_cmu" value="" placeholder="手机号/邮箱" name="username" id="username" autocomplete="off">
-                        </div>
-                        <div class="text_uspa">
-                            <label class="judgp uspa_pwd"></label>
-                            <input type="password" class="text_cmu" value="" placeholder="密码" name="password" id="password" autocomplete="off">
-                        </div>
-                        <div class="text_uspa check_cum">
-                            <input type="text" class="text_cmu" value="" placeholder="验证码" name="verify_code" id="verify_code" autocomplete="off">
-                        </div>
-                        <div class="check_cum_img">
-                            <img src="/index.php?m=Home&c=User&a=verify" id="verify_code_img" onclick="verify()"/>
-                        </div>
-                        <div class="sum_reme_for p">
-                           <div class="autplog">
-                                <!--<label>-->
-                                    <!--<input type="hidden" name="referurl" id="referurl" value="{$referurl}">-->
-                                    <!--<input type="checkbox" class="u-ckb J-auto-rmb"  name="autologin" value="1">自动登录-->
-                                <!--</label>--><!--功能没实现-->
-                           </div>
-                            <div class="foget_pwt">
-                                <a href="{:U('Home/User/forget_pwd')}">忘记密码？</a>
-                            </div>
-                        </div>
-                        <div class="login_bnt">
-                            <a href="javascript:void(0);" onClick="checkSubmit();" class="J-login-submit" name="sbtbutton">登&nbsp;&nbsp;&nbsp;&nbsp;录</a>
-                        </div>
+<div class="reg_main">
+    <div class="col-md-7 reg_word">
+        使用场景：汽车4s店营销、饭店开业、辅导班开业、白酒宣传、<br>
+        家电促销、婚庆庆典、购物网站宣传、学校招生、企业招商等<br>
+        推荐指数：<br>
+        推荐理由：营销利器、画面适中、应用最广、性价比高<br>
+        产品规格：成品尺寸： A4 16开(210*285mm)；纸张类型：铜版150g；正背颜色：双面彩色印刷<br>
+    </div>
+    <div class="col-md-5">
+        <form class="form-horizontal reg_form" id="loginform" method="post" action="">
+            <div class="form-group">
+                <h4>账号登录</h4>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control J_cellphone"  placeholder="手机号" name="username" id="username" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control"  placeholder="请输入密码" name="password" autocomplete="off"  id="password" value="">
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" placeholder="验证码" name="verify_code" id="verify_code" autocomplete="off">
                     </div>
-                </form>
-                <div class="layel3">
-                    <div class="contactsty">
-                        <div class="tecant_c">
-                            <ul>
-                                <tpshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">
-                                    <if condition="$v['code'] eq 'weixin'">
-                                        <li class="spacer"></li>
-                                        <li>
-                                            <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'weixin'))}" title="weixin">
-                                                <i class="judgp co_wechat"></i>
-                                                <span>微信</span>
-                                            </a>
-                                        </li>
-                                    </if>
-                                    <if condition="$v['code'] eq 'qq'">
-                                        <li class="spacer"></li>
-                                        <li>
-                                            <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'qq'))}" title="QQ">
-                                                <i class="judgp co_qq"></i>
-                                                <span>QQ</span>
-                                            </a>
-                                        </li>
-                                    </if>
-                                    <if condition="$v['code'] eq 'alipay'">
-                                        <li>
-                                            <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'alipay'))}" title="支付宝">
-                                                <i class="judgp co_alipay"></i>
-                                                <span>支付宝</span>
-                                            </a>
-                                        </li>
-                                    </if>
-                                </tpshop>
-                            </ul>
-                        </div>
-                        <div class="register_c">
-                            <a class="justclix" href="{:U('Home/User/reg')}">
-                                <i class="judgp co_register"></i>
-                                <span>立即注册</span>
-                            </a>
-                        </div>
+                    <div class="col-sm-5">
+                        <img src="/index.php?m=Home&c=User&a=verify" id="verify_code_img" onclick="verify()"/>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="row">
+               <div class="checkbox col-sm-7">
+                    <label>
+                        <input type="checkbox" id="checktxt"  checked>
+                        <span class="fn-fl">自动登录</span>
+                    </label>
+                </div>
+                <div class="foget_pwt col-sm-5">
+                    <a href="{:U('Home/User/forget_pwd')}">忘记密码？</a>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" onClick="checkSubmit();" class="btn btn-success btn-block">登录</button>
+            </div>
+            <!--<div class="form-group tecant_c">
+                <ul>
+                    <tpshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">
+                        <if condition="$v['code'] eq 'weixin'">
+                            <li class="spacer"></li>
+                            <li>
+                                <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'weixin'))}" title="weixin">
+                                    <i class="judgp co_wechat"></i>
+                                    <span>微信</span>
+                                </a>
+                            </li>
+                        </if>
+                        <if condition="$v['code'] eq 'qq'">
+                            <li class="spacer"></li>
+                            <li>
+                                <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'qq'))}" title="QQ">
+                                    <i class="judgp co_qq"></i>
+                                    <span>QQ</span>
+                                </a>
+                            </li>
+                        </if>
+                        <if condition="$v['code'] eq 'alipay'">
+                            <li>
+                                <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'alipay'))}" title="支付宝">
+                                    <i class="judgp co_alipay"></i>
+                                    <span>支付宝</span>
+                                </a>
+                            </li>
+                        </if>
+                    </tpshop>
+                </ul>
+            </div>-->
+            <div class="form-group">
+                <p>还没有账号 &nbsp;&nbsp;<a href="{:U('Home/User/reg')}">点击注册</a></p>
+            </div>
+        </form>
     </div>
 </div>
 <!--footer-s-->
-    <include file="public/footer" />
+<div class="footer p">
+    <include file="public/login_footer" />
+</div>
 <!--footer-e-->
-<script type="text/javascript">
+<script>
     $(function(){
         $('.text_cmu').focus(function(){
             //焦点获取

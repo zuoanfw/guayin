@@ -3,6 +3,7 @@
 <div class="tpshop-tm-hander">
 	<div class="top-hander">
 		<div class="[w] pr clearfix">
+			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' ">
 			<div class="fl">
                       <link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
                       <div class="sendaddress pr fl">
@@ -25,6 +26,7 @@
 				  	<script src="__STATIC__/js/location.js"></script>
 					<script>doInitRegion();</script>
 			</div>
+			</if>
 			<ul class="top-ri-header fr clearfix">
 				<li>
 					<div class="fl nologin">

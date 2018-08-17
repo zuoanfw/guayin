@@ -24,3 +24,14 @@
     min-height: 27px;
     padding-bottom: 15px;
 }
+#verify_code_img{
+    width: 120px;
+}
+.foget_pwt{
+    padding-top: 6px;
+    text-align: right;
+}
+.judgp {
+    background: url(../images/loginchat.png) no-repeat;
+    display: inline-block
+}
