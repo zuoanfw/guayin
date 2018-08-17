@@ -365,13 +365,13 @@ class UsersLogic extends Model
      * @param string $head_pic
      * @return array
      */
-    public function reg($username,$password,$password2,$push_id = 0,$invite=array(),$nickname="",$head_pic=""){
+    public function reg($username,$password,$push_id = 0,$invite=array(),$nickname="",$head_pic=""){
     	$is_validated = 0 ;
-        if(check_email($username)){
+        /*if(check_email($username)){
             $is_validated = 1;
             $map['email_validated'] = 1;
             $map['email'] = $username; //邮箱注册
-        }
+        }*/
 
         if(check_mobile($username)){
             $is_validated = 1;
@@ -379,7 +379,7 @@ class UsersLogic extends Model
             $map['mobile'] = $username; //手机注册
         }
         if($is_validated != 1)
-            return array('status'=>-1,'msg'=>'请用手机号或邮箱注册','result'=>'');
+            return array('status'=>-1,'msg'=>'请用手机号注册','result'=>'');
         $map['nickname'] = $nickname ? $nickname : $username;
         
         if(!empty($head_pic)){
@@ -391,7 +391,6 @@ class UsersLogic extends Model
         $data=[
             'nickname' =>$map['nickname'],
             'password' =>$password,
-            'password2'=>$password2,
         ];
         $UserRegValidate = Loader::validate('User');
         if(!$UserRegValidate->scene('reg')->check($data)){

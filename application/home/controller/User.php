@@ -200,7 +200,7 @@ class User extends Base{
 //            $this->verifyHandle('user_reg');
             $username = I('post.username','');
             $password = I('post.password','');
-            $password2 = I('post.password2','');
+            //$password2 = I('post.password2','');
             $code = I('post.code','');
             $scene = I('post.scene', 1);
             $session_id = session_id();
@@ -212,12 +212,12 @@ class User extends Base{
                         $this->ajaxReturn($check_code);
                     }
                 }else{
-                    if(!$this->verifyHandle('user_reg')){
+                   /* if(!$this->verifyHandle('user_reg')){
                         $this->ajaxReturn(['status'=>-1,'msg'=>'图像验证码错误']);
-                    };
+                    };*/
                 }
             }
-            if(check_email($username)){
+            /*if(check_email($username)){
                 if($reg_smtp_enable){        //是否开启注册邮箱验证码机制
                     //邮件功能未关闭
                     $check_code = $logic->check_validate_code($code, $username);
@@ -229,12 +229,12 @@ class User extends Base{
                         $this->ajaxReturn(['status'=>-1,'msg'=>'图像验证码错误']);
                     };
                 }
-            }
+            }*/
             $invite = I('invite');
             if(!empty($invite)){
             	$invite = get_user_info($invite,2);//根据手机号查找邀请人
             }
-            $data = $logic->reg($username,$password,$password2,0,$invite);
+            $data = $logic->reg($username,$password,0,$invite);
             if($data['status'] != 1){
                 $this->ajaxReturn($data);
             }
@@ -250,7 +250,7 @@ class User extends Base{
             exit;
         }
         $this->assign('regis_sms_enable',tpCache('sms.regis_sms_enable')); // 注册启用短信：
-        $this->assign('regis_smtp_enable',tpCache('smtp.regis_smtp_enable')); // 注册启用邮箱：
+        //$this->assign('regis_smtp_enable',tpCache('smtp.regis_smtp_enable')); // 注册启用邮箱：
         $sms_time_out = tpCache('sms.sms_time_out')>0 ? tpCache('sms.sms_time_out') : 120;
         $this->assign('sms_time_out', $sms_time_out); // 手机短信超时时间
         return $this->fetch();

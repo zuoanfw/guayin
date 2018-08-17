@@ -20,7 +20,7 @@ class User extends Validate
     //验证规则
     protected $rule = [
         'nickname' => 'require|checkName',
-        'password' => 'require|checkPassword',
+        'password' => 'require',
     ];
     
     //错误消息

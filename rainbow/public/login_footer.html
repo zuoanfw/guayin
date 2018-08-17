@@ -1,0 +1,60 @@
+
+<div class="footer">
+    <div class="mod_copyright p">
+        <div class="grid-top">
+            <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 AND position = 'bottom' ORDER BY `sort` DESC" key="kk" item='vv'>
+                <a href="{$vv[url]}" <if condition="$vv[is_new] eq 1"> target="_blank" </if> >{$vv[name]}</a><span>|</span>
+            </tpshop>
+            <a href="javascript:void (0);">关于我们</a><span>|</span>
+            <a href="javascript:void (0);">联系我们</a><span>|</span>
+			<a href="javascript:void (0);">诚聘英才</a>
+        </div>
+
+		<p>Copyright © 2016-2025 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
+	</div>
+</div>
+<style>
+    .mod_copyright {
+		padding: 30px 0px;
+    }
+    .grid-top {
+        margin: 20px;
+        text-align: center;
+    }
+    .grid-top span {
+        margin: 0 10px;
+        color: #ccc;
+    }
+	.grid-top a{
+		color: #333;
+	}
+    .mod_copyright > p {
+        margin: 10px;
+        color: #666;
+        text-align: center;
+    }
+    .mod_copyright_auth_ico {
+        overflow: hidden;
+        display: inline-block;
+        margin: 0 3px;
+        width: 103px;
+        height: 32px;
+        background-image: url(__STATIC__/images/ico_footer.png);
+        line-height: 1000px;
+    }
+    .mod_copyright_auth_ico_1 {
+        background-position: 0 -151px;
+    }
+    .mod_copyright_auth_ico_2 {
+        background-position: -104px -151px;
+    }
+    .mod_copyright_auth_ico_3 {
+        background-position: 0 -184px;
+    }
+    .mod_copyright_auth_ico_4 {
+        background-position: -104px -184px;
+    }
+    .mod_copyright_auth_ico_5 {
+        background-position: 0 -217px;
+    }
+</style>

@@ -136,18 +136,18 @@ class Api extends Base
         $scene = I('scene');    //发送短信验证码使用场景
         $mobile = I('mobile');
         $sender = I('send');
-        $verify_code = I('verify_code');
+        //$verify_code = I('verify_code');
         $mobile = !empty($mobile) ? $mobile : $sender;
         $session_id = I('unique_id', session_id());
         session("scene", $scene);
 
         //注册
-        if ($scene == 1 && !empty($verify_code)) {
+        /*if ($scene == 1 && !empty($verify_code)) {
             $verify = new Verify();
             if (!$verify->check($verify_code, 'user_reg')) {
                 ajaxReturn(array('status' => -1, 'msg' => '图像验证码错误'));
             }
-        }
+        }*/
         if ($type == 'email') {
             //发送邮件验证码
             $logic = new UsersLogic();
