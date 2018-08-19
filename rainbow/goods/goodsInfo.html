@@ -18,6 +18,11 @@
           href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}"
           media="screen"/>
 </head>
+<style>
+    .store-selector .text {
+        color: #666;
+    }
+</style>
 <body>
 <!--header-s-->
 <include file="public/header" w="w1224"/>
@@ -161,6 +166,14 @@
             <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
             <div class="detail-ggsl">
                 <h1>{$goods.goods_name}</h1>
+                <p style="color: #fd4f3e;">{$goods.goods_remark}</p>
+                <div class="goods_attr">
+                     <ul>
+                         <foreach name="goods_attr_list" item="v" key="k">
+                             <li><span>{$goods_attribute[$v[attr_id]]}：</span><span>{$v[attr_value]}</span></li>
+                         </foreach>
+                     </ul>
+                </div>
                 <div class="presale-time" style="display: none">
                     <div class="pre-icon fl">
                         <span class="ys"><i class="detai-ico"></i><span id="activity_type">抢购活动</span></span>
@@ -210,13 +223,13 @@
                             </ul>
                         </if>
                     </div>
-                    <div class="shop-cou-ri">
+                    <!--<div class="shop-cou-ri">
                         <div class="allcomm"><p>累计评价</p>
                             <p class="f_blue">{$goods['comment_count']}</p></div>
                         <div class="br1"></div>
                         <div class="allcomm"><p>累计销量</p>
                             <p class="f_blue">{$goods['sales_sum']+$goods['virtual_sales_sum']}</p></div>
-                    </div>
+                    </div>-->
                 </div>
                 <if condition="$goods[is_virtual] eq 0">
                     <div class="standard p">
@@ -297,20 +310,25 @@
 
                 </script>
                 <!-- 规格end ]]-->
-                <div class="standard">
-                    <ul class="p">
-                        <li class="jaj"><span>数&nbsp;&nbsp;量：</span></li>
-                        <li class="lawir">
-                            <div class="minus-plus">
-                                <a class="mins" href="javascript:void(0);" onclick="altergoodsnum(-1)">-</a>
-                                <input class="buyNum" id="number" type="text" name="goods_num" value="1"
-                                       onblur="altergoodsnum(0)" max=""/>
-                                <a class="add" href="javascript:void(0);" onclick="altergoodsnum(1)">+</a>
-                            </div>
-                            <div class="sav_shop">库存：<span id="spec_store_count">{$goods['store_count']}</span></div>
-                        </li>
-                    </ul>
-                </div>
+                <if condition="$goods.cat_id eq '2'">
+                    <!--爆款印品   按照规格的数量计算-->
+                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
+                 <else/>
+                    <div class="standard">
+                        <ul class="p">
+                            <li class="jaj"><span>数&nbsp;&nbsp;量：</span></li>
+                            <li class="lawir">
+                                <div class="minus-plus">
+                                    <a class="mins" href="javascript:void(0);" onclick="altergoodsnum(-1)">-</a>
+                                    <input class="buyNum" id="number" type="text" name="goods_num" value="1"
+                                           onblur="altergoodsnum(0)" max=""/>
+                                    <a class="add" href="javascript:void(0);" onclick="altergoodsnum(1)">+</a>
+                                </div>
+                                <div class="sav_shop">库存：<span id="spec_store_count">{$goods['store_count']}</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </if>
                 <!-- 预售 s -->
                 <div class="allpre-ne-ter pre_sell_div" style=" margin-top: 15px; min-height: 100px;display: none">
                     <div class="presell_allpri" style="display:block">
@@ -360,56 +378,12 @@
                 </div>
             </div>
         </form>
-        <!--看了又看-s-->
-        <div class="detail-ry p">
-            <div class="type_more">
-                <div class="type-top">
-                    <h2>看了又看<a class="update_h fr" href="javascript:;" onclick="replace_look();">换一换</a></h2>
-                </div>
-                <div id="see_and_see">
-                </div>
-            </div>
-        </div>
-        <!--看了又看-s-->
     </div>
 </div>
 <!--搭配购组合套餐 s-->
-<include file="goods/goodsInfoCombination"/>
 <!--搭配购组合套餐 e-->
 <div class="detail-main p">
     <div class="w1224">
-        <div class="deta-le-ma">
-            <div class="type_more">
-                <div class="type-top">
-                    <h2>热搜推荐</h2>
-                </div>
-                <div class="type-bot">
-                    <ul class="xg_typ">
-                        <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
-                            <li><a href="{:U('Home/Goods/search',array('q'=>$wd))}">{$wd}</a></li>
-                        </foreach>
-                    </ul>
-                </div>
-            </div>
-            <div class="type_more ma-to-20">
-                <div class="type-top">
-                    <h2>推荐热卖</h2>
-                </div>
-                <div class="tjhot-shoplist type-bot">
-                    <tpshop sql="select goods_id,goods_name,shop_price from __PREFIX__goods where is_recommend=1 and is_on_sale = 1 order by goods_id desc limit 10"
-                            item="vo" key="k">
-                        <div class="alone-shop">
-                            <a href="{:U('Home/Goods/goodsInfo',array('id'=>$vo[goods_id]))}"><img
-                                    src="{$vo.goods_id|goods_thum_images=206,206}" style="display: inline;"></a>
-                            <p class="line-two-hidd"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$vo[goods_id]))}">{$vo.goods_name|getSubstr=0,30}</a>
-                            </p>
-                            <p class="price-tag"><span class="li_xfo">￥</span><span>{$vo.shop_price}</span></p>
-                            <!--<p class="store-alone"><a href="">恒要达食品专享店</a></p>-->
-                        </div>
-                    </tpshop>
-                </div>
-            </div>
-        </div>
         <include file="goods/goodsInfoDetail"/>
     </div>
 </div>
@@ -433,7 +407,6 @@
 </script>
 <!--footer-s-->
 <include file="public/footer"/>
-<include file="public/sidebar_cart"/>
 <!--看了又看-s-->
 <div style="display: none" id="look_see">
     <foreach name="look_see" item="look" key="k">
@@ -482,7 +455,7 @@
             preload: 1,
             lens: 1
         });
-        replace_look();
+        //replace_look();
         initSpec();
         initGoodsPrice();
         changeImg();
@@ -617,7 +590,7 @@
     }
 
     //看了又看切换
-    var tmpindex = 0;
+    /*var tmpindex = 0;
     var look_see_length = $('#look_see').children().length;
     function replace_look() {
         var listr = '';
@@ -629,7 +602,7 @@
         });
         tmpindex++;
         $('#see_and_see').empty().append(listr);
-    }
+    }*/
 
     //缩略图切换
     $('.small-pic-li').mouseenter(function () {
@@ -985,6 +958,9 @@
         if (spec_item_img_src != '') {
             $('#zoomimg').attr('jqimg', spec_item_img_src).attr('src', spec_item_img_src);
         }
+        var spec_item_val = $.trim($(this).text());
+        //alert(spec_item_val);
+        $("#number").val(spec_item_val);
         $(this).addClass('red').siblings('a').removeClass('red');
         $(this).siblings('input').removeAttr('checked');
         $(this).prev('input').attr('checked', 'checked').prop('checked', 'checked');
@@ -996,7 +972,7 @@
         // 更新商品价格
         initGoodsPrice();
         //获取搭配购列表
-        getCombination();
+        //getCombination();
     })
 
 </script>

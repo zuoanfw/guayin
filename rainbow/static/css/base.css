@@ -1,7 +1,7 @@
 /*初始化元素*/
 html,body{
     font-family:tahoma,arial,"Hiragino Sans GB","微软雅黑",simsun,sans-serif;
-    font-weight: 600;
+    font-weight: normal;
     font-size: 14px;
 }
 html,body,h1,h2,h3,h4,h5,h6,hr,p,dl,dt,dd,ul,ol,li,pre,fieldset,lengend,button,input,textarea,form,td,th{margin:0;padding:0;}
@@ -88,8 +88,8 @@ user-select:none;
 .top-hander {
     position: relative;
     z-index:12;
-    height: 45px;
-    line-height: 45px;
+    height: 35px;
+    line-height: 35px;
     background-color: #393840;
     font-size: 12px;
     color: #fff;

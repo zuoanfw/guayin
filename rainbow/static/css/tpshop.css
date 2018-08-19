@@ -2970,13 +2970,18 @@ ul.main_shop li img {
 	float:left
 }
 .detail-ggsl {
-	width:610px;
+	width:810px;
 	float:left
 }
 .detail-ggsl h1 {
-	font-size:16px;
+	font-size:18px;
 	color:#555555;
 	margin:10px 0
+}
+.detail-ggsl .goods_attr{
+	background-color:#ddd;
+	padding:10px;
+	margin: 10px 0px;
 }
 .detail-ggsl .presale-time {
 	height:40px;
@@ -3027,7 +3032,7 @@ ul.main_shop li img {
 	background-position:-46px 0
 }
 .detail-ggsl .jaj {
-	width:82px;
+	width:102px;
 	letter-spacing:6px;
 	color:#666;
 	font-size:12px
@@ -3045,7 +3050,7 @@ ul.main_shop li img {
 	font-size:14px;
 	padding:10px;
 	/*overflow:hidden;*/
-	background:url(../images/detail_price_bg.jpg) center center no-repeat ;
+	/*background:url(../images/detail_price_bg.jpg) center center no-repeat ;*/
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box
@@ -3357,7 +3362,7 @@ ul.main_shop li img {
 	box-sizing:border-box
 }
 .deta-ri-ma {
-	width:968px;
+	width:1224px;
 	float:right;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
@@ -3460,7 +3465,7 @@ ul.main_shop li img {
 	color:white
 }
 .detail-main {
-	margin-top:50px
+	margin-top:20px
 }
 .he-nav {
 	border-bottom:1px solid #e4e4e4;

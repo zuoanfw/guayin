@@ -158,9 +158,9 @@ class Cart extends Base
         if (empty($goods_num)) {
             $this->ajaxReturn(['status' => 0, 'msg' => '购买商品数量不能为0', 'result' => '']);
         }
-        if ($goods_num > 200) {
+        /*if ($goods_num > 200) {
             $this->ajaxReturn(['status' => 0, 'msg' => '购买商品数量大于200', 'result' => '']);
-        }
+        }*/
         $cartLogic = new CartLogic();
         $cartLogic->setUserId($this->user_id);
         $cartLogic->setGoodsModel($goods_id);

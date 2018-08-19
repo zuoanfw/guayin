@@ -58,18 +58,19 @@ class Goods extends Base
         $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
-        $commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
+        //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
         $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航
-        $this->assign('commentStatistics', $commentStatistics);//评论概览
+        //$this->assign('commentStatistics', $commentStatistics);//评论概览
         $this->assign('goods_attribute', $goods_attribute);//属性值
         $this->assign('goods_attr_list', $goods_attr_list);//属性列表
         $this->assign('filter_spec', $filter_spec);//规格参数
+        //var_dump($filter_spec);exit;
         $this->assign('goods_images_list', $goods_images_list);//商品缩略图
         $this->assign('siblings_cate', $goodsLogic->get_siblings_cate($goods['cat_id']));//相关分类
-        $this->assign('look_see', $goodsLogic->get_look_see($goods));//看了又看
+        //$this->assign('look_see', $goodsLogic->get_look_see($goods));//看了又看
         $this->assign('goods', $goods);
         //构建手机端URL
         $ShareLink = urlencode("http://{$_SERVER['HTTP_HOST']}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods['goods_id']}");
