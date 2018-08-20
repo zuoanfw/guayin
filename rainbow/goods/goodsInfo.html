@@ -154,6 +154,11 @@
             <input type="hidden" name="shop_price" value="{$goods.shop_price}"/><!-- 活动价格 -->
             <input type="hidden" name="store_count" value="{$goods.store_count}"/><!-- 活动库存 -->
             <input type="hidden" name="market_price" value="{$goods.market_price}"/><!-- 商品原价 -->
+
+            <input type="hidden" name="goods_send_date" value="{$goods.send_date}"/><!-- 商品出货周期 -->
+            <input type="hidden" name="goods_weight" value="{$goods.weight}"/><!-- 商品重量 -->
+            <input type="hidden" name="goods_volume" value="{$goods.volume}"/><!-- 商品体积 -->
+
             <input type="hidden" name="start_time" value=""/><!-- 活动开始时间 -->
             <input type="hidden" name="end_time" value=""/><!-- 活动结束时间 -->
             <input type="hidden" name="activity_title" value=""/><!-- 活动标题 -->
@@ -168,11 +173,93 @@
                 <h1>{$goods.goods_name}</h1>
                 <p style="color: #fd4f3e;">{$goods.goods_remark}</p>
                 <div class="goods_attr">
-                     <ul>
+                     <!--<ul>
                          <foreach name="goods_attr_list" item="v" key="k">
                              <li><span>{$goods_attribute[$v[attr_id]]}：</span><span>{$v[attr_value]}</span></li>
                          </foreach>
-                     </ul>
+                     </ul>-->
+                        <ul>
+                            <li><span>使用场景：</span><span>{$goods.goods_use_scene}</span></li>
+                            <li><span>推荐指数：</span><span>{$goods.goods_rec_star}</span></li>
+                            <li><span>推荐理由：</span><span>{$goods.goods_rec_reason}</span></li>
+
+                        </ul>
+                </div>
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>产品规格：</span></li>
+                        <li class="lawir"><span class="service">{$goods['goods_spec']}</span></li>
+                    </ul>
+                </div>
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>用户评价：</span></li>
+                        <li class="lawir"><span class="service">{$goods['goods_comment']}</span></li>
+                    </ul>
+                </div>
+                <!-- 规格 start [[-->
+                <foreach name="filter_spec" item="v" key="k">
+                    <div class="spec_goods_price_div standard p">
+                        <ul>
+                            <li class="jaj"><span>{$k}：</span></li>
+                            <li class="lawir colo">
+                                <foreach name="v" item="v2" key="k2">
+                                    <input type="radio" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
+                                    <a id="goods_spec_a_{$v2[item_id]}" class="spec_item">
+                                        <if condition="$v2[src] neq ''">
+                                            <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
+                                            <span class="dis_alintro">{$v2[item]}</span>
+                                            <else/>
+                                            {$v2[item]}
+                                        </if>
+                                    </a>
+                                </foreach>
+                            </li>
+                        </ul>
+                    </div>
+                </foreach>
+                <script>
+
+                </script>
+                <!-- 规格end ]]-->
+                <if condition="$goods[is_virtual] eq 0">
+                    <div class="standard p">
+                        <!-- 收货地址，物流运费 -start-->
+                        <ul class="list1">
+                            <li class="jaj"><span>配&nbsp;&nbsp;送：</span></li>
+                            <li class="summary-stock though-line">
+                                <div class="dd shd_address">
+                                    <!--<div class="addrID"><div></div><b></b></div>-->
+                                    <div class="store-selector add_cj_p">
+                                        <div class="text" style="width: 150px;">
+                                            <div></div>
+                                            <b></b></div>
+                                        <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
+                                    </div>
+                                    <span id="dispatching_msg" style="display: none;">可配送</span>
+                                    <span id="dispatching_desc"
+                                          style="vertical-align: middle;position: relative;top: -4px;left: 9px;color: #666"></span>
+                                </div>
+                            </li>
+                        </ul>
+                        <script src="__PUBLIC__/js/locationJson.js"></script>
+                        <script src="__STATIC__/js/location.js"></script>
+                        <!-- 收货地址，物流运费 -end-->
+                    </div>
+                </if>
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>估计净重：</span></li>
+                        <li class="lawir"><span class="service">{$goods.weight}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>生产周期：</span></li>
+                        <li class="lawir"><span class="service">{$goods.send_date}</span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="presale-time" style="display: none">
                     <div class="pre-icon fl">
@@ -231,38 +318,14 @@
                             <p class="f_blue">{$goods['sales_sum']+$goods['virtual_sales_sum']}</p></div>
                     </div>-->
                 </div>
-                <if condition="$goods[is_virtual] eq 0">
-                    <div class="standard p">
-                        <!-- 收货地址，物流运费 -start-->
-                        <ul class="list1">
-                            <li class="jaj"><span>配&nbsp;&nbsp;送：</span></li>
-                            <li class="summary-stock though-line">
-                                <div class="dd shd_address">
-                                    <!--<div class="addrID"><div></div><b></b></div>-->
-                                    <div class="store-selector add_cj_p">
-                                        <div class="text" style="width: 150px;">
-                                            <div></div>
-                                            <b></b></div>
-                                        <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
-                                    </div>
-                                    <span id="dispatching_msg" style="display: none;">可配送</span>
-                                    <span id="dispatching_desc"
-                                          style="vertical-align: middle;position: relative;top: -4px;left: 9px;color: #666"></span>
-                                </div>
-                            </li>
-                        </ul>
-                        <script src="__PUBLIC__/js/locationJson.js"></script>
-                        <script src="__STATIC__/js/location.js"></script>
-                        <!-- 收货地址，物流运费 -end-->
-                    </div>
-                </if>
-                <div class="standard p">
+
+                <!--<div class="standard p">
                     <ul>
                         <li class="jaj"><span>服&nbsp;&nbsp;务：</span></li>
                         <li class="lawir"><span class="service">由<a>{$tpshop_config['shop_info_store_name']}</a>发货并提供售后服务</span>
                         </li>
                     </ul>
-                </div>
+                </div>-->
                 <notempty name="$goods['brand']">
                     <div class="standard p">
                         <ul>
@@ -285,31 +348,7 @@
                     </div>
                 </if>
 
-                <!-- 规格 start [[-->
-                <foreach name="filter_spec" item="v" key="k">
-                    <div class="spec_goods_price_div standard p">
-                        <ul>
-                            <li class="jaj"><span>{$k}：</span></li>
-                            <li class="lawir colo">
-                                <foreach name="v" item="v2" key="k2">
-                                    <input type="radio" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
-                                    <a id="goods_spec_a_{$v2[item_id]}" class="spec_item">
-                                        <if condition="$v2[src] neq ''">
-                                            <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
-                                            <span class="dis_alintro">{$v2[item]}</span>
-                                            <else/>
-                                            {$v2[item]}
-                                        </if>
-                                    </a>
-                                </foreach>
-                            </li>
-                        </ul>
-                    </div>
-                </foreach>
-                <script>
 
-                </script>
-                <!-- 规格end ]]-->
                 <if condition="$goods.cat_id eq '2'">
                     <!--爆款印品   按照规格的数量计算-->
                     <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
@@ -694,6 +733,7 @@
                 }
             });
             var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
+            //console.log(spec_goods_price);
             if (spec_goods_price[spec_key] != undefined) {
                 var item_id = spec_goods_price[spec_key]['item_id'];
                 $('input[name=item_id]').val(item_id);
@@ -960,7 +1000,7 @@
         }
         var spec_item_val = $.trim($(this).text());
         //alert(spec_item_val);
-        $("#number").val(spec_item_val);
+        $("#number").val(spec_item_val);//根据规格改变商品数量
         $(this).addClass('red').siblings('a').removeClass('red');
         $(this).siblings('input').removeAttr('checked');
         $(this).prev('input').attr('checked', 'checked').prop('checked', 'checked');
