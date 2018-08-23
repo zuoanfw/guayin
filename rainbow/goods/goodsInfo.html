@@ -182,7 +182,6 @@
                             <li><span>使用场景：</span><span>{$goods.goods_use_scene}</span></li>
                             <li><span>推荐指数：</span><span>{$goods.goods_rec_star}</span></li>
                             <li><span>推荐理由：</span><span>{$goods.goods_rec_reason}</span></li>
-
                         </ul>
                 </div>
                 <div class="standard p">
@@ -247,20 +246,33 @@
                         <!-- 收货地址，物流运费 -end-->
                     </div>
                 </if>
+                <notempty name="$goods['weight']">
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>估计净重：</span></li>
-                        <li class="lawir"><span class="service">{$goods.weight}</span>
+                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>
                         </li>
                     </ul>
                 </div>
+                </notempty>
+                <notempty name="$goods['volume']">
+                    <div class="standard p">
+                        <ul>
+                            <li class="jaj"><span>估计体积：</span></li>
+                            <li class="lawir"><span id="goods_volume" class="service">{$goods.volume}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </notempty>
+                <notempty name="$goods['send_date']">
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>生产周期：</span></li>
-                        <li class="lawir"><span class="service">{$goods.send_date}</span>
+                        <li class="lawir"><span id="goods_send_date" class="service">{$goods.send_date}</span>
                         </li>
                     </ul>
                 </div>
+                </notempty>
                 <div class="presale-time" style="display: none">
                     <div class="pre-icon fl">
                         <span class="ys"><i class="detai-ico"></i><span id="activity_type">抢购活动</span></span>
@@ -275,7 +287,7 @@
                 <div class="shop-price-cou p">
                     <div class="shop-price-le">
                         <ul>
-                            <li class="jaj"><span id="goods_price_title">商城价：</span></li>
+                            <li class="jaj"><span id="goods_price_title">商城价（单价）：</span></li>
                             <li>
                                 <span class="bigpri_jj" id="goods_price"><em>￥</em>
                                     <!--<a href=""><em class="sale">（降价通知）</em></a>-->
@@ -351,7 +363,7 @@
 
                 <if condition="$goods.cat_id eq '2'">
                     <!--爆款印品   按照规格的数量计算-->
-                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
+                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量（张）'][0]['item']}">
                  <else/>
                     <div class="standard">
                         <ul class="p">
@@ -707,9 +719,9 @@
     function altergoodsnum(n) {
         var num = parseInt($('#number').val());
         var maxnum = parseInt($('#number').attr('max'));
-        if (maxnum > 200) {
+        /*if (maxnum > 200) {
             maxnum = 200;
-        }
+        }*/
         num += n;
         num <= 0 ? num = 1 : num;
         if (num >= maxnum) {
@@ -733,10 +745,10 @@
                 }
             });
             var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
-            //console.log(spec_goods_price);
+            //console.log(spec_goods_price[spec_key]);
             if (spec_goods_price[spec_key] != undefined) {
                 var item_id = spec_goods_price[spec_key]['item_id'];
-                $('input[name=item_id]').val(item_id);
+                $('input[name=item_id]').val(item_id);/*商品规格id*/
             } else {
                 $("#goods_price").html("<em>￥</em>" + 0); //变动价格显示
                 $('#spec_store_count').html(0);
@@ -750,12 +762,15 @@
             type: 'post',
             dataType: 'json',
             data: {goods_id: goods_id, item_id: item_id, goods_num: goods_num},
-            url: "{:U('Home/Goods/activity')}",
+            url: "{:U('Home/Goods/activity')}",  /*判断商品是否参加活动了*/
             success: function (data) {
                 if (data.status == 1) {
                     $('input[name="goods_prom_type"]').attr('value', data.result.goods.prom_type);//商品活动类型
                     $('input[name="shop_price"]').attr('value', data.result.goods.shop_price);//商品价格
                     $('input[name="store_count"]').attr('value', data.result.goods.store_count);//商品库存
+                    $('input[name="goods_weight"]').attr('value', data.result.goods.goods_weight);//商品库存
+                    $('input[name="goods_volume"]').attr('value', data.result.goods.goods_volume);//商品库存
+                    $('input[name="goods_send_date"]').attr('value', data.result.goods.goods_send_date);//商品库存
                     $('input[name="market_price"]').attr('value', data.result.goods.market_price);//商品原价
                     $('input[name="start_time"]').attr('value', data.result.goods.start_time);//活动开始时间
                     $('input[name="end_time"]').attr('value', data.result.goods.end_time);//活动结束时间
@@ -825,13 +840,13 @@
         }
     }
 
-    //普通商品库存和价格
+    //普通商品库存和价格, 重量 ，体积，出货周期
     function setNormalGoodsPrice() {
-        var goods_price, store_count;//商品价,商品库存
+        var goods_price, store_count,goods_send_date,goods_weight,goods_volume;//商品价,商品库存
         var market_price = $("input[name='market_price']").attr('value');// 商品市场价
         var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换积分
         var point_rate = $("input[name='point_rate']").attr('value');// 积分金额比
-        // 如果有属性选择项
+        // 如果有规格属性选择项 读取规格选项中的价格库存等
         if (!$.isEmptyObject(spec_goods_price)) {
             var goods_spec_arr = [];
             $("input[name^='goods_spec']").each(function () {
@@ -843,14 +858,27 @@
             goods_price = spec_goods_price[spec_key]['price']; // 找到对应规格的价格
             store_count = spec_goods_price[spec_key]['store_count']; // 找到对应规格的库存
             market_price = spec_goods_price[spec_key]['market_price']; // 找到对应规格的市场价
+            goods_send_date =  spec_goods_price[spec_key]['goods_send_date']; // 商品出货周期
+            goods_weight = spec_goods_price[spec_key]['goods_weight']; //
+            goods_volume = spec_goods_price[spec_key]['goods_volume']; //
             $("input[name='shop_price']").attr('value', goods_price);
             $("input[name='store_count']").attr('value', store_count);
+            $("input[name='goods_weight']").attr('value', goods_weight);
+            $("input[name='goods_send_date']").attr('value', goods_send_date);
+            $("input[name='goods_volume']").attr('value', goods_volume);
             $("input[name='market_price']").attr('value', market_price);
         } else {
             priceLadderShow();
         }
         goods_price = $("input[name='shop_price']").attr('value');// 商品本店价
         store_count = $("input[name='store_count']").attr('value');// 商品库存
+        goods_send_date =  $("input[name='goods_send_date']").attr('value'); // 商品出货周期
+        goods_weight = $("input[name='goods_weight']").attr('value');
+        goods_volume = $("input[name='goods_volume']").attr('value');
+        $('#goods_send_date').empty().html(goods_send_date);
+        $('#goods_weight').empty().html(goods_weight);
+        $('#goods_volume').empty().html(goods_volume);
+
         $('#market_price_title').empty().html('市场价：');
         $('#market_price').empty().html(market_price);
         $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示

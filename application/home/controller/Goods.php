@@ -86,7 +86,7 @@ class Goods extends Base
         $goods_num = input('goods_num/d');//欲购买的商品数量
         $Goods = new \app\common\model\Goods();
         $goods = $Goods::get($goods_id);
-        $goodsPromFactory = new GoodsPromFactory();
+        $goodsPromFactory = new GoodsPromFactory();  //商品活动工厂类
         if ($goodsPromFactory->checkPromType($goods['prom_type'])) {
             //这里会自动更新商品活动状态，所以商品需要重新查询
             if ($item_id) {

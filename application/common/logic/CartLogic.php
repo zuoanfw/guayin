@@ -260,9 +260,9 @@ class CartLogic extends Model
         $userCartGoodsSum = db('cart')->where($cart_whereCount)->sum('goods_num');
         //判断库存
         $userWantGoodsNum = $this->goodsBuyNum + $userCartGoodsSum;//本次要购买的数量加上购物车的本身存在的数量
-        if ($userWantGoodsNum > 200) {
+        /*if ($userWantGoodsNum > 200) {
             $userWantGoodsNum = 200;
-        }
+        }*/
         if ($userWantGoodsNum > $store_count) {
             $userCartGoodsNum = empty($userCartGoodsSum) ? 0 : $userCartGoodsSum;///获取用户购物车的抢购商品数量
             throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);
@@ -278,9 +278,9 @@ class CartLogic extends Model
                 $price_ladder = $this->goods['price_ladder'];
                 $price = $goodsLogic->getGoodsPriceByLadder($userWantGoodsNum, $this->goods['shop_price'], $price_ladder);
             }
-            if ($userWantGoodsNum > 200) {
+            /*if ($userWantGoodsNum > 200) {
                 $userWantGoodsNum = 200;
-            }
+            }*/
             if ($userWantGoodsNum > $store_count) {
                 $userCartGoodsNum = empty($userCartGoods['goods_num']) ? 0 : $userCartGoods['goods_num'];///获取用户购物车的抢购商品数量
                 throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);

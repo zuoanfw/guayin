@@ -330,8 +330,8 @@ class GoodsLogic extends Model
            $str .=" <td><b>{$spec[$v]}</b></td>";
            $str_fill .=" <td><b></b></td>";
        }
-        $str .="<td><b>购买价</b></td>
-               <td><b>市场价</b></td>
+        $str .="<td><b>价格(单价)</b></td>
+               <td><b>市场价(单价)</b></td>
                <td><b>重量</b></td>
                <td><b>体积</b></td>
                <td><b>出货周期</b></td>
