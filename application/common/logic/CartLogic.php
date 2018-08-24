@@ -158,6 +158,7 @@ class CartLogic extends Model
         } else {
             $buyGoods['member_goods_price'] = $this->specGoodsPrice['price'];
             $buyGoods['goods_price'] = $this->specGoodsPrice['price'];
+            $buyGoods['weight'] = $this->specGoodsPrice['goods_weight'];
             $buyGoods['spec_key'] = $this->specGoodsPrice['key'];
             $buyGoods['spec_key_name'] = $this->specGoodsPrice['key_name']; // 规格 key_name
             $buyGoods['market_price'] = $this->specGoodsPrice['market_price'];
@@ -730,9 +731,9 @@ class CartLogic extends Model
         if ($goods_num > $cart->limit_num) {
             return ['status' => 0, 'msg' => $cart->goods_name.$cart->spec_key_name.'商品数量不能大于' . $cart->limit_num, 'result' => ['limit_num' => $cart->limit_num]];
         }
-        if ($goods_num > 200) {
+        /*if ($goods_num > 200) {
             $goods_num = 200;
-        }
+        }*/
         $cart->goods_num = $goods_num;
         if ($cart['prom_type'] == 0) {
             $cartGoods = Goods::get($cart['goods_id']);
