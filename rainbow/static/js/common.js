@@ -24,7 +24,6 @@ function get_cart_num() {
 	$('#miniCartRightQty').html(cart_cn);
 }
 
-
 var header_cart_list_over = 0;
 $('#hd-my-cart').hover(function () {
 	$('#show_minicart').show();

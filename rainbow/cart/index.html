@@ -172,6 +172,7 @@
 					<div class="column t-props"></div>
 					<div class="column t-price">单价</div>
 					<div class="column t-quantity">数量</div>
+					<div class="column t-sum">预计出货日期</div>
 					<div class="column t-sum">小计</div>
 					<div class="column t-action">操作</div>
 				</div>
@@ -424,6 +425,9 @@
 										<!--无货时隐藏数量选择，显示无货-->
 										<!--<span>无货</span>-->
 									</if>
+								</div>
+								<div class="column t-quantity mtp quantity-form">
+									{$cart['goods_send_date']|get_send_date}
 								</div>
 								<div class="column t-sum sumpri">
 									<span id="cart_{$cart.id}_total_price">￥{$cart['goods_price']*$cart['goods_num']}</span>

@@ -1009,3 +1009,31 @@ function compareVersion($v1, $v2) {
     }
     return 0;
 }
+/**
+ * 根据出货天数获取出货日期
+ * @param  天数
+ * @return  日期
+ */
+
+function get_send_date($send_date){
+    //return strtotime("+1 day");
+    $send_date = $send_date+1;
+    for($i=1;$i<=$send_date;$i++){
+        $date = date('Ymd',strtotime('+'.$i.' day'));
+        //返回数据：工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2
+        $url = "http://api.goseek.cn/Tools/holiday?date=".$date;
+        $file = file_get_contents($url);
+        $json = json_decode($file,true);
+        if ($json['data'] ==1)
+        {
+            $send_date++;
+        }elseif ($json['data']==2)
+        {
+            $send_date++;
+        }elseif ($json['data'] ==0)
+        {
+           // echo "可以预约";
+        }
+    }
+    return date('m月d日',strtotime('+'.$send_date.' day'));
+}

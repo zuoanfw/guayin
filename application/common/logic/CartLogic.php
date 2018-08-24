@@ -243,10 +243,12 @@ class CartLogic extends Model
         if (empty($this->specGoodsPrice)) {
             $price = $this->goods['shop_price'];
             $store_count = $this->goods['store_count'];
+            $send_date = $this->goods['send_date'];
         } else {
             //如果有规格价格，就使用规格价格，否则使用本店价。
             $price = $this->specGoodsPrice['price'];
             $store_count = $this->specGoodsPrice['store_count'];
+            $send_date = $this->specGoodsPrice['goods_send_date'];
         }
         // 查询购物车是否已经存在这商品
         $cart_where = ['user_id' => $this->user_id, 'goods_id' => $this->goods['goods_id'], 'spec_key' => ($this->specGoodsPrice['key'] ?: ''), 'prom_type' => 0];
@@ -270,6 +272,9 @@ class CartLogic extends Model
 
         // 如果该商品已经存在购物车
         if ($userCartGoods) {
+            //判断出货周期
+            $send_date = $send_date + $userCartGoods['goods_send_date'];//本次要购买的出货周期加上购物车的本身存在的出货周期
+
             $userCartGoods['goods_num'] = $userCartGoodsSum?$userCartGoodsSum:0;
             $userWantGoodsNum = $this->goodsBuyNum + $userCartGoods['goods_num'];//本次要购买的数量加上购物车的本身存在的数量
             //如果有阶梯价格,就是用阶梯价格
@@ -285,7 +290,7 @@ class CartLogic extends Model
                 $userCartGoodsNum = empty($userCartGoods['goods_num']) ? 0 : $userCartGoods['goods_num'];///获取用户购物车的抢购商品数量
                 throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);
             }
-            $cartResult = $userCartGoods->save(['goods_num' => $userWantGoodsNum, 'goods_price' => $price, 'member_goods_price' => $price]);
+            $cartResult = $userCartGoods->save(['goods_num' => $userWantGoodsNum,'goods_send_date' => $send_date, 'goods_price' => $price, 'member_goods_price' => $price]);
         } else {
             //如果该商品没有存在购物车
             if ($this->goodsBuyNum > $store_count) {
@@ -304,6 +309,7 @@ class CartLogic extends Model
                 'goods_sn' => $this->goods['goods_sn'],   // 商品货号
                 'goods_name' => $this->goods['goods_name'],   // 商品名称
                 'market_price' => $this->goods['market_price'],   // 市场价
+                'goods_send_date' => $send_date,   // 出货周期
                 'goods_price' => $price,  // 原价
                 'member_goods_price' => $price,  // 会员折扣价 默认为 购买价
                 'goods_num' => $this->goodsBuyNum, // 购买数量

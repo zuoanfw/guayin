@@ -268,7 +268,8 @@
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>生产周期：</span></li>
-                        <li class="lawir"><span id="goods_send_date" class="service">{$goods.send_date}</span>
+                        <li class="lawir">
+                            <span id="goods_send_date" class="service">{$goods.send_date|get_send_date}</span>
                         </li>
                     </ul>
                 </div>
@@ -363,7 +364,7 @@
 
                 <if condition="$goods.cat_id eq '2'">
                     <!--爆款印品   按照规格的数量计算-->
-                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量（张）'][0]['item']}">
+                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
                  <else/>
                     <div class="standard">
                         <ul class="p">
@@ -730,6 +731,7 @@
         }
         $('#store_count').text(maxnum - num); //更新库存数量
         $('#number').val(num);
+        doInitRegion();
         /*        initGoodsPrice();*/
     }
 
@@ -768,9 +770,9 @@
                     $('input[name="goods_prom_type"]').attr('value', data.result.goods.prom_type);//商品活动类型
                     $('input[name="shop_price"]').attr('value', data.result.goods.shop_price);//商品价格
                     $('input[name="store_count"]').attr('value', data.result.goods.store_count);//商品库存
-                    $('input[name="goods_weight"]').attr('value', data.result.goods.goods_weight);//商品库存
-                    $('input[name="goods_volume"]').attr('value', data.result.goods.goods_volume);//商品库存
-                    $('input[name="goods_send_date"]').attr('value', data.result.goods.goods_send_date);//商品库存
+                    $('input[name="goods_weight"]').attr('value', data.result.goods.goods_weight);//商品重量
+                    $('input[name="goods_volume"]').attr('value', data.result.goods.goods_volume);//商品体积
+                    $('input[name="goods_send_date"]').attr('value', data.result.goods.goods_send_date);//商品出货周期
                     $('input[name="market_price"]').attr('value', data.result.goods.market_price);//商品原价
                     $('input[name="start_time"]').attr('value', data.result.goods.start_time);//活动开始时间
                     $('input[name="end_time"]').attr('value', data.result.goods.end_time);//活动结束时间
@@ -875,8 +877,9 @@
         goods_send_date =  $("input[name='goods_send_date']").attr('value'); // 商品出货周期
         goods_weight = $("input[name='goods_weight']").attr('value');
         goods_volume = $("input[name='goods_volume']").attr('value');
-        $('#goods_send_date').empty().html(goods_send_date);
-        $('#goods_weight').empty().html(goods_weight);
+        $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
+        //get_send_date('20170528');
+        $('#goods_weight').empty().html(goods_weight);// 商品体重
         $('#goods_volume').empty().html(goods_volume);
 
         $('#market_price_title').empty().html('市场价：');
@@ -1039,6 +1042,7 @@
         }
         // 更新商品价格
         initGoodsPrice();
+        doInitRegion();
         //获取搭配购列表
         //getCombination();
     })

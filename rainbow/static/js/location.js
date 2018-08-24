@@ -53,13 +53,15 @@ function doInitRegion()
 
 //商品物流配送与运费
 function ajaxDispatching(region_id) {
+	//alert(region_id);
 	var goods_id = $("input[name='goods_id']").val();
+    var goods_num = $("input[name='goods_num']").val();
     $('#dispatching_msg').attr('region_id',region_id);
 	if(typeof(goods_id) != 'undefined' && region_id!= ''){
 		$.ajax({
 			type: "POST",
 			dataType: 'json',
-			data: {goods_id: goods_id, region_id: region_id},
+			data: {goods_id: goods_id, region_id: region_id,goods_num:goods_num},
 			url: "/index.php?m=Home&c=Goods&a=dispatching",
 			success: function (data) {
 				if (data.status == 1) {

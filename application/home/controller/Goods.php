@@ -239,12 +239,13 @@ class Goods extends Base
     {
         $goods_id = I('goods_id/d');//143
         $region_id = I('region_id/d');//28242
+        $goods_num = I('goods_num/d',1);//商品数量
         $Goods = new \app\common\model\Goods();
         $goods = $Goods->cache(true)->where('goods_id', $goods_id)->find();
         $freightLogic = new FreightLogic();
         $freightLogic->setGoodsModel($goods);
         $freightLogic->setRegionId($region_id);
-        $freightLogic->setGoodsNum(1);
+        $freightLogic->setGoodsNum($goods_num);
         $isShipping = $freightLogic->checkShipping();
         if ($isShipping) {
             $freightLogic->doCalculation();
