@@ -30,99 +30,8 @@
 <!--顶部广告-e-->
 <!--header-s-->
 <div class="tpshop-tm-hander p" style="border-bottom: 0;">
-	<include file="public/cart_header" />
-	<div class="nav-middan-z p tphsop2_0">
-		<div class="header w1224">
-			<div class="ecsc-logo fon_gwcshcar">
-				<a href="/" class="logo">
-					<img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}" style="max-width: 240px;max-height: 80px;">
-				</a>
-			</div>
-			<div class="ecsc-search mycarlist_search">
-				<form id="sourch_form" name="sourch_form" method="post" action="{:U('Home/Goods/search')}" class="ecsc-search-form">
-					<input autocomplete="off" name="q" id="q" type="text" value="{$Request.param.q}" placeholder="搜索关键字" class="ecsc-search-input">
-					<button type="submit" class="ecsc-search-button" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();">搜索</button>
-					<div class="candidate p">
-						<ul id="search_list"></ul>
-					</div>
-					<script type="text/javascript">
-                        ;(function($){
-                            $.fn.extend({
-                                donetyping: function(callback,timeout){
-                                    timeout = timeout || 1e3;
-                                    var timeoutReference,
-                                        doneTyping = function(el){
-                                            if (!timeoutReference) return;
-                                            timeoutReference = null;
-                                            callback.call(el);
-                                        };
-                                    return this.each(function(i,el){
-                                        var $el = $(el);
-                                        $el.is(':input') && $el.on('keyup keypress',function(e){
-                                            if (e.type=='keyup' && e.keyCode!=8) return;
-                                            if (timeoutReference) clearTimeout(timeoutReference);
-                                            timeoutReference = setTimeout(function(){
-                                                doneTyping(el);
-                                            }, timeout);
-                                        }).on('blur',function(){
-                                            doneTyping(el);
-                                        });
-                                    });
-                                }
-                            });
-                        })(jQuery);
-
-                        $('.ecsc-search-input').donetyping(function(){
-                            search_key();
-                        },500).focus(function(){
-                            var search_key = $.trim($('#q').val());
-                            if(search_key != ''){
-                                $('.candidate').show();
-                            }
-                        });
-                        $('.candidate').mouseleave(function(){
-                            $(this).hide();
-                        });
-
-                        function searchWord(words){
-                            $('#q').val(words);
-                            $('#sourch_form').submit();
-                        }
-                        function search_key(){
-                            var search_key = $.trim($('#q').val());
-                            if(search_key != ''){
-                                $.ajax({
-                                    type:'post',
-                                    dataType:'json',
-                                    data: {key: search_key},
-                                    url:"{:U('Home/Api/searchKey')}",
-                                    success:function(data){
-                                        if(data.status == 1){
-                                            var html = '';
-                                            $.each(data.result, function (n, value) {
-                                                html += '<li onclick="searchWord(\''+value.keywords+'\');"><div class="search-item">'+value.keywords+'</div><div class="search-count">约'+value.goods_num+'个商品</div></li>';
-                                            });
-                                            html += '<li class="close"><div class="search-count">关闭</div></li>';
-                                            $('#search_list').empty().append(html);
-                                            $('.candidate').show();
-                                        }else{
-                                            $('#search_list').empty();
-                                        }
-                                    }
-                                });
-                            }
-                        }
-					</script>
-				</form>
-				<div class="keyword">
-					<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
-						<a class="key-item" href="{:U('Home/Goods/search',array('q'=>$wd))}" target="_blank">{$wd}</a>
-					</foreach>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="w1224">
+	<include file="public/cart_header" w="w1224" />
+	<!--<div class="w1224">
 		<if condition="$Think.cookie.uname eq ''">
 			<div class="cont_aloinfon">
 				<i class="tit_sad"></i>
@@ -130,7 +39,7 @@
 				<a class="loging_ex" href="{:U('Home/User/login')}">立即登录</a>
 			</div>
 		</if>
-	</div>
+	</div>-->
 </div>
 <!--header-e-->
 <div class="shopcar_empty" <notempty name="cartList">style="display: none"</notempty>>
@@ -471,7 +380,7 @@
 						</div>
 					</div>
 					<div class="row_foot_last">
-						<div class="column t-quantity">
+						<div class="column">
 							<span class="chosewell chosew-add">已选择<em id="goods_num"></em>件商品</if></span>
 						</div>
 						<div class="column widallr">
@@ -479,12 +388,12 @@
 								<a class="paytotal" href="javascript:void(0)" data-url="{:U('Home/Cart/cart2')}">去结算</a>
 							</div>
 							<div class="totalprice">
-								<span class="car_sumprice">总价：<em id="total_fee">￥0</em><i class="bulb"></i></span>
+								<span class="car_sumprice">总价：<em id="total_fee">￥0</em>&nbsp;元（不含运费）<i class="bulb"></i></span>
 								<div class="price-tipsbox">
 									<div class="ui-tips-main">不含运费及送装服务费</div>
 									<span class="price-tipsbox-arrow"></span>
 								</div>
-								<span class="car_conta">已节省：<em id="goods_fee">-￥0</em></span>
+								<!--<span class="car_conta">已节省：<em id="goods_fee">-￥0</em></span>-->
 							</div>
 
 						</div>
@@ -497,11 +406,11 @@
 	<script type="text/javascript">
         //去结算旁边的小图标
         $(function(){
-            $('.bulb').hover(function(){
+            /*$('.bulb').hover(function(){
                 $('.price-tipsbox').show();
             },function(){
                 $('.price-tipsbox').hide();
-            })
+            })*/
         })
         //购物车商品高度超过屏幕时去结算浮动
         $(function(){
@@ -530,7 +439,7 @@
 	</div>
 </notempty>
 <!--底部猜你喜欢-->
-<div class="shoplist_guess">
+<!--<div class="shoplist_guess">
 	<div class="w1224">
 		<div class="main_shopcarlist">
 			<div class="li3_address folahov p">
@@ -639,7 +548,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div>-->
 <!--底部猜你喜欢-->
 <!--删除商品弹窗-s-->
 <div class="ui-dialog">

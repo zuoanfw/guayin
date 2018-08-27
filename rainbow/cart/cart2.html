@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>购物车结算-{$tpshop_config['shop_info_store_title']}</title>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/jh.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.datetimepicker.css"/>
     <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -31,22 +30,7 @@
 <!--顶部广告-e-->
 <!--header-s-->
 <div class="sett_hander p">
-    <include file="public/sign-header"/>
-    <div class="nav-middan-z p">
-        <div class="header w1224">
-            <div class="ecsc-logo fon_gwcshcar">
-                <a href="/" class="logo"> <img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}" style="width: 161px;height: 58px;"></a>
-                <span>购物车</span>
-            </div>
-            <div class="liucsell">
-                <div class="line-flowpath">
-                    <span class="green"><i class="las-flo"></i><em>1、我的购物车</em></span>
-                    <span class="green now"><i class="las-flo2"></i><em>2、填写核对订单信息</em></span>
-                    <span><i class="las-flo3"></i><em>3、成功提交订单</em></span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <include file="public/cart_header" w="w1224"/>
 </div>
 <!--header-e-->
 <form name="cart2_form" id="cart2_form" method="post" autocomplete="off">

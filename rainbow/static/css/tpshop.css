@@ -5480,11 +5480,11 @@ ul.main_shop li img {
 	top:6px
 }
 .li3_address>ul>li.current {
-	border-bottom:2px solid #e23435;
+	border-bottom:2px solid #ff8a5c;
 	padding-bottom:10px
 }
 .li3_address>ul>li.current a {
-	color:#e23435
+	color:#ff8a5c
 }
 .li3_address .jaj {
 	font-size:14px !important;
@@ -5535,7 +5535,8 @@ ul.main_shop li img {
 	padding:0 10px;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
-	box-sizing:border-box
+	box-sizing:border-box;
+	line-height: 50px;
 }
 .cart-thead {
 	display:block;
@@ -6103,9 +6104,10 @@ ul.main_shop li img {
 }
 .totalprice {
 	float:right;
-	padding:4px 0;
+	padding:0px;
 	margin-left:40px;
-	margin-right:20px
+	margin-right:20px;
+	line-height: 50px;
 }
 .butpayin {
 	float:right
@@ -6117,7 +6119,7 @@ ul.main_shop li img {
 .car_sumprice em {
 	font-size:16px;
 	font-weight:600;
-	color:#e23435;
+	color:#ff8a5c;
 	vertical-align:middle
 }
 .car_sumprice .bulb {
@@ -6143,7 +6145,7 @@ ul.main_shop li img {
 	line-height:50px;
 	color:#FFFFFF;
 	font-size:18px;
-	background:#e23435;
+	background:#ff8a5c;
 	font-weight:600
 }
 .paytotal:hover {
@@ -6158,7 +6160,8 @@ ul.main_shop li img {
 	border:1px solid #f1f1f1;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
-	box-sizing:border-box
+	box-sizing:border-box;
+	margin-bottom: 10px;
 }
 .price-tipsbox {
 	display:none;

@@ -1,9 +1,11 @@
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css"/>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
 <link rel="shortcut icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/logo.png'}" media="screen"/>
 <style>
 	.tpshop-tm-hander {
 		background-color: white;
 		padding-bottom: 10px;
+		margin-bottom: 10px;
 		border-bottom: 2px solid #fd4f3e;
 	}
 	.navitems {
@@ -57,91 +59,13 @@
 		<a class="ecsc-logo" href="{:U('Home/index/index')}">
             <img src="{$tpshop_config.shop_info_store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}" style="width: 159px;height: 58px;">
         </a>
-		<div class="ecsc-search">
-			<form id="searchForm" name="" method="get" action="{:U('Home/Goods/search')}" class="ecsc-search-form">
-				<input autocomplete="off" name="q" id="q" type="text" value="{$Request.param.q}" class="ecsc-search-input" placeholder="请输入搜索关键字...">
-				<button type="submit" class="ecsc-search-button">搜索</button>
-    			<div class="candidate p">
-                    <ul id="search_list"></ul>
-                </div>
-                <script type="text/javascript">
-                    ;(function($){
-                        $.fn.extend({
-                            donetyping: function(callback,timeout){
-                                timeout = timeout || 1e3;
-                                var timeoutReference,
-                                        doneTyping = function(el){
-                                            if (!timeoutReference) return;
-                                            timeoutReference = null;
-                                            callback.call(el);
-                                        };
-                                return this.each(function(i,el){
-                                    var $el = $(el);
-                                    $el.is(':input') && $el.on('keyup keypress',function(e){
-                                        if (e.type=='keyup' && e.keyCode!=8) return;
-                                        if (timeoutReference) clearTimeout(timeoutReference);
-                                        timeoutReference = setTimeout(function(){
-                                            doneTyping(el);
-                                        }, timeout);
-                                    }).on('blur',function(){
-                                        doneTyping(el);
-                                    });
-                                });
-                            }
-                        });
-                    })(jQuery);
-
-                    $('.ecsc-search-input').donetyping(function(){
-                        search_key();
-                    },500).focus(function(){
-                        var search_key = $.trim($('#q').val());
-                        if(search_key != ''){
-                            $('.candidate').show();
-                        }
-                    });
-                    $('.candidate').mouseleave(function(){
-                        $(this).hide();
-                    });
-
-                    function searchWord(words){
-                        $('#q').val(words);
-                        $('#searchForm').submit();
-                    }
-                    function search_key(){
-                        var search_key = $.trim($('#q').val());
-                        if(search_key != ''){
-                            $.ajax({
-                                type:'post',
-                                dataType:'json',
-                                data: {key: search_key},
-                                url:"{:U('Home/Api/searchKey')}",
-                                success:function(data){
-                                    if(data.status == 1){
-                                        var html = '';
-                                        $.each(data.result, function (n, value) {
-                                            html += '<li onclick="searchWord(\''+value.keywords+'\');"><div class="search-item">'+value.keywords+'</div><div class="search-count">约'+value.goods_num+'个商品</div></li>';
-                                        });
-                                        html += '<li class="close"><div class="search-count">关闭</div></li>';
-                                        $('#search_list').empty().append(html);
-                                        $('.candidate').show();
-                                    }else{
-                                        $('#search_list').empty();
-                                    }
-                                }
-                            });
-                        }
-                    }
-                </script>
-			</form>
-			<div class="keyword clearfix">
-				<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
-				<a class="key-item" href="{:U('Home/Goods/search',array('q'=>$wd))}" target="_blank">{$wd}</a>
-				</foreach>
+			<div class="liucsell">
+				<div class="line-flowpath">
+					<span class="green <if condition='$cart_step eq 1'> now </if>"><i class="las-flo"></i><em>1、我的购物车</em></span>
+					<span class="green <if condition='$cart_step eq 2'> now </if>"><i class="las-flo2"></i><em>2、填写核对订单信息</em></span>
+					<span class="green <if condition='$cart_step eq 3'> now </if>"><i class="las-flo3"></i><em>3、成功提交订单</em></span>
+				</div>
 			</div>
-		</div>
-		<div class="u-g-cart fr" id="hd-my-cart">
-			<img src="/public/static/images/logo/telephone.png" style="width: 266px;height: 69px;">
-		</div>
 	</div>
 </div>
 <script src="__STATIC__/js/common.js" type="text/javascript" charset="utf-8"></script>

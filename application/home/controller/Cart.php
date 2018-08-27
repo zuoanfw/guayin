@@ -74,6 +74,7 @@ class Cart extends Base
         $userCartGoodsTypeNum = $cartLogic->getUserCartGoodsTypeNum();//获取用户购物车商品总数
         $this->assign('userCartGoodsTypeNum', $userCartGoodsTypeNum);
         $this->assign('cartList', $cartList);//普通购物车列表
+        $this->assign('cart_step','1');
         return $this->fetch();
     }
 
@@ -249,6 +250,7 @@ class Cart extends Base
         $this->assign('cartGoodsTotalNum', $cartGoodsTotalNum);
         $this->assign('cartList', $cartList['cartList']); // 购物车的商品
         $this->assign('cartPriceInfo', $cartPriceInfo);//商品优惠总价
+        $this->assign('cart_step','2');
         return $this->fetch();
     }
 
