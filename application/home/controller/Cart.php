@@ -234,6 +234,7 @@ class Cart extends Base
             if ($cartLogic->getUserCartOrderCount() == 0) {
                 $this->error('你的购物车没有选中商品', 'Cart/index');
             }
+
             $cartList['cartList'] = $cartLogic->getCartList(1); // 获取用户选中的购物车商品
             $cartGoodsTotalNum = count($cartList['cartList']);
         }

@@ -619,11 +619,9 @@ class CartLogic extends Model
         if ($selected != 0) {
             $cartWhere['selected'] = 1;
         }
-
         $cartWhere['combination_group_id'] = 0;
         $cartList = $cart->where($cartWhere)->select();  // 获取购物车商品
         $cartCheckAfterList = $this->checkCartList($cartList);
-
         foreach ($cartCheckAfterList as $cartKey =>$cart){
             foreach ($cart['combination_cart'] as $k=>$v ){
                 $cartCheckAfterList[$cartKey]['count_price'] = $cart['goods_price'] - $cart['member_goods_price'];

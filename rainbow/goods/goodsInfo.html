@@ -180,20 +180,22 @@
                      </ul>-->
                         <ul>
                             <li><span>使用场景：</span><span>{$goods.goods_use_scene}</span></li>
-                            <li><span>推荐指数：</span><span>{$goods.goods_rec_star}</span></li>
+                            <li><span>推荐指数：</span><span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
                             <li><span>推荐理由：</span><span>{$goods.goods_rec_reason}</span></li>
                         </ul>
                 </div>
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>产品规格：</span></li>
-                        <li class="lawir"><span class="service">{$goods['goods_spec']}</span></li>
+                        <li><span class="service">{$goods['goods_spec']}</span></li>
                     </ul>
                 </div>
-                <div class="standard p">
+                <div class="standard p"  style="padding-bottom: 15px;border-bottom:1px solid #f4f4f4;">
                     <ul>
                         <li class="jaj"><span>用户评价：</span></li>
+                        <li class="lawir_gailv"><img src="__STATIC__/images/goodinfo_03.jpg" alt=""></li>
                         <li class="lawir"><span class="service">{$goods['goods_comment']}</span></li>
+                        <li class="lawir_gailv"><img src="__STATIC__/images/goodinfo_06.jpg" alt=""></li>
                     </ul>
                 </div>
                 <!-- 规格 start [[-->
@@ -221,11 +223,30 @@
 
                 </script>
                 <!-- 规格end ]]-->
+                <if condition="$goods.cat_id eq '2'">
+                    <!--爆款印品   按照规格的数量计算-->
+                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
+                    <else/>
+                    <div class="standard" style="padding: 13px 10px">
+                        <ul class="p">
+                            <li class="jaj"><span>数&nbsp;&nbsp;量：</span></li>
+                            <li class="lawir">
+                                <div class="minus-plus">
+                                    <a class="mins" href="javascript:void(0);" onclick="altergoodsnum(-1)">-</a>
+                                    <input class="buyNum" id="number" type="text" name="goods_num" value="1"
+                                           onblur="altergoodsnum(0)" max=""/>
+                                    <a class="add" href="javascript:void(0);" onclick="altergoodsnum(1)">+</a>
+                                </div>
+                                <div class="sav_shop">库存：<span id="spec_store_count">{$goods['store_count']}</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </if>
                 <if condition="$goods[is_virtual] eq 0">
                     <div class="standard p">
                         <!-- 收货地址，物流运费 -start-->
                         <ul class="list1">
-                            <li class="jaj"><span>配&nbsp;&nbsp;送：</span></li>
+                            <li class="jaj"><span>配送至：</span></li>
                             <li class="summary-stock though-line">
                                 <div class="dd shd_address">
                                     <!--<div class="addrID"><div></div><b></b></div>-->
@@ -249,8 +270,8 @@
                 <notempty name="$goods['weight']">
                 <div class="standard p">
                     <ul>
-                        <li class="jaj"><span>估计净重：</span></li>
-                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>
+                        <li class="jaj"><span>预估净重：</span></li>
+                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>克
                         </li>
                     </ul>
                 </div>
@@ -258,8 +279,8 @@
                 <notempty name="$goods['volume']">
                     <div class="standard p">
                         <ul>
-                            <li class="jaj"><span>估计体积：</span></li>
-                            <li class="lawir"><span id="goods_volume" class="service">{$goods.volume}</span>
+                            <li class="jaj"><span>预估体积：</span></li>
+                            <li class="lawir"><span id="goods_volume" class="service">{$goods.volume}</span>立方
                             </li>
                         </ul>
                     </div>
@@ -285,19 +306,37 @@
                         <span class="ti" id="prom_detail"></span>
                     </div>
                 </div>
-                <div class="shop-price-cou p">
-                    <div class="shop-price-le">
+                <div class="standard p">
+                <ul>
+                    <li class="jaj"><span>商品金额：</span></li>
+                    <li class="lawir">
+                        <span class="service though-line"><span><em>￥</em><span id="market_price">{$goods.market_price}</span></span></span>
+                    </li>
+                </ul>
+                </div>
+                <if condition="$goods.cat_id eq '2'">
+                <div class="standard p" style="padding-top:10px; ">
+                    <img src="__STATIC__/images/goodinfo_11.jpg" alt="">
+                    <span class="goods_price">
+                        <span id="goods_price_all"><em>￥</em>2345</span>
+                        <span>（平均<span id="goods_price"></span>元/张）</span>
+                    </span>
+                </div>
+                 <else/>
+                    <div class="standard p">
                         <ul>
-                            <li class="jaj"><span id="goods_price_title">商城价（单价）：</span></li>
-                            <li>
-                                <span class="bigpri_jj" id="goods_price"><em>￥</em>
-                                    <!--<a href=""><em class="sale">（降价通知）</em></a>-->
-                                </span>
-                            </li>
+                    <li class="jaj"><span>限时促销：</span></li>
+                    <li class="lawir">
+                        <span class="service"><span><span id="goods_price">{$goods.market_price}</span></span></span>
+                    </li>
                         </ul>
+                    </div>
+                </if>
+                <div class="shop-price-cou p" style="display: none">
+                    <div class="shop-price-le">
+                        <!--
                         <ul>
-                            <li class="jaj"><span id="market_price_title">市场价：</span></li>
-                            <li class="though-line"><span><em>￥</em><span id="market_price">{$goods.market_price}</span></span>
+                            <li class="though-line"></span>
                                 <span class="mobile-buy-cheap">
                                     手机购买更便宜
                                     <i>
@@ -309,7 +348,7 @@
                                     </i>
                                 </span>
                             </li>
-                        </ul>
+                        </ul>-->
                         <ul id="activity_title_div" style="display: none">
                             <li class="jaj"><span id="activity_label"></span></li>
                             <li><span id="activity_title"
@@ -360,27 +399,6 @@
                         </ul>
                     </div>
                 </if>
-
-
-                <if condition="$goods.cat_id eq '2'">
-                    <!--爆款印品   按照规格的数量计算-->
-                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
-                 <else/>
-                    <div class="standard">
-                        <ul class="p">
-                            <li class="jaj"><span>数&nbsp;&nbsp;量：</span></li>
-                            <li class="lawir">
-                                <div class="minus-plus">
-                                    <a class="mins" href="javascript:void(0);" onclick="altergoodsnum(-1)">-</a>
-                                    <input class="buyNum" id="number" type="text" name="goods_num" value="1"
-                                           onblur="altergoodsnum(0)" max=""/>
-                                    <a class="add" href="javascript:void(0);" onclick="altergoodsnum(1)">+</a>
-                                </div>
-                                <div class="sav_shop">库存：<span id="spec_store_count">{$goods['store_count']}</span></div>
-                            </li>
-                        </ul>
-                    </div>
-                </if>
                 <!-- 预售 s -->
                 <div class="allpre-ne-ter pre_sell_div" style=" margin-top: 15px; min-height: 100px;display: none">
                     <div class="presell_allpri" style="display:block">
@@ -426,6 +444,11 @@
                     <div class="standard p">
                         <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">立即购买</a>
                         <a id="join_cart" class="addcar buy_button" href="javascript:;" style="display: none"><i class="sk"></i>加入购物车</a>
+                    </div>
+                </div>
+                <div class="standard p">
+                    <div class="standard p">
+                        <img width="790" src="__STATIC__/images/goodinfo_15.png" alt="">
                     </div>
                 </div>
             </div>
@@ -845,6 +868,7 @@
     //普通商品库存和价格, 重量 ，体积，出货周期
     function setNormalGoodsPrice() {
         var goods_price, store_count,goods_send_date,goods_weight,goods_volume;//商品价,商品库存
+        var buy_num = parseInt($('#number').val());//购买数
         var market_price = $("input[name='market_price']").attr('value');// 商品市场价
         var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换积分
         var point_rate = $("input[name='point_rate']").attr('value');// 积分金额比
@@ -857,9 +881,9 @@
                 }
             });
             var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
-            goods_price = spec_goods_price[spec_key]['price']; // 找到对应规格的价格
+            goods_price = spec_goods_price[spec_key]['price']; // 找到对应规格的价格(单个的价格)
             store_count = spec_goods_price[spec_key]['store_count']; // 找到对应规格的库存
-            market_price = spec_goods_price[spec_key]['market_price']; // 找到对应规格的市场价
+            market_price = spec_goods_price[spec_key]['market_price']; // 找到对应规格的市场价(单个的价格)
             goods_send_date =  spec_goods_price[spec_key]['goods_send_date']; // 商品出货周期
             goods_weight = spec_goods_price[spec_key]['goods_weight']; //
             goods_volume = spec_goods_price[spec_key]['goods_volume']; //
@@ -875,15 +899,15 @@
         goods_price = $("input[name='shop_price']").attr('value');// 商品本店价
         store_count = $("input[name='store_count']").attr('value');// 商品库存
         goods_send_date =  $("input[name='goods_send_date']").attr('value'); // 商品出货周期
-        goods_weight = $("input[name='goods_weight']").attr('value');
-        goods_volume = $("input[name='goods_volume']").attr('value');
+        goods_weight = $("input[name='goods_weight']").attr('value'); //商品单个的重量
+        goods_volume = $("input[name='goods_volume']").attr('value');//商品单个的体检
         $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
         //get_send_date('20170528');
-        $('#goods_weight').empty().html(goods_weight);// 商品体重
-        $('#goods_volume').empty().html(goods_volume);
+        $('#goods_weight').empty().html(goods_weight*buy_num);// 商品体重
+        $('#goods_volume').empty().html(goods_volume*buy_num);
 
-        $('#market_price_title').empty().html('市场价：');
-        $('#market_price').empty().html(market_price);
+        $('#market_price').empty().html(market_price*buy_num);
+        $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
         $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
         var integral = round(goods_price - (exchange_integral / point_rate), 2);
         $("#integral").html(integral + '+' + exchange_integral + '积分'); //积分显示

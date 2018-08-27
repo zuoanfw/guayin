@@ -2979,9 +2979,12 @@ ul.main_shop li img {
 	margin:10px 0
 }
 .detail-ggsl .goods_attr{
-	background-color:#ddd;
+	background-color:#f4f4f4;
 	padding:10px;
 	margin: 10px 0px;
+}
+.detail-ggsl .goods_attr ul li{
+	padding: 3px 0px;
 }
 .detail-ggsl .presale-time {
 	height:40px;
@@ -3034,20 +3037,34 @@ ul.main_shop li img {
 .detail-ggsl .jaj {
 	width:112px;
 	letter-spacing:6px;
-	color:#666;
-	font-size:12px
 }
 .detail-ggsl .lawir {
 	width:508px;
-	font-size:12px
 }
 .detail-ggsl .ls4 {
 	letter-spacing:1px
 }
+.detail-ggsl .spec_goods_price_div{
+    padding-top: 10px;
+
+}
+.detail-ggsl .goods_price_img{
+	vertical-align: center;
+}
+.detail-ggsl .goods_price{
+	line-height: 50px;
+}
+#goods_price_all{
+    font-size: 28px;
+	color: #ff8a5c;
+}
+#goods_price{
+	font-size: 18px;
+	color: #ff8a5c;
+}
 .shop-price-cou {
 	margin-top:10px;
 	margin-bottom:10px;
-	font-size:14px;
 	padding:10px;
 	/*overflow:hidden;*/
 	/*background:url(../images/detail_price_bg.jpg) center center no-repeat ;*/
@@ -3066,13 +3083,9 @@ ul.main_shop li img {
 	color:#e23435
 }
 .shop-price-cou .shop-price-le ul .bigpri_jj .sale {
-	font-size:12px;
-	color:#666666;
 	margin-left:10px
 }
 .shop-price-cou .shop-price-le ul .though-line{
-	
-	color:#666666;
 	font-size:18px
 }
 .though-line>span{
@@ -3095,7 +3108,6 @@ ul.main_shop li img {
 	float:left;
 	text-align:center;
 	cursor:pointer;
-	font-size:12px
 }
 .shop-price-cou .shop-cou-ri .allcomm .f_blue {
 	color:#007cdc
@@ -3108,8 +3120,7 @@ ul.main_shop li img {
 	margin:0 10px
 }
 .standard {
-	font-size:12px;
-	padding:0 10px;
+	padding:1px 10px;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box
@@ -3147,8 +3158,6 @@ ul.main_shop li img {
 	vertical-align:middle
 }
 .standard .service {
-	font-size:12px;
-	color:#666
 }
 .standard .service a {
 	margin:0 10px;
@@ -3156,14 +3165,16 @@ ul.main_shop li img {
 }
 .standard .colo a {
 	display:inline-block;
-	padding:1px 8px;
+	padding:1px 2px;
 	border:1px solid #dadada;
 	margin:0 6px 10px 0;
-	cursor:pointer
+	cursor:pointer;
+	text-align: center;
+	width: 60px;
 }
 .standard .colo a.red,.standard .colo .ls-dlzc a:hover,.ls-dlzc .standard .colo a:hover,.standard .colo .conta-hv-nav li:hover a,.conta-hv-nav li:hover .standard .colo a {
-	border-color:#e23435;
-	color:#e23435
+	border-color:##ff8a5c;
+	color:##ff8a5c
 }
 .standard .minus-plus {
 	float:left

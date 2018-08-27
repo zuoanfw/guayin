@@ -126,13 +126,11 @@ class System extends Base
             }
         }
         $system_nav = array(
-            'http://www.tpshop.cn' => 'tpshop官网',
-            'http://www.99soubao.com' => '搜豹公司',
-            '/index.php?m=Home&c=Activity&a=promoteList' => '促销活动',
+            /*'/index.php?m=Home&c=Activity&a=promoteList' => '促销活动',
             '/index.php?m=Home&c=Activity&a=flash_sale_list' => '限时抢购',
             '/index.php?m=Home&c=Activity&a=group_list' => '团购',
             '/index.php?m=Home&c=Index&a=street' => '店铺街',
-            '/index.php?m=Home&c=Goods&a=integralMall' => '积分商城',
+            '/index.php?m=Home&c=Goods&a=integralMall' => '积分商城',*/
         );
         $system_nav = array_merge($system_nav,$select_option);
         $this->assign('system_nav',$system_nav);
