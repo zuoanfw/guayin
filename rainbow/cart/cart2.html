@@ -153,14 +153,14 @@
         <li class="fl z-parkage-li" id="express_delivery">快递配送<span></span></li>
         <li class="fl" id="door_to_door" style="display: none">上门自提<span></span></li>
     </ul>
-    <div class="dis-modes-li p" id="express_delivery_modes">
+    <!--<div class="dis-modes-li p" id="express_delivery_modes">
         <div class="shipment">
             <div class="fore1 p">
                 <span class="mode-label">配送时间：</span>
 
                 <div class="mode-infor hover-y">
                     <p><label>工作日、双休日与节假日均可送货</label></p>
-                    <!--<p><label><input type="checkbox" name="" value="" /> 双休日、假日送</label></p>-->
+                    &lt;!&ndash;<p><label><input type="checkbox" name="" value="" /> 双休日、假日送</label></p>&ndash;&gt;
                 </div>
             </div>
         </div>
@@ -168,7 +168,7 @@
             <span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注 :</span>
             <textarea class="user_note_txt fl" maxlength="50" placeholder="最多输入50个字"></textarea>
         </div>
-    </div>
+    </div>-->
     <div class="dis-modes-li modes-li-two p" id="door_to_door_modes" style="display: none;">
         <p class="modes-li-title">附近自提点 <span>免运费</span></p>
 
@@ -330,7 +330,7 @@
     <div class="w1224">
         <div class="top_leg p ma-to-20">
             <span class="paragraph fl"><i class="ddd"></i>送货清单</span>
-            <if condition="$Request.param.action neq 'buy_now'">
+            <!--<if condition="$Request.param.action neq 'buy_now'">
                 <a class="newadd fr" href="{:U('Home/Cart/index')}">返回修改购物车</a>
             </if>
             <a class="newadd fr hover-y">
@@ -338,64 +338,43 @@
                 <div class="pairgoods">
                     <p class="tit">因可能存在系统缓存、页面更新导致价格变动异常等不确定性情况出现，商品售价以本结算页商品价格为准；如有疑问，请您立即联系销售商咨询</p>
                 </div>
-            </a>
+            </a>-->
         </div>
         <!--商品列表-s-->
         <div class="shopping-listpay">
             <div class="goods-list-ri">
                 <div class="goodsforma">
-                    <div class="goods-last-suit ma-to-10 p">
+                   <!-- <div class="goods-last-suit ma-to-10 p">
                         <div class="goods-suit-tit" style="display: none">
                             <span class="sales-icon">订单优惠</span>
                             <strong id="store_order_prom_title"></strong>
-                            <!--<span class="mlstran">&nbsp;返现：<em>￥20.00</em></span>-->
+                            &lt;!&ndash;<span class="mlstran">&nbsp;返现：<em>￥20.00</em></span>&ndash;&gt;
                         </div>
-                    </div>
-                    <ul class="buy-shopping-list">
+                    </div>-->
+                    <table>
+                       <tr><th width="30%">商品</th><th  width="10%">单价（元）</th><th  width="10%">数量</th><th  width="10%">金额（元）</th><th  width="15%">预计出货日期</th></tr>
                         <volist name="cartList" id="cart">
-                            <li>
-                                <div class="goods-extra clearfix">
-                                    <div class="p-img">
-                                        <a target="_blank"
-                                           href="{:U('Home/Goods/goodsInfo',array('id'=>$cart['goods_id']))}">
-                                            <img src="{$cart.goods_id|goods_thum_images=102,102}" alt="">
-                                        </a>
-
-                                        <div class="p-img-tips" id="goods_shipping_img_{$cart[goods_id]}"
-                                             style="display: none">暂无商品
-                                        </div>
+                            <tr>
+                                <td style="text-align: left;">
+                                    <a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$cart['goods_id']))}">
+                                    <img src="{$cart.goods_id|goods_thum_images=102,102}" alt="">
+                                    {$cart.goods_name}<br>
+                                    {$cart[spec_key_name]}
+                                   </a>
+                                    <div class="p-img-tips" id="goods_shipping_img_{$cart[goods_id]}"
+                                         style="display: none">暂无商品
                                     </div>
-                                    <div class="goods-msg clearfix">
-                                        <div class="goods-msg-gel">
-                                            <div class="tp-cart-goods-name">
-                                                <a href="{:U('Home/Goods/goodsInfo',array('id'=>$cart['goods_id']))}"
-                                                   target="_blank">{$cart.goods_name}</a>
-                                            </div>
-                                            <ul class="tp-cart-goods-mes">
-                                                <li class="tp-c-red1">{$cart[spec_key_name]}</li>
-                                                <li>
-                                                    <span>x{$cart.goods_num}</span>
-                                                    <span class="tp-bold tp-c-red1">￥ {$cart.member_goods_price}</span>
-                                                </li>
-                                                <!--<li>
-                                                    <span class="p-state"
-                                                          id="goods_shipping_title_{$cart[goods_id]}">有货</span>
-                                                    <span class="tp-c-red1">{$cart[goods][weight]}g</span>
-                                                </li>-->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="msp_return">
-                                        <p class="guarantee-item">
-                                            <!--   <i class="return7"></i><span class="f_blue">支持七天无理由退货</span>
-                                               <i class="return7 return7-dark"></i><span class="f_dark">不支持七天无理由退货</span>-->
-                                        </p>
-                                        <!--<p class="btn-check-date"><i class="yb-h-gwc return7"></i><span class="f_blue f-999">选延保</span></p>-->
-                                    </div>
-                                </div>
-                            </li>
+                                </td>
+                                <td>￥ {$cart.member_goods_price}</td>
+                                <td>{$cart.goods_num}</td>
+                                <td>{$cart.goods_num*$cart.member_goods_price}</td>
+                                <td>{$cart.goods_send_date|get_send_date}</td>
+                            </tr>
                         </volist>
-                    </ul>
+                    </table>
+                    <div class="buy-remarks p">
+                    <textarea class="user_note_txt fl" maxlength="50" placeholder="给我们留言，可填写与客服协商一致的内容（最多输入50个字）"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
@@ -990,7 +969,7 @@
     })
 
     //对应商品
-    $(function () {
+    /*$(function () {
         $(document).on('click', '.hover-y', function () {
             if ($(this).find('.pairgoods').is(":hidden")) {
                 $(this).find('.pairgoods').show();
@@ -999,7 +978,7 @@
             }
 
         });
-    })
+    })*/
     $(function () {
         $(document).on('click', '#invoiceBtn', function () {
             var invoice_desc = $("#invoice_desc").val();

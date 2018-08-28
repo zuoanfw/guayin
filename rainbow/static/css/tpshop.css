@@ -6777,8 +6777,8 @@ ul.main_shop li img {
 
 .dis-modes-li,.goods-list-ri {
     min-height: 160px;
-    padding: 20px ;
-    margin-top: 20px;
+    padding: 0px;
+    margin-top: 15px;
 }
 
 .standard_wei {
@@ -6790,7 +6790,7 @@ ul.main_shop li img {
 }
 
 .goods-list-ri {
-    background: #ffebeb;
+    /*background: #ffebeb;*/
     width: 100%;
     float: left
 }
@@ -6798,7 +6798,21 @@ ul.main_shop li img {
 .goodsforma {
     margin-bottom: 20px
 }
-
+.goods-list-ri table{
+	width: 99%;
+	text-align: center;
+}
+.goods-list-ri table tr{
+	border: 1px solid #ececec;
+}
+.goods-list-ri table tr th{
+	background-color: #F5F5F5;
+	height: 40px;
+	line-height: 40px;
+}
+.goods-list-ri table tr td{
+	padding: 5px;
+}
 .goods-last-suit {
     margin: 0 50px
 }
@@ -6909,14 +6923,16 @@ ul.main_shop li img {
     margin-bottom: 20px;
 }
 .buy-remarks textarea{
+	margin-top: 20px;
 	outline: none;
     resize:vertical;
-    width: 230px;
+    width: 70%;
+	height: 35px;
     padding-left: 10px;
     padding-right: 10px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid #ccc;
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #ececec;
 }
 .buy-remarks span{
 	float: left;
