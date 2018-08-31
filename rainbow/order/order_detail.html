@@ -225,6 +225,7 @@
                                 <span class="lascl">{$v.shipping_name}</span>
                             </foreach>
                         </p>
+                            <p><span class="fircl">配送时间：</span><span class="lascl">{$order.delivery_time}</span></p>
                         </if>
                         <p><span class="fircl">运费：</span><span class="lascl"><em>￥</em>{$order.shipping_price|default=0}</span></p>
                         <p><span class="fircl">买家留言：</span><span class="lascl">{$order.user_note|default=''}</span></p>

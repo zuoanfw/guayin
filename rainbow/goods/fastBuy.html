@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商品列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+	<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
+	<script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/pc_common.js"></script>
+    <style>
+        @media screen and (min-width:1260px) and (max-width: 1465px) {
+            .w1430{width: 1224px;}
+        }
+        @media screen and (max-width: 1260px) {
+            .w1430{width: 983px;}
+        }
+        .stsho {
+            width: 1224px;
+        }
+        .shop-list-splb > ul > li {
+            float: left;
+            width: 100%;
+            margin-top: 10px;
+            border: 1px solid #dddddd;
+        }
+        .s_xsall{
+            padding: 5px;
+            float: left;
+            width: 320px;
+        }
+        .xs_img {
+            height: 300px;
+            width: 300px;
+
+        }
+        .xs_img img {
+            width: 300px;
+            height: 300px;
+        }
+        .s_xsall_text{
+            width: 880px;
+            float: left;
+            padding: 5px;
+            height: 300px;
+            position: relative;
+        }
+        .s_xsall_text p{
+            padding: 10px 5px;
+        }
+        .media-heading {
+            font-size: 18px;
+            padding-top: 10px;
+        }
+        .media-bottom {
+            position: absolute;
+            bottom: 20px;
+        }
+        .btn-warning{
+            font-size: 14px;
+            color: #fff;
+            background: #ffa000;
+            padding: 8px 25px;
+            border-radius: 5px;
+            margin-left: 20px;
+        }
+        .old em {
+            font-size: 12px;
+            color: #999999;
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+<include file="public/header" w="w1430"/>
+<div class="shop-list-tour ma-to-20 p">
+	<div class="w1430">
+        <div class="search-path fl">
+            <a href="{:U('Home/Goods/goodsList',array('id'=>$cat_id))}">全部结果</a>
+            <i class="litt-xyb"></i>
+            <!--如果当前分类是三级分类 则二级也要显示-->
+            <if condition="$goodsCate[level] eq 3">
+                <div class="havedox">
+                    <div class="disenk"><span>{$goods_category[$goodsCate[parent_id]][name]}</span><i class="litt-xxd"></i></div>
+                    <div class="hovshz">
+                        <ul>
+                            <foreach name="goods_category" item="v" key="k">
+                                <if condition="($v[parent_id] eq $goods_category[$goodsCate[parent_id]][parent_id])">
+                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                                </if>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+                <i class="litt-xyb"></i>
+                <div class="havedox">
+                    <div class="disenk"><span>{$goodsCate['name']}</span><i class="litt-xxd"></i></div>
+                    <div class="hovshz">
+                        <ul>
+                            <empty name="goods_category">
+                                <li><a>暂无可筛选分类</a></li>
+                            </empty>
+                            <foreach name="goods_category" item="v" key="k">
+                                <if condition="($v[level] eq $goodsCate[level]) AND ($v[parent_id] eq $goodsCate[parent_id])">
+                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                                </if>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+                <i class="litt-xyb"></i>
+            </if>
+            <!--如果当前分类是三级分类 则二级也要显示-->
+            <if condition="$goodsCate[level] eq 2">
+                <div class="havedox">
+                    <div class="disenk"><span>{$goodsCate.name}</span><i class="litt-xxd"></i></div>
+                    <div class="hovshz">
+                        <ul>
+                            <foreach name="goods_category" item="v" key="k">
+                                <if condition="($v[parent_id] eq $goodsCate[parent_id])">
+                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                                </if>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+                <i class="litt-xyb"></i>
+            </if>
+            <!--当前分类-->
+            <if condition="$goodsCate[level] eq 1">
+                <div class="havedox">
+                    <div class="disenk"><span><a href="{:U('Home/Goods/goodsList',array('id'=>$goodsCate['id']))}">{$goodsCate.name}</a></span><i class="litt-xxd"></i></div>
+                    <div class="hovshz">
+                        <ul>
+                            <foreach name="cateArr" item="v" key="k">
+                                <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+                <i class="litt-xyb"></i>
+            </if>
+        </div>
+		<div class="stsho fl">
+			<div class="shop-list-splb p">
+				<ul>
+                    <empty name="goods_list">
+                        <p class="ncyekjl" style="font-size: 16px;margin:100px auto;text-align: center;">-- 抱歉没找到您要搜索的商品，换个条件试试！--</p>
+                    <else/>
+                        <foreach name="goods_list" item="v" key="k">
+                            <li>
+                                <div class="s_xsall">
+                                    <div class="xs_img">
+                                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+                                            <img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
+                                        </a>
+                                    </div>
+                                    <!--<div class="xs_slide">
+                                        <div class="small-xs-shop">
+                                            <ul>
+                                                <foreach name="goods_images" item="v2" key="k2">
+                                                    <if condition="$v2[goods_id] eq $v[goods_id]">
+                                                        <li>
+                                                              <a href="javascript:void(0);">
+                                                                <img class="lazy-list" data-original="{$v2|get_sub_images=$v[goods_id],400,400}"/>
+                                                            </a>
+                                                        </li>
+                                                    </if>
+                                                </foreach>
+                                            </ul>
+                                        </div>
+                                    </div>-->
+
+                                </div>
+                                <div class="s_xsall_text">
+                                    <h4 class="media-heading">
+                                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+                                    <p style="color:#ffa000;"> {$v.goods_remark}</p>
+                                    <p>●&nbsp;使用场景：{$v.goods_use_scene}</p>
+                                    <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
+                                    <p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
+                                    <div class="media-bottom">
+                                        <if condition="$v.cat_id eq '2'">
+                                            限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]*500}</span>
+                                            <span class="old"><em>￥</em><em>{$v[market_price]*500}</em></span>
+                                            (500张，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v[shop_price]}</span>&nbsp;元/张)
+                                         <else/>
+                                            限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
+                                            <span class="old"><em>￥</em><em>{$v[market_price]}</em></span>
+                                        </if>
+
+                                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="btn-warning"> 马上抢</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </foreach>
+                    </empty>
+
+				</ul>
+			</div>
+			<div class="page p">
+				{$page->show()}
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--footer-s-->
+<include file="public/footer"/>
+<!--footer-e-->
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/popt.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

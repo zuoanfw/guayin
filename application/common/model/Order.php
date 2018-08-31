@@ -456,6 +456,15 @@ class Order extends Model
         }
     }
 
+    /**
+     * 配送时间
+     */
+    public function getDeliveryTimeAttr($value, $data)
+    {
+        $deliverytime = [0=>"周一至周日",1=>"周一至周五",2=>"周六至周日"];
+        return $deliverytime[$data['delivery_time']];
+    }
+
     public function getConsigneeDescAttr($value, $data)
     {
         if($data['shop_id'] > 0){

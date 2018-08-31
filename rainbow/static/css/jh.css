@@ -116,7 +116,7 @@ a.Sub-orders{ width:118px; font-size:14px}
 .sc-acti-list a.gwc-qjs:hover{border-color:#e64a4d; background-color:#e64a4d;}
 .ma-bo-135{margin-bottom:100px}
 .order-ha{font-family: 'Tahoma','\5FAE\8F6F\96C5\9ED1';margin-bottom: 48px;}
-.erhuh{border-top: 2px solid #7abd54;background-color: #f1f8ee;position: relative;padding-left: 165px;min-height: 116px;padding-bottom: 21px;}
+.erhuh{border-top: none;background-color: #f1f8ee;position: relative;padding-left: 165px;min-height: 116px;padding-bottom: 21px;}
 .icon-succ{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon30.png) no-repeat}
 .icon-succa{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon33.png) -34px 0 no-repeat}
 .icon-sucsa{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon33.png) -116px 0 no-repeat}
@@ -159,9 +159,9 @@ a.Sub-orders{ width:118px; font-size:14px}
 .return-wallet{ border:1px solid #ccc; color:#c2c2c2; display:inline-block; text-align:center;}
 
 .button-confirm-payment, .button-go-payment ,.return-wallet{font-family: \5FAE\8F6F\96C5\9ED1;font-size: 16px;width: 148px;height: 42px;line-height: 42px;}
-.button-style-5 {color: #FFF;background-color: #d81b24;border: 1px solid #d81b24;display: inline-block;text-align: center;cursor: pointer;}
+.button-style-5 {color: #FFF;background-color: #ff8a5c;border: 1px solid #ff8a5c;display: inline-block;text-align: center;cursor: pointer;}
 .order-payment-action-area .voucher-use label {color: #333;margin-right: 20px;}
-.button-style-5:hover {background-color: #db2d35;border-color: #db2d35;}
+.button-style-5:hover {background-color: #ff8a5c;border-color: #ff8a5c;}
 .adderss-add{ width:100%; height:100%;}
 .opact-tm{ background-color:rgba(0,0,0,0.4);}
 .ol_box_4{width: 428px;border: 1px solid #d2d2d2;background-color: #f2f2f2;box-shadow: 0 2px 3px 0 rgba(0,0,0,.05);font-family: 'Tahoma',\5FAE\8F6F\96C5\9ED1;}
@@ -341,8 +341,8 @@ a {
     text-align: center;
 }
 .button-style-5:hover {
-    background-color: #db2d35;
-    border-color: #db2d35;
+    background-color: #ff8a5c;
+    border-color: #ff8a5c;
 	color:#FFF;
 	text-decoration:none;
 }

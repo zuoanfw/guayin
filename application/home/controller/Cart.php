@@ -297,6 +297,7 @@ class Cart extends Base
         $pay_points = input("pay_points/d", 0); //  使用积分
         $user_money = input("user_money/f", 0); //  使用余额
         $user_note = input("user_note/s", ''); // 用户留言
+        $delivery_time = input("delivery_time/d", ''); // 商品派送时间
         $payPwd = input("payPwd/s", ''); // 支付密码
         $goods_id = input("goods_id/d"); // 商品id
         $goods_num = input("goods_num/d");// 商品数量
@@ -344,6 +345,7 @@ class Cart extends Base
                 $placeOrder->setMobile($mobile);
                 $placeOrder->setInvoiceTitle($invoice_title);
                 $placeOrder->setUserNote($user_note);
+                $placeOrder->setDeliveryTime($delivery_time);
                 $placeOrder->setTaxpayer($taxpayer);
                 $placeOrder->setPayPsw($payPwd);
                 $placeOrder->setTakeTime($take_time);
@@ -429,7 +431,7 @@ class Cart extends Base
         $this->assign('order', $order);
         $this->assign('bankCodeList', $bankCodeList);
         $this->assign('pay_date', date('Y-m-d', strtotime("+1 day")));
-
+        $this->assign('cart_step','3');
         return $this->fetch();
     }
 
@@ -579,6 +581,7 @@ class Cart extends Base
         $goods_num = input('goods_num/d');
         $address_id = input("address_id/d"); //  收货地址id
         $user_note = input('user_note'); // 给卖家留言
+        $delivery_time = input('delivery_time'); // 派送时间
         $invoice_title = input('invoice_title'); // 发票
         $taxpayer = input('taxpayer'); // 发票纳税人识别号
         $user_money = input("user_money/f", 0); //  使用余额
@@ -606,10 +609,11 @@ class Cart extends Base
                 $placeOrder->setMobile($mobile);
                 $placeOrder->setInvoiceTitle($invoice_title);
                 $placeOrder->setUserNote($user_note);
+                $placeOrder->setDeliveryTime($delivery_time);
                 $placeOrder->setTaxpayer($taxpayer);
                 $placeOrder->setPayPsw($payPwd);
                 $placeOrder->setTakeTime($take_time);
-                $placeOrder->addNormalOrder();
+                $placeOrder->addNormalOrder(); //保存数据库
                 $order = $placeOrder->getOrder();
                 $this->ajaxReturn(['status' => 1, 'msg' => '提交订单成功', 'result' => $order['order_id']]);
             }

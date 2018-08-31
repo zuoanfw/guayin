@@ -48,6 +48,7 @@
     <!--立即购买才会用到-e-->
     <input type="hidden" name="payPwd" value="">
     <input type="hidden" name="user_note" value="">
+    <input type="hidden" name="delivery_time" value="">
     <input type="hidden" name="consignee" value="">
     <input type="hidden" name="mobile" value="">
     <input type="hidden" name="shop_id" value="">
@@ -206,7 +207,25 @@
         </div>
     </div>
 </div>
+<div class="w1224 z-parkage-pc p">
+    <span class="paragraph "><i class="ddd"></i> 配送时间</span>
+    <ul class="z-parkage-pc-ul delivery-time p">
+        <li class="fl ul_li_width z-parkage-li" val="0">不限送货时间：周一至周日<span></span></li>
+        <li class="fl ul_li_width"  val="1">工作日送货：周一至周五<span></span></li>
+        <li class="fl ul_li_width"  val="2">双休日、节假日送货：周六至周日<span></span></li>
+    </ul>
+</div>
 <script>
+    $(function () {
+        //更换 配送时间
+        $(document).on("click", '.delivery-time li', function (e) {
+            if (!$(this).hasClass('z-parkage-li')) {
+                $(this).siblings().removeClass("z-parkage-li");
+                $(this).addClass("z-parkage-li");
+                $("input[name='delivery_time']").val($(this).attr('val'));
+            }
+        })
+    });
     $.datetimepicker.setLocale('zh');
     $('#date_time_picker_mask').datetimepicker({
         mask:'',
@@ -357,9 +376,9 @@
                             <tr>
                                 <td style="text-align: left;">
                                     <a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$cart['goods_id']))}">
-                                    <img src="{$cart.goods_id|goods_thum_images=102,102}" alt="">
-                                    {$cart.goods_name}<br>
-                                    {$cart[spec_key_name]}
+                                    <div style="float: left"><img src="{$cart.goods_id|goods_thum_images=102,102}" alt=""></div>
+                                    <div style="float: left;padding-left: 10px;padding-top: 5px;">{$cart.goods_name}<br><br>
+                                    <span style="color: #666">{$cart[spec_key_name]}</span></div>
                                    </a>
                                     <div class="p-img-tips" id="goods_shipping_img_{$cart[goods_id]}"
                                          style="display: none">暂无商品

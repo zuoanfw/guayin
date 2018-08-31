@@ -5540,7 +5540,7 @@ ul.main_shop li img {
 }
 .cart-thead {
 	display:block;
-	height:32px;
+	height:42px;
 	line-height:32px;
 	margin:0 0 10px;
 	padding:5px 0;
@@ -5550,10 +5550,10 @@ ul.main_shop li img {
 	width:192px
 }
 .t-goods {
-	width:240px
+	width:210px
 }
 .t-props {
-	width:120px;
+	width:180px;
 	height:32px
 }
 .t-price {
@@ -5783,7 +5783,7 @@ ul.main_shop li img {
 }
 .breadth_phase {
 	float:left;
-	width:430px
+	width:400px
 }
 .breadth_phase .column .checkall {
 	vertical-align:top
@@ -5899,7 +5899,7 @@ ul.main_shop li img {
 	display:inline-block;
 	height:25px;
 	line-height:25px;
-	background-color:#e74649;
+	background-color:#ff8a5c;
 	border-radius:3px;
 	color:#fff;
 	font-size:12px;
@@ -5920,7 +5920,7 @@ ul.main_shop li img {
 }
 .btn-1:hover {
 	color:white;
-	background-color:#f05356;
+	background-color:#ff8a5c;
 	background-image:url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwNTM1NiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2ViM2MzZiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
 	background-size:100%;
 	background-image:-webkit-gradient(linear,50% 100%,50% 0%,color-stop(0%,#f05356),color-stop(100%,#eb3c3f));
@@ -5933,7 +5933,7 @@ ul.main_shop li img {
 	display:inline-block;
 	height:23px;
 	line-height:23px;
-	background-color:#f2f2f2;
+	background-color:#ff8a5c;
 	border-radius:3px;
 	color:#323333;
 	font-size:12px;
@@ -5956,7 +5956,7 @@ ul.main_shop li img {
 .btn-9:hover {
 	color:inherit;
 	box-shadow:0 1px 1px rgba(0,1,1,0.08);
-	background-color:#f7f7f7;
+	background-color:#ff8a5c;
 	background-image:url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y3ZjdmNyIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2YyZjJmMiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
 	background-size:100%;
 	background-image:-webkit-gradient(linear,50% 100%,50% 0%,color-stop(0%,#f7f7f7),color-stop(100%,#f2f2f2));
@@ -6513,10 +6513,10 @@ ul.main_shop li img {
     background-color: #fff;
 }
 .item_select_t:hover {
-	border:2px solid #e4393c;
+	/*border:2px solid #e4393c;*/
 }
 .curtr {
-	border:2px solid #e4393c;
+	border:2px solid #ff8a5c;
 	/*padding:4px 10px*/
 }
 .curtr b {
@@ -6527,7 +6527,7 @@ ul.main_shop li img {
 	width:12px;
 	height:12px;
 	overflow:hidden;
-	background:url(../images/selected-icon.png) no-repeat
+	/*background:url(../images/selected-icon.png) no-repeat*/
 }
 .addrdetail {
 	height:30px;
@@ -7206,7 +7206,7 @@ input.invoice_tt{
 	line-height:36px;
 	margin:8px 10px 0 0;
 	padding:0;
-	background-color:#e00;
+	background-color:#ff8a5c;
 	overflow:hidden;
 	color:#fff;
 	font-weight:700;
@@ -7218,7 +7218,7 @@ input.invoice_tt{
 	border:0
 }
 .checkout-submit:hover {
-	background-color:#EF494D
+	background-color:#ff8a5c
 }
 .messaget input {
 	width:860px;
@@ -8401,7 +8401,7 @@ select::-ms-expand { display: none; }
     height: 28px;
     margin: 10px 10px 0 0;
     font-weight: bold;
-    background-color: #e00;
+    background-color: #ff8a5c;
     color: #fff;
     border-radius: 3px;
     cursor: pointer;
@@ -8506,13 +8506,17 @@ select::-ms-expand { display: none; }
 	text-align: center;
 	line-height: 30px;
 	margin-right: 15px;
-	border: 1px solid #666666;
+	border: 1px solid #ddd;
 	position: relative;
 	cursor: pointer;
 }
 .z-parkage-pc .z-parkage-pc-ul .z-parkage-li{
-	border: 2px solid #ff3838;
-	background: url(../images/z-li-cheng.png)no-repeat 122px 14px;
+	border: 2px solid #ff8a5c;
+	color: #ff8a5c;
+	/*background: url(../images/z-li-cheng.png)no-repeat 122px 14px;*/
+}
+.z-parkage-pc-ul .ul_li_width{
+	width: 240px;
 }
 .z-parkage-pc .dis-modes-li{
 	/*background: */

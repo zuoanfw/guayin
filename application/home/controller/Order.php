@@ -125,6 +125,8 @@ class Order extends Base {
         if ($order['prom_type'] == 5) {   //虚拟订单
             $this->redirect(U('virtual/virtual_order', ['order_id' => $id]));
         }
+        //echo $order['delivery_method'];
+        //halt($order->append(['delivery_method'])->toArray());exit;
         $this->assign('order', $order);
         return $this->fetch();
     }
