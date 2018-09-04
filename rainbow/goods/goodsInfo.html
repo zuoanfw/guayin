@@ -226,7 +226,21 @@
                 <if condition="$goods.cat_id eq '2'">
                     <!--爆款印品   按照规格的数量计算-->
                     <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
-                    <else/>
+                    <div class="spec_goods_price_div standard p">
+                        <ul>
+                            <li class="jaj"><span>印刷文件：</span></li>
+                            <li class="lawir colo1">
+                                <input type="hidden" id="goods_file_id" name="goods_file_id" value="1"/>
+                                <a val="1" class="goods_file_item red">
+                                        使用自己的设计
+                                </a>
+                                <a val="2" class="goods_file_item">
+                                    需要帮我设计
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                 <else/>
                     <div class="standard" style="padding: 13px 10px">
                         <ul class="p">
                             <li class="jaj"><span>数&nbsp;&nbsp;量：</span></li>
@@ -655,7 +669,7 @@
         }
     }
 
-    //默认让每种规格第一个选中
+    //默认让每种规格 和 设计文件第一个选中
     function initFirstSpec() {
         $('.spec_goods_price_div').each(function (i, o) {
             var firstSpecRadio = $(this).find("input[type='radio']").eq(0);
@@ -1070,7 +1084,13 @@
         //获取搭配购列表
         //getCombination();
     })
-
+    //点击切换设计文件
+    $(document).on('click', '.goods_file_item', function () {
+        var goods_file_item = $(this).attr('val');
+        $("#goods_file_id").val(goods_file_item);//根据规格改变商品数量
+        $(this).addClass('red').siblings('a').removeClass('red');
+        $(this).siblings('input').removeAttr('checked');
+    })
 </script>
 </body>
 </html>

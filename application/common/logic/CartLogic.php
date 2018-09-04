@@ -35,6 +35,7 @@ class CartLogic extends Model
     protected $goods;//商品模型
     protected $specGoodsPrice;//商品规格模型
     protected $goodsBuyNum;//购买的商品数量
+    protected $goods_file_id; //印刷文件
     protected $session_id;//session_id
     protected $user_id = 0;//user_id
     protected $userGoodsTypeCount = 0;//用户购物车的全部商品种类
@@ -119,6 +120,9 @@ class CartLogic extends Model
         $this->goodsBuyNum = $goodsBuyNum;
     }
 
+    public function setGoodsFileId($goods_file_id){
+        $this->goods_file_id = $goods_file_id;
+    }
     /**
      * 立即购买
      * @return mixed
@@ -142,6 +146,7 @@ class CartLogic extends Model
             'goods_price' => $this->goods['shop_price'],
             'member_goods_price' => $this->goods['shop_price'],
             'goods_num' => $this->goodsBuyNum, // 购买数量
+            'goods_file_id' => $this->goods_file_id, // 购买数量
             'add_time' => time(), // 加入购物车时间
             'prom_type' => 0,   // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
             'prom_id' => 0,   // 活动id
@@ -170,13 +175,13 @@ class CartLogic extends Model
             throw new TpshopException('立即购买', 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $this->goods['store_count'], 'result' => '']);
         }
         $goodsPromFactory = new GoodsPromFactory();
-        if ($goodsPromFactory->checkPromType($prom_type)) {
+        if ($goodsPromFactory->checkPromType($prom_type)) {  //如果有参加促销活动
             $goodsPromLogic = $goodsPromFactory->makeModule($this->goods, $this->specGoodsPrice);
             if ($goodsPromLogic->checkActivityIsAble()) {
                 $buyGoods = $goodsPromLogic->buyNow($buyGoods);
             }
         } else {
-            if ($this->goods['prom_type'] == 0) {
+            if ($this->goods['prom_type'] == 0) {  //没有参加促销活动
                 if (!empty($this->goods['price_ladder'])) {
                     //如果有阶梯价格,就是用阶梯价格
                     $goodsLogic = new GoodsLogic();
@@ -271,7 +276,7 @@ class CartLogic extends Model
             throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);
         }
 
-        // 如果该商品已经存在购物车
+        // 如果该商品已经存在购物车  印刷文件类型用第一次的选择项
         if ($userCartGoods) {
             //判断出货周期
             $send_date = $send_date + $userCartGoods['goods_send_date'];//本次要购买的出货周期加上购物车的本身存在的出货周期
@@ -314,6 +319,7 @@ class CartLogic extends Model
                 'goods_price' => $price,  // 原价
                 'member_goods_price' => $price,  // 会员折扣价 默认为 购买价
                 'goods_num' => $this->goodsBuyNum, // 购买数量
+                'goods_file_id' => $this->goods_file_id, // 购买数量
                 'add_time' => time(), // 加入购物车时间
                 'prom_type' => 0,   // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
                 'prom_id' => 0,   // 活动id

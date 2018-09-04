@@ -71,78 +71,30 @@
             color: #999999;
             text-decoration: line-through;
         }
+        .brand_tap ul li{
+            float: left;
+            padding: 8px 15px;
+        }
+        .brand_tap ul li a{
+            font-size: 16px;
+        }
+        .brand_tap .selected{
+            color: #ff8a5c;
+            border-bottom:1px solid #ff8a5c;
+        }
 
     </style>
 </head>
 <body>
-<include file="public/header" w="w1430"/>
+<include file="public/header" w="w1224"/>
 <div class="shop-list-tour ma-to-20 p">
-	<div class="w1430">
-        <div class="search-path fl">
-            <a href="{:U('Home/Goods/goodsList',array('id'=>$cat_id))}">全部结果</a>
-            <i class="litt-xyb"></i>
-            <!--如果当前分类是三级分类 则二级也要显示-->
-            <if condition="$goodsCate[level] eq 3">
-                <div class="havedox">
-                    <div class="disenk"><span>{$goods_category[$goodsCate[parent_id]][name]}</span><i class="litt-xxd"></i></div>
-                    <div class="hovshz">
-                        <ul>
-                            <foreach name="goods_category" item="v" key="k">
-                                <if condition="($v[parent_id] eq $goods_category[$goodsCate[parent_id]][parent_id])">
-                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
-                                </if>
-                            </foreach>
-                        </ul>
-                    </div>
-                </div>
-                <i class="litt-xyb"></i>
-                <div class="havedox">
-                    <div class="disenk"><span>{$goodsCate['name']}</span><i class="litt-xxd"></i></div>
-                    <div class="hovshz">
-                        <ul>
-                            <empty name="goods_category">
-                                <li><a>暂无可筛选分类</a></li>
-                            </empty>
-                            <foreach name="goods_category" item="v" key="k">
-                                <if condition="($v[level] eq $goodsCate[level]) AND ($v[parent_id] eq $goodsCate[parent_id])">
-                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
-                                </if>
-                            </foreach>
-                        </ul>
-                    </div>
-                </div>
-                <i class="litt-xyb"></i>
-            </if>
-            <!--如果当前分类是三级分类 则二级也要显示-->
-            <if condition="$goodsCate[level] eq 2">
-                <div class="havedox">
-                    <div class="disenk"><span>{$goodsCate.name}</span><i class="litt-xxd"></i></div>
-                    <div class="hovshz">
-                        <ul>
-                            <foreach name="goods_category" item="v" key="k">
-                                <if condition="($v[parent_id] eq $goodsCate[parent_id])">
-                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
-                                </if>
-                            </foreach>
-                        </ul>
-                    </div>
-                </div>
-                <i class="litt-xyb"></i>
-            </if>
-            <!--当前分类-->
-            <if condition="$goodsCate[level] eq 1">
-                <div class="havedox">
-                    <div class="disenk"><span><a href="{:U('Home/Goods/goodsList',array('id'=>$goodsCate['id']))}">{$goodsCate.name}</a></span><i class="litt-xxd"></i></div>
-                    <div class="hovshz">
-                        <ul>
-                            <foreach name="cateArr" item="v" key="k">
-                                <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
-                            </foreach>
-                        </ul>
-                    </div>
-                </div>
-                <i class="litt-xyb"></i>
-            </if>
+	<div class="w1224">
+        <div class="brand_tap">
+            <ul>
+                <foreach name="cateArr" item="v" key="k">
+                    <li <if condition="$cat_id eq $v['id']"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                </foreach>
+            </ul>
         </div>
 		<div class="stsho fl">
 			<div class="shop-list-splb p">

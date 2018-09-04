@@ -285,6 +285,7 @@ class PlaceOrder
             $orderGoodsData['goods_name'] = $payItem['goods_name']; // 商品名称
             $orderGoodsData['goods_sn'] = $payItem['goods_sn']; // 商品货号
             $orderGoodsData['goods_num'] = $payItem['goods_num']; // 购买数量
+            $orderGoodsData['goods_file_id'] = $payItem['goods_file_id']; // 购买数量
             $orderGoodsData['final_price'] = $finalPrice; // 每件商品实际支付价格
             $orderGoodsData['goods_price'] = $payItem['goods_price']; // 商品价               为照顾新手开发者们能看懂代码，此处每个字段加于详细注释
             if (!empty($payItem['spec_key'])) {

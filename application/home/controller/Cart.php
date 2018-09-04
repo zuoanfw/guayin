@@ -154,6 +154,7 @@ class Cart extends Base
         $goods_id = I("goods_id/d"); // 商品id
         $goods_num = I("goods_num/d");// 商品数量
         $item_id = I("item_id/d"); // 商品规格id
+        $goods_file_id = I("goods_file_id/d");
         if (empty($goods_id)) {
             $this->ajaxReturn(['status' => 0, 'msg' => '请选择要购买的商品', 'result' => '']);
         }
@@ -167,7 +168,8 @@ class Cart extends Base
         $cartLogic->setUserId($this->user_id);
         $cartLogic->setGoodsModel($goods_id);
         $cartLogic->setSpecGoodsPriceById($item_id);
-        $cartLogic->setGoodsBuyNum($goods_num);
+        $cartLogic->setGoodsBuyNum($goods_num);//设置购买数量
+        $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
         try {
             $cartLogic->addGoodsToCart();
             $this->ajaxReturn(['status' => 1, 'msg' => '加入购物车成功']);
@@ -210,6 +212,7 @@ class Cart extends Base
         $goods_id = input("goods_id/d"); // 商品id
         $goods_num = input("goods_num/d");// 商品数量
         $item_id = input("item_id/d"); // 商品规格id
+        $goods_file_id = I("goods_file_id/d");
         $action = input("action"); // 行为
         if ($this->user_id == 0) {
             $this->error('请先登录', U('Home/User/login'));
@@ -222,6 +225,7 @@ class Cart extends Base
             $cartLogic->setGoodsModel($goods_id);
             $cartLogic->setSpecGoodsPriceById($item_id);
             $cartLogic->setGoodsBuyNum($goods_num);
+            $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
             $buyGoods = [];
             try {
                 $buyGoods = $cartLogic->buyNow();
@@ -300,7 +304,8 @@ class Cart extends Base
         $delivery_time = input("delivery_time/d", ''); // 商品派送时间
         $payPwd = input("payPwd/s", ''); // 支付密码
         $goods_id = input("goods_id/d"); // 商品id
-        $goods_num = input("goods_num/d");// 商品数量
+        $goods_num = input("goods_num/d");// 商品数量  立即购买 单个类型的商品时候
+        $goods_file_id = input('goods_file_id'); //印刷文件 立即购买 单个类型的商品时候
         $item_id = input("item_id/d"); // 商品规格id
         $action = input("action"); // 立即购买
         $shop_id = input('shop_id/d', 0);//自提点id
@@ -324,13 +329,14 @@ class Cart extends Base
                 $cartLogic->setGoodsModel($goods_id);
                 $cartLogic->setSpecGoodsPriceById($item_id);
                 $cartLogic->setGoodsBuyNum($goods_num);
+                $cartLogic->setGoodsFileId($goods_file_id);
                 $buyGoods = $cartLogic->buyNow();
                 $cartList[0] = $buyGoods;
-                $pay->payGoodsList($cartList);
+                $pay->payGoodsList($cartList);  //立即购买 订单提交
             } else {
                 $userCartList = $cartLogic->getCartList(1);
                 $cartLogic->checkStockCartList($userCartList);
-                $pay->payCart($userCartList);
+                $pay->payCart($userCartList);  // 购物车订单提交
             }
             $pay->delivery($address['district']);
             $pay->orderPromotion();

@@ -257,6 +257,7 @@ class Goods extends Base
         //($goodsCate['level'] == 1) && header('Location:'.U('Home/Channel/index',array('cat_id'=>$id))); //一级分类跳转至大分类馆
         $cateArr = $goodsLogic->get_goods_cate($goodsCate);
 
+        //halt($cateArr);exit;
         // 帅选 品牌 规格 属性 价格
         $cat_id_arr = getCatGrandson($id);
         $goods_where = ['is_on_sale' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];

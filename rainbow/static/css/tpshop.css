@@ -3176,6 +3176,20 @@ ul.main_shop li img {
 	border-color:##ff8a5c;
 	color:##ff8a5c
 }
+
+.standard .colo1 a {
+	display: inline-block;
+	padding: 1px 2px;
+	border: 1px solid #dadada;
+	margin: 0 6px 10px 0;
+	cursor: pointer;
+	text-align: center;
+	width: 160px;
+}
+.standard .colo1 a.red{
+	border-color:##ff8a5c;
+	color:##ff8a5c
+}
 .standard .minus-plus {
 	float:left
 }
