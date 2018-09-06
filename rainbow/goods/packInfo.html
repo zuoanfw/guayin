@@ -263,6 +263,36 @@
     });
 
 </script>
+<style>
+    /*报价弹出框样式*/
+    .publish-cont{
+        text-align: center;
+    }
+    .consult_sub {
+        background: #ff8a5c;
+        color: #fff;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        border: 1px solid #ff8a5c;
+    }
+    .nickname{
+        line-height: 30px;
+        padding: 5px 0px;
+    }
+    .nickname input{
+        border: 1px solid #ddd;
+        line-height: 30px;
+        width: 300px;
+        margin: 10px;
+        padding: 4px;
+    }
+    .consult_num{
+        margin: 20px;
+    }
+
+</style>
 <!--footer-s-->
 <include file="public/footer"/>
 <!--footer-e-->
@@ -303,22 +333,58 @@
     var buy_now = $('#buy_now');
     var join_cart = $('#join_cart');
 
-    //购买按钮
+    //弹出层
+    var lay_index;
     $(function () {
-        //立即购买
+        //在线咨询
         $(document).on('click', '#buy_now', function () {
 
         })
-        //加入购物车
+        //提交咨询信息
         $(document).on('click', '#join_cart', function () {
-            layer.open({
+            var consult = '<form method="post" id="consultForm">\n' +
+                '                            <input type="hidden" name="goods_id" value="{$goods.goods_id}"/>\n' +
+                '                            <input type="hidden" name="consult_type" value="1"/>\n' +
+                '                            <div class="publish-cont">\n' +
+                '                                <div class="nickname">\n' +
+                '                                        <input type="text" name="username" placeholder="请输入您的手机号，座机请加区号" value="{$username}"/>\n' +
+                '                                </div>\n' +
+                '                                <input class="consult_sub" id="consult_submit" type="button"\n' +
+                '                                       value="获取报价"/>\n' +
+                '                                <div class="consult_num">已累计报价<span style="color:#ff8a5c;">588890</span>次</div>\n' +
+                '                            </div>\n' +
+                '                        </form>';
+            lay_index = layer.open({
                 type: 1,
                 skin: 'layui-layer-rim', //加上边框
                 area: ['420px', '240px'], //宽高
-                content: 'html内容'
+                content: consult
             });
         })
     })
+
+    //商品咨询提交
+    $(document).on('click', '#consult_submit', function () {
+        /*var content = $.trim($('#content').val());
+        if (content.length > 500) {
+            layer.msg('咨询内容不得超过500字符！！', {icon: 3});
+            return false;
+        }*/
+        $.ajax({
+            type: "POST",
+            url: "{:U('Goods/consult')}",
+            data: $('#consultForm').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.close(lay_index);
+                    layer.msg(data.msg, {icon: 1});
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    });
 
     //有规格id的时候，解析规格id选中规格
     function initSpec() {

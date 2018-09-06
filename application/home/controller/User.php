@@ -44,7 +44,7 @@ class User extends Base{
         	$this->user_id = $user['user_id'];
         	$this->assign('user',$user); //存储用户信息
         	$this->assign('user_id',$this->user_id);
-            //获取用户信息的数量
+            //获取用户消息个数
             $messageLogic = new MessageLogic();
             $user_message_count = $messageLogic->getUserMessageCount();
             $this->assign('user_message_count', $user_message_count);
