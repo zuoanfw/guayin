@@ -46,6 +46,24 @@ class Uploadify extends Base {
 		$this->assign('info',$info);
 		return $this->fetch();
 	}
+	//上传印刷文件
+    public function uploadfile(){
+        $func = I('func');
+        $path = I('path','temp');
+        $image_upload_limit_size = config('image_upload_limit_size');
+        $info = array(
+            'num'=> I('num/d'),
+            'title' => '',
+            'upload' =>U('Uploadify/upFile',array('savepath'=>$path,'pictitle'=>'banner','dir'=>'images')),
+            'fileList'=>U('Uploadify/fileList',array('path'=>$path)),
+            'size' => $image_upload_limit_size/(1024 * 1024).'M',
+            'type' =>'jpg,png,gif,jpeg,zip,rar,psd',
+            'input' => I('input'),
+            'func' => empty($func) ? 'undefined' : $func,
+        );
+        $this->assign('info',$info);
+        return $this->fetch();
+    }
 	
 	/*
 	 删除上传的图片

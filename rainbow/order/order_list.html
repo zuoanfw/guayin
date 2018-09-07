@@ -11,6 +11,11 @@
 </head>
 <style>
     .navitems2 li .selected {color: #e23435;border-bottom-color: #e23435;}
+    .upload_file{
+        padding: 4px 6px;
+        background-color: #ff8a5c;
+        color: #fff;
+    }
 </style>
 <body class="bg-f5">
 <include file="user/header"/>
@@ -37,11 +42,14 @@
                                 <a href="{:U('Order/order_list',array('type'=>'WAITSEND'))}" class="<if condition="$Request.param.type eq 'WAITSEND'">selected</if>">待发货</a>
                             </li>
                             <li>
-                                <a href="{:U('Order/order_list',array('type'=>'WAITRECEIVE'))}" class="<if condition="$Request.param.type eq 'WAITRECEIVE'">selected</if>">待收货</a>
-                            </li>
+                            <a href="{:U('Order/order_list',array('type'=>'WAITRECEIVE'))}" class="<if condition="$Request.param.type eq 'WAITRECEIVE'">selected</if>">待收货</a>
+                        </li>
                             <li>
-                                <a href="{:U('Order/comment',array('status'=>'0'))}" class="<if condition="$Request.param.type eq 'WAITCCOMMENT'">selected</if>">待评论</a>
+                                <a href="{:U('Order/order_list',array('type'=>'FINISH'))}" class="<if condition="$Request.param.type eq 'FINISH'">selected</if>">已完成</a>
                             </li>
+                            <!--<li>
+                                <a href="{:U('Order/comment',array('status'=>'0'))}" class="<if condition="$Request.param.type eq 'WAITCCOMMENT'">selected</if>">待评论</a>
+                            </li>-->
                             <!--<li>-->
                             <!--<a href="javascript:void(0);" class="">预售订单</a>-->
                             <!--</li>-->
@@ -81,6 +89,7 @@
                             <li class="sx1">商品信息</i></li>
                             <li class="sx2">单价</li>
                             <li class="sx3">数量</li>
+                            <li class="sx4">印刷文件</li>
                             <li class="sx4">订单总金额</li>
                             <li class="sx5 s5clic">订单状态<i class="jt-x"></i></li>
                             <li class="sx6">操作</li>
@@ -92,7 +101,7 @@
                             <li><a href="{:U('Order/order_list',array('type'=>'WAITPAY'))}">待付款</a></li>
                             <li><a href="{:U('Order/order_list',array('type'=>'WAITSEND'))}">待发货</a></li>
                             <li><a href="{:U('Order/order_list',array('type'=>'WAITRECEIVE'))}">待收货</a></li>
-                            <li><a href="{:U('Order/comment',array('status'=>'0'))}">待评论</a></li>
+                            <!--<li><a href="{:U('Order/comment',array('status'=>'0'))}">待评论</a></li>-->
                             <li><a href="{:U('Order/order_list',array('type'=>'FINISH'))}">已完成</a></li>
 				    		<li><a href="{:U('Order/order_list',array('type'=>'CANCEL'))}">已取消</a></li>
                             <!--<li><a href="">预售订单</a></li>-->
@@ -165,6 +174,13 @@
 	                                                </if>
                                                 </if>
                                             </td>
+                                            <td class="sx3">
+                                                <!--印刷文件-->
+                                                <!--<if condition="$goods.goods_file_id eq '1'">
+                                                    <button type="button" val="{$goods.rec_id}" class="upload_file" onClick="GetUploadify3(1,'head_pic','head_pic','add_img')">上传文件</button>
+                                                    <input type="hidden" name="head_pic" class="head_pic" value="{$user.head_pic}">
+                                                    <else/>平台提供</if>-->
+                                            </td>
                                             <td class="sx4" rowspan="{$list.goods_list|count}">
                                                 <div class="pric_rhz">
                                                     <p class="d_pri"><span>￥</span><span>{$list.total_amount}</span></p>
@@ -188,7 +204,7 @@
                                                     </p>
                                                 </div>
                                             </td>
-                                            <td class="sx6" rowspan="{$list.goods_list|count}">
+                                            <!--<td class="sx6" rowspan="{$list.goods_list|count}">
                                                 <div class="rbac">
                                                     <p class=""><a class="buy_order" data-order-id="{$list.order_id}" href="javascript:;">再次购买</a></p>
                                                     <if condition="($list[comment_btn] eq 1) and ($goods[is_comment] eq 0)">
@@ -197,7 +213,7 @@
                                                         </p>
                                                     </if>
                                                 </div>
-                                            </td>
+                                            </td>-->
                                         </tr>
                                     <else />
                                         <tr class="conten_or">
@@ -223,6 +239,13 @@
                                                 <if condition="$goods[is_send] gt 1">
                                                     <a class="applyafts">已申请售后</a>
                                                 </if>
+                                            </td>
+                                            <td class="sx3">
+                                                <!--印刷文件-->
+                                                <if condition="$goods.goods_file_id eq '1'">
+                                                 <button type="button" val="{$goods.rec_id}" class="upload_file" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                    <input type="hidden" name="head_pic" id="goods_file{$goods.rec_id}" value="{$goods.goods_file_url}">
+                                                    <else/>平台提供</if>
                                             </td>
                                         </tr>
                                     </if>
@@ -333,6 +356,25 @@
 			content: $(obj).attr('data-url'),
 		});
 	}
+    function delimg(file,t){
+        $.get(
+            "/index.php?m=Admin&c=Uploadify&a=delupload",{action:"del", filename:file},function(){}
+        );
+        $('#head_pic').val('');
+        $('#preview').attr('src','');
+        $(t).remove();
+    }
+    function add_goods_file(str,input_id){
+        /*var head_pic = $('#head_pic').val();*/
+        $('#'+input_id).val(str);
+        console.log(str);
+        //ajax 修改 订单 文件路径
+        //console.log($(this).attr(val));
+        /*$('#preview').attr('src',str);
+        $('img[class="headpic"]').attr('src',str);*/
+
+    }
+    //再次购买
     $(document).on('click', '.buy_order', function() {
         var order_id = $(this).data('order-id');
         $.ajax({
