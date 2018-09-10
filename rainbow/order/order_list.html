@@ -176,10 +176,12 @@
                                             </td>
                                             <td class="sx3">
                                                 <!--印刷文件-->
-                                                <!--<if condition="$goods.goods_file_id eq '1'">
-                                                    <button type="button" val="{$goods.rec_id}" class="upload_file" onClick="GetUploadify3(1,'head_pic','head_pic','add_img')">上传文件</button>
-                                                    <input type="hidden" name="head_pic" class="head_pic" value="{$user.head_pic}">
-                                                    <else/>平台提供</if>-->
+                                                <if condition="$goods.goods_file_id eq '1'">
+                                                    <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                    <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                    <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                    </span>
+                                                    <else/>平台提供</if>
                                             </td>
                                             <td class="sx4" rowspan="{$list.goods_list|count}">
                                                 <div class="pric_rhz">
@@ -243,8 +245,10 @@
                                             <td class="sx3">
                                                 <!--印刷文件-->
                                                 <if condition="$goods.goods_file_id eq '1'">
-                                                 <button type="button" val="{$goods.rec_id}" class="upload_file" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
-                                                    <input type="hidden" name="head_pic" id="goods_file{$goods.rec_id}" value="{$goods.goods_file_url}">
+                                                    <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                    <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                       <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                    </span>
                                                     <else/>平台提供</if>
                                             </td>
                                         </tr>
@@ -278,6 +282,54 @@
             })
         })
     })
+    //印刷文件上传回调函数
+    function add_goods_file(str,input_id,file_title){
+        $('#'+input_id).val(str);
+        var rec_id = input_id.substr(10);  //goods_order 的id
+        //console.log(file_title);
+        //ajax 修改 订单 文件路径
+        $.ajax({
+            url:"{:U('Home/Order/upload_goods_file')}",
+            type:'POST',
+            dataType:'JSON',
+            data:{rec_id:rec_id,goods_file_url:str,goods_file_name:file_title},
+            success:function(data){
+                if(data.status == 1){
+                    layer.alert(data.msg, {icon: 1},function(){
+                        layer.closeAll();
+                        $("#goods_name"+rec_id).text(file_title);
+                        $("#goods_file"+rec_id).attr('val',str);
+                        $('#'+input_id).show();
+                        $("#upload_file"+rec_id).hide();
+                    })
+                }else{
+                    layer.alert(data.msg, {icon: 2});
+                }
+            },
+            error : function() {
+                layer.alert('网络失败，请刷新页面后重试', {icon: 2});
+            }
+        });
+    }
+    function delfile(rec_id){
+        layer.confirm('确定删除文件吗?', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                var file = $("#goods_file"+rec_id).attr('val');
+                //alert(file)
+                $.get(
+                    "/index.php?m=Admin&c=Uploadify&a=delupload",{action:"del", filename:file},function(){}
+                );
+                layer.closeAll();
+                $("#goods_file"+rec_id).hide();
+                $("#upload_file"+rec_id).show();
+            }, function(index){
+                layer.closeAll();
+            }
+        );
+
+    }
+
     //取消订单
     function cancel_order(id){
         layer.confirm('确定取消订单?', {
@@ -356,24 +408,7 @@
 			content: $(obj).attr('data-url'),
 		});
 	}
-    function delimg(file,t){
-        $.get(
-            "/index.php?m=Admin&c=Uploadify&a=delupload",{action:"del", filename:file},function(){}
-        );
-        $('#head_pic').val('');
-        $('#preview').attr('src','');
-        $(t).remove();
-    }
-    function add_goods_file(str,input_id){
-        /*var head_pic = $('#head_pic').val();*/
-        $('#'+input_id).val(str);
-        console.log(str);
-        //ajax 修改 订单 文件路径
-        //console.log($(this).attr(val));
-        /*$('#preview').attr('src',str);
-        $('img[class="headpic"]').attr('src',str);*/
 
-    }
     //再次购买
     $(document).on('click', '.buy_order', function() {
         var order_id = $(this).data('order-id');

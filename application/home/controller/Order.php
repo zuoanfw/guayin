@@ -144,7 +144,30 @@ class Order extends Base {
             $this->ajaxReturn(['status' => 1, 'msg' => $error[0]]);
         }
     }
-
+    /*
+         * 上传订单印刷文件
+         */
+    public function upload_goods_file()
+    {
+        $good_order_id = I('rec_id/d',0);
+       // $good_order_id = substr($good_order_file,10);
+        //echo $good_order_id;
+        $goods_file_url = I('goods_file_url',0);
+        $data['rec_id'] = $good_order_id;
+        $data['goods_file_name'] = I('goods_file_name');
+        $data['goods_file_url'] = $goods_file_url;
+        //$order = new  \app\common\logic\Order();
+        Db::name('order_goods')->where(array('rec_id'=>$good_order_id))->save($data);
+        $this->ajaxReturn(['status' => 1, 'msg' => '上传成功']);
+        /*try{
+            $order->setOrderById($order_id);
+            $order->setUserId($this->user_id);
+            $order->userDelOrder();
+        }catch (TpshopException $t){
+            $error = $t->getErrorArr();
+            $this->ajaxReturn(['status' => 1, 'msg' => $error[0]]);
+        }*/
+    }
     /*
      * 取消订单
      */

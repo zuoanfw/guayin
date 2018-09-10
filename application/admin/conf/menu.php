@@ -75,6 +75,7 @@ return	array(
 					array('name' => '商品属性', 'act'=>'goodsAttributeList', 'op'=>'Goods'),
 					array('name' => '评论列表', 'act'=>'index', 'op'=>'Comment'),
 					array('name' => '商品咨询', 'act'=>'ask_list', 'op'=>'Comment'),
+                    array('name' => '优惠券','act'=>'index', 'op'=>'Coupon'),
 			)),
 			array('name' => '订单','child'=>array(
 					array('name' => '订单列表', 'act'=>'index', 'op'=>'Order'),
@@ -89,16 +90,16 @@ return	array(
 			        array('name' => '拼团订单','act'=>'order_list','op'=>'Team'),
 			        array('name' => '上门自提','act'=>'index','op'=>'ShopOrder'),*/
 			)),
-			array('name' => '促销','child' => array(
+			/*array('name' => '促销','child' => array(
 					array('name' => '抢购管理', 'act'=>'flash_sale', 'op'=>'Promotion'),
 					array('name' => '团购管理', 'act'=>'group_buy_list', 'op'=>'Promotion'),
 					array('name' => '优惠促销', 'act'=>'prom_goods_list', 'op'=>'Promotion'),
 					array('name' => '订单促销', 'act'=>'prom_order_list', 'op'=>'Promotion'),
 					array('name' => '优惠券','act'=>'index', 'op'=>'Coupon'),
-					/*array('name' => '预售管理','act'=>'pre_sell_list', 'op'=>'Promotion'),
+					array('name' => '预售管理','act'=>'pre_sell_list', 'op'=>'Promotion'),
 					array('name' => '拼团管理','act'=>'index', 'op'=>'Team'),
-					array('name' => '搭配购管理','act'=>'index', 'op'=>'Combination'),*/
-			)),
+					array('name' => '搭配购管理','act'=>'index', 'op'=>'Combination'),
+			)),*/
 			
 			/*array('name' => '分销','child' => array(
 					array('name' => '分销商品列表', 'act'=>'goods_list', 'op'=>'Distribut'),

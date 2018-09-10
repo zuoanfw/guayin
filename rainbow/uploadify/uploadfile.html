@@ -106,7 +106,7 @@ $(function(){
 			"compress":false
 	};
 	Manager.upload($.extend(config, {type : "Images"}));
-	
+
 	/*点击保存按钮时
 	 *判断允许上传数，检测是单一文件上传还是组文件上传
 	 *如果是单一文件，上传结束后将地址存入$input元素
@@ -117,6 +117,7 @@ $(function(){
         var nowthis = "{$info.this}";
 		var num = {$info.num|default=1};
 		var fileurl_tmp = [];
+		var file_title = '';
 		var input_id = "{$info.input}";
 		if(callback != "undefined"){	
 			if(num > 1){	
@@ -124,9 +125,11 @@ $(function(){
 					fileurl_tmp[index] = dom.value;
 				 });	
 			}else{
-				fileurl_tmp = $("input[name^='fileurl_tmp']").val();	
+			    //印刷 文件上传走的这一步
+				fileurl_tmp = $("input[name^='fileurl_tmp']").val();
+				var file_title = $("#WU_FILE_0").find(".title").text();
 			}
-			eval('window.parent.'+callback+'(fileurl_tmp,input_id)');
+			eval('window.parent.'+callback+'(fileurl_tmp,input_id,file_title)');
 			window.parent.layer.closeAll();
 			return;
 		}					 

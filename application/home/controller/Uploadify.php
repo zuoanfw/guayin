@@ -54,7 +54,7 @@ class Uploadify extends Base {
         $info = array(
             'num'=> I('num/d'),
             'title' => '',
-            'upload' =>U('Uploadify/upFile',array('savepath'=>$path,'pictitle'=>'banner','dir'=>'images')),
+            'upload' =>U('Uploadify/imageUp',array('savepath'=>$path,'pictitle'=>'banner','dir'=>'images')),
             'fileList'=>U('Uploadify/fileList',array('path'=>$path)),
             'size' => $image_upload_limit_size/(1024 * 1024).'M',
             'type' =>'jpg,png,gif,jpeg,zip,rar,psd',
@@ -511,7 +511,8 @@ class Uploadify extends Base {
 		//$input_file ['upfile'] = $info['Filedata'];  一个是上传插件里面来的, 另外一个是 文章编辑器里面来的
 		// 获取表单上传文件
 		$file = request()->file('file');
-	
+
+		//halt($file);
 		if(empty($file))
 			$file = request()->file('upfile');
 		$result = $this->validate(
@@ -527,7 +528,7 @@ class Uploadify extends Base {
 			$ossSupportPath = ['comment', 'photo'];
 			if (in_array(I('savepath'), $ossSupportPath) && $ossConfig['oss_switch']) {
 				//商品图片可选择存放在oss
-				$object = UPLOAD_PATH.$savePath.md5(time()).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
+				/*$object = UPLOAD_PATH.$savePath.md5(time()).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
 				$ossClient = new \app\common\logic\OssLogic;
 				$return_url = $ossClient->uploadFile($file->getRealPath(), $object);
 				if (!$return_url) {
@@ -536,7 +537,7 @@ class Uploadify extends Base {
 				} else {
 					$state = "SUCCESS";
 				}
-				@unlink($file->getRealPath());
+				@unlink($file->getRealPath());*/
 			} else {
 				// 移动到框架应用根目录/public/uploads/ 目录下
 				$info = $file->rule(function ($file) {
@@ -548,8 +549,11 @@ class Uploadify extends Base {
 					$state = "ERROR" . $file->getError();
 				}
 				$return_url = '/'.UPLOAD_PATH.$savePath.$info->getSaveName();
+				$oldname = $info->getInfo();
+				//halt($oldname);
 			}
 			$return_data['url'] = $return_url;
+            $return_data['oldname'] = $oldname['name'];
 		}
 	
 		$return_data['title'] = $title;
