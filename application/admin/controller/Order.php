@@ -311,6 +311,39 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
     }
 
     /**
+     * 订单印刷文件审核
+     * @return json
+     */
+    public function verify_file(){
+        $order_id = input('order_id', 0);
+        //echo $order_id;exit;
+        $rec_id = input('rec_id', 0);
+        $goods_file_state = input('goods_file_state', 0);
+        //保存当前订单商品的审核状态
+        $data['goods_file_state'] = $goods_file_state; //0 未审核 1 通过 2 不通过
+        Db::name('order_goods')->where(array('rec_id'=>$rec_id))->save($data);
+
+        //遍历订单里所有商品，当所有商品的审核状态都是通过的时候改变订单文件上传状态为已上传  file_status 0待上传 1 已上传
+        $order_goods = Db::name('order_goods')->where(array('order_id'=>$order_id))->field('goods_file_state')->select();
+        //halt($order_goods);
+        $file_status = 0;  //0待上传 1 已上传
+        foreach ($order_goods as $vo){
+              if($vo['goods_file_state'] != '1'){
+                  $file_status = 0;
+                  break;
+              }else{
+                  $file_status = 1;
+              }
+        }
+        if($file_status == 1){
+            //修改订单的上传状态
+            $data1['file_status'] = $file_status; //0待上传 1 已上传
+            Db::name('order')->where(array('order_id'=>$order_id))->save($data1);
+        }
+        $this->ajaxReturn(['status'=>1,'msg'=>'操作成功！','data'=>$goods_file_state]);
+    }
+
+    /**
      * 获取订单操作记录
      */
     public function getOrderAction(){

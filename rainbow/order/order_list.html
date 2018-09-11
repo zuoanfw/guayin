@@ -176,12 +176,27 @@
                                             </td>
                                             <td class="sx3">
                                                 <!--印刷文件-->
-                                                <if condition="$goods.goods_file_id eq '1'">
-                                                    <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
-                                                    <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
-                                                    <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
-                                                    </span>
-                                                    <else/>平台提供</if>
+                                                <switch $goods.goods_file_id>
+                                                    <case value="1">
+                                                        <switch $goods.goods_file_state>
+                                                            <case value="1">
+                                                                审核通过
+                                                            </case>
+                                                            <case value="2">
+                                                                审核不通过<br>
+                                                                <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                                <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                                <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                            </case>
+                                                            <default/> 未审核<br>
+                                                            <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                            <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                            <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                        </switch>
+                                                        </span>
+                                                    </case>
+                                                    <default />平台提供
+                                                </switch>
                                             </td>
                                             <td class="sx4" rowspan="{$list.goods_list|count}">
                                                 <div class="pric_rhz">
@@ -244,12 +259,27 @@
                                             </td>
                                             <td class="sx3">
                                                 <!--印刷文件-->
-                                                <if condition="$goods.goods_file_id eq '1'">
-                                                    <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
-                                                    <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
-                                                       <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
-                                                    </span>
-                                                    <else/>平台提供</if>
+                                                <switch $goods.goods_file_id>
+                                                    <case value="1">
+                                                        <switch $goods.goods_file_state>
+                                                            <case value="1">
+                                                                审核通过
+                                                            </case>
+                                                            <case value="2">
+                                                                审核不通过<br>
+                                                                <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                                <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                                <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                            </case>
+                                                            <default/> 未审核<br>
+                                                            <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                            <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                            <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                        </switch>
+                                                       </span>
+                                                    </case>
+                                                    <default />平台提供
+                                                </switch>
                                             </td>
                                         </tr>
                                     </if>
@@ -318,7 +348,7 @@
                 var file = $("#goods_file"+rec_id).attr('val');
                 //alert(file)
                 $.get(
-                    "/index.php?m=Admin&c=Uploadify&a=delupload",{action:"del", filename:file},function(){}
+                    "/index.php?m=Home&c=Uploadify&a=delfile",{action:"del", filename:file, rec_id:rec_id},function(){}
                 );
                 layer.closeAll();
                 $("#goods_file"+rec_id).hide();

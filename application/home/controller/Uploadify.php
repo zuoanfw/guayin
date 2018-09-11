@@ -15,6 +15,7 @@ namespace app\home\controller;
 use common\util\File;
 use think\Image;
 use think\Request;
+use think\Db;
 
 class Uploadify extends Base {
 	private $sub_name = array('date', 'Y/m-d');
@@ -29,7 +30,7 @@ class Uploadify extends Base {
 		header("Content-Type: text/html; charset=utf-8");
 	}
 	
-	public function upload(){
+	public function uploadpic(){
 		$func = I('func');
 		$path = I('path','temp');
 		$image_upload_limit_size = config('image_upload_limit_size');
@@ -50,11 +51,11 @@ class Uploadify extends Base {
     public function uploadfile(){
         $func = I('func');
         $path = I('path','temp');
-        $image_upload_limit_size = config('image_upload_limit_size');
+        $image_upload_limit_size = 1024 * 1024 * 20;  //上传文件 设置20M
         $info = array(
             'num'=> I('num/d'),
             'title' => '',
-            'upload' =>U('Uploadify/imageUp',array('savepath'=>$path,'pictitle'=>'banner','dir'=>'images')),
+            'upload' =>U('Uploadify/fileUp',array('savepath'=>$path,'pictitle'=>'printfile','dir'=>'images')),
             'fileList'=>U('Uploadify/fileList',array('path'=>$path)),
             'size' => $image_upload_limit_size/(1024 * 1024).'M',
             'type' =>'jpg,png,gif,jpeg,zip,rar,psd',
@@ -91,6 +92,32 @@ class Uploadify extends Base {
 			exit;
 		}
 	}
+    /*
+     删除上传的印刷文件
+    */
+    public function delfile(){
+        $action = I('action','del');
+        $filename= I('filename');
+        $rec_id= I('rec_id/d');
+        $data['goods_file_name'] = '';
+        $data['goods_file_url'] = '';
+        $data['goods_file_state'] = 0; //0 未审核 1 通过 2 不通过
+        Db::name('order_goods')->where(array('rec_id'=>$rec_id))->save($data);
+        $filename= empty($filename) ? I('url') : $filename;
+        $filename= str_replace('../','',$filename);
+        $filename= trim($filename,'.');
+        $filename= trim($filename,'/');
+        if($action=='del' && !empty($filename) && file_exists($filename)){
+            $fileArr = explode('/', $filename);
+            if($fileArr[3] != cookie('user_id')) return false;
+            if(unlink($filename)){
+                echo 1;
+            }else{
+                echo 0;
+            }
+            exit;
+        }
+    }
 	
 	public function fileList(){
 		/* 判断类型 */
@@ -562,4 +589,53 @@ class Uploadify extends Base {
 		$return_data['path'] = $path;
 		$this->ajaxReturn($return_data,'json');
 	}
+    /**
+     * @function fileUp 印刷文件上传
+     */
+    public function fileUp()
+    {
+        // 上传图片框中的描述表单名称，
+        $pictitle = I('pictitle');
+        $dir = I('dir');
+        $title = htmlspecialchars($pictitle , ENT_QUOTES);
+        $path = htmlspecialchars($dir, ENT_QUOTES);
+        //$input_file ['upfile'] = $info['Filedata'];  一个是上传插件里面来的, 另外一个是 文章编辑器里面来的
+        // 获取表单上传文件
+        $file = request()->file('file');
+
+        //halt($file);
+        if(empty($file))
+            $file = request()->file('upfile');
+        $result = $this->validate(
+            ['file' => $file],
+            ['file'=>'fileSize:20971520000|fileExt:jpg,jpeg,gif,png,zip,rar,psd'],
+            ['file.fileSize' => '上传文件过大','file.fileExt'=>'上传文件后缀名必须为jpg,jpeg,gif,png,zip,rar,psd']
+        );
+        if (true !== $result || !$file) {
+            $state = "ERROR" . $result;
+        } else {
+            $savePath = 'user/'.cookie('user_id').'/'.$this->savePath.'/';
+
+            // 移动到框架应用根目录/public/uploads/ 目录下
+            $info = $file->rule(function ($file) {
+                return  md5(mt_rand()); // 使用自定义的文件保存规则
+            })->move(UPLOAD_PATH.$savePath);
+            if ($info) {
+                $state = "SUCCESS";
+            } else {
+                $state = "ERROR" . $file->getError();
+            }
+            $return_url = '/'.UPLOAD_PATH.$savePath.$info->getSaveName();
+            $oldname = $info->getInfo();
+            //halt($oldname);
+            $return_data['url'] = $return_url;
+            $return_data['oldname'] = $oldname['name'];
+        }
+
+        $return_data['title'] = $title;
+        $return_data['original'] = ''; // 这里好像没啥用 暂时注释起来
+        $return_data['state'] = $state;
+        $return_data['path'] = $path;
+        $this->ajaxReturn($return_data,'json');
+    }
 }

@@ -4,6 +4,8 @@
 <title>文件管理</title>
 <link rel="stylesheet" type="text/css" href="/public/plugins/webuploader/webuploader.css">
 <link rel="stylesheet" type="text/css" href="/public/plugins/webuploader/css/style.css">
+	<script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+	<script src="__PUBLIC__/js/layer/layer.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="upload-box">
@@ -82,7 +84,6 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="/public/plugins/webuploader/webuploader.min.js"></script>
 <script type="text/javascript" src="/public/plugins/webuploader/upload.js"></script>
 <script>
@@ -96,8 +97,8 @@ $(function(){
 			"chunked":false,
 			"chunkSize":52428800,
 			"fileNumLimit":{$info.num|default=1},
-			"fileSizeLimit":20971520000,
-			"fileSingleSizeLimit":209715200,
+			//"fileSizeLimit":20971520000,
+			"fileSingleSizeLimit":20 * 1024 * 1024,
 			"fileVal":"file",
 			"auto":true,
 			"formData":{},
