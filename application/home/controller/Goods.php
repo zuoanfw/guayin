@@ -504,7 +504,7 @@ class Goods extends Base
     {
         //C('URL_MODEL',0);
         $filter_param = array(); // 帅选数组                        
-        $id = I('get.id/d', 0); // 当前分类id
+        $id = I('get.id/d', 8); // 当前分类id
         $brand_id = I('brand_id', 0);
         $sort = I('sort', 'sort'); // 排序
         $sort_asc = I('sort_asc', 'desc'); // 排序
@@ -540,7 +540,7 @@ class Goods extends Base
             }
         }
         if ($id) {
-            $cat_id_arr = getCatGrandson($id);
+            $cat_id_arr = getCatGrandson($id);//获取某个商品分类的 儿子 孙子  重子重孙 的 id
             $where['cat_id'] = array('in', implode(',', $cat_id_arr));
         }
         $search_goods = M('goods')->where($where)->getField('goods_id,cat_id');

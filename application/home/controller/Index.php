@@ -64,6 +64,7 @@ class Index extends Base {
         	$cat_path = explode('_', $v['parent_id_path']);
         	$hot_cate[$cat_path[1]][] = $v;
         }
+        //halt($this->cateTrre);
         foreach ($this->cateTrre as $k=>$v){
             if($v['is_hot']==1){
         		$v['hot_goods'] = empty($hot_goods[$k]) ? '' : $hot_goods[$k];
@@ -74,6 +75,7 @@ class Index extends Base {
                 $goods_category_tree[] = $v;
             }
         }
+        //halt($goods_category_tree);
         $this->assign('cateList',$cateList);
         $this->assign('goods_category_tree',$goods_category_tree);
         return $this->fetch();

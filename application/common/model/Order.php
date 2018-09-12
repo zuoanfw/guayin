@@ -89,7 +89,7 @@ class Order extends Model
             if ($data['pay_status'] == 0 && $data['order_status'] == 0){
                 return $data_status_arr['WAITPAY']; //'待支付',
             }
-            if($data['file_status'] == 0){
+            if($data['file_status'] == 0 && $data['pay_status'] != 0){
                 return $data_status_arr['WAITUPLOAD']; //'上传设计文件',
             }
             if ($data['pay_status'] == 1 && in_array($data['order_status'], array(0, 1)) && $data['shipping_status'] != 1){

@@ -622,9 +622,9 @@ user-select:none;
     position: absolute;
     top:39px;
     left: 209px;
-    width: 1013px;
+    width: 813px;
     min-height: 449px;
-    border: 1px solid #333;
+    border: 1px solid #ddd;
     background: white;
     display: none;
 }

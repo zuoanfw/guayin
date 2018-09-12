@@ -44,6 +44,11 @@
         border:1px solid #7abd54;
         background-color: #7abd54;
     }
+    .upload_file{
+        padding: 4px 6px;
+        background-color: #ff8a5c;
+        color: #fff;
+    }
 </style>
 <div class="home-index-middle">
     <div class="w1224">
@@ -344,7 +349,7 @@
                         <li class="sx3">购买单价</li>
                         <li class="sx4">赠送积分</li>
                         <li class="sx5">商品数量</li>
-                        <li class="sx6">操作</li>
+                        <li class="sx6">上传设计文件</li>
                     </ul>
                 </div>
             </div>
@@ -373,7 +378,29 @@
                             </td>
                             <td class="sx6">
                                 <div class="twrbac">
-                                    <if condition="($order.order_button['comment_btn'] eq 1) and ($goods['is_comment'] eq 0)">
+                                    <!--印刷文件-->
+                                    <switch $goods.goods_file_id>
+                                        <case value="1">
+                                            <switch $goods.goods_file_state>
+                                                <case value="1">
+                                                  <span style="line-height: 90px">审核通过</span>
+                                                </case>
+                                                <case value="2">
+                                                    审核不通过<br>
+                                                    <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                    <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                    <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                </case>
+                                                <default/> 未审核<br>
+                                                <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                            </switch>
+                                            </span>
+                                        </case>
+                                        <default />平台提供
+                                    </switch>
+                                    <!--<if condition="($order.order_button['comment_btn'] eq 1) and ($goods['is_comment'] eq 0)">
                                         <a href="{:U('Home/Order/comment_list',array('order_id'=>$order['order_id'],'rec_id'=>$goods['rec_id']))}">评价</a>
                                     </if>
                                     <if condition="($order.order_button['return_btn'] eq 1) and ($goods[is_send] lt 2)">
@@ -385,7 +412,7 @@
                                     </p>
                                     <if condition="$goods[is_send] eq 0 and $order.shop_id eq 1"><a>未发货</a></if>
                                     <if condition="$goods[is_send] eq 1"><a>已发货</a></if>
-                                    <if condition="$goods[is_send] gt 1"><a>已申请售后</a></if>
+                                    <if condition="$goods[is_send] gt 1"><a>已申请售后</a></if>-->
                                 </div>
                             </td>
                         </tr>
@@ -414,6 +441,54 @@
 
 <!--footer-e-->
 <script>
+    //印刷文件上传回调函数
+    function add_goods_file(str,input_id,file_title){
+        $('#'+input_id).val(str);
+        var rec_id = input_id.substr(10);  //goods_order 的id
+        //console.log(file_title);
+        //ajax 修改 订单 文件路径
+        $.ajax({
+            url:"{:U('Home/Order/upload_goods_file')}",
+            type:'POST',
+            dataType:'JSON',
+            data:{rec_id:rec_id,goods_file_url:str,goods_file_name:file_title},
+            success:function(data){
+                if(data.status == 1){
+                    layer.alert(data.msg, {icon: 1},function(){
+                        layer.closeAll();
+                        $("#goods_name"+rec_id).text(file_title);
+                        $("#goods_file"+rec_id).attr('val',str);
+                        $('#'+input_id).show();
+                        $("#upload_file"+rec_id).hide();
+                    })
+                }else{
+                    layer.alert(data.msg, {icon: 2});
+                }
+            },
+            error : function() {
+                layer.alert('网络失败，请刷新页面后重试', {icon: 2});
+            }
+        });
+    }
+    function delfile(rec_id){
+        layer.confirm('确定删除文件吗?', {
+                btn: ['确定','取消'] //按钮
+            }, function(){
+                var file = $("#goods_file"+rec_id).attr('val');
+                //alert(file)
+                $.get(
+                    "/index.php?m=Home&c=Uploadify&a=delfile",{action:"del", filename:file, rec_id:rec_id},function(){}
+                );
+                layer.closeAll();
+                $("#goods_file"+rec_id).hide();
+                $("#upload_file"+rec_id).show();
+            }, function(index){
+                layer.closeAll();
+            }
+        );
+
+    }
+
     //未支付取消订单
     function cancel_order(id){
         layer.confirm("确定取消订单?",{
