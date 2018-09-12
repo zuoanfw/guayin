@@ -310,8 +310,10 @@ return [
     'CATEGORY'=>['系统通知','物流通知', '优惠促销','商品提醒','我的资产'],
     'TEAM_TYPE' => [0 => '分享团', 1 => '佣金团', 2 => '抽奖团'],
     'FREIGHT_TYPE' => [0 => '件数', 1 => '重量', 2 => '体积'],
-    // 订单用户端显示状态
+
+    // 用户中心端显示订单状态 查询
     'WAITPAY'=>' AND pay_status = 0 AND order_status = 0 AND pay_code !="cod" ', //订单查询状态 待支付
+    'WAITUPLOAD'=>' AND file_status = 0', //订单查询状态 待上传文件
     'WAITSEND'=>' AND (pay_status=1 OR pay_code="cod") AND shipping_status !=1 AND order_status in(0,1) ', //订单查询状态 待发货
     'WAITRECEIVE'=>' AND shipping_status=1 AND order_status = 1 ', //订单查询状态 待收货    
     'WAITCCOMMENT'=> ' AND order_status=2 ', // 待评价 确认收货     //'FINISHED'=>'  AND order_status=1 ', //订单查询状态 已完成 
@@ -319,10 +321,12 @@ return [
     'CANCEL'=> ' AND order_status = 3 ', // 已取消
     'CANCELLED'=> 'AND order_status = 5 ',//已作废
     'PAYED'=>' AND (order_status=2 OR (order_status=1 AND pay_status=1) ) ', //虚拟订单状态:已付款
-    
+    // 订单状态描述
     'ORDER_STATUS_DESC' => [
         'WAITPAY' => '待支付',
-        'WAITSEND'=>'待发货',
+        'WAITUPLOAD'=>'待上传文件',
+        //'WAITSEND'=>'待发货',
+        'WAITSEND'=>'生产中',
         'PORTIONSEND'=>'部分发货',
         'WAITRECEIVE'=>'待收货',
         'WAITCCOMMENT'=> '待评价',

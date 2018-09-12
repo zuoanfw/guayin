@@ -126,6 +126,7 @@ class Order extends Base {
             $this->redirect(U('virtual/virtual_order', ['order_id' => $id]));
         }
         //echo $order['delivery_method'];
+        //halt($order);
         //halt($order->append(['delivery_method'])->toArray());exit;
         $this->assign('order', $order);
         return $this->fetch();

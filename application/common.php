@@ -615,6 +615,8 @@ function orderStatusDesc($order_id = 0, $order = array())
     // 货到付款
     if($order['pay_code'] == 'cod')
     {
+        if($order['file_status'] == 0)
+            return 'WAITUPLOAD'; //'待上传文件',
         if(in_array($order['order_status'],array(0,1)) && $order['shipping_status'] == 0)
             return 'WAITSEND'; //'待发货',
     }
@@ -622,6 +624,8 @@ function orderStatusDesc($order_id = 0, $order = array())
     {
         if($order['pay_status'] == 0 && $order['order_status'] == 0)
             return 'WAITPAY'; //'待支付',
+        if($order['file_status'] == 0)
+            return 'WAITUPLOAD'; //'待上传文件',
         if($order['pay_status'] == 1 &&  in_array($order['order_status'],array(0,1)) && $order['shipping_status'] == 0)
             return 'WAITSEND'; //'待发货',
         if($order['pay_status'] == 1 &&  $order['shipping_status'] == 2 && $order['order_status'] == 1)

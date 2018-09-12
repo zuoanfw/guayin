@@ -377,7 +377,7 @@
                             <tr>
                                 <td style="text-align: left;">
                                     <a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$cart['goods_id']))}">
-                                    <div style="float: left"><img src="{$cart.goods_id|goods_thum_images=102,102}" alt=""></div>
+                                    <div style="float: left"><img width="102" src="{$cart.goods_id|goods_thum_images=102,102}" alt=""></div>
                                     <div style="float: left;padding-left: 10px;padding-top: 5px;">{$cart.goods_name}<br><br>
                                     <span style="color: #666">{$cart[spec_key_name]}</span></div>
                                    </a>
@@ -1074,7 +1074,7 @@
             var longitude = address_item_select.data('longitude');
             var latitude = address_item_select.data('latitude');
             last_select_address_arr = new last_select_address(province_id,city_id,district_id,town_id,address_name,address_tel,longitude,latitude);
-            get_shop_list(province_id, city_id, district_id, '', longitude, latitude);
+            //get_shop_list(province_id, city_id, district_id, '', longitude, latitude);
             ajax_order_price(); // 计算订单价钱
         }
     }
@@ -1293,7 +1293,7 @@
      * 获取自提点
      */
     function get_shop_list(province_id, city_id, district_id, shop_address, longitude, latitude) {
-        $.ajax({
+        /*$.ajax({
             type: "POST",
             url: "{:U('Home/Api/shop')}",
             dataType: 'json',
@@ -1314,7 +1314,7 @@
                 }
                 door_to_door_hide_or_show();
             }
-        });
+        });*/
     }
     function set_shop_list() {
         var shop_html = '';
@@ -1564,7 +1564,7 @@
                 layer.open({icon:2,time:2000,content:"请填写地址或者店名"});
                 return;
             }
-            get_shop_list(province_id.val(), city_id.val(), district_id.val(), shop_address, last_select_address_arr.longitude, last_select_address_arr.latitude);
+            //get_shop_list(province_id.val(), city_id.val(), district_id.val(), shop_address, last_select_address_arr.longitude, last_select_address_arr.latitude);
         })
         //点击自提点
         $(document).on("click", ".business-list label", function (e) {

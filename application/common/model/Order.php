@@ -78,13 +78,19 @@ class Order extends Model
         $data_status_arr = C('ORDER_STATUS_DESC');
         // 货到付款
         if ($data['pay_code'] == 'cod') {
+            if($data['file_status'] == 0){
+                return $data_status_arr['WAITUPLOAD']; //'上传设计文件',
+            }
             if (in_array($data['order_status'], array(0, 1)) && $data['shipping_status'] == 0) {
-                return $data_status_arr['WAITSEND']; //'待发货',
+                return $data_status_arr['WAITSEND']; //'生产中 ，待发货',
             }
         } else {
             // 非货到付款
             if ($data['pay_status'] == 0 && $data['order_status'] == 0){
                 return $data_status_arr['WAITPAY']; //'待支付',
+            }
+            if($data['file_status'] == 0){
+                return $data_status_arr['WAITUPLOAD']; //'上传设计文件',
             }
             if ($data['pay_status'] == 1 && in_array($data['order_status'], array(0, 1)) && $data['shipping_status'] != 1){
                 if ($data['prom_type'] == 5) { //虚拟商品

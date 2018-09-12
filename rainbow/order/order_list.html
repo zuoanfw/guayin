@@ -39,7 +39,10 @@
                                 <a href="{:U('Order/order_list',array('type'=>'WAITPAY'))}" class="<if condition="$Request.param.type eq 'WAITPAY'">selected</if>">待付款</a>
                             </li>
                             <li>
-                                <a href="{:U('Order/order_list',array('type'=>'WAITSEND'))}" class="<if condition="$Request.param.type eq 'WAITSEND'">selected</if>">待发货</a>
+                                <a href="{:U('Order/order_list',array('type'=>'WAITUPLOAD'))}" class="<if condition="$Request.param.type eq 'WAITUPLOAD'">selected</if>">待上传文件</a>
+                            </li>
+                            <li>
+                                <a href="{:U('Order/order_list',array('type'=>'WAITSEND'))}" class="<if condition="$Request.param.type eq 'WAITSEND'">selected</if>">生产中</a>
                             </li>
                             <li>
                             <a href="{:U('Order/order_list',array('type'=>'WAITRECEIVE'))}" class="<if condition="$Request.param.type eq 'WAITRECEIVE'">selected</if>">待收货</a>
