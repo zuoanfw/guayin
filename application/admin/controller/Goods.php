@@ -316,7 +316,7 @@ class Goods extends Base {
             update_stock_log(session('admin_id'), $store_count_change_num, ['goods_id' => $goods['goods_id'], 'goods_name' => $goods['goods_name']]);//库存日志
         }
         $GoodsLogic = new GoodsLogic();
-        $GoodsLogic->afterSave($goods['goods_id']); //数据保存   规格等
+        $GoodsLogic->afterSave($goods['goods_id']); //商品数据提交保存   规格等
         $GoodsLogic->saveGoodsAttr($goods['goods_id'], $goods['goods_type']); // 处理商品 属性
         $return_arr = ['status' => 1, 'msg' => '操作成功'];
         $this->ajaxReturn($return_arr);

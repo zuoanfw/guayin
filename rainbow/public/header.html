@@ -198,7 +198,7 @@
 														  <dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a></dt>
 														  <dd class="clearfix">
 															  <tpshop sql="SELECT * FROM `__PREFIX__goods` where is_on_sale = 1 and is_virtual = 0 and cat_id = '$v3[id]' ORDER BY `sort` DESC" key="k4" item='v4'>
-																  <a href="{:U('Home/Goods/goodsInfo',array('id'=>$v4[goods_id]))}"  target="_blank">{$v4[goods_name]}</a>
+																  <a href="{:U('Home/Goods/goodsInfo',array('id'=>$v4[goods_id]))}"  target="_blank">{$v4[mobile_name]}</a>
 															  </tpshop>
 															 <!-- <foreach name="v2['sub_menu']" key="k3" item='v3'>
 																  <if condition="$v3[parent_id] eq $v2['id']">
@@ -222,7 +222,7 @@
 									  <div class="item-left">
 										  <h3 class="cata-nav-name">
 											  <div class="cata-nav-wrap">
-												  <a href="{:U('Home/Goods/goodsList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+												  <a href="{:U('Home/Goods/packList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
 											  </div>
 										  </h3>
 									  </div>
@@ -233,11 +233,11 @@
 											  <foreach name="v['tmenu']" key="k2" item='v2'>
 												  <if condition="$v2[parent_id] eq $v['id']">
 													  <dl class="clearfix">
-														  <dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+														  <dt><a href="{:U('Home/Goods/packList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
 														  <dd class="clearfix">
 															  <foreach name="v2['sub_menu']" key="k3" item='v3'>
 																  <if condition="$v3[parent_id] eq $v2['id']">
-																	  <a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+																	  <a href="{:U('Home/Goods/packList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
 																  </if>
 															  </foreach>
 														  </dd>

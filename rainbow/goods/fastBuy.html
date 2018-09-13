@@ -11,12 +11,6 @@
 	<script src="__PUBLIC__/js/global.js"></script>
 	<script src="__PUBLIC__/js/pc_common.js"></script>
     <style>
-        @media screen and (min-width:1260px) and (max-width: 1465px) {
-            .w1430{width: 1224px;}
-        }
-        @media screen and (max-width: 1260px) {
-            .w1430{width: 983px;}
-        }
         .stsho {
             width: 1224px;
         }
@@ -91,9 +85,11 @@
 	<div class="w1224">
         <div class="brand_tap">
             <ul>
-                <foreach name="cateArr" item="v" key="k">
+                <!--<foreach name="cateArr" item="v" key="k">
                     <li <if condition="$cat_id eq $v['id']"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>$v['id']))}">{$v[name]}</a></li>
-                </foreach>
+                </foreach>-->
+                <li <if condition="$cat_id eq 8"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>8))}">爆品印品</a></li>
+                <li <if condition="$cat_id eq 3"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>3))}">现货通用品</a></li>
             </ul>
         </div>
 		<div class="stsho fl">

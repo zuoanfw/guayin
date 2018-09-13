@@ -31,7 +31,12 @@
     <div class="w1224">
         <div class="search-path fl">
             <foreach name="navigate_goods" key="k" item="v">
-                <a href="{:U('/Home/Goods/goodsList',array('id'=>$k))}">{$v}</a>
+                <if condition="$goods.cat_id eq '3'">
+                    <!--现货通用品数量计算-->
+                    <a href="{:U('/Home/Goods/fastBuy',array('id'=>$k))}">{$v}</a>
+                 <else/>
+                    <a href="{:U('/Home/Goods/goodsList',array('id'=>$k))}">{$v}</a>
+                 </if>
                 <i class="litt-xyb"></i>
             </foreach>
             <div class="havedox">
@@ -223,24 +228,8 @@
 
                 </script>
                 <!-- 规格end ]]-->
-                <if condition="$goods.cat_id eq '2'">
-                    <!--爆款印品   按照规格的数量计算-->
-                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
-                    <div class="spec_goods_price_div standard p">
-                        <ul>
-                            <li class="jaj"><span>印刷文件：</span></li>
-                            <li class="lawir colo1">
-                                <input type="hidden" id="goods_file_id" name="goods_file_id" value="1"/>
-                                <a val="1" class="goods_file_item red">
-                                        使用自己的设计
-                                </a>
-                                <a val="2" class="goods_file_item">
-                                    需要帮我设计
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                 <else/>
+                <if condition="$goods.cat_id eq '3'">
+                    <!--现货通用品数量计算-->
                     <div class="standard" style="padding: 13px 10px">
                         <ul class="p">
                             <li class="jaj"><span>数&nbsp;&nbsp;量：</span></li>
@@ -252,6 +241,23 @@
                                     <a class="add" href="javascript:void(0);" onclick="altergoodsnum(1)">+</a>
                                 </div>
                                 <div class="sav_shop">库存：<span id="spec_store_count">{$goods['store_count']}</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                 <else/>
+                    <!--爆款印品   按照规格的数量计算-->
+                    <input  id="number" type="hidden" name="goods_num" value="{$filter_spec['数量(张)'][0]['item']}">
+                    <div class="spec_goods_price_div standard p">
+                        <ul>
+                            <li class="jaj"><span>印刷文件：</span></li>
+                            <li class="lawir colo1">
+                                <input type="hidden" id="goods_file_id" name="goods_file_id" value="1"/>
+                                <a val="1" class="goods_file_item red">
+                                    使用自己的设计
+                                </a>
+                                <a val="2" class="goods_file_item">
+                                    需要帮我设计
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -328,22 +334,23 @@
                     </li>
                 </ul>
                 </div>
-                <if condition="$goods.cat_id eq '2'">
-                <div class="standard p" style="padding-top:10px; ">
-                    <img src="__STATIC__/images/goodinfo_11.jpg" alt="">
-                    <span class="goods_price">
+                <if condition="$goods.cat_id eq '3'">
+                    <!--现货通用的价格显示-->
+                    <div class="standard p">
+                        <ul>
+                            <li class="jaj"><span>限时促销：</span></li>
+                            <li class="lawir">
+                                <span class="service"><span><span id="goods_price">{$goods.market_price}</span></span></span>
+                            </li>
+                        </ul>
+                    </div>
+                 <else/>
+                    <div class="standard p" style="padding-top:10px; ">
+                        <img src="__STATIC__/images/goodinfo_11.jpg" alt="">
+                        <span class="goods_price">
                         <span id="goods_price_all"><em>￥</em></span>
                         <span>（平均<span id="goods_price"></span>元/张）</span>
                     </span>
-                </div>
-                 <else/>
-                    <div class="standard p">
-                        <ul>
-                    <li class="jaj"><span>限时促销：</span></li>
-                    <li class="lawir">
-                        <span class="service"><span><span id="goods_price">{$goods.market_price}</span></span></span>
-                    </li>
-                        </ul>
                     </div>
                 </if>
                 <div class="shop-price-cou p" style="display: none">
@@ -496,24 +503,6 @@
 </script>
 <!--footer-s-->
 <include file="public/footer"/>
-<!--看了又看-s-->
-<div style="display: none" id="look_see">
-    <foreach name="look_see" item="look" key="k">
-        <div class="tjhot-shoplist type-bot">
-            <div class="alone-shop">
-                <a href="{:U('Home/Goods/goodsInfo',array('id'=>$look[goods_id]))}">
-                    <img class="wiahides"src="{$look.goods_id|goods_thum_images=206,206}" style="display: inline;"></a>
-                <p class="shop_name2">
-                    <a href="{:U('Home/Goods/goodsInfo',array('id'=>$look[goods_id]))}">{$look.goods_name}</a>
-                </p>
-                <p class="price-tag">
-                    <span class="li_xfo">￥</span><span>{$look.shop_price}</span>
-                </p>
-            </div>
-        </div>
-    </foreach>
-    <!--看了又看-s-->
-</div>
 <!--footer-e-->
 <script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="__STATIC__/js/headerfooter.js"></script>
