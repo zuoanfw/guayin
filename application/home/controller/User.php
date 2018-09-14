@@ -234,7 +234,7 @@ class User extends Base{
             if(!empty($invite)){
             	$invite = get_user_info($invite,2);//根据手机号查找邀请人
             }
-            $data = $logic->reg($username,$password,0,$invite);
+            $data = $logic->reg($username,$password,0,$invite); //注册插入数据库
             if($data['status'] != 1){
                 $this->ajaxReturn($data);
             }

@@ -79,6 +79,9 @@ user-select:none;
 .tpshop-tm-hander {
     background-color: white;
 }
+.tpshop-tm-hander {
+    border-bottom: 2px solid #ff8a5c;
+}
 .red,.ls-dlzc a:hover{
     color: #ff8a5c
 }
@@ -109,9 +112,9 @@ user-select:none;
     padding: 0 10px;
     cursor: pointer;
 }
-.top-ri-header>li:hover{
+/*.top-ri-header>li:hover{
     color: #ff8a5c;
-}
+}*/
 .top-ri-header .hover-ba-navdh:hover {
     color: #666;
     border-color: #ccc;

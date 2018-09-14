@@ -15,7 +15,7 @@ namespace app\admin\controller;
 
 class Uploadify extends Base{
    
-    public function upload(){
+    public function uploadpic(){
         $func = I('func');
         $path = I('path','temp');
 		$image_upload_limit_size = config('image_upload_limit_size');

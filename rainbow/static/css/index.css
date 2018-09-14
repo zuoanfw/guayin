@@ -179,9 +179,10 @@
 .carousel-inner .item-pic{
     position: absolute;
     top: 0;
-    left: 50%;
+    /*left: 50%;
     margin-left: -402px;
-    width: 814px;
+    width: 814px;*/
+    width: 100%;
     height: 450px;
     overflow: hidden;
 }
@@ -232,43 +233,8 @@
 .carousel .carousel-control:hover{
     opacity:.6;
 }
-.banner-right-box{
-    position: absolute;
-    top: 0;
-    left: 50%;
-    margin-left: 412px;
-    width: 200px;
-    height: 440px;
-    padding-top: 10px;
-}
-.banner-right-item{
-    display: block;
-    width: 200px;
-    height: 210px;
-    margin-bottom:10px;
-    opacity: 0.7;
-}
-.banner-right-item:hover{
-    opacity: 1;
-}
-
 
 /*广告图*/
-.adv3 {
-    padding-top: 20px;
-    height: 180px;
-    overflow: hidden;
-    background: url("../images/bg-brand.jpg") no-repeat 0 20px;
-}
-.adv3 .recommend-brand{
-    float: left;
-    width: 400px;
-    height: 168px;
-    margin-left: 6px;
-    margin-top: 6px;
-    overflow: hidden;
-    background-color: #f5f5f5;
-}
 .adver_line{
     display: block;
     width: 1224px;
@@ -322,30 +288,30 @@
     color:#e23435;
 }
 .floor-main{
-    height: 538px;
+    height: 578px;
 }
 .floor-brand{
     float: left;
-    width: 240px;
+    width: 300px;
     min-height:1px;
 }
 .floor-brand .brand-big{
     display: block;
-    width: 240px;
+    width: 300px;
     height: 385px;
     overflow: hidden;
     margin-bottom: 13px;
 }
 .floor-brand .brand-samll{
     display: block;
-    width: 240px;
-    height: 140px;
+    width: 300px;
+    height: 180px;
     overflow: hidden;
 }
 .floor-goods-list{
     float: left;
-    width: 964px;
-    height: 538px;
+    width: 910px;
+    height: 578px;
     margin-left: 13px;
     overflow: hidden;
     background-color: #fff;
@@ -353,9 +319,9 @@
 }
 .floor-goods-item{
     float: left;
-    width: 167px;
-    padding: 0 40px;
-    height: 268px;
+    width: 260px;
+    padding: 0 21px;
+    height: 288px;
     border-bottom: 1px solid #eee;
     border-right: 1px solid #eee;
     overflow: hidden;
@@ -366,103 +332,28 @@
 }
 .floor-goods-item .googs-title{
     font-size: 16px;
-    width: 167px;
-    height: 24px;
-    line-height: 24px;
-    padding-top: 24px;
+    width: 220px;
+    height: 28px;
+    line-height: 28px;
+    padding: 5px 0px;
     color: #333;
+    text-align: center;
 }
-.floor-goods-item .googs-price{
+.floor-goods-item .googs-remark{
     font-size:14px;
-    width: 167px;
-    height: 48px;
-    line-height: 48px;
-    color: #f71b1c;
+    width: 220px;
+    height: 28px;
+    line-height: 28px;
+    color: #999999;
 }
 .floor-goods-item .goods-pic{
-    width: 167px;
-    height: 167px;
+    width: 240px;
+    height: 240px;
+    padding-top: 8px;
     margin:auto;
     overflow: hidden;
 }
-.floor-recommend{
-    float: left;
-    width: 226px;
-    height: 538px;
-    background-color: #fff;
-}
-.floor-recommend-title{
-    height: 52px;
-    padding-left: 15px;
-    line-height: 52px;
-    font-size: 16px;
-    color: #333;
-    border-bottom: 1px solid #eee;
-}
-.floor-recommend-wrap{
-    position: relative;
-    height: 432px;
-    overflow: hidden;
-}
-.floor-recommend-list{
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-.floor-recommend-item{
-    display: block;
-    width: 195px;
-    height: 67px;
-    padding: 20px 15px;
-    border-bottom: 1px solid #eee;
-}
-.floor-recommend-item:hover{
-    background-color: #f5f5f5;
-}
-.floor-recommend-pic{
-    float: left;
-    width: 67px;
-    height: 67px;
-    margin-right: 10px;
-    overflow: hidden;
-}
-.floor-recommend-cont{
-    float: left;
-    width: 118px;
-}
-.recommend-goods-name{
-    width: 118px;
-    height: 14px;
-    font-size: 14px;
-    line-height: 1;
-    margin-bottom: 7px;
-    color: #333;
-}
-.recommend-goods-des{
-    height: 22px;
-    line-height: 22px;
-    font-size: 12px;
-    color: #999;
-}
-.recommend-goods-price{
-    color: #f50c0c;
-}
-.recommend-more-btn{
-    display: block;
-    height: 53px;
-    line-height: 53px;
-    text-align: right;
-    font-size: 12px;
-    color: #999;
-}
-.recommend-more-btn>i{
-    font-family: consolas;
-    margin: 0 10px;
-    font-size: 16px;
-}
-.recommend-more-btn:hover{
-    color:#e23435;
-}
+
 .call_service{
     background-color: #fff;
     width: 100%;

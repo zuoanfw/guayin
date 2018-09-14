@@ -127,7 +127,7 @@ class Goods extends Base
     }
 
     /**
-     * 商品列表页
+     * 爆品商品列表页
      */
     public function goodsList()
     {

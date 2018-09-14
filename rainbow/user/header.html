@@ -3,11 +3,6 @@
 <script src="__PUBLIC__/static/js/layer/layer.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
 <link rel="shortcut icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/logo.png'}" media="screen"/>
-<style>
-	.tpshop-tm-hander{
-		border-bottom: 2px solid #ff8a5c;
-	}
-</style>
 <div class="tpshop-tm-hander">
 	<div class="top-hander">
 		<div class="w1224 pr clearfix">
@@ -158,6 +153,146 @@
 	</div>
 	<div class="nav w1224 clearfix">
 
+		<div class="categorys home_categorys">
+			<div class="dt">
+				<a href="" target="_blank"><i class="share-a_a2"></i>全部商品分类</a>
+			</div>
+			<!--全部商品分类-s-->
+			<div class="dd">
+				<div class="cata-nav" id="cata-nav">
+					<volist name="goods_category_tree" id="v" key="kr">
+						<switch name="v.id">
+							<case value="8">
+								<!-- 爆品快购  遍历分类从二级开始-->
+								<foreach name="v['tmenu']" key="k2" item='v2'>
+									<div class="item">
+										<div class="item-left">
+											<h3 class="cata-nav-name">
+												<div class="cata-nav-wrap">
+													<a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" title="{$v2[name]}">{$v2[mobile_name]}</a>
+												</div>
+											</h3>
+										</div>
+										<div class="cata-nav-layer">
+											<div class="cata-nav-left">
+												<div class="subitems">
+													<foreach name="v2['sub_menu']" key="k3" item='v3'>
+														<if condition="$v3[parent_id] eq $v2['id']">
+															<dl class="clearfix">
+																<dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a></dt>
+																<dd class="clearfix">
+																	<tpshop sql="SELECT * FROM `__PREFIX__goods` where is_on_sale = 1 and is_virtual = 0 and cat_id = '$v3[id]' ORDER BY `sort` DESC" key="k4" item='v4'>
+																		<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v4[goods_id]))}"  target="_blank">{$v4[mobile_name]}</a>
+																	</tpshop>
+																	<!-- <foreach name="v2['sub_menu']" key="k3" item='v3'>
+                                                                         <if condition="$v3[parent_id] eq $v2['id']">
+                                                                             <a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+                                                                         </if>
+                                                                     </foreach>-->
+																</dd>
+															</dl>
+														</if>
+													</foreach>
+												</div>
+											</div>
+										</div>
+									</div>
+								</foreach>
+							</case>
+							<case value="4">
+								<!-- // 包装专区-->
+								<div class="item">
+									<if condition="$v[level] eq 1">
+										<div class="item-left">
+											<h3 class="cata-nav-name">
+												<div class="cata-nav-wrap">
+													<a href="{:U('Home/Goods/packList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+												</div>
+											</h3>
+										</div>
+									</if>
+									<div class="cata-nav-layer">
+										<div class="cata-nav-left">
+											<div class="subitems">
+												<foreach name="v['tmenu']" key="k2" item='v2'>
+													<if condition="$v2[parent_id] eq $v['id']">
+														<dl class="clearfix">
+															<dt><a href="{:U('Home/Goods/packList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+															<dd class="clearfix">
+																<foreach name="v2['sub_menu']" key="k3" item='v3'>
+																	<if condition="$v3[parent_id] eq $v2['id']">
+																		<a href="{:U('Home/Goods/packList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+																	</if>
+																</foreach>
+															</dd>
+														</dl>
+													</if>
+												</foreach>
+											</div>
+										</div>
+									</div>
+								</div>
+							</case>
+							<default/>
+							<div class="item">
+								<if condition="$v[level] eq 1">
+									<div class="item-left">
+										<h3 class="cata-nav-name">
+											<div class="cata-nav-wrap">
+												<!--<i class="ico ico-nav-{$kr-1}"></i>-->
+												<a href="{:U('Home/Goods/goodsList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+											</div>
+											<!--<a href="" >手机店</a>-->
+										</h3>
+									</div>
+								</if>
+								<div class="cata-nav-layer">
+									<div class="cata-nav-left">
+										<div class="subitems">
+											<foreach name="v['tmenu']" key="k2" item='v2'>
+												<if condition="$v2[parent_id] eq $v['id']">
+													<dl class="clearfix">
+														<dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+														<dd class="clearfix">
+															<foreach name="v2['sub_menu']" key="k3" item='v3'>
+																<if condition="$v3[parent_id] eq $v2['id']">
+																	<a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+																</if>
+															</foreach>
+														</dd>
+													</dl>
+												</if>
+											</foreach>
+										</div>
+									</div>
+									<div class="advertisement_down">
+										<adv pid="10+$kr" item="v3" limit="5">
+											<a href="{$v3[ad_link]}" <if condition="$v3['target'] eq 1">target="_blank"</if>>
+											<img class="w-100" src="{$v3[ad_code]}" title="{$v3[title]}"/>
+											</a>
+										</adv>
+									</div>
+									<adv item="az" pid="51" limit="1">
+										<a href="{$az[ad_link]}" class="cata-nav-rigth" <if condition="$az['target'] eq 1">target="_blank"</if>>
+										<img class="w-100" src="{$az[ad_code]}" title="{$az[title]}" />
+										</a>
+									</adv>
+								</div>
+							</div>
+						</switch>
+
+					</volist>
+				</div>
+				<script>
+                    $('#cata-nav').find('.item').hover(function () {
+                        $(this).addClass('nav-active').siblings().removeClass('nav-active');
+                    },function () {
+                        $(this).removeClass('nav-active');
+                    })
+				</script>
+			</div>
+			<!--全部商品分类-e-->
+		</div>
 	<ul class="navitems clearfix" id="navitems">
 		<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
 		<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>

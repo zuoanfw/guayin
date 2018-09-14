@@ -41,6 +41,28 @@
             </dl>
             <dl class="row">
                 <dt class="tit">
+                    <label for="reg_integral">每日登陆赠送积分</label>
+                </dt>
+                <dd class="opt">
+                    <input onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" pattern="^\d{1,}$" id="login_integral" name="login_integral" value="{$config.login_integral}" class="input-txt" type="text">
+                    <span class="err">只能输入整数</span>
+
+                    <p class="notic">每日登陆赠送积分</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="reg_integral">完善基本资料赠送积分</label>
+                </dt>
+                <dd class="opt">
+                    <input onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" pattern="^\d{1,}$" id="userinfo_integral" name="userinfo_integral" value="{$config.userinfo_integral}" class="input-txt" type="text">
+                    <span class="err">只能输入整数</span>
+
+                    <p class="notic">完善基本资料赠送积分</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
                     <label>邀请注册开关</label>
                 </dt>
                 <dd class="opt">
@@ -64,7 +86,7 @@
                 </dd>
             </dl>
 
-            <dl class="row">
+           <!-- <dl class="row">
                 <dt class="tit">
                     <label>VIP充值开关</label>
                 </dt>
@@ -116,7 +138,7 @@
 
                     <p class="notic">会员充值返利上级(元)</p>
                 </dd>
-            </dl>
+            </dl>-->
 
 
             <dl class="row">

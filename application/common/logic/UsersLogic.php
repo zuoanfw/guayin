@@ -60,6 +60,18 @@ class UsersLogic extends Model
             $levelName = Db::name("user_level")->where("level_id", $levelId)->getField("level_name");
             $user['level_name'] = $levelName;
 
+            //判断用户当天是否是第一次登陆 增加积分
+            $last_login = $user['last_login'];
+            $today = strtotime(date('Y-m-d'));
+            if($last_login < $today) {
+                $basic = tpCache('basic');
+                $add_integral =$basic['login_integral'];
+                accountLog($user['user_id'], 0,$add_integral, '每日登陆赠送积分'); // 记录日志流水
+            }
+
+            $data1 = ['last_login' => time()];
+            M('users')->where("user_id", $user['user_id'])->save($data1);
+
             $result = array('status' => 1, 'msg' => '登陆成功', 'result' => $user);
         }
         return $result;
@@ -385,7 +397,8 @@ class UsersLogic extends Model
         if(!empty($head_pic)){
             $map['head_pic'] = $head_pic;
         }else{
-            $map['head_pic']='/public/images/icon_goods_thumb_empty_300.png';
+            //$map['head_pic']='/public/images/icon_goods_thumb_empty_300.png';
+            $map['head_pic']='';
         }
 
         $data=[
@@ -414,9 +427,10 @@ class UsersLogic extends Model
 			$map['first_leader'] = 0;
 		}
 		if(is_array($invite) && !empty($invite)){
-			$map['first_leader'] = $invite['user_id'];
+            //暂不支持下级下单分成，只赠送积分
+			/*$map['first_leader'] = $invite['user_id'];
 			$map['second_leader'] = $invite['first_leader'];
-			$map['third_leader'] = $invite['second_leader'];
+			$map['third_leader'] = $invite['second_leader'];*/
             //需要给推荐人送积分
             $basic = tpCache('basic');
             $invite_integral =$basic['invite_integral'];

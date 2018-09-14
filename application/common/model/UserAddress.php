@@ -31,7 +31,7 @@ class UserAddress extends Model {
             $query += $area_list[3]['name'];
         }
         $query += $data['address'];
-        $address_url = "http://api.map.baidu.com/place/v2/search?query=".$query."&region=".$region."&output=json&ak=iR2qhnXd5vrFI9wUuIRG9AWGIqykVNok&page_size=1&page_num=1";
+        $address_url = "http://api.map.baidu.com/place/v2/search?query=".$query."&region=".$region."&output=json&ak=YS98vTHsjeSS1GBn84kUwf8a&page_size=1&page_num=1";
         $address_result = httpRequest($address_url,"get");
         $address_data = json_decode($address_result, true);
         if(count($address_data['results']) == 0){
@@ -40,7 +40,7 @@ class UserAddress extends Model {
             }else{
                 $query = $area_list[2]['name'];
             }
-            $address_url = "http://api.map.baidu.com/place/v2/search?query=".$query."&region=".$region."&output=json&ak=iR2qhnXd5vrFI9wUuIRG9AWGIqykVNok&page_size=1&page_num=1";
+            $address_url = "http://api.map.baidu.com/place/v2/search?query=".$query."&region=".$region."&output=json&ak=YS98vTHsjeSS1GBn84kUwf8a&page_size=1&page_num=1";
             $address_result = httpRequest($address_url,"get");
             $address_data = json_decode($address_result, true);
         }
