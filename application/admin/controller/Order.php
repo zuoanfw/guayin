@@ -3,7 +3,7 @@
  * tpshop
  * ============================================================================
  * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 网站地址: http://www.guaguayin.cn
  * ----------------------------------------------------------------------------
  * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
  * 不允许对程序代码以任何形式任何目的的再发布。
@@ -119,7 +119,7 @@ class Order extends Base {
     // 虚拟订单
     public function virtual_info(){
     header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     }
 
     public function virtual_cancel(){
@@ -284,7 +284,7 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
                 $pay_code_arr = ['weixin'/*PC+公众号微信支付*/ , 'alipay'/*APP,PC支付宝支付*/   , 'alipayMobile'/*手机支付宝支付*/ , 'miniAppPay'/*小程序微信支付*/  , 'appWeixinPay'/*APP微信支付*/];
                 if(in_array($order['pay_code'] , $pay_code_arr)){
 		header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
                 }else{
                     $this->error('该订单支付方式不支持在线退回');
                 }
@@ -739,7 +739,7 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
     */
     public function delivery_batch(){
 		header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     }
 
     /**
@@ -747,7 +747,7 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
     */
     public function delivery_batch_handle(){
 		header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     }
 
     /**

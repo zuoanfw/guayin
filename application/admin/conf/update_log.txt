@@ -1,4 +1,4 @@
-TPshop 2.5.2版本 更新日志
+guaguayin 2.5.2锟芥本 锟斤拷锟斤拷锟斤拷志
 
 www/public/template/mobile/new/cart/cart.html
 www/public/template/pc/default/cart/cart.html

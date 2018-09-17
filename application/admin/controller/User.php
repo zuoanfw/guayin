@@ -3,7 +3,7 @@
  * tpshop
  * ============================================================================
  * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 网站地址: http://www.guaguayin.cn
  * ----------------------------------------------------------------------------
  * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
  * 不允许对程序代码以任何形式任何目的的再发布。
@@ -769,7 +769,7 @@ class User extends Base {
     			$rdata = array('type'=>1,'money'=>$val['money'],'log_type_id'=>$val['id'],'user_id'=>$val['user_id']);
     			if($atype == 'online'){
 			header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     			}else{
     				accountLog($val['user_id'], ($val['money'] * -1), 0,"管理员处理用户提现申请");//手动转账，默认视为已通过线下转方式处理了该笔提现申请
     				$r = M('withdrawals')->where(array('id'=>$val['id']))->save(array('status'=>2,'pay_time'=>time()));
@@ -795,7 +795,7 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
      */
     public function signList() {       
     header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     }
     
     
@@ -805,7 +805,7 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
      */
     public function ajaxsignList() {
     header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     }
     
     /**
@@ -814,6 +814,6 @@ exit("请联系TPshop官网客服购买高级版支持此功能");
      */
     public function signRule() {
     header("Content-type: text/html; charset=utf-8");
-exit("请联系TPshop官网客服购买高级版支持此功能");
+exit("请联系guaguayin官网客服购买高级版支持此功能");
     }
 }

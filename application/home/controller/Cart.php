@@ -430,13 +430,13 @@ class Cart extends Base
                 $bankCodeList[$val['code']] = unserialize($val['bank_code']);
             }
         }
-
+        $set_time=C('abolish_order'); //自动取消时间/天 默认1天
         $bank_img = include APP_PATH . 'home/bank.php'; // 银行对应图片
         $this->assign('paymentList', $paymentList);
         $this->assign('bank_img', $bank_img);
         $this->assign('order', $order);
         $this->assign('bankCodeList', $bankCodeList);
-        $this->assign('pay_date', date('Y-m-d', strtotime("+1 day")));
+        $this->assign('pay_date', date('Y-m-d', strtotime("+$set_time day")));
         $this->assign('cart_step','3');
         return $this->fetch();
     }
