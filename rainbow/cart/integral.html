@@ -80,196 +80,37 @@
 				<li class="fl z-parkage-li" id="express_delivery">快递配送<span></span></li>
 				<li class="fl" id="door_to_door" style="display: none">上门自提<span></span></li>
 			</ul>
-			<div class="dis-modes-li p" id="express_delivery_modes">
-				<div class="shipment">
-					<div class="fore1 p">
-						<span class="mode-label">配送时间：</span>
-
-						<div class="mode-infor hover-y">
-							<p><label>工作日、双休日与节假日均可送货</label></p>
-							<!--<p><label><input type="checkbox" name="" value="" /> 双休日、假日送</label></p>-->
-						</div>
-					</div>
-				</div>
-				<div class="standard_wei buy-remarks p">
-					<span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注 :</span>
-					<textarea class="user_note_txt fl" maxlength="50" placeholder="最多输入50个字"></textarea>
-				</div>
-			</div>
-			<div class="dis-modes-li modes-li-two p" id="door_to_door_modes" style="display: none;">
-				<p class="modes-li-title">附近自提点 <span>免运费</span></p>
-
-				<div class="modes-li-select">选择自提点并下单 > 收到提货短信 > 到自提点提货</div>
-				<div class="modes-li-cont">
-					<div class="modes-li-list p" style="margin-bottom: 10px;">
-						<div class="modes-li-input fl">
-							自提时间：
-						</div>
-						<div class="modes-li-dev fl">
-							<input type="text" id="date_time_picker_mask" value="<?php echo date('Y-m-d H:00',strtotime('+1 day')); ?>" />
-						</div>
-						<div class="modes-li-ups fl" id="modify_take_time" onclick=" $('#date_time_picker_mask').datetimepicker('show');">
-							修改自提时间
-						</div>
-					</div>
-				</div>
-				<div class="modes-li-cont">
-					<div class="modes-li-list p">
-						<div class="modes-li-input fl">
-							<input type="radio" checked name="modes-radio" id="modes-cked1" value=""/>
-							<label for="modes-cked1"></label>
-						</div>
-						<div class="modes-li-dev fl">
-							<span id="shop_address_desc"></span>
-							<span class="modes-li-pone" id="shop_mobile"></span>
-						</div>
-						<div class="modes-li-distance fl">
-							<i class="li-distance-i"></i>距离：<span id="shop_distance"></span><em id="distance_near" style="display: none;">距离最近</em>
-						</div>
-					</div>
-				</div>
-				<div class="modes-li-instead">
-					<a href="javascript:void(0)" id="replace_shop">更换自提点>></a>
-				</div>
-			</div>
 		</div>
-		<script>
-			$.datetimepicker.setLocale('zh');
-			$('#date_time_picker_mask').datetimepicker({
-				mask:'',
-				format: "Y-m-d H:i",
-				minDate: new Date()
-			}).on('change', function(ev){
-				init_take_time();
-			});
-			init_take_time();
-			function init_take_time()
-			{
-				var take_time_date = $('#date_time_picker_mask').val();
-				take_time_date += ':00';
-				var timestamp = Date.parse(new Date(take_time_date));
-				timestamp = timestamp / 1000;
-				$("input[name='take_time']").val(timestamp);
-			}
-		</script>
-		<!--更改自提点 s-->
-		<div class="z-instead-bg">
-		</div>
-		<div class="z-instead-cont">
-			<div class="z-instead-head p">
-				<div class="fl z-instead-title"><i></i>选择自提点</div>
-				<div class="fr z-instead-close" id="shop_dialog_close">关闭</div>
-			</div>
-			<div class="z-instead-nav p">
-				<ul class="fl p">
-					<li class="fl p">
-						<div class="instead-num">1</div>
-						<div class="instead-name">选择自提点并下单</div>
-						<div class="instead-icon"></div>
-					</li>
-					<li class="fl p">
-						<div class="instead-num">2</div>
-						<div class="instead-name">收到提货短信</div>
-						<div class="instead-icon"></div>
-					</li>
-					<li class="fl p">
-						<div class="instead-num">3</div>
-						<div class="instead-name">到自提点提货</div>
-					</li>
-				</ul>
-				<dl class="fr">
-					<dt class="p">
-					<div class="insteads instead-icon-money fr">安全保管</div>
-					<div class="insteads instead-icon-any fr">随时自提</div>
-					<div class="insteads instead-icon-compensate fr">丢失赔付</div>
-					</dt>
-				</dl>
-			</div>
-			<div class="select-region-wrap">
-				<div class="select-region-nav">
-					<table style="max-width: 70%;" border="0" cellspacing="0" cellpadding="0" class="fl">
-						<tr class="select-tr">
-							<td class="select-qu"><span class="xh"></span>选择区域：</td>
-							<td>
-								<select class="di-bl fl seauii" name="province" id="address_province" onChange="get_city(this,'address_city','address_district')">
-									<option value="0">请选择</option>
-								</select>
-
-								<select class="di-bl fl seauii" name="city" id="address_city" onChange="get_area(this,'address_district')">
-									<option value="0">请选择</option>
-								</select>
-
-								<select class="di-bl fl seauii" name="district" id="address_district" onChange="get_twon(this)">
-									<option value="0">请选择</option>
-								</select>
-								<br>
-							</td>
-						</tr>
-					</table>
-					<div class="region-search-wrap fl p">
-						<div class="select-region-search fl">
-							<input type="text" id="shop_address" placeholder="输入地址或者店名搜索"/>
-							<label></label>
-						</div>
-						<div class="select-region-btn fl">
-							<input type="button" id="search_shop" value="搜索"/>
-							<label></label>
-						</div>
-					</div>
-					<div class="select-business-wrap p">
-						<div style="height: 25px;"></div>
-						<div class="select-business-map fl p">
-							<div id="container" style="width: 100%;height:100%;"></div>
-						</div>
-						<div class="select-business-list fr" id="shop_list">
-						</div>
-					</div>
-					<div class="select-business-foot p">
-						<div class="business-foot fl">
-							*<span class="business-foot-name">
-                            提货人 :
-                        </span>
-							<input id="consignee" type="text" placeholder="请输入提货人" maxlength="30"/>
-							<label></label>
-						</div>
-						<div class="business-foot fl">
-							*<span class="business-foot-name">
-                            联系方式 :
-                        </span>
-							<input id="mobile" type="text" placeholder="请输入联系方式" maxlength="11"/>
-							<label></label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="business-bottom-wrap p">
-				<div class="business-bottom fl" id="shop_dialog_cancle">
-					<a>取消</a>
-				</div>
-				<div class="business-bottom fr">
-					<input type="button" id="shop_submit" value="确定"/>
-					<label></label>
-				</div>
-			</div>
-		</div>
-		<!--更改自提点 e-->
 		<div class="sendgoodslist z-parkage-cont">
 			<div class="w1224">
-				<div class="top_leg p ma-to-20">
-					<span class="paragraph fl"><i class="ddd"></i>送货清单</span>
-					<if condition="$Request.param.action neq 'buy_now'">
-						<a class="newadd fr" href="{:U('Home/Cart/index')}">返回修改购物车</a>
-					</if>
-					<a class="newadd fr hover-y">
-						<i class="las-warning"></i>价格说明
-						<div class="pairgoods">
-							<p class="tit">因可能存在系统缓存、页面更新导致价格变动异常等不确定性情况出现，商品售价以本结算页商品价格为准；如有疑问，请您立即联系销售商咨询</p>
-						</div>
-					</a>
-				</div>
 				<!--商品列表-s-->
 				<div class="shopping-listpay">
 					<div class="goods-list-ri">
+						<div class="goodsforma">
+							<table>
+								<tr><th width="30%">商品</th><th  width="10%">单价（元）</th><th  width="10%">数量</th><th  width="10%">所需金额（元）</th><th  width="15%">所需瓜豆</th></tr>
+									<tr>
+										<td style="text-align: left;">
+											<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
+												<div style="float: left"><img width="102" src="{$goods.goods_id|goods_thum_images=102,102}" alt=""></div>
+												<div style="float: left;padding-left: 10px;padding-top: 5px;">{$goods.goods_name}<br></div>
+											</a>
+											<div class="p-img-tips" id="goods_shipping_img_{$goods[goods_id]}"
+												 style="display: none">暂无商品
+											</div>
+										</td>
+										<td>￥ {$goods_price}</td>
+										<td>{$goods_num}</td>
+										<td>￥ {:round($goods_price-$goods['exchange_integral']/$point_rate,2)}</td>
+										<td>{$goods['exchange_integral']}</td>
+									</tr>
+							</table>
+							<div class="buy-remarks p">
+								<textarea class="user_note_txt fl" maxlength="50" placeholder="给我们留言，可填写与客服协商一致的内容（最多输入50个字）"></textarea>
+							</div>
+						</div>
+					</div>
+					<!--<div class="goods-list-ri">
 						<div class="goodsforma">
 							<div class="modti p">
 							</div>
@@ -297,32 +138,18 @@
 										</div>
 										<div class="msp_return">
 											<p class="guarantee-item">
-												<!--<i class="return7"></i><span class="f_blue">支持七天无理由退货</span>-->
-												<!--<i class="return7 return7-dark"></i><span class="f_dark">不支持七天无理由退货</span>-->
+												&lt;!&ndash;<i class="return7"></i><span class="f_blue">支持七天无理由退货</span>&ndash;&gt;
+												&lt;!&ndash;<i class="return7 return7-dark"></i><span class="f_dark">不支持七天无理由退货</span>&ndash;&gt;
 											</p>
-											<!--<p class="btn-check-date"><i class="yb-h-gwc return7"></i><span class="f_blue f-999">选延保</span></p>-->
+											&lt;!&ndash;<p class="btn-check-date"><i class="yb-h-gwc return7"></i><span class="f_blue f-999">选延保</span></p>&ndash;&gt;
 										</div>
 									</div>
 								</li>
 							</ul>
 						</div>
-					</div>
+					</div>-->
 				</div>
 				<!--商品列表-e-->
-			</div>
-		</div>
-		<div class="addremark">
-			<div class="w1224">
-				<div class="top_leg p ma-to-20">
-					<span class="paragraph fl"><i class="ddd"></i>发票信息</span>
-				</div>
-				<div class="invoice-cont ma-to-20" id="changeinfo">
-					<span id="span1">普通发票（纸质）</span>
-					<span id="span2">个人</span>
-					<span id="span3">明细</span>
-					<span id="span4" style="display:none">不开发票</span>
-					<a onclick="invoice_dialog();" href="javascript:void(0);">修改</a>
-				</div>
 			</div>
 		</div>
 
@@ -406,106 +233,6 @@
 				</button>
 			</div>
 		</div>
-		<!--发票信息弹窗-s--->
-		<div class="ui-dialog  ui-invoice infom-dia">
-			<div class="ui-dialog-title">
-				<span>发票信息</span>
-				<a class="ui-dialog-close" title="关闭">
-					<span class="ui-icon ui-icon-delete"></span>
-				</a>
-			</div>
-			<div class="ui-dialog-content" style="height: 600px">
-				<div class="invoice-dialog">
-					<div class="tab-nav p">
-						<ul>
-							<li>
-								<div class="item_select_t curtr">
-									<span>普通发票</span>
-									<b></b>
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="zinvoice-tips">
-						<i>1</i>
-						<span class="tip-cont">开票金额不包优惠券和积分支付部分。<!--<a target="_blank" class="newadd" href="">发票信息相关问题&gt;&gt;</a>--></span>
-						<i>2</i>
-						<span class="tip-cont">开企业抬头发票须填写纳税人识别号，以免影响报销</span>
-					</div>
-					<div class="ui-switchable-panel">
-						<div class="invoice_title p">
-							<span class="label">发票抬头：</span>
-							<div class="fl">
-								<input class="invoice_tt" type="text"  value="个人" onclick="hidediv();" id="personage"  READONLY/>
-								<div id="adddiv" class="invoice_tt" style="display:none">
-									<div class='fl'  style="margin-left:-5px">
-										<input class='invoice_tt' type='text' value="" id='invoice_title'/>
-										<a  onclick='save_invoice();'  class='btn-9'  style="margin-left:0px;margin-top: 5px">保存</a>
-										<a  onclick='togglediv();'  class='btn-9'  style="margin-left:0px;margin-top: 5px">取消</a>
-									</div>
-								</div>
-								</br>
-								<a onclick="togglediv()" href="javascript:void(0);" id="addinvoice">新增单位发票</a>
-							</div>
-						</div>
-
-						<div class="invoice_title p">
-
-
-						</div>
-
-						<div id="ratepaying" style="display:none" class="invoice_title p">
-							<span class="label">纳税人编号：</span>
-							<div class="fl">
-								<input class="invoice_tt" type="text" value="" id="taxpayer"/>
-							</div>
-						</div>
-						<div class="invoice_title p">
-							<span class="label">发票内容：</span>
-							<input type="hidden" name="invoice_desc" id="invoice_desc" value="">
-
-							<div class="fl">
-								<div class="tab-nav p" >
-									<ul id="invoice_class">
-										<li>
-											<div class="item_select_t curtr" id="no_invoice">
-												<span>不开发票</span>
-												<b></b>
-											</div>
-										</li>
-										<li>
-											<div class="item_select_t" id="detail_invoice">
-												<span>明细</span>
-												<b></b>
-											</div>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<script type="text/javascript">
-							var invoice_type = $('#invoice_class');
-							$("#invoice_desc").val(invoice_type.find('.curtr').find('span').text());
-								invoice_type.find('li').click(function() {
-								invoice_type.find('div').attr("class", "item_select_t");
-								$("#invoice_desc").val($(this).find('span').text());
-								$(this).find('div').attr("class", "item_select_t curtr");
-							});
-						</script>
-						<div class="invoice_title p">
-							<span class="label">&nbsp;</span>
-							<div class="fl">
-								<div class="op-btns  invoice_sendwithgift">
-									<a id="invoiceBtn" class="btn-1">保存</a>
-									<a onclick="$('.ui-dialog-close').trigger('click');" class="btn-9">取消</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!--发票信息弹窗-e--->
         <!--编辑地址弹窗-e--->
         <div class="ui-mask" id="address_dialog_mask"></div>
         <!--编辑地址弹窗-s--->
@@ -608,29 +335,8 @@
 			$(document).ready(function(){
 				ajax_address();
 				get_province();
-				self_motion_load();
+				//self_motion_load(); //获取发票信息
 			});
-			//发票
-			$(function() {
-				$(document).on('click','#invoiceBtn',function(){
-					var invoice_desc = $("#invoice_desc").val();
-					if (!$('#ratepaying').is(":hidden")){
-						var invoice_title = $("#invoice_title").val();
-					}else{
-						var invoice_title = "个人";
-					}
-					$('#span2').text(invoice_title);
-					$('#span3').text(invoice_desc);
-					if (invoice_desc == "不开发票") {
-						$("#span1,#span2,#span3").hide();
-						$("#span4").show();
-					}else{
-						$("#span1,#span2,#span3").show();
-						$("#span4").hide();
-					}
-					save_invoice() && $('.ui-dialog-close').trigger('click');
-				});
-			})
 			function hidediv() {
 				$("#invoice_title").css({"border": ""});
 				$("#personage").css({"border": "2px solid #e4393c"});
@@ -672,66 +378,7 @@
 						}
 					}
 				});
-			} 
-			//保存发票
-			function save_invoice() {
-				var invoice_title = $("#personage").val();
-				var invoice_desc = $("#invoice_desc").val();
-				var data = {invoice_title: "个人", invoice_desc: invoice_desc};
-				if (!$('#ratepaying').is(":hidden")&&invoice_desc != "不开发票") {
-					invoice_title = $("#invoice_title").val();
-					if (invoice_title.length == 0) {
-						layer.msg("发票抬头不能为空", {icon: 2});
-						return false;
-					}
-					var taxpayer = $("#taxpayer").val();
-//                    if (taxpayer.length > 0) {
-					if ((taxpayer.length ==15)||(taxpayer.length ==18)||(taxpayer.length ==20)) {
-					}else{
-						layer.msg("请输入正确的纳税人识别号！", {icon: 2});
-						return;
-					}
-					var addressCode = taxpayer.substring(0,6);
-					// 校验地址码
-					var check = checkAddressCode(addressCode);
-					if(!check) {
-						layer.msg("请输入正确的纳税人识别号(地址码)！", {icon: 2});
-						return;
-					}
-					// 校验组织机构代码
-					var orgCode = taxpayer.substring(6,9);
-					check = orgcodevalidate(orgCode);
-					if(!check) {
-						layer.msg("请输入正确的纳税人识别号(组织机构代码) ！", {icon: 2});
-						return;
-					}
-					$('#order_taxpayer').val(taxpayer);
-//                    }
-					$('#order_invoice_title').val(invoice_title);
-					var data = {invoice_title: invoice_title, taxpayer: taxpayer, invoice_desc: invoice_desc};
-				}else{
-					$('#order_taxpayer').val("");
-					$('#order_invoice_title').val("个人");
-//                    $("#invoice_title").val("个人");
-				}
-				if (invoice_desc == "不开发票") {
-					$('#order_invoice_title').val("");
-					$('#order_taxpayer').val("");
-					$("#span1,#span2,#span3").hide();
-					$("#span4").show();
-				}else{
-					$('#span2').text($('#order_invoice_title').val());
-					$('#span3').text(invoice_desc);
-					$("#span4").hide();
-					$("#span1,#span2,#span3").show();
-				}
-				$.post("{:U('Cart/save_invoice')}", data, function(json) {
-					var data = eval("(" + json + ")");
-				});
-//                 window.location.reload();
-				return true;
 			}
-
 			;(function($){
 				$.fn.extend({
 					donetyping: function(callback,timeout){
@@ -889,7 +536,7 @@
 					var longitude = address_item_select.data('longitude');
 					var latitude = address_item_select.data('latitude');
 					last_select_address_arr = new last_select_address(province_id,city_id,district_id,town_id,address_name,address_tel,longitude,latitude);
-					get_shop_list(province_id, city_id, district_id, '', longitude, latitude);
+					//(province_id, city_id, district_id, '', longitude, latitude);
 					ajax_order_price(); // 计算订单价钱
 				}
 			}
@@ -907,7 +554,7 @@
 						if(data.hasOwnProperty('code') && data.code == 301){
 							is_shipping_able = false;
 						}
-						door_to_door_hide_or_show();
+						//door_to_door_hide_or_show();
 						if (data.status != 1) {
 							layer.msg(data.msg, {icon: 2, time: 1000},function(){
 								// 登录超时
@@ -990,15 +637,6 @@
 					}
 				});
 			}
-			//发票弹窗
-			function invoice_dialog(){
-				var dh = $(document).height();
-				var dw = $(document).width();
-				$('.ui-mask').height(dh).width(dw);
-				$('.ui-invoice').show();
-				$('.ui-mask').show();
-				self_motion_load();
-			}
 			//关闭弹窗
 			$(function(){
 				$('.ui-dialog-close').click(function(){
@@ -1028,88 +666,7 @@
                 })
             })
 			//上门自提按钮显示
-			function door_to_door_hide_or_show(){
-				var door_to_door_div = $('#door_to_door');
-				if(is_shipping_able == true && shop_list_data.length > 0){
-					door_to_door_div.show();
-					$('#door_to_door_modes').show();
-				}else{
-					door_to_door_div.hide();
-					$('#door_to_door_modes').hide();
-				}
-				if($("#express_delivery").hasClass('z-parkage-li')){
-					$('#door_to_door_modes').hide();
-				}
-			}
-			/**
-			 * 获取自提点
-			 */
-			function get_shop_list(province_id, city_id, district_id, shop_address, longitude, latitude) {
-				$.ajax({
-					type: "POST",
-					url: "{:U('Home/Api/shop')}",
-					dataType: 'json',
-					data: {
-						province_id: province_id,
-						city_id: city_id,
-						district_id: district_id,
-						shop_address: shop_address,
-						longitude: longitude,
-						latitude: latitude
-					},
-					success: function (data) {
-						if(data.length > 0){
-							shop_list_data = data;
-							set_shop_list();
-						}else{
-							shop_list_data = [];
-						}
-						door_to_door_hide_or_show();
-					}
-				});
-			}
-			function set_shop_list() {
-				var shop_html = '';
-				for (var i = 0; i < shop_list_data.length; i++) {
-					shop_html += '<div class="business-list p" data-shop-id="'+shop_list_data[i].shop_id+'"> ' +
-							'<div class="business-cheng fl" data-address="'+shop_list_data[i].area_list[0].name+shop_list_data[i].area_list[1].name+shop_list_data[i].area_list[2].name+ shop_list_data[i].shop_address +'" ' +
-							'data-phone="'+shop_list_data[i].phone+'" data-work-day="'+shop_list_data[i].work_day+'" data-work-time="'+shop_list_data[i].work_time+'"' +
-							' data-longitude="'+shop_list_data[i].longitude+'" data-latitude="'+shop_list_data[i].latitude+'"> ' +
-							'<label></label></div> <div class="business-cont fl"> <div class="business-title">' + shop_list_data[i].shop_name + ' </div> ' +
-							'<div class="business-dev">' + shop_list_data[i].shop_address + ' </div> <div class="business-honp">电话：' + shop_list_data[i].phone + ' </div> </div> ' +
-							'<div class="business-distance">距离:<span>' + shop_list_data[i].distance_text + '</span> </div> <div class="business-icon">距离最近</div> </div>';
-				}
-				$("#shop_list").empty().append(shop_html).find('.business-list').eq(0).children(".business-icon").show();
-			}
-			function initShop() {
-				var shop_list = $("#shop_list");
-				if(shop_list.find('class-labels').length == 0){
-					shop_list.find('label').eq(0).trigger('click');
-				}
-				initShopInfo();
-			}
-			function initShopInfo() {
-				var consignee = $("input[name='consignee']");
-				var mobile = $("input[name='mobile']");
-				if(consignee.val() == ''){
-					consignee.val(last_select_address_arr.consignee);
-					$('#consignee').val(last_select_address_arr.consignee);
-				}
-				if(mobile.val() == ''){
-					mobile.val(last_select_address_arr.mobile);
-					$('#mobile').val(last_select_address_arr.mobile);
-				}
-				var shop_label = $('.class-labels');
-				$("input[name='shop_id']").val(shop_label.parents('.business-list').data('shop-id'));
-				$('#shop_address_desc').html(shop_label.parents('.business-list').find('.business-title').html() + '  ' +shop_label.parent().data('address'));
-				$('#shop_mobile').html(shop_label.parents('.business-list').find('.business-honp').html());
-				$('#shop_distance').html(shop_label.parents('.business-list').find('.business-distance span').html());
-				if(shop_label.parents('.business-list').find('.business-icon').is(":visible")){
-					$("#distance_near").show();
-				}else{
-					$("#distance_near").hide();
-				}
-			}
+
 			/**
 			 * 存放最后一次选择的地址
 			 */
@@ -1173,36 +730,7 @@
 				$(document).on("click", '#shop_dialog_cancle', function (e) {
 					$('#shop_dialog_close').trigger('click');
 				})
-				//点击搜索
-				$(document).on("click", '#search_shop', function (e) {
-					var province_id = $("#address_province");
-					var city_id = $("#address_city");
-					var district_id = $("#address_district");
-					var shop_address = $("#shop_address").val();
-					if(province_id.val() == 0){
-						layer.open({icon:2,time:2000,content:"请选择省份"});
-						return;
-					}
-					if(city_id.val() == 0){
-						layer.open({icon:2,time:2000,content:"请选择市"});
-						return;
-					}
-					if(district_id.val() == 0){
-						layer.open({icon:2,time:2000,content:"请选择镇/区"});
-						return;
-					}
-					if(shop_address == ''){
-						layer.open({icon:2,time:2000,content:"请填写地址或者店名"});
-						return;
-					}
-					get_shop_list(province_id.val(), city_id.val(), district_id.val(), shop_address, last_select_address_arr.longitude, last_select_address_arr.latitude);
-				})
-				//点击自提点
-				$(document).on("click", ".business-list label", function (e) {
-					$(".select-business-list .business-list label").removeClass("class-labels");
-					$(this).addClass("class-labels");
-					show_map();
-				})
+
 				//自提点联系人和联系方式
 				$(document).on('keyup', '#mobile', function () {
 					$('input[name="mobile"]').val(this.value);
@@ -1211,38 +739,6 @@
 					$('input[name="consignee"]').val(this.value);
 				})
 			})
-			var map;
-			function show_map()
-			{
-
-				var shop_label = $('.class-labels');
-				var content = '<div style="margin:0;line-height:20px;padding:2px;">' +
-						'<div class="map-dizs p"><i class="fl"></i><span class="fl"> '+shop_label.parent().data("address")+'</span></div>' +
-						'<div class="ipone-devs p"><i class="fl"></i><span class="fl">'+shop_label.parent().data("phone")+'</span></div>' +
-						'<div class="map-sjs p"><i class="fl"></i> <span>'+shop_label.parent().data("work-day")+'<span></div><div>' +
-						'<div style="padding-left: 24px;color:#333;font-size: 13px;">'+shop_label.parent().data("work-time")+'</div>' +
-						'</div>';
-				var lnt = shop_label.parent().data('longitude');
-				var lat = shop_label.parent().data('latitude');
-				map = new BMap.Map("container");//在百度地图容器中创建一个地图
-				var poi = new BMap.Point(lnt, lat);//定义一个中心点坐标
-				map.centerAndZoom(poi, 17);//设定地图的中心点和坐标并将地图显示在地图容器中
-				//创建检索信息窗口对象
-				var searchInfoWindow = new BMapLib.SearchInfoWindow(map, content, {
-					title : shop_label.parents('business-list').find('.business-title').html(),      //标题
-					width  :240,             //宽度
-					height : 140,              //高度
-					enableAutoPan : true,     //自动平移
-					searchTypes   :[
-					]
-				});
-				//创建检索信息窗口对象
-				var marker = new BMap.Marker(poi); //创建marker对象
-				marker.enableDragging(); //marker可拖拽
-				searchInfoWindow.open(marker);
-				map.addOverlay(marker); //在地图中添加marker
-				map.enableScrollWheelZoom(true);
-			}
 			//设置商品有货无货
 			function goods_shipping(goods_id,is_have){
 				if(is_have == true){
@@ -1254,7 +750,7 @@
 				}
 			}
 
-			function self_motion_load() {
+			/*function self_motion_load() {
 				$.get("{:U('Cart/invoice')}", function(json) {
 					var data = eval("(" + json + ")");
 					if (data.status > 0) {
@@ -1300,7 +796,7 @@
 						$("#span4").show();
 					}
 				});
-			}
+			}*/
 
             //新增编辑地址
             $(function () {

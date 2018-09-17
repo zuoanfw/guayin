@@ -332,8 +332,8 @@ class GoodsLogic extends Model
        }
         $str .="<td><b>价格(单价)</b></td>
                <td><b>市场价(单价)</b></td>
-               <td><b>重量</b></td>
-               <td><b>体积</b></td>
+               <td><b>重量(g)</b></td>
+               <td><b>体积(立方米)</b></td>
                <td><b>出货周期</b></td>
                <!--<td><b>佣金</b></td>-->
                <td><b>库存</b></td>

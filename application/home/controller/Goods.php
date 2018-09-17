@@ -760,7 +760,116 @@ class Goods extends Base
         $this->assign('totalPages', $page->totalPages);//总页数
         return $this->fetch();
     }
+    /**
+     * 积分商城列表
+     */
+    public function integralList()
+    {
+        $cat_id = I('get.id/d');
+        $minValue = I('get.minValue');
+        $maxValue = I('get.maxValue');
+        $brandType = I('get.brandType');
+        $point_rate = tpCache('shopping.point_rate');
+        $is_new = I('get.is_new', 0);
+        $exchange = I('get.exchange', 0);
+        $goods_where = array(
+            'is_on_sale' => 1,  //是否上架
+            'is_virtual' => 0,
+        );
+        //积分兑换筛选
+        $exchange_integral_where_array = array(array('gt', 0));
+        // 分类id
+        if (!empty($cat_id)) {
+            $goods_where['cat_id'] = array('in', getCatGrandson($cat_id));
+        }
+        //积分截止范围
+        if (!empty($maxValue)) {
+            array_push($exchange_integral_where_array, array('elt', $maxValue));
+        }
+        //积分起始范围
+        if (!empty($minValue)) {
+            array_push($exchange_integral_where_array, array('egt', $minValue));
+        }
+        //积分+金额
+        if ($brandType == 1) {
+            array_push($exchange_integral_where_array, array('exp', ' < shop_price* ' . $point_rate));
+        }
+        //全部积分
+        if ($brandType == 2) {
+            array_push($exchange_integral_where_array, array('exp', ' = shop_price* ' . $point_rate));
+        }
+        //新品
+        if ($is_new == 1) {
+            $goods_where['is_new'] = $is_new;
+        }
+        //我能兑换
+        $user_id = cookie('user_id');
+        if ($exchange == 1 && !empty($user_id)) {
+            $user_pay_points = intval(M('users')->where(array('user_id' => $user_id))->getField('pay_points'));
+            if ($user_pay_points !== false) {
+                array_push($exchange_integral_where_array, array('lt', $user_pay_points));
+            }
+        }
 
+        $goods_where['exchange_integral'] = $exchange_integral_where_array;
+        $goods_list_count = M('goods')->where($goods_where)->count();   //总页数
+        $page = new Page($goods_list_count, 15);
+        $goods_list = M('goods')->where($goods_where)->limit($page->firstRow . ',' . $page->listRows)->select();
+        $goods_category = M('goods_category')->where(array('level' => 1))->select();
+
+        $this->assign('goods_list', $goods_list);
+        $this->assign('page', $page->show());
+        $this->assign('goods_list_count', $goods_list_count);
+        $this->assign('goods_category', $goods_category);//商品1级分类
+        $this->assign('point_rate', $point_rate);//兑换率
+        $this->assign('nowPage', $page->nowPage);// 当前页
+        $this->assign('totalPages', $page->totalPages);//总页数
+        return $this->fetch();
+    }
+    /**
+     * 积分商城商品详情页
+     */
+    public function integralInfo()
+    {
+        //C('TOKEN_ON',true);
+        $goodsLogic = new GoodsLogic();
+        $goods_id = I("get.id/d");
+        $Goods = new \app\common\model\Goods();
+        $goods = $Goods::get($goods_id);
+        if (empty($goods) || ($goods['is_on_sale'] == 0) || ($goods['is_virtual'] == 1 && $goods['virtual_indate'] <= time())) {
+            $this->error('该商品已经下架', U('Index/index'));
+        }
+        if (cookie('user_id')) {
+            //用户浏览记录
+            $goodsLogic->add_visit_log(cookie('user_id'), $goods);
+        }
+        $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
+        $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
+        $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
+        $filter_spec = $goodsLogic->get_spec($goods_id);//规格参数
+        $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
+        $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
+        M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
+        //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
+        $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
+        $this->assign('freight_free', $freight_free);// 全场满多少免运费
+        $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
+        $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航
+        //$this->assign('commentStatistics', $commentStatistics);//评论概览
+        $this->assign('goods_attribute', $goods_attribute);//属性值
+        $this->assign('goods_attr_list', $goods_attr_list);//属性列表
+        $this->assign('filter_spec', $filter_spec);//规格参数
+        //var_dump($filter_spec);exit;
+        $this->assign('goods_images_list', $goods_images_list);//商品缩略图
+        $this->assign('siblings_cate', $goodsLogic->get_siblings_cate($goods['cat_id']));//相关分类
+        //$this->assign('look_see', $goodsLogic->get_look_see($goods));//看了又看
+        $this->assign('goods', $goods);
+        //构建手机端URL
+        $ShareLink = urlencode("http://{$_SERVER['HTTP_HOST']}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods['goods_id']}");
+        $this->assign('ShareLink', $ShareLink);
+        $this->assign('point_rate', $point_rate);
+        return $this->fetch();
+    }
     /**
      * 全部商品分类
      * @author lxl

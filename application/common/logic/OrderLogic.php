@@ -328,7 +328,7 @@ class OrderLogic
 	 * 自动取消订单
 	 */
 	public function abolishOrder(){
-		$set_time=1; //自动取消时间/天 默认1天
+		$set_time=2; //自动取消时间/天 默认1天
 		$abolishtime = strtotime("-$set_time day");
 		$order_where = [
 				'user_id'      =>$this->user_id,

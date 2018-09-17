@@ -137,7 +137,7 @@ class Api extends Base
         $mobile = I('mobile');
         $sender = I('send');
         //$verify_code = I('verify_code');
-        $mobile = !empty($mobile) ? $mobile : $sender;
+        $mobile = !empty($mobile) ? $mobile : $sender;  //如果$mobile为空就取$sender值
         $session_id = I('unique_id', session_id());
         session("scene", $scene);
 

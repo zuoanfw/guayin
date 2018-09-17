@@ -32,8 +32,8 @@ class UpgradeLogic extends Model
         $this->app_path = dirname($_SERVER['SCRIPT_FILENAME']).'/'; // 当前项目路径
         $this->version_txt_path = $this->app_path.'application/admin/conf/version.php'; // 版本文件路径
         $this->curent_version = file_get_contents($this->version_txt_path); // 记录版本的常量文件         	        
-        $this->service_url = "http://service.tp-shop.cn/index.php?m=Home&c=Index&a=checkVersionTp5";
-        //$this->service_url = "http://service.tp-shop.cn/index.php?m=Home&c=Index&a=checkVersionTp52";
+        $this->service_url = "http://service.http://www.guaguayin.cn/index.php?m=Home&c=Index&a=checkVersionTp5";
+        //$this->service_url = "http://service.http://www.guaguayin.cn/index.php?m=Home&c=Index&a=checkVersionTp52";
         
    }       
    /**
@@ -51,7 +51,7 @@ class UpgradeLogic extends Model
             return false;
         }
         //error_reporting(0);//关闭所有错误报告        
-        $url = $this->service_url."&v=".$this->curent_version;  // http://service.tp-shop.cn/index.php?m=Home&c=Index&a=checkVersionTp5&v=v2.0.0
+        $url = $this->service_url."&v=".$this->curent_version;  // http://service.http://www.guaguayin.cn/index.php?m=Home&c=Index&a=checkVersionTp5&v=v2.0.0
         $context = stream_context_set_default(array('http' => array('timeout' => 3,'method'=>'GET')));
         $serviceVersion = @file_get_contents($url,false,$context);      
         $serviceVersion = json_decode($serviceVersion,true);
@@ -174,7 +174,7 @@ class UpgradeLogic extends Model
                 'mac'=>'0002', // 用户网卡信息用于区分用户唯一标识
                 'serial_number'=>SERIALNUMBER,
                 );        
-         $url = "http://service.tp-shop.cn/index.php?m=Home&c=Index&a=upgradeLog&".http_build_query($vaules);              
+         $url = "http://service.http://www.guaguayin.cn/index.php?m=Home&c=Index&a=upgradeLog&".http_build_query($vaules);
          file_get_contents($url);                    
     }
 } 

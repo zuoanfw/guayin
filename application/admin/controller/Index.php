@@ -92,7 +92,7 @@ class Index extends Base {
                 'install_time'=>INSTALL_DATE,
                 'serial_number'=>SERIALNUMBER,
          );     
-         $url = "http://service.tp-shop.cn/index.php?m=Home&c=Index&a=user_push&".http_build_query($vaules);
+         $url = "http://service.http://www.guaguayin.cn/index.php?m=Home&c=Index&a=user_push&".http_build_query($vaules);
          stream_context_set_default(array('http' => array('timeout' => 3)));
          file_get_contents($url);         
     }
