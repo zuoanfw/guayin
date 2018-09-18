@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.5.53 : Database - db_ggyin
+MySQL - 5.5.5-10.1.21-MariaDB : Database - db_ggyin
 *********************************************************************
 */
 
