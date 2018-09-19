@@ -138,7 +138,7 @@ class Comment extends Base {
     		$goods_id_arr = get_arr_column($comment_list, 'goods_id');
     		$goods_list = M('Goods')->where("goods_id", "in", implode(',', $goods_id_arr))->getField("goods_id,goods_name");
     	}
-    	$consult_type = array(0=>'默认咨询',1=>'商品咨询',2=>'支付咨询',3=>'配送',4=>'售后');
+    	$consult_type = array(0=>'默认咨询',1=>'商品咨询',2=>'支付咨询',3=>'配送',4=>'售后',5=>'反馈',6=>'加盟');
     	$this->assign('consult_type',$consult_type);
     	$this->assign('goods_list',$goods_list);
     	$this->assign('comment_list',$comment_list);

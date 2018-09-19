@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>意见反馈-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+</head>
+<style>
+	button, html input[type="button"], input[type="reset"], input[type="submit"] {
+		-webkit-appearance: button;
+		cursor: pointer;
+	}
+	.form-group{
+		padding-top: 30px;
+	}
+	.form-group label{
+		padding-bottom: 12px;
+		display: block;
+	}
+	.checkbox{
+		padding-top: 20px;
+	}
+	.form-control {
+		margin-bottom: 10px;
+		margin-right: 20px;
+		display: block;
+		width: 90%;
+		padding: 8px 12px;
+		font-size: 14px;
+		line-height: 1.42857143;
+		color: #555;
+		background-color: #fff;
+		background-image: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+		-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+	.col-md{
+		float: left;
+		width: 40%;
+		margin-right: 20px;
+	}
+	.btn-success{
+		background-color: #ff8a5c;
+		color: #fff;
+		display: inline-block;
+		padding: 8px 52px;
+		margin-bottom: 20px;
+		margin-top: 10px;
+		font-size: 14px;
+		font-weight: normal;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		-ms-touch-action: manipulation;
+		touch-action: manipulation;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		border: 1px solid transparent;
+		border-radius: 4px;
+	}
+</style>
+<body>
+<!--header-s-->
+    <include file="public/header" w="w1224"/>
+    <div class="w1224 clearfix">
+		<form method="post" id="consultForm">
+			<input type="hidden" name="consult_type" value="5"/>
+			<div class="form-group">
+				<label class="clearfix">反馈意见</label>
+				<textarea class="form-control" id="content" name="content"  rows="3" placeholder="请在这里反馈您的意见，10-500个字"></textarea>
+			</div>
+			<div class="form-group clearfix">
+				<label class="clearfix">期待留下您的联系方式，以便于我们给您反馈</label>
+				<div class="col-md"><input type="text" class="form-control" name="linkname" id="linkname" placeholder="怎么称呼您？"></div>
+				<div class="col-md"><input type="text" class="form-control" name="username" id="username" placeholder="手机号/邮箱/QQ"></div>
+			</div>
+			<div class="checkbox clearfix">
+				<label>
+					<div class="col-md">
+						<input type="text" class="form-control" name="verify_code" placeholder="请输入验证码" id="verify_code_val"></div>
+					<div class="col-md"><img id="verify_code" width="80" height="40" onclick="verify()"></div>
+
+				</label>
+			</div>
+			<div class="clearfix"><button type="button" id="call_submit" class="btn btn-success">提交</button></div>
+		</form>
+
+	</div>
+<include file="public/footer"/>
+<script>
+    $(document).ready(function () {
+        verify();
+    });
+    // 普通 图形验证码
+    function verify() {
+        $('#verify_code').attr('src', '/index.php?m=Home&c=User&a=verify&type=consult&r=' + Math.random());
+    }
+    $(document).on('click', '#verify_code', function () {
+        verify();
+	})
+    //提交咨询信息
+    $(document).on('click', '#call_submit', function () {
+        var content = $.trim($('#content').val());
+        var linkname = $.trim($("#linkname").val());
+        var username = $.trim($("#username").val());
+        var verify_code_val = $.trim($("#verify_code_val").val());
+        if (content.length == 0) {
+            layer.msg('请填写您反馈的意见！', {icon: 3});
+            $('#content').focus();
+            return false;
+        }
+        if (linkname.length == 0) {
+            layer.msg('请填写您的姓名！', {icon: 3});
+            $('#linkname').focus();
+            return false;
+        }
+        if (username.length == 0) {
+            layer.msg('请填写您的联系方式！', {icon: 3});
+            $('#username').focus();
+            return false;
+        }
+        if (verify_code_val.length == 0) {
+            layer.msg('请填写验证码！', {icon: 3});
+            $('#verify_code_val').focus();
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:U('Goods/consult')}",
+            data: $("#consultForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon: 1});
+                    location.reload();
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

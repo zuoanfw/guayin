@@ -644,16 +644,19 @@ class Goods extends Base
     {
         $goods_id = input("goods_id/d", '0'); // 商品id
         $consult_type = input("consult_type", '1'); // 商品咨询类型
+        $linkname = input("linkname", '咨询用户'); // 网友咨询
         $username = input("username", '咨询用户'); // 网友咨询
         $content = trim(input("content", '')); // 咨询内容
         $verify_code = input('verify_code');
-        /*if (strlen($content) > 500) {
-            $this->ajaxReturn(['status' => 0, 'msg' => '咨询内容不得超过500字符']);
+        if (strlen($content) > 500) {
+            $this->ajaxReturn(['status' => 0, 'msg' => '内容不得超过500字符']);
         }
-        $verify = new Verify();
-        if (!$verify->check($verify_code, 'consult')) {
-            $this->ajaxReturn(['status' => 0, 'msg' => '验证码错误']);
-        }*/
+        if($verify_code){
+            $verify = new Verify();
+            if (!$verify->check($verify_code, 'consult')) {
+                $this->ajaxReturn(['status' => 0, 'msg' => '验证码错误']);
+            }
+        }
         if(!check_mobile($username) && !check_telephone($username) ){
             $this->ajaxReturn(['status' => 0, 'msg' => '请输入有效的联系方式']);
         }
@@ -661,12 +664,13 @@ class Goods extends Base
             'goods_id' => $goods_id,
             'consult_type' => $consult_type,
             'username' => $username,
+            'linkname' => $linkname,
             'content' => $content,
             'is_show' => 1,
             'add_time' => time(),
         );
         Db::name('goodsConsult')->add($data);
-        $this->ajaxReturn(['status' => 1, 'msg' => '咨询已提交!']);
+        $this->ajaxReturn(['status' => 1, 'msg' => '内容已提交!']);
     }
 
     /**

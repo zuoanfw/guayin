@@ -90,6 +90,20 @@ class Index extends Base {
     public function notice(){
         return $this->fetch();
     }
+
+    /**
+     *  加盟详情页
+     */
+    public function joinus(){
+        return $this->fetch();
+    }
+
+    /**
+     *  反馈详情页
+     */
+    public function feedback(){
+        return $this->fetch();
+    }
     
     // 二维码
     public function qr_code_raw(){        

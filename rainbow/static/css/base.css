@@ -398,7 +398,38 @@ user-select:none;
 }
 .u-fn-cart .c-store:hover .del{
     display: block;
+    color: #fff;
 }
+
+
+/*报价弹出框样式*/
+#consultForm .publish-cont{
+    text-align: center;
+}
+#consultForm .consult_sub {
+    background: #ff8a5c;
+    font-size: 16px;
+    padding: 6px 30px;
+    border-radius: 4px;
+    display: inline;
+    border: 1px solid #ff8a5c;
+    color: #fff;
+}
+#consultForm .nickname{
+    line-height: 30px;
+    padding: 28px 0px;
+}
+#consultForm .nickname input{
+    border: 1px solid #ddd;
+    line-height: 30px;
+    width: 300px;
+    margin: 10px;
+    padding: 4px;
+}
+#consultForm .consult_num{
+    margin: 20px;
+}
+/*结束*/
 /*侧边栏-购物车-s*/
 .u-fn-cart .tp-scart-gname{
     display: block;

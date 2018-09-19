@@ -10,6 +10,10 @@
     height: 600px;
     padding:80px;
 }
+.form-control {
+    height: 44px;
+    padding: 8px 12px;
+}
 .reg_word{
     font-size: 24px;
     color: #fff;
@@ -34,4 +38,8 @@
 .judgp {
     background: url(../images/loginchat.png) no-repeat;
     display: inline-block
+}
+.btn{
+    height: 44px;
+    font-size: 16px;
 }

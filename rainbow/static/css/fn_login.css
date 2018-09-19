@@ -125,7 +125,7 @@
 .u-diaolog-login-content .u-btn {
     width: 303px;
     height: 34px;
-    border: 1px solid #bc1b2b;
+    border: 0;
 }
 
 .u-diaolog-login-content .ltxt {
@@ -155,9 +155,8 @@
     height: 100%;
     display: inline-block;
     color: #fff;
-    background-color: #da3a4c;
+    background-color: #ff8a5c;
     text-align: center;
-    font-family: 'Microsoft YaHei', '微软雅黑', tahoma, arial, simsun, "宋体";
     font-size: 18px;
     cursor: pointer;
     border: 0;
