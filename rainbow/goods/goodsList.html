@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
 	<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-    <link rel="shortcut icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+    <link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
 	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
 	<script src="__PUBLIC__/js/global.js"></script>
 	<script src="__PUBLIC__/js/pc_common.js"></script>
@@ -245,14 +245,12 @@
                                     <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
                                     <p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
                                     <div class="media-bottom">
-                                        <if condition="$v.cat_id eq '2'">
-                                            限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]*500}</span>
+                                            <!--限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]*500}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]*500}</em></span>
                                             (500张，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v[shop_price]}</span>&nbsp;元/张)
-                                            <else/>
+                                            -->
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]}</em></span>
-                                        </if>
 
                                         <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="btn-warning"> 马上抢</a>
                                     </div>
@@ -366,7 +364,7 @@
         })
 
     $(function() {
-        favourite();
+        //favourite();
         //左侧边栏JS
 //		ajax_hot_goods();
 //		ajax_sales_goods();

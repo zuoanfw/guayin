@@ -21,7 +21,7 @@ return [
     // 应用命名空间
     'app_namespace'          => 'app',
     // 应用调试模式
-    'app_debug'              => true,
+    'app_debug'              => false,
     // 应用Trace
     'app_trace'              => false,
     // 应用模式状态
@@ -382,7 +382,7 @@ return [
     'finally_pay_time'=>1*24*3600,
     'WX_PAY2' => 1,
 
-    /**假设这个访问地址是 www.tpshop.cn/home/goods/goodsInfo/id/1.html 
+    /**假设这个访问地址是 www.guaguayin.cn/home/goods/goodsInfo/id/1.html
      *就保存名字为 home_goods_goodsinfo_1.html     
      *配置成这样, 指定 模块 控制器 方法名 参数名      
      */

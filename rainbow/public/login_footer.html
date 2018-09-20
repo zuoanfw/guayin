@@ -5,7 +5,7 @@
             <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 AND position = 'bottom' ORDER BY `sort` DESC" key="kk" item='vv'>
                 <a href="{$vv[url]}" <if condition="$vv[is_new] eq 1"> target="_blank" </if> >{$vv[name]}</a><span>|</span>
             </tpshop>
-            <a href="javascript:void (0);">关于我们</a><span>|</span>
+            <a href="{:U('Home/Index/about')}">公司简介</a><span>|</span>
             <a href="javascript:void (0);">联系我们</a><span>|</span>
 			<a href="javascript:void (0);">诚聘英才</a>
         </div>

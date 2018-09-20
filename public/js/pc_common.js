@@ -45,8 +45,8 @@
 			 layer.open({
 				 type: 2,
 				 title: '温馨提示',
-				 skin: 'layui-layer-rim', //加上边框
-				 area: ['490px', '386px'], //宽高
+				 /*skin: 'layui-layer-rim', //加上边框*/
+				 area: ['490px', '256px'], //宽高
 				 content: "/index.php?m=Home&c=Goods&a=open_add_cart"
 			 });
 		 }

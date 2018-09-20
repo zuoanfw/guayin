@@ -1,0 +1,167 @@
+<extend name="Base/common"/>
+<block name="body">
+<style>
+.joinus_form{
+	margin-bottom: 30px;
+}
+.error_mess{
+	color:red;
+}
+.caption h3 {
+	text-align:center;
+}
+.caption p{
+	height:155px;
+}
+p{
+	line-height:30px;
+}
+</style>
+<div class="joinus_title">
+  <div class="container">
+         <div style="float:left;width:100%;padding:60px 100px;">
+	         <div class="col-md-7">
+	               <div style="font-size:20px;">呱呱印全国布局</div>
+	                <div style="font-size:35px;color:#ff3c00;font-weight:bold;">500城市合作伙伴</div>
+	                <div style="font-size:40px;font-weight:bold;border-bottom:2px solid #fff;">招募全面启动</div>
+	                <div style="padding-top:20px;">区域印刷精心化、区域独有品牌支撑、区域服务最大化。</div>
+	         </div>
+             <div class="col-md-offset-1 col-md-4">
+                 <div style="text-align:center;margin:0 auto;padding:20px;border:1px solid #ddd;background-color:rgba(0,0,0,0.2);">
+                    <div><a href="#join_us" class="btn btn-warning" style="padding:8px 50px; font-size:20px;">
+                                             立即申请</a></div>
+                    <div style="text-align:right;padding-top:15px;padding-bottom:10px;border-bottom:1px dotted #ff3c00">供应商登录</div>
+                    <div style="padding-top:25px;">协助开通或咨询，请致电钱经理</div>
+                    <div style="padding-top:20px;">电话：<span style="color:#ff3c00;font-size:22px;">187 &nbsp; 6164 &nbsp; 0729</span></div>
+                    <div style="padding-top:10px;text-align:left;padding-left:15px;">QQ：<span style="font-size:18px;">175 &nbsp; 225 &nbsp; 066</span></div>
+                    <div style="padding-top:10px;text-align:left;padding-left:15px;">E-mail：<span style="font-size:18px;">bd@guaguayin.cn</span></div>
+                 </div>
+             </div>
+       </div>  </div>
+</div>
+<div class="container">
+   <div class="row">
+   	  <div class="col-md-12" style="text-align:center;"><h3>我们是谁</h3></div>
+      <div class="col-md-12">
+       <p>南京呱呱印信息科技有限公司是互联网＋印刷产业的践行者。呱呱印将以互联网的方式重构传统商务印刷和包装产业，致力于打造中国最大的互联网印刷和设计服务平台。呱呱印核心团队来自百度、海德堡等知名企业，团队成员具有多年的互联网和印刷行业经验，包括产品、设计、IT开发、运营推广、印刷技术、色彩管理、客服、物流等。呱呱印先期将投资1000万，主要用于品牌打造，并在设计、印刷、物流方面三马齐驱，终将改变印刷包装产业格局。</p>
+      </div>
+      <div class="col-md-12" style="text-align:center;"><h3>为什么加入我们</h3></div>
+       <div class="col-md-3">
+            <div class="thumbnail">
+		      <img src="__IMG__/join_kh.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <div class="caption">
+		        <h3>客户多</h3>
+		        <p>
+
+呱呱印成立以来，发展迅速，业务量增长显著，已在多个地方建立了分公司及服务点，并计划在16年拓展到全国50个城市中去。
+</p>
+		        
+		      </div>
+		    </div>
+       </div>
+       <div class="col-md-3">
+            <div class="thumbnail">
+		      <img src="__IMG__/join_lrg.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <div class="caption">
+		        <h3>利润高</h3>
+		        <p>
+
+呱呱印通过搭建线上平台，减少印刷中间环节，提高了印刷效率，让优质供应商取得更高的利润，提供更好的产品和服务。
+</p>
+		        
+		      </div>
+		    </div>
+       </div>
+       <div class="col-md-3">
+            <div class="thumbnail">
+		      <img src="__IMG__/join_zqd.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <div class="caption">
+		        <h3>无账期</h3>
+		        <p>
+
+呱呱印供应商系统采用先进技术，保证客户收到货品后实时自动将货款划归您的账户，您可随时申请提现，保证您的货款0账期，拥有一个健康的现金流。
+</p>
+		        
+		      </div>
+		    </div>
+       </div>
+       <div class="col-md-3">
+            <div class="thumbnail">
+		      <img src="__IMG__/join_lcd.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <div class="caption">
+		        <h3>流程短</h3>
+		        <p>
+				通过呱呱印供自主研发的订单智能分发系统及saas云应用系，实现智能匹配生产。此外，呱呱印平台还提供专属客服服务，从售前咨询、稿件设计到售后服务，为供应商省去繁琐的沟通环节，方便快捷。
+				</p>
+		        
+		      </div>
+		    </div>
+       </div>
+       <div class="col-md-12" style="text-align:center;" id="join_us"><h3>名额有限，抢先加盟</h3></div>
+       <form action="{:U('Index/jiameng')}" id="feedform" method="post">
+            <div class="col-md-6 joinus_form">
+              <input type="text" class="form-control" name="company" id="company" placeholder="公司全称">
+            </div>
+            <div class="col-md-6 joinus_form">
+              <input type="text" class="form-control" name="address" id="comaddress" placeholder="所在地区">
+            </div>
+            <div class="col-md-6 joinus_form">
+              <input type="text" class="form-control" name="name" id="name" placeholder="姓名">
+              <div class="error_mess name_error"></div>
+            </div>
+            <div class="col-md-6 joinus_form">
+              <input type="text" class="form-control" name="contact" id="contact" placeholder="手机号">
+              <div class="error_mess contact_error"></div>
+            </div>
+            <div class="col-md-12 joinus_form">
+                <textarea class="form-control" name="content" rows="3" placeholder="您想对我们说点什么"></textarea>
+                <div class="error_mess con_error"></div>
+            </div>
+            <div class="clearfix"></div>
+	        <div class="col-md-3" style="padding-top:0px;">
+	        <input type="text" class="form-control verify" name="verify" placeholder="请输入验证码">
+	        <div class="error_mess verify_error"></div>
+	        </div>
+	        <div class="col-md-2" style="padding-top:0px;">
+	        <a href="javascript:void(0)" class="reloadverify">
+              <img src="{:U("User/verify")}" class="verifyimg"></a>
+	        </div>
+	        <div class="clearfix"></div>
+            <div class="col-md-2">
+            <button type="button" id="feedback_sub" class="btn btn-warning btn-lg btn-block">提交</button></div>
+       </form>
+       
+   </div>
+</div>
+ <script type="text/javascript">
+$(function () {
+	$("#feedback_sub").click(function(){
+		 var sub = true;
+		 if($.trim($("#name").val()) == ''){
+			 $(".name_error").text("请输入您的姓名");
+			 sub = false;
+		 }
+		 if($.trim($("#contact").val()) == ''){
+			 $(".contact_error").text("请输入您的联系方式");
+			 sub = false;
+		 }
+		 if($.trim($(".verify").val()) == ''){
+			 $(".verify_error").text("请输入验证码");
+			 sub = false;
+		 }
+		 if (sub == true){
+			 $("#feedform").submit();
+		 }
+	 })
+	 var verifyimg = $(".verifyimg").attr("src");
+    $(".reloadverify").click(function(){
+        if( verifyimg.indexOf('?')>0){
+            $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+        }else{
+            $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+        }
+    });
+})
+
+</script>        
+</block> 

@@ -4,6 +4,6 @@
         'remark'=>'www.guaguayin.cn',
         'img'=>'a.jpg', // 后台显示魔板缩列图 相对于魔板目录路径
         'version'=>'v1', // 模板版本
-        'author' =>'朱霞', // 作者
+        'author' =>'zuoan', // 作者
    );
 ?>

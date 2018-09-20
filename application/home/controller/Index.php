@@ -99,6 +99,13 @@ class Index extends Base {
     }
 
     /**
+     *  关于我们详情页
+     */
+    public function about(){
+        return $this->fetch();
+    }
+
+    /**
      *  反馈详情页
      */
     public function feedback(){

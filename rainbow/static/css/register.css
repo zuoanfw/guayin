@@ -6,19 +6,21 @@
     padding-left: 15px;
 }
 .reg_main{
-    background:url(../images/tp-pc-gl-bg.png) right bottom no-repeat;
+    background:url(../images/login_bg.jpg) right bottom no-repeat;
     height: 600px;
-    padding:80px;
+    padding:80px 40px;
 }
 .form-control {
     height: 44px;
     padding: 8px 12px;
 }
 .reg_word{
-    font-size: 24px;
+    font-size: 23px;
     color: #fff;
-    font-weight: 550;
-    line-height:40px;
+    font-weight: 500;
+    line-height:45px;
+    padding-top: 40px;
+    letter-spacing: 4px;
 }
 .reg_form{
     background-color: #fff;
