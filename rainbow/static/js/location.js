@@ -33,27 +33,23 @@
 					this
 		}
 	})
-}
-(jQuery);
-
-
-var iplocation = locationJsonInfoDyr.ip_location;
-var provinceCityJson = locationJsonInfoDyr.city_location;
-
+}(jQuery);
+var iplocation = locationJsonInfoDyr.ip_location;  //省市
+var provinceCityJson = locationJsonInfoDyr.city_location; //市区
 function doInitRegion()
 {
 	var province_id = getCookieByName('province_id'),city_id = getCookieByName('city_id'),district_id = getCookieByName('district_id');
 	if(province_id==null || city_id==null || district_id==null){
-		province_id = 1;
-		city_id = 2;
-		district_id = 3;
+			province_id = 1;
+			city_id = 2;
+			district_id = '';
 	}
 	$('ul.list1').Address({ proid: province_id, cityid: city_id, areaid: district_id });
 }
 
 //商品物流配送与运费
 function ajaxDispatching(region_id) {
-	//alert(region_id);
+	//region_id  地区的最后第三个id
 	var goods_id = $("input[name='goods_id']").val();
     var goods_num = $("input[name='goods_num']").val();
     $('#dispatching_msg').attr('region_id',region_id);
@@ -107,7 +103,29 @@ function getNameById(provinceId) {
 	}
 	return "北京";
 }
+//根据省份名称获取ID
+function getIdByName(name) {
+	if(iplocation[name].id){
+        return iplocation[name].id;
+	}else {
+        return 1;
+	}
 
+}
+//根据是名称获取ID
+function getcityIdByName(name) {
+    //return provinceCityJson[name].id;
+	for (var o in provinceCityJson){
+		console.log(provinceCityJson[o]);
+		for (var i in provinceCityJson[o]){
+			//alert(provinceCityJson[o][i]['name']);
+			if(provinceCityJson[o][i]['name'] == name){
+				return provinceCityJson[o][i]['id']
+			}
+		}
+	}
+	return 2;
+}
 /**
  * 获取县区列表
  * @param result
@@ -147,7 +165,7 @@ function getAreaList(result) {
 		return this.each(function () {
 			var JD_stock = $('<div class="content"><div data-widget="tabs" class="m JD-stock">'
 					+ '<div class="mt">'
-					+ '    <ul class="tab">'
+					+ '    <ul class="tab">'    //切换城市默认选中的城市地区
 					+ '        <li data-index="0" data-widget="tab-item" class="curr"><a href="#none" class="hover"><em>请选择</em><i></i></a></li>'
 					+ '        <li data-index="1" data-widget="tab-item" style="display:none;"><a href="#none" class=""><em>请选择</em><i></i></a></li>'
 					+ '        <li data-index="2" data-widget="tab-item" style="display:none;"><a href="#none" class=""><em>请选择</em><i></i></a></li>'
@@ -159,8 +177,7 @@ function getAreaList(result) {
 					+ '</div>'
 					+ '<div class="mc stock_province_item" data-area="0" data-widget="tab-content">'
 					+ '    <ul class="area-list">'
-//                        + '       <li><a href="#none" data-value="1">北京</a></li><li><a href="#none" data-value="2">上海</a></li><li><a href="#none" data-value="3">天津</a></li><li><a href="#none" data-value="4">重庆</a></li><li><a href="#none" data-value="5">河北</a></li><li><a href="#none" data-value="6">山西</a></li><li><a href="#none" data-value="7">河南</a></li><li><a href="#none" data-value="8">辽宁</a></li><li><a href="#none" data-value="9">吉林</a></li><li><a href="#none" data-value="10">黑龙江</a></li><li><a href="#none" data-value="11">内蒙古</a></li><li><a href="#none" data-value="12">江苏</a></li><li><a href="#none" data-value="13">山东</a></li><li><a href="#none" data-value="14">安徽</a></li><li><a href="#none" data-value="15">浙江</a></li><li><a href="#none" data-value="16">福建</a></li><li><a href="#none" data-value="17">湖北</a></li><li><a href="#none" data-value="18">湖南</a></li><li><a href="#none" data-value="19">广东</a></li><li><a href="#none" data-value="20">广西</a></li><li><a href="#none" data-value="21">江西</a></li><li><a href="#none" data-value="22">四川</a></li><li><a href="#none" data-value="23">海南</a></li><li><a href="#none" data-value="24">贵州</a></li><li><a href="#none" data-value="25">云南</a></li><li><a href="#none" data-value="26">西藏</a></li><li><a href="#none" data-value="27">陕西</a></li><li><a href="#none" data-value="28">甘肃</a></li><li><a href="#none" data-value="29">青海</a></li><li><a href="#none" data-value="30">宁夏</a></li><li><a href="#none" data-value="31">新疆</a></li><li><a href="#none" data-value="32">台湾</a></li><li><a href="#none" data-value="42">香港</a></li><li><a href="#none" data-value="43">澳门</a></li><li><a href="#none" data-value="84">钓鱼岛</a></li>'
-					+ getProvinceHtml()
+					+ getProvinceHtml()   //省份的html
 					+ '    </ul>'
 					+ '</div>'
 					+ '<div class="mc stock_city_item" data-area="1" data-widget="tab-content"></div>'

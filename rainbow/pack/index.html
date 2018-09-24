@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>包装专区-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
+</head>
+<style>
+	button, html input[type="button"], input[type="reset"], input[type="submit"] {
+		-webkit-appearance: button;
+		cursor: pointer;
+	}
+</style>
+<body class="gray_f5">
+<!--header-s-->
+    <include file="public/header" w="w1224"/>
+<!--header-e  图片轮播-->
+<div id="myCarousel" class="carousel clearfix">
+	<ul class="carousel-inner">
+        <adv pid="403" item="v1" limit="5">
+		<li class="item" style="background:{$v1.bgcolor};">
+			<a class="item-pic" href="{$v1[ad_link]}" <if condition="$v1['target'] eq 1">target="_blank"</if>>
+			<img class="w-100" src="{$v1[ad_code]}" title="{$v1[title]}" alt="{$v1[title]}"></a>
+		</li>
+		</adv>
+	</ul>
+	<div class="pagination">
+
+	</div>
+	<a class="carousel-control left-btn t-all" href="javascript:;" data-slide="prev"></a>
+	<a class="carousel-control right-btn t-all" href="javascript:;" data-slide="next"></a>
+	<script>
+		$(function() {
+			function banner() {
+				var windowWidth=$(window).width();  //获取轮播图的宽度（这里是全屏）
+				window.onresize=function(){  //屏幕大小改变时 自适应
+					windowWidth=$(window).width();
+					$_banner.css({'width':windowWidth*(length+2),left:-windowWidth});
+					$_banner.find('.item').css('width',windowWidth);
+				};
+				var $_bannerWrap=$('#myCarousel');
+				var $_banner=$_bannerWrap.find('.carousel-inner');
+				var length=$_banner.find('.item').length;
+				var first=$_banner.find('.item').eq(0).clone();
+				var last=$_banner.find('.item:last').clone();
+				var timer; //定时器
+				$_banner.append(first);
+				$_banner.prepend(last);
+				//初始化 轮播图列表宽度和列表项宽度
+				$_banner.css({'width':windowWidth*(length+2),left:-windowWidth});
+				$_banner.find('.item').css('width',windowWidth);
+
+				var $_pagination=$_bannerWrap.find('.pagination');
+				for(var i=0;i<length;i++){  //自动增加白色索引点击点
+					$_pagination.append('<span class="pagination-item"></span>');
+				}
+				var iNow=1; //索引记录标志
+				hoverActive(iNow); //初始化状态标记
+				$_bannerWrap.find('.left-btn').click(function () {
+					clearInterval(timer);
+					iNow--;
+					bannerRun();
+				});
+				$_bannerWrap.find('.right-btn').click(function () {
+					clearInterval(timer);
+					iNow++;
+					bannerRun();
+				});
+				$_pagination.find('.pagination-item').click(function () {
+					iNow=$(this).index()+1;
+					$_banner.finish().animate({left:-iNow*windowWidth},500);
+					hoverActive(iNow);
+				});
+				function bannerAutoRun(){  //轮播图自动循环播放 间隔4秒
+					timer=setInterval(function() {
+						iNow++;
+						bannerRun();
+					},4000)
+				}
+				bannerAutoRun();
+
+				//移动上面去停止，移动出来继续轮播
+				function hoverChangeRun(ele){
+					ele.hover(function(){
+						clearInterval(timer);
+					},function () {
+						bannerAutoRun();
+					});
+				}
+				hoverChangeRun($_banner.find('.item-pic'));
+				hoverChangeRun($_pagination.find('.pagination-item'));
+				hoverChangeRun($_bannerWrap.find('.carousel-control'));
+
+				function hoverActive(index){ //切换时改变状态
+					$_banner.find('.item').eq(index).addClass('slide-active').siblings().removeClass('slide-active');
+					$_pagination.find('.pagination-item').eq(index-1).addClass('active').siblings().removeClass('active');
+				}
+				function bannerRun(){ //点击切换图片
+					if(iNow>length){
+						$_banner.finish().animate({left:-iNow*windowWidth},300,function(){
+							$_banner.css({left:-1*windowWidth});
+						});
+						iNow=1;
+					}else if(iNow<1){
+						$_banner.finish().animate({left:-iNow*windowWidth},500,function(){
+							$_banner.css({left:-length*windowWidth});
+						});
+						iNow=length;
+					}else{
+						$_banner.finish().animate({left:-iNow*windowWidth},300);
+					}
+					hoverActive(iNow);
+				}
+			}
+			banner();
+		})
+	</script>
+</div>
+<div class="floor  w1224">
+	<div>
+		<a href="javascript:void('0')" onclick="activityTime()">开始计算</a>
+		<span class="ti" id="activity_time"><i class="detai-ico"></i>剩余时间：<span id="overTime"></span></span>
+		<input type="hidden" name="end_time" value="1569293312">
+	</div>
+	<div class="floor-top">
+		<h3 class="floor-title">热销包装</h3>
+		<!--<div class="floor-nav-list clearfix">
+			<foreach name="v[tmenu]" item="v2" key="k2">
+				<a class="floor-nav-item" href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}">{$v2[name]}</a>
+			</foreach>
+	    </div>
+		<a class="nav-more-btn" href="{:U('Home/Goods/goodsList',array('id'=>$v[id]))}">更多<i>></i></a>-->
+	</div>
+	<div class="floor-main">
+		<div class="floor-brand">
+			<adv item="vl" pid="10" limit="1">
+				<a class="brand-big" href="{$vl[ad_link]}"><img class="w-100" src="{$vl[ad_code]}" alt="{$vl[title]}" /></a>
+			</adv>
+			<adv item="vs" pid="20" limit="1">
+				<a class="brand-samll" href="{$vs[ad_link]}"><img class="w-100" src="{$vs[ad_code]}" alt="{$vs[title]}" /></a>
+			</adv>
+		</div>
+		<div class="floor-goods-list">
+			<foreach name="index_first_goods" item="g" key="gk">
+				<a class="floor-goods-item" href="{:U('Home/Goods/goodsInfo',array('id'=>$g[goods_id]))}">
+
+					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
+					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>
+					<div class="googs-title ellipsis-1">{$g[goods_name]|getSubstr=0,50}</div>
+				</a>
+			</foreach>
+		</div>
+	</div>
+</div>
+
+<include file="public/footer"/>
+
+<!--楼层导航-e-->
+<!--侧边栏-s-->
+<div class="slidebar-right">
+	<a class="slidebar-item ico-slidebar1" target="_blank" href="tencent://message/?uin={$tpshop_config['shop_info_qq2']}&amp;Site=呱呱印商城&amp;Menu=yes" >
+		<div class="sbar-hover-txt">客服服务</div>
+	</a>
+	<a class="slidebar-item ico-slidebar2" target="_blank" href="javascript:;" >
+		<div class="sbar-hover-txt">关注微信</div>
+		<div class="sbar-hover-pic">
+			<div class="qrcode-wrap"><img class="w-100" src="__STATIC__/images/foot-wechat.jpg" alt="" /></div>
+			<p class="qrcode-des">扫码关注官方微信,先人一步知晓促销活动</p>
+		</div>
+	</a>
+	<a class="slidebar-item ico-slidebar4 t-all" target="_blank" href="javascript:;" >
+		<div class="sbar-hover-txt">回到顶部</div>
+	</a>
+</div>
+<script>
+    // 倒计时
+    function activityTime() {
+        var end_time = parseInt($("input[name='end_time']").attr('value'));
+        var timestamp = Date.parse(new Date());
+        var now = timestamp / 1000;
+        var end_time_date = formatDate(end_time * 1000);
+        //alert(end_time_date);
+        var text = GetRTime(end_time_date);
+        //console.log(text);
+        //活动时间到了就刷新页面重新载入
+        if (now > end_time) {
+            layer.msg('该商品活动已结束', function () {
+                location.reload();
+            });
+        }
+       $("#overTime").text(text);
+    }
+    //时间戳转换
+    function add0(m) {
+        return m < 10 ? '0' + m : m
+    }
+    //时间戳转换字符
+    function formatDate(now) {
+        var time = new Date(now);
+        var y = time.getFullYear();
+        var m = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var mm = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '/' + add0(m) + '/' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+    }
+    setInterval(activityTime,1000);
+    function init(){  //初始化函数
+    //首页商品分类显示
+    //$('.categorys .dd').show();
+    //右侧边栏
+    rightBar();
+}
+
+function rightBar(){  //右侧边栏
+    var $_slidebar4 = $('.ico-slidebar4');
+    $(window).scroll(function(){
+        if($(window).scrollTop()>100){
+            $_slidebar4.css('height',40);
+        }else{
+            $_slidebar4.css('height',0);
+        }
+    })
+    $_slidebar4.click(function () {
+        $('html,body').animate({'scrollTop':0},500)
+    });
+}
+
+init();
+</script>
+</body>
+</html>

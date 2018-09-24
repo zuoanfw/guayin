@@ -170,7 +170,7 @@ class FreightLogic extends Model
         if(!empty($freightRegion)){
             return $freightRegion;
         }else{
-            $parent_region_id = $this->getParentRegionList($this->regionId);
+            $parent_region_id = $this->getParentRegionList($this->regionId);  //寻找Region_id的父级id
             $parent_freight_region_where = ['template_id' => $this->goods['template_id'], 'region_id' => ['IN',$parent_region_id]];
             $freightRegion = $FreightRegion->where($parent_freight_region_where)->order('region_id asc')->find();
             return $freightRegion;

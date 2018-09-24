@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+<!--<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>-->
 <link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/favicon.ico'}" media="screen"/>
 <div class="tpshop-tm-hander">
 	<div class="top-hander">
@@ -14,7 +15,7 @@
                                   <li class="summary-stock though-line">
                                       <div class="dd" style="border-right:0px;width:200px;">
                                           <div class="store-selector add_cj_p">
-                                              <div class="text"><div></div><b></b></div>
+                                              <div class="text"> <div></div> <b></b> </div>
                                               <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
                                           </div>
                                       </div>
@@ -24,7 +25,29 @@
                       </div>
 					<script src="__PUBLIC__/js/locationJson.js"></script>
 				  	<script src="__STATIC__/js/location.js"></script>
-					<script>doInitRegion();</script>
+					<script>
+						if(getCookieByName('province_id')==null || getCookieByName('city_id')==null){
+						    //自动获取地理位置存储在cookie里
+                            $.ajax({
+                                type:'post',
+                                dataType:'json',
+                                data: {},
+                                url:"{:U('Home/Api/queryipaddress')}",
+                                success:function(res){
+                                    if(res.ret ==  200){
+                                        IdByName = res.data.region+"省";
+                                        cityIdByName=res.data.city+"市";
+                                        var province_id = getIdByName(IdByName);
+                                        var city_id = getcityIdByName(cityIdByName);
+                                        setCookies('province_id',province_id,30*24*60*60*1000);
+                                        setCookies('city_id',city_id,30*24*60*60*1000);
+                                    }
+                                    // console.log(res);
+                                }
+                            });
+						}
+                        doInitRegion();
+					</script>
 			</div>
 			</if>
 			<ul class="top-ri-header fr clearfix">
@@ -164,7 +187,12 @@
 				<div class="minicartContent" id="minicart">
 				</div>
 			</div>-->
-			<img src="/public/static/images/logo/telephone.png" style="width: 266px;height: 69px;">
+			<div class="fl"><img width="90" src="__STATIC__/images/foot-wechat.jpg"></div>
+			<div class="fl">
+				<span style="font-size: 28px;padding-top: 10px;display: block;">025-85563008</span>
+				<span style="color: #999;font-size: 13px;padding-top: 5px;display: block">全国统一客服热线：9:00-18:00</span>
+			</div>
+
 
 		</div>
 	</div>

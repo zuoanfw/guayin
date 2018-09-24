@@ -197,7 +197,7 @@ user-select:none;
     padding: 0 10px
 }
 .nav-middan-z{
-    height: 90px;
+    height: 100px;
     padding-top: 30px;
 }
 .nav-middan-z.home-index-head{
@@ -213,13 +213,13 @@ user-select:none;
     width: 500px;
 }
 .ecsc-search-form{
-    height: 34px;
+    height: 44px;
     position: relative;
 }
 .ecsc-search-input {
     float: left;
     width: 380px;
-    height: 30px;
+    height: 40px;
     line-height: 30px;
     padding: 0 10px;
     font-size: 14px;
@@ -229,8 +229,8 @@ user-select:none;
 .ecsc-search-button {
     float: left;
     width: 96px;
-    height: 34px;
-    line-height: 34px;
+    height: 44px;
+    line-height: 44px;
     font-size: 18px;
     color: #fff;
     text-align: center;
@@ -537,11 +537,11 @@ user-select:none;
     font-size: 16px;
     line-height: 38px;
     color: #333;
-    border-bottom: 2px solid transparent;
+    /*border-bottom: 2px solid transparent;*/
 }
 .navitems .selected a,.navitems>li:hover a{
     color: #ff8a5c;
-    border-bottom-color:#ff8a5c;
+   /* border-bottom-color:#ff8a5c;*/
 }
 .categorys .dd{
     padding-top: 2px;
@@ -787,20 +787,20 @@ user-select:none;
     overflow: hidden;
 }
 .left-help-list dl a:hover{
-    color: #ff8a5c;
+    /*color: #ff8a5c;*/
 }
 /* 友情链接 */
 .friendship-links{
     padding-top: 10px;
-    width: 920px;
+    width: 1220px;
     font-size: 14px;
 }
 .friendship-links>span{
     float: left;
     width: 70px;
     line-height: 20px;
-    font-weight: bold;
-    color: #333;
+    /*font-weight: bold;*/
+    color: #fff;
 }
 .links-wrap-h{
     float: left;
@@ -811,13 +811,13 @@ user-select:none;
     line-height:1;
     margin:3px 0; 
     padding: 0 10px;
-    color: #666;
+    color: #fff;
 }
 .links-wrap-h>a+a{
      border-left:1px solid #aaa;
 }
 .links-wrap-h>a:hover{
-    color: #ff8a5c;
+    /*color: #ff8a5c;*/
     text-decoration: underline;
 }
 

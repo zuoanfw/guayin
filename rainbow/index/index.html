@@ -216,7 +216,144 @@
 			<input type="text" id="content" name="content" placeholder="没有想要的？请填写您要印刷什么">
 			<button id="call_submit">呼叫客服</button>
 		</div>
-		<div class="recommend">
+
+		<div id="recommend" class="carousel clearfix">
+			<ul class="carousel-inner">
+					<li class="item" style="background:#fff;">
+						<div class="recommend">
+						<div class="recommend-item">
+							<div class="recommend-img">
+								<img src="__STATIC__/images/recomment-header.jpg">
+							</div>
+							<div class="recommend-name">王明明-南京</div>
+							<div class="recommend-content">印刷的效果很不错！ 清晰分明，颜色也很不错，纸张的克数可以说是足克足量的，难得！ 尤其是设计，很有耐心！ 快递速度也超乎想象的快！ 整体很满意的感觉，应该还会有合作的！
+							</div>
+						</div>
+						<div class="recommend-item">
+							<div class="recommend-img">
+								<img src="__STATIC__/images/yunkeji.png">
+							</div>
+							<div class="recommend-name">云数科技-北京京</div>
+							<div class="recommend-content">我们是初创小企业，经营企业过程中，有很多琐事让我们感到头疼繁琐，呱呱印让我们从印刷琐事中摆脱了出来，而且做得很专业，这样，我们就可以专心做好产品，服务好用户。
+							</div>
+						</div>
+						</div>
+					</li>
+				<li class="item" style="background:#fff;">
+					<div class="recommend">
+						<div class="recommend-item">
+							<div class="recommend-img">
+								<img src="__STATIC__/images/recomment-header.jpg">
+							</div>
+							<div class="recommend-name">王明明-南京11</div>
+							<div class="recommend-content">印刷的效果很不错！ 清晰分明，颜色也很不错，纸张的克数可以说是足克足量的，难得！ 尤其是设计，很有耐心！ 快递速度也超乎想象的快！ 整体很满意的感觉，应该还会有合作的！
+							</div>
+						</div>
+						<div class="recommend-item">
+							<div class="recommend-img">
+								<img src="__STATIC__/images/yunkeji.png">
+							</div>
+							<div class="recommend-name">云数科技-北京京11</div>
+							<div class="recommend-content">我们是初创小企业，经营企业过程中，有很多琐事让我们感到头疼繁琐，呱呱印让我们从印刷琐事中摆脱了出来，而且做得很专业，这样，我们就可以专心做好产品，服务好用户。
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="pagination">
+
+			</div>
+			<a class="carousel-control left-btn t-all" href="javascript:;" data-slide="prev"></a>
+			<a class="carousel-control right-btn t-all" href="javascript:;" data-slide="next"></a>
+			<script>
+                $(function() {
+                    function banner1() {
+                        var windowWidth=$(document).width();  //获取轮播图的宽度（这里是全屏）
+                        window.onresize=function(){  //屏幕大小改变时 自适应
+                            windowWidth=$(document).width();
+                            $_banner.css({'width':windowWidth*(length+2),left:-windowWidth});
+                            $_banner.find('.item').css('width',windowWidth);
+                        };
+                        var $_bannerWrap=$('#recommend');
+                        var $_banner=$_bannerWrap.find('.carousel-inner');
+                        var length=$_banner.find('.item').length;
+                        var first=$_banner.find('.item').eq(0).clone();
+                        var last=$_banner.find('.item:last').clone();
+                        var timer; //定时器
+                        $_banner.append(first);
+                        $_banner.prepend(last);
+                        //初始化 轮播图列表宽度和列表项宽度
+                        $_banner.css({'width':windowWidth*(length+2),left:-windowWidth});
+                        $_banner.find('.item').css('width',windowWidth);
+
+                        var $_pagination=$_bannerWrap.find('.pagination');
+                        for(var i=0;i<length;i++){  //自动增加白色索引点击点
+                            $_pagination.append('<span class="pagination-item"></span>');
+                        }
+                        var iNow=1; //索引记录标志
+                        hoverActive(iNow); //初始化状态标记
+                        $_bannerWrap.find('.left-btn').click(function () {
+                            clearInterval(timer);
+                            iNow--;
+                            bannerRun();
+                        });
+                        $_bannerWrap.find('.right-btn').click(function () {
+                            clearInterval(timer);
+                            iNow++;
+                            bannerRun();
+                        });
+                        $_pagination.find('.pagination-item').click(function () {
+                            iNow=$(this).index()+1;
+                            $_banner.finish().animate({left:-iNow*windowWidth},500);
+                            hoverActive(iNow);
+                        });
+                        function bannerAutoRun(){  //轮播图自动循环播放 间隔4秒
+                            timer=setInterval(function() {
+                                iNow++;
+                                bannerRun();
+                            },8000)
+                        }
+                        //bannerAutoRun();
+
+                        //移动上面去停止，移动出来继续轮播
+                        function hoverChangeRun(ele){
+                            ele.hover(function(){
+                                clearInterval(timer);
+                            },function () {
+                                bannerAutoRun();
+                            });
+                        }
+                        hoverChangeRun($_banner.find('.item-pic'));
+                        hoverChangeRun($_pagination.find('.pagination-item'));
+                        hoverChangeRun($_bannerWrap.find('.carousel-control'));
+
+                        function hoverActive(index){ //切换时改变状态
+                            $_banner.find('.item').eq(index).addClass('slide-active').siblings().removeClass('slide-active');
+                            $_pagination.find('.pagination-item').eq(index-1).addClass('active').siblings().removeClass('active');
+                        }
+                        function bannerRun(){ //点击切换图片
+                            if(iNow>length){
+                                $_banner.finish().animate({left:-iNow*windowWidth},300,function(){
+                                    $_banner.css({left:-1*windowWidth});
+                                });
+                                iNow=1;
+                            }else if(iNow<1){
+                                $_banner.finish().animate({left:-iNow*windowWidth},500,function(){
+                                    $_banner.css({left:-length*windowWidth});
+                                });
+                                iNow=length;
+                            }else{
+                                $_banner.finish().animate({left:-iNow*windowWidth},300);
+                            }
+                            hoverActive(iNow);
+                        }
+                    }
+                    banner1();
+                })
+			</script>
+		</div>
+
+		<!--<div class="recommend">
 			<div class="recommend-item">
                  <div class="recommend-img">
 					 <img src="__STATIC__/images/recomment-header.jpg">
@@ -233,10 +370,8 @@
 				<div class="recommend-content">我们是初创小企业，经营企业过程中，有很多琐事让我们感到头疼繁琐，呱呱印让我们从印刷琐事中摆脱了出来，而且做得很专业，这样，我们就可以专心做好产品，服务好用户。
 				</div>
 			</div>
-		</div>
-
+		</div>-->
 	</div>
-
 </div>
 <div class="tpshop-service">
 	<ul class="w1224 clearfix">

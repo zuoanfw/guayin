@@ -26,8 +26,11 @@
 				<img width="135" src="__STATIC__/images/foot-wechat.jpg">
 			</div>
 			<div class="foot-contact">
-				<img src="__STATIC__/images/foot-telephone.png"><br><br>
-				<img src="__STATIC__/images/foot-qq.png">
+				<span style="font-size: 28px;padding-top: 5px;display: block;color: #fff">025-85563008</span>
+				<span style="color: #fff;font-size: 13px;display: block;padding-bottom: 10px;padding-top: 5px;">全国统一客服热线：9:00-18:00</span>
+				<a target="_blank" href="tencent://message/?uin={$tpshop_config['shop_info_qq2']}&amp;Site=呱呱印商城&amp;Menu=yes">
+					<img src="__STATIC__/images/foot-qq.png">
+				</a>
 			</div>
 			<!--<span class="phone">{$tpshop_config['shop_info_phone']}</span>
 			<p class="tips">周一至周日8:00-18:00<br />(仅收市话费)</p>
@@ -58,6 +61,14 @@
             <a class="mod_copyright_auth_ico mod_copyright_auth_ico_5" href="" target="_blank">中国互联网举报中心</a>
         </p>
 		<p>Copyright © 2016-2025 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
+		<div class="friendship-links clearfix w1224">
+			<span>友情链接 : </span>
+			<div class="links-wrap-h clearfix">
+				<tpshop sql="select * from `__PREFIX__friend_link` where is_show=1" key="k" item='v'>
+					<a href="{$v[link_url]}" <if condition="$v.target eq 1">target="_blank"</if> >{$v[link_name]}</a>
+				</tpshop>
+			</div>
+		</div>
 	</div>
 </div>
 <style>

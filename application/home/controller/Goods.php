@@ -486,7 +486,7 @@ class Goods extends Base
         $freightLogic->setGoodsModel($goods);
         $freightLogic->setRegionId($region_id);
         $freightLogic->setGoodsNum($goods_num);
-        $isShipping = $freightLogic->checkShipping();
+        $isShipping = $freightLogic->checkShipping();//是否支持配送
         if ($isShipping) {
             $freightLogic->doCalculation();
             $freight = $freightLogic->getFreight();

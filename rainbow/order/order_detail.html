@@ -190,7 +190,7 @@
                     </div>-->
                     <div class="grouupanjf">
                         <if condition="$order.pay_status eq 0">
-                            <a href="javascript:;">完成订单可能获得:<i class="y-comp7"></i>积分&nbsp;&nbsp;<i class="y-comp8"></i>会员成长值&nbsp;&nbsp;<i class="y-comp7"></i>优惠券</a>
+                            <a href="javascript:;">完成订单可能获得:<i class="y-comp7"></i>瓜豆&nbsp;&nbsp;<i class="y-comp8"></i>会员成长值&nbsp;&nbsp;<i class="y-comp7"></i>优惠券</a>
                             <else/>
                         </if>
                     </div>
@@ -229,17 +229,18 @@
                             dataType: "json",
                             url:"{:U('home/api/queryExpress')}?shipping_code={$v['shipping_code']}&invoice_no={$v['invoice_no']}",//+tab,
                             success: function(data){
+                                console.log(data);
                                 var html = '';
-                                if(data.status == 200){
-                                    $.each(data.data, function(i,n){
+                                if(data.code == "OK"){
+                                    $.each(data.list, function(i,n){
                                         if(i == 0){
-                                            html += "<li class='first'><i class='node-icon' style='margin-left:20px'></i><span class='time'>"+n.time+"</span><span class='txt'>"+n.context+"</span></li>";
+                                            html += "<li class='first'><i class='node-icon' style='margin-left:20px'></i><span class='time'>"+n.time+"</span><span class='txt'>"+n.content+"</span></li>";
                                         }else{
-                                            html += "<li><i class='node-icon' style='margin-left:20px'></i><span class='time'>"+n.time+"</span><span class='txt'>"+n.context+"</span></li>";
+                                            html += "<li><i class='node-icon' style='margin-left:20px'></i><span class='time'>"+n.time+"</span><span class='txt'>"+n.content+"</span></li>";
                                         }
                                     });
                                 }else{
-                                    html += "<li class='first' style='margin-left:20px'><i class='node-icon'></i><span class='txt'>"+data.message+"</span></li>";
+                                    html += "<li class='first' style='margin-left:20px'><i class='node-icon'></i><span class='txt'>"+data.msg+"</span></li>";
                                 }
                                 $("#express_info_{$v['invoice_no']}").html(html);
                             }

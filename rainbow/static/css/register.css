@@ -6,9 +6,11 @@
     padding-left: 15px;
 }
 .reg_main{
-    background:url(../images/login_bg.jpg) right bottom no-repeat;
-    height: 600px;
-    padding:80px 40px;
+    background:url(../images/login_bg.jpg) no-repeat;
+    float: left;
+    height:100%;
+    background-size:100% 100%;
+    padding:40px 40px;
 }
 .form-control {
     height: 44px;
@@ -44,4 +46,15 @@
 .btn{
     height: 44px;
     font-size: 16px;
+}
+.footer{
+    padding-top: 5px;
+}
+.mod_copyright > p {
+    color: #fff;
+}
+.btn-success {
+    color: #fff;
+    background-color: #ff8a5c;
+    border-color: #ff8a5c;
 }

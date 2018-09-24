@@ -74,4 +74,12 @@
             <a class="mod_copyright_auth_ico mod_copyright_auth_ico_6" href="" target="_blank">网络举报APP下载</a>
         </p>
     </div>
+    <div class="friendship-links clearfix">
+        <span>友情链接 : </span>
+        <div class="links-wrap-h clearfix">
+            <tpshop sql="select * from `__PREFIX__friend_link` where is_show=1" key="k" item='v'>
+                <a href="{$v[link_url]}" <if condition="$v.target eq 1">target="_blank"</if> >{$v[link_name]}</a>
+            </tpshop>
+        </div>
+    </div>
 </div>

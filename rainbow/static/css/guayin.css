@@ -3221,7 +3221,7 @@ ul.main_shop li img {
 	margin-left:20px
 }
 .paybybill {
-	background:#ffb03f;
+	background:#ff8a5c;
 	color:#fff;
 	font-size:16px;
 	padding:10px 20px;
@@ -3230,7 +3230,7 @@ ul.main_shop li img {
 	display: inline;
 }
 .paybybill:hover {
-	background:#f5a635
+	background:#ff8a5c
 }
 .addcar {
 	background:#e23435;

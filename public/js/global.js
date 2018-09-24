@@ -22,7 +22,7 @@ function get_province(){
  * @param  天数
  * @return  日期
  */
-function get_send_date(send_date){
+/*function get_send_date(send_date){
     alert(send_date);
     if (send_date != '') {
         $.ajax({
@@ -39,7 +39,7 @@ function get_send_date(send_date){
 }
 function m1(data) {
     console.log(data);
-}
+}*/
 /**
  * 获取城市
  * @param t  省份select对象

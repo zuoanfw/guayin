@@ -23,6 +23,7 @@ use app\common\util\TpshopException;
 use think\Db;
 use think\Session;
 use think\Verify;
+use think\Request;
 use think\Cookie;
 
 class Api extends Base
@@ -229,10 +230,41 @@ class Api extends Base
             exit ('0');
     }
 
+    public function queryipaddress(){
+        header('Access-Control-Allow-Origin:*');
+        $host = "https://api01.aliyun.venuscn.com";
+        $path = "/ip";
+        $method = "GET";
+        $appcode = "1383cb60535c41628a2db85de70aead4";
+        $headers = array();
+        array_push($headers, "Authorization:APPCODE " . $appcode);
+        $ip      = get_ip();
+        $querys = "ip=".$ip;//49.92.174.147
+        $bodys = "";
+        $url = $host . $path . "?" . $querys;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_FAILONERROR, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);  //返回response头部信息
+        if (1 == strpos("$".$host, "https://"))
+        {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        }
+        $res = curl_exec($curl);
+        echo($res);
+        //$return_arr = array('status' => 1, 'msg' => '发送成功,请注意查收','data'=>$res);
+        //ajaxReturn($return_arr);
+       // var_dump(curl_exec($curl));
+    }
     /**
      * 查询物流
      */
-    public function queryExpress()
+    /*public function queryExpress()
     {
         $express_switch = tpCache('express.express_switch');
         if ($express_switch == 1) {
@@ -262,8 +294,42 @@ class Api extends Base
             }
             return json(queryExpress($shipping_code, $invoice_no));
         }
-    }
+    }*/
 
+    /**
+     * 查询物流
+     */
+    public function queryExpress()
+    {
+        $invoice_no = I('invoice_no');
+        $shipping_code = I('shipping_code');
+        $host = "https://goexpress.market.alicloudapi.com";
+        $path = "/goexpress";
+        $method = "GET";
+        $appcode = "1383cb60535c41628a2db85de70aead4";
+        $headers = array();
+        array_push($headers, "Authorization:APPCODE " . $appcode);
+        ///echo $invoice_no."+".$shipping_code;
+        $querys = "no=".$invoice_no."&type=".$shipping_code;
+        //$querys = "no=888772323913&type=sto";
+        //$querys = "no=70168542883777&type=HTKY";
+        $bodys = "";
+        $url = $host . $path . "?" . $querys;
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl, CURLOPT_FAILONERROR, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        if (1 == strpos("$".$host, "https://"))
+        {
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        }
+        echo(curl_exec($curl));
+    }
     /**
      * 检查订单状态
      */
