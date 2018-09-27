@@ -765,6 +765,7 @@
             data: {goods_id: goods_id, item_id: item_id, goods_num: goods_num},
             url: "{:U('Home/Goods/activity')}",  /*判断商品是否参加活动了*/
             success: function (data) {
+                console.log(data);
                 if (data.status == 1) {
                     $('input[name="goods_prom_type"]').attr('value', data.result.goods.prom_type);//商品活动类型
                     $('input[name="shop_price"]').attr('value', data.result.goods.shop_price);//商品价格
@@ -779,7 +780,7 @@
                     $('input[name="prom_detail"]').attr('value', data.result.goods.prom_detail);//促销详情
                     $('input[name="activity_is_on"]').attr('value', data.result.goods.activity_is_on);//活动是否正在进行中
                     price_ladder = data.result.goods.price_ladder;
-                    goods_activity_theme();
+                    goods_activity_theme();  //真正的设置商品价格 体重，生成周期等；
                     buy_button();
                 }
                 doInitRegion();
@@ -811,7 +812,7 @@
         var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');
         var activity_is_on = $('input[name="activity_is_on"]').attr('value');
         if (activity_is_on == 0) {
-            setNormalGoodsPrice();
+            setNormalGoodsPrice();  //没有参加活动设置正常的价格
         } else {
             if (goods_prom_type == 0 || goods_prom_type == 6) {
                 //普通商品

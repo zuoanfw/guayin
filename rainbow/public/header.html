@@ -32,8 +32,10 @@
                                 type:'post',
                                 dataType:'json',
                                 data: {},
+                                async: false,
                                 url:"{:U('Home/Api/queryipaddress')}",
                                 success:function(res){
+                                    //console.log(res);
                                     if(res.ret ==  200){
                                         IdByName = res.data.region+"省";
                                         cityIdByName=res.data.city+"市";
@@ -250,7 +252,7 @@
 									  <div class="item-left">
 										  <h3 class="cata-nav-name">
 											  <div class="cata-nav-wrap">
-												  <a href="{:U('Home/Goods/packList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+												  <a href="{:U('Home/Pack/packList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
 											  </div>
 										  </h3>
 									  </div>
@@ -261,11 +263,11 @@
 											  <foreach name="v['tmenu']" key="k2" item='v2'>
 												  <if condition="$v2[parent_id] eq $v['id']">
 													  <dl class="clearfix">
-														  <dt><a href="{:U('Home/Goods/packList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+														  <dt><a href="{:U('Home/Pack/packList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
 														  <dd class="clearfix">
 															  <foreach name="v2['sub_menu']" key="k3" item='v3'>
 																  <if condition="$v3[parent_id] eq $v2['id']">
-																	  <a href="{:U('Home/Goods/packList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+																	  <a href="{:U('Home/Pack/packList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
 																  </if>
 															  </foreach>
 														  </dd>

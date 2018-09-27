@@ -16,6 +16,9 @@
 		-webkit-appearance: button;
 		cursor: pointer;
 	}
+	.floor{
+		padding-bottom: 50px;
+	}
 </style>
 <body class="gray_f5">
 <!--header-s-->
@@ -139,10 +142,39 @@
 	</div>
 	<div class="floor-main">
 		<div class="floor-brand">
-			<adv item="vl" pid="10" limit="1">
+			<adv item="vl" pid="404" limit="1">
 				<a class="brand-big" href="{$vl[ad_link]}"><img class="w-100" src="{$vl[ad_code]}" alt="{$vl[title]}" /></a>
 			</adv>
-			<adv item="vs" pid="20" limit="1">
+			<adv item="vs" pid="405" limit="1">
+				<a class="brand-samll" href="{$vs[ad_link]}"><img class="w-100" src="{$vs[ad_code]}" alt="{$vs[title]}" /></a>
+			</adv>
+		</div>
+		<div class="floor-goods-list">
+			<foreach name="index_first_goods" item="g" key="gk">
+				<a class="floor-goods-item" href="{:U('Home/Goods/goodsInfo',array('id'=>$g[goods_id]))}">
+
+					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
+					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>
+					<div class="googs-title ellipsis-1">{$g[goods_name]|getSubstr=0,50}</div>
+				</a>
+			</foreach>
+		</div>
+	</div>
+	<div class="floor-top">
+		<h3 class="floor-title">推荐包装</h3>
+		<!--<div class="floor-nav-list clearfix">
+			<foreach name="v[tmenu]" item="v2" key="k2">
+				<a class="floor-nav-item" href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}">{$v2[name]}</a>
+			</foreach>
+	    </div>
+		<a class="nav-more-btn" href="{:U('Home/Goods/goodsList',array('id'=>$v[id]))}">更多<i>></i></a>-->
+	</div>
+	<div class="floor-main">
+		<div class="floor-brand">
+			<adv item="vl" pid="404" limit="1">
+				<a class="brand-big" href="{$vl[ad_link]}"><img class="w-100" src="{$vl[ad_code]}" alt="{$vl[title]}" /></a>
+			</adv>
+			<adv item="vs" pid="405" limit="1">
 				<a class="brand-samll" href="{$vs[ad_link]}"><img class="w-100" src="{$vs[ad_code]}" alt="{$vs[title]}" /></a>
 			</adv>
 		</div>

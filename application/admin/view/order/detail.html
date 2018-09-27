@@ -254,12 +254,13 @@ a.green:hover { color: #FFF; background-color: #1BBC9D; border-color: #16A086; }
                             url:"/index.php?m=Home&c=Api&a=queryExpress&shipping_code="+shipping_code+"&invoice_no="+invoice_no,//+tab,
                             success: function(data){
                                 var html = '';
-                                if(data.status == 200){
-                                    $.each(data.data, function(i,n){
+                                if(data.code == "OK"){
+                                    //console.log(data);
+                                    $.each(data.list, function(i,n){
                                         if(i == 0){
-                                            html += '<tr><td class="text-center">'+n.time+'</td><td class="text-center">'+n.context+'</td></tr>'
+                                            html += '<tr><td class="text-center">'+n.time+'</td><td class="text-center">'+n.content+'</td></tr>'
                                         }else{
-                                            html += '<tr><td class="text-center">'+n.time+'</td><td class="text-center">'+n.context+'</td></tr>'
+                                            html += '<tr><td class="text-center">'+n.time+'</td><td class="text-center">'+n.content+'</td></tr>'
                                         }
                                     });
                                 }else{

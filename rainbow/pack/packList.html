@@ -30,7 +30,7 @@
                     <li>{$v.attr_name}:</li>
                     <li class="ri-section">
                         <div class="clearfix p">
-                            <a href="{:U('Home/Goods/packList',array('id'=>'4'))}">不限</a>
+                            <a href="{:U('Home/Pack/packList',array('id'=>'4'))}">不限</a>
                             <foreach name="v[attr_value]" item="v2" key="k2">
                                 <a href="{$v2[href]}" data-href="{$v2[href]}" data-val='{$v2[val]}' <if condition="$attr_val eq $v2[val]">class="selected"</if> data-key='{$v2[key]}'>
                                     <input class="shaix_la" type="checkbox" style="display: none"/>
@@ -53,7 +53,7 @@
                             <li>
                                 <div class="s_xsall">
                                     <div class="xs_img">
-                                        <a href="{:U('/Home/Goods/packInfo',array('id'=>$v[goods_id]))}">
+                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}">
                                             <img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
                                         </a>
                                     </div>
@@ -76,13 +76,13 @@
                                 </div>
                                 <div class="s_xsall_text">
                                     <h4 class="media-heading">
-                                        <a href="{:U('/Home/Goods/packInfo',array('id'=>$v[goods_id]))}" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
                                     <p style="color:#ffa000;"> {$v.goods_remark}</p>
                                     <p>●&nbsp;使用场景：{$v.goods_use_scene}</p>
                                     <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
                                     <p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
                                     <div class="media-bottom">
-                                        <a href="{:U('/Home/Goods/packInfo',array('id'=>$v[goods_id]))}" class="btn-warning">
+                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}" class="btn-warning">
                                             免费获取报价</a>
                                     </div>
                                 </div>

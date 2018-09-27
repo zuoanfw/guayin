@@ -762,13 +762,19 @@
             var item_price_fill = $("#item_price").val();
             var item_market_price_fill = $("#item_market_price").val();
             var item_cost_price_fill = $("#item_cost_price").val();
-            var item_commission_fill = $("#item_commission").val();
-            var item_store_count_fill = $("#item_store_count").val();
+            var item_commission_fill = $("#item_commission").val(); //佣金
+            var item_goods_weight_fill = $("#item_goods_weight").val();//重量
+            var item_goods_volume_fill = $("#item_goods_volume").val();//体积
+            var item_goods_send_date_fill = $("#item_goods_send_date").val();//出货周期
+            var item_store_count_fill = $("#item_store_count").val();//库存
             var item_sku_fill = $("#item_sku").val();
             $("input[name$='[price]']").val(item_price_fill);
             $("input[name$='[market_price]']").val(item_market_price_fill);
             $("input[name$='[cost_price]']").val(item_cost_price_fill);
             $("input[name$='[commission]']").val(item_commission_fill);
+            $("input[name$='[goods_weight]']").val(item_goods_weight_fill);
+            $("input[name$='[goods_volume]']").val(item_goods_volume_fill);
+            $("input[name$='[goods_send_date]']").val(item_goods_send_date_fill);
             $("input[name$='[store_count]']").val(item_store_count_fill);
             $("input[name$='[sku]']").each(function(i,o){
                 $(this).val(item_sku_fill);

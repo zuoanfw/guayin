@@ -371,6 +371,7 @@ function getCatGrandson ($cat_id)
     $GLOBALS['catGrandson'][] = $cat_id;
     // 把整张表找出来
     $GLOBALS['category_id_arr'] = M('GoodsCategory')->cache(true,TPSHOP_CACHE_TIME)->getField('id,parent_id');
+    //halt($GLOBALS['category_id_arr']);
     // 先把所有儿子找出来
     $son_id_arr = M('GoodsCategory')->where("parent_id", $cat_id)->cache(true,TPSHOP_CACHE_TIME)->getField('id',true);
     foreach($son_id_arr as $k => $v)

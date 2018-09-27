@@ -39,7 +39,7 @@ var provinceCityJson = locationJsonInfoDyr.city_location; //市区
 function doInitRegion()
 {
 	var province_id = getCookieByName('province_id'),city_id = getCookieByName('city_id'),district_id = getCookieByName('district_id');
-	if(province_id==null || city_id==null || district_id==null){
+	if(province_id==null || city_id==null){
 			province_id = 1;
 			city_id = 2;
 			district_id = '';
@@ -116,7 +116,7 @@ function getIdByName(name) {
 function getcityIdByName(name) {
     //return provinceCityJson[name].id;
 	for (var o in provinceCityJson){
-		console.log(provinceCityJson[o]);
+		//console.log(provinceCityJson[o]);
 		for (var i in provinceCityJson[o]){
 			//alert(provinceCityJson[o][i]['name']);
 			if(provinceCityJson[o][i]['name'] == name){
@@ -204,7 +204,12 @@ function getAreaList(result) {
 					page_load = false;
 				}
 				//替换gSC
-				var address = currentAreaInfo.currentProvinceName+','+ currentAreaInfo.currentCityName+','+ currentAreaInfo.currentAreaName +','+ currentAreaInfo.currentTownName;
+				//var address = currentAreaInfo.currentProvinceName+','+ currentAreaInfo.currentCityName+','+ currentAreaInfo.currentAreaName +','+ currentAreaInfo.currentTownName;
+				if(currentAreaInfo.currentAreaName){
+                    var address = currentAreaInfo.currentProvinceName + currentAreaInfo.currentCityName + currentAreaInfo.currentAreaName + currentAreaInfo.currentTownName;
+                }else {
+                    var address = currentAreaInfo.currentProvinceName + currentAreaInfo.currentCityName;
+                }
 				//只选择最低级地名--------------------------------------------------------------------
 				//最后的获取结果为所选的最后一级地名，比如若只选到县名，则保留县名，同理市名，省名。
 				var tTown = "", tArea = "", tCity = "", tProvince = "";
