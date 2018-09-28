@@ -245,13 +245,14 @@
                                     <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
                                     <p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
                                     <div class="media-bottom">
-                                            <!--限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]*500}</span>
-                                            <span class="old"><em>￥</em><em>{$v[market_price]*500}</em></span>
-                                            (500张，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v[shop_price]}</span>&nbsp;元/张)
-                                            -->
+                                        <if condition="$v['goods_num']['0'] neq ''">
+                                            限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v['shop_price']['0']*$v['goods_num']['0']}</span>
+                                            <span class="old"><em>￥</em><em>{$v[market_price]*$v['goods_num']['0']}</em></span>
+                                            ({$v['goods_num']['0']}张，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/张)
+                                        <else/>
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]}</em></span>
-
+                                        </if>
                                         <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="btn-warning"> 马上抢</a>
                                     </div>
                                 </div>

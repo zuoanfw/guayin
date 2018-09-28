@@ -213,6 +213,7 @@ class Cart extends Base
     {
         $goods_id = input("goods_id/d"); // 商品id
         $goods_num = input("goods_num/d");// 商品数量
+        $num_key = input('num_key');
         $item_id = input("item_id/d"); // 商品规格id
         $goods_file_id = I("goods_file_id/d");
         $action = input("action"); // 行为
@@ -227,6 +228,7 @@ class Cart extends Base
             $cartLogic->setGoodsModel($goods_id);
             $cartLogic->setSpecGoodsPriceById($item_id);
             $cartLogic->setGoodsBuyNum($goods_num);
+            $cartLogic->setNumKey($num_key);
             $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
             $buyGoods = [];
             try {
@@ -307,6 +309,7 @@ class Cart extends Base
         $payPwd = input("payPwd/s", ''); // 支付密码
         $goods_id = input("goods_id/d"); // 商品id
         $goods_num = input("goods_num/d");// 商品数量  立即购买 单个类型的商品时候
+        $num_key = input("num_key");// 商品数量key
         $goods_file_id = input('goods_file_id'); //印刷文件 立即购买 单个类型的商品时候
         $item_id = input("item_id/d"); // 商品规格id
         $action = input("action"); // 立即购买
@@ -331,6 +334,7 @@ class Cart extends Base
                 $cartLogic->setGoodsModel($goods_id);
                 $cartLogic->setSpecGoodsPriceById($item_id);
                 $cartLogic->setGoodsBuyNum($goods_num);
+                $cartLogic->setNumKey($num_key);
                 $cartLogic->setGoodsFileId($goods_file_id);
                 $buyGoods = $cartLogic->buyNow();
                 $cartList[0] = $buyGoods;

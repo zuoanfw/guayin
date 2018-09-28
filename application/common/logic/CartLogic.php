@@ -66,7 +66,14 @@ class CartLogic extends Model
     {
         if ($goods_id > 0) {
             $goodsModel = new Goods();
-            $this->goods = $goodsModel::get($goods_id);
+            //if($this->num_key === ''){
+                $this->goods = $goodsModel::get($goods_id);
+            /*}else{
+                $goods_arr = $goodsModel::get($goods_id);
+                $goods_arr['shop_price']= explode(',',$goods_arr['shop_price']);
+                $this->goods = $goods_arr;
+            }*/
+
         }
     }
 
@@ -141,6 +148,12 @@ class CartLogic extends Model
         if (empty($this->goodsBuyNum)) {
             throw new TpshopException('立即购买', 0, ['status' => 0, 'msg' => '购买商品数量不能为0', 'result' => '']);
         }
+        if($this->num_key === ''){
+            $shop_price = $this->goods['shop_price'];
+        }else{
+           $shop_price_arr = explode(',',$this->goods['shop_price']);
+            $shop_price = $shop_price_arr[$this->num_key];
+        }
         $buyGoods = [
             'user_id' => $this->user_id,
             'session_id' => $this->session_id,
@@ -148,8 +161,8 @@ class CartLogic extends Model
             'goods_sn' => $this->goods['goods_sn'],
             'goods_name' => $this->goods['goods_name'],
             'market_price' => $this->goods['market_price'],
-            'goods_price' => $this->goods['shop_price'],
-            'member_goods_price' => $this->goods['shop_price'],
+            'goods_price' => $shop_price,
+            'member_goods_price' => $shop_price,
             'goods_num' => $this->goodsBuyNum, // 购买数量
             'goods_file_id' => $this->goods_file_id, // 购买数量
             'add_time' => time(), // 加入购物车时间
@@ -166,8 +179,15 @@ class CartLogic extends Model
             $prom_type = $this->goods['prom_type'];
             $store_count = $this->goods['store_count'];
         } else {
-            $buyGoods['member_goods_price'] = $this->specGoodsPrice['price'];
-            $buyGoods['goods_price'] = $this->specGoodsPrice['price'];
+            //读取规格中的价格
+            if($this->num_key === ''){
+                $shop_price_spec = $this->goods['shop_price'];
+            }else{
+                $shop_price_spec_arr = explode(',',$this->specGoodsPrice['price']);
+                $shop_price_spec = $shop_price_spec_arr[$this->num_key];
+            }
+            $buyGoods['member_goods_price'] = $shop_price_spec;
+            $buyGoods['goods_price'] = $shop_price_spec;
             $buyGoods['weight'] = $this->specGoodsPrice['goods_weight'];
             $buyGoods['spec_key'] = $this->specGoodsPrice['key'];
             $buyGoods['spec_key_name'] = $this->specGoodsPrice['key_name']; // 规格 key_name
@@ -253,10 +273,8 @@ class CartLogic extends Model
     {
         //halt($this->num_key);
         if (empty($this->specGoodsPrice)) {
-            if($this->num_key==''){
-                echo "1";
-                $price = $this->goods['price'];
-                echo "2";exit();
+            if($this->num_key===''){
+                $price = $this->goods['shop_price'];
             }else{
                 //拆分价格
                 $price_arr = explode(',',$this->goods['shop_price']);
@@ -266,7 +284,7 @@ class CartLogic extends Model
             $send_date = $this->goods['send_date'];
         } else {
             //如果有规格价格，就使用规格价格，否则使用本店价。
-            if($this->num_key==''){
+            if($this->num_key===''){
                 $price = $this->specGoodsPrice['price'];
             }else{
                 //拆分价格

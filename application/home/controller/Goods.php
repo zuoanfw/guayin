@@ -220,7 +220,13 @@ class Goods extends Base
             if ($filter_goods_id2)
                 $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->cache(true)->select();
         }
-        // print_r($filter_menu);         
+        foreach ($goods_list as $key => $vo){
+            if($vo['goods_num']){
+                $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
+                $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+            }
+        }
+        //halt($goods_list);
         $goods_category = M('goods_category')->where('is_show=1')->cache(true)->getField('id,name,parent_id,level'); // 键值分类数组
         $navigate_cat = navigate_goods($id); // 面包屑导航         
         $this->assign('goods_list', $goods_list);
@@ -315,7 +321,12 @@ class Goods extends Base
             if ($filter_goods_id2)
                 $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->cache(true)->select();
         }
-        //halt($goods_list);exit;
+        foreach ($goods_list as $key => $vo){
+            if($vo['goods_num']){
+                $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
+                $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+            }
+        }
         // print_r($filter_menu);
         $goods_category = M('goods_category')->where('is_show=1')->cache(true)->getField('id,name,parent_id,level'); // 键值分类数组
         $navigate_cat = navigate_goods($id); // 面包屑导航
@@ -452,6 +463,12 @@ class Goods extends Base
                 $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->select();
         }
 
+        foreach ($goods_list as $key => $vo){
+            if($vo['goods_num']){
+                $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
+                $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+            }
+        }
         $this->assign('goods_list', $goods_list);
         $this->assign('goods_images', $goods_images);  // 相册图片
         $this->assign('filter_menu', $filter_menu);  // 帅选菜单

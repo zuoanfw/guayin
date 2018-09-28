@@ -299,14 +299,15 @@
 									</notempty>
 								</div>
 								<div class="column t-quantity mtp quantity-form">
-									<if condition="$cart.num_key neq null">
-										{$cart['goods_num']}
-									<else/>
+									<!--判断是否显示数量 增删按钮 爆品印品不显示-->
+									<if condition="$cart.num_key === ''">
 										<a href="javascript:void(0);" class="decrement" id="decrement_{$cart['id']}">-</a>
 										<input name="changeQuantity_{$cart['id']}" type="text" id="changeQuantity_{$cart['id']}" value="{$cart['goods_num']}">
 										<a href="javascript:void(0);" class="increment" id="increment_{$cart['id']}">+</a>
 										<!--无货时隐藏数量选择，显示无货-->
 										<!--<span>无货</span>-->
+									<else/>
+										{$cart['goods_num']}
 									</if>
 								</div>
 								<div class="column t-quantity mtp quantity-form">
