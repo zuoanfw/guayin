@@ -153,6 +153,7 @@ class Cart extends Base
     {
         $goods_id = I("goods_id/d"); // 商品id
         $goods_num = I("goods_num/d");// 商品数量
+        $num_key = I("num_key/d");  //商品数量数组 当前数量的key
         $item_id = I("item_id/d"); // 商品规格id
         $goods_file_id = I("goods_file_id/d");
         if (empty($goods_id)) {
@@ -169,6 +170,7 @@ class Cart extends Base
         $cartLogic->setGoodsModel($goods_id);
         $cartLogic->setSpecGoodsPriceById($item_id);
         $cartLogic->setGoodsBuyNum($goods_num);//设置购买数量
+        $cartLogic->setNumKey($num_key);//设置购买数量 key
         $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
         try {
             $cartLogic->addGoodsToCart();

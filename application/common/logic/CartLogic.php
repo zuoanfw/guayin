@@ -35,6 +35,7 @@ class CartLogic extends Model
     protected $goods;//商品模型
     protected $specGoodsPrice;//商品规格模型
     protected $goodsBuyNum;//购买的商品数量
+    protected $num_key;//购买的商品数量 的key
     protected $goods_file_id; //印刷文件
     protected $session_id;//session_id
     protected $user_id = 0;//user_id
@@ -118,6 +119,10 @@ class CartLogic extends Model
     public function setGoodsBuyNum($goodsBuyNum)
     {
         $this->goodsBuyNum = $goodsBuyNum;
+    }
+    //设置购买数量 key
+    public function setNumKey($num_key){
+        $this->num_key = $num_key;
     }
 
     public function setGoodsFileId($goods_file_id){
@@ -246,13 +251,28 @@ class CartLogic extends Model
      */
     private function addNormalCart()
     {
+        //halt($this->num_key);
         if (empty($this->specGoodsPrice)) {
-            $price = $this->goods['shop_price'];
+            if($this->num_key==''){
+                echo "1";
+                $price = $this->goods['price'];
+                echo "2";exit();
+            }else{
+                //拆分价格
+                $price_arr = explode(',',$this->goods['shop_price']);
+                $price = $price_arr[$this->num_key];
+            }
             $store_count = $this->goods['store_count'];
             $send_date = $this->goods['send_date'];
         } else {
             //如果有规格价格，就使用规格价格，否则使用本店价。
-            $price = $this->specGoodsPrice['price'];
+            if($this->num_key==''){
+                $price = $this->specGoodsPrice['price'];
+            }else{
+                //拆分价格
+                $price_arr = explode(',',$this->specGoodsPrice['price']);
+                $price = $price_arr[$this->num_key];
+            }
             $store_count = $this->specGoodsPrice['store_count'];
             $send_date = $this->specGoodsPrice['goods_send_date'];
         }
@@ -277,7 +297,7 @@ class CartLogic extends Model
         }
 
         // 如果该商品已经存在购物车  印刷文件类型用第一次的选择项
-        if ($userCartGoods) {
+        if ($userCartGoods && empty($this->num_key)) {
             //判断出货周期
             $send_date = $send_date + $userCartGoods['goods_send_date'];//本次要购买的出货周期加上购物车的本身存在的出货周期
 
@@ -319,6 +339,7 @@ class CartLogic extends Model
                 'goods_price' => $price,  // 原价
                 'member_goods_price' => $price,  // 会员折扣价 默认为 购买价
                 'goods_num' => $this->goodsBuyNum, // 购买数量
+                'num_key' => $this->num_key, // 购买数量
                 'goods_file_id' => $this->goods_file_id, // 购买数量
                 'add_time' => time(), // 加入购物车时间
                 'prom_type' => 0,   // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠

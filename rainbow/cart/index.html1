@@ -89,8 +89,34 @@
 		</div>
 		<!--购物车商品列表-s-->
 		<div class="w1224">
+			<!--<div class="meal-conts-name p">-->
+			<!--<div class="fl">-->
+			<!--<input class="check-box" name="checkItem" value="{$cart.id}" type="checkbox" <if condition='$cart[selected] eq 1'>checked="checked"</if> style="display: none;">-->
+			<!--<i data-goods-id="{$cart.goods_id}" data-goods-cat-id3="{$cart['goods']['cat_id']}" data-cart-id="{$cart.id}" class="checkall checkItem <if condition='$cart[selected] eq 1'>checkall-true</if>"></i>-->
+			<!--</div>-->
+			<!---->
+			<!--<em class="meal-name-dev fl">guaguayin</em>-->
+			<!--<span class="meal-name-icon fl">-->
+			<!---->
+			<!--</span>-->
+			<!--</div>-->
 			<volist name="cartList" id="cart">
-
+				<if condition="$cart['combination_cart']">
+					<!--搭配套餐标题 s-->
+					<div class="meal-conts-name p edge_{$cart.id}" style="border-bottom: 1px solid #d5d5d5;">
+						<div class="fl">
+							<input class="check-box" name="checkItem" value="{$cart['id']}" type="checkbox" <if condition='$cart[selected] eq 1'>checked="checked"</if> style="display: none;">
+							<i data-goods-id="{$cart['goods_id']}" data-goods-cat-id3="{$cart['goods']['cat_id']}" data-cart-id="{$cart['id']}" data-type="{$cart['prom_type']}" class="checkall checkItem <if condition='$cart[selected] eq 1'>checkall-true</if>"></i>
+						</div>
+						<!--<div class="meal-conts-tltle">-->
+						<h5 class="fl" style="margin-left:16px ">{$cart['combination']['title']}</h5>
+						<!--</div>-->
+						<!--<em class="meal-name-dev fl">guaguayin</em>-->
+						<!--<span class="meal-name-icon fl">-->
+						<!---->
+						<!--</span>-->
+					</div>
+				</if>
 				<div class="shoplist_detail_a edge_{$cart.id}" style="border-top: <if condition='$key==0'> 1px solid #d5d5d5<else />none</if> ">
 
 					<if condition="$cart['combination_cart']">
@@ -299,7 +325,7 @@
 									</notempty>
 								</div>
 								<div class="column t-quantity mtp quantity-form">
-									<if condition="$cart.num_key neq null">
+									<if condition="$cart.item_id gt 0">
 										{$cart['goods_num']}
 									<else/>
 										<a href="javascript:void(0);" class="decrement" id="decrement_{$cart['id']}">-</a>
@@ -412,7 +438,118 @@
 	</script>
 	</div>
 </notempty>
+<!--底部猜你喜欢-->
+<!--<div class="shoplist_guess">
+	<div class="w1224">
+		<div class="main_shopcarlist">
+			<div class="li3_address folahov p">
+				<ul>
+					<li class="current" data-id="guess-products"><a href="javascript:void(0);">猜你喜欢</a></li>
+					<li data-id="collect-products"><a href="javascript:void(0);">我的收藏</a></li>
+					<li data-id="history-products"><a href="javascript:void(0);">最近浏览</a></li>
+				</ul>
+			</div>
 
+			<div class="totalswitch">
+				<div class="switchable-panel" id="guess-products">
+					<div class="goods-list-tab">
+						<a class="s-item curr">&nbsp;</a>
+						<a class="s-item">&nbsp;</a>
+						<a class="s-item">&nbsp;</a>
+					</div>
+					<div class="s-panel-main">
+						<tpshop sql="select * from `__PREFIX__goods` where is_recommend = 1 AND is_virtual=0 AND is_on_sale = 1 order by sort DESC limit 12" result_name="goods_likes"></tpshop>
+						<div class="goods-panel jsaddsucc p">
+							<ul>
+								<volist name="goods_likes" id="like" offset="0" length="4">
+									<li>
+										<div class="itemgoodbox">
+											<div class="p-img" >
+												<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$like['goods_id']))}">
+													<img src="{$like.goods_id|goods_thum_images=160,160}">
+												</a>
+											</div>
+											<div class="p-name">
+												<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$like['goods_id']))}">{$like.goods_name}</a>
+											</div>
+											<div class="p-price">
+												<strong><em>￥</em><i>{$like.shop_price}</i></strong>
+											</div>
+											<div class="p-btn-adc">
+												<a onclick="javascript:AjaxAddCart({$like.goods_id},1);" class="btn-append"><b></b>加入购物车</a>
+											</div>
+										</div>
+									</li>
+								</volist>
+							</ul>
+						</div>
+						<div class="goods-panel p">
+							<ul>
+								<volist name="goods_likes" id="like" offset="4" length="4">
+									<li>
+										<div class="itemgoodbox">
+											<div class="p-img" >
+												<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$like['goods_id']))}">
+													<img src="{$like.goods_id|goods_thum_images=160,160}">
+												</a>
+											</div>
+											<div class="p-name">
+												<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$like['goods_id']))}">{$like.goods_name}</a>
+											</div>
+											<div class="p-price">
+												<strong><em>￥</em><i>{$like.shop_price}</i></strong>
+											</div>
+											<div class="p-btn-adc">
+												<a onclick="javascript:AjaxAddCart({$like.goods_id},1);" class="btn-append"><b></b>加入购物车</a>
+											</div>
+										</div>
+									</li>
+								</volist>
+							</ul>
+						</div>
+						<div class="goods-panel p">
+							<ul>
+								<volist name="goods_likes" id="like" offset="8" length="4">
+									<li>
+										<div class="itemgoodbox">
+											<div class="p-img" >
+												<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$like['goods_id']))}">
+													<img src="{$like.goods_id|goods_thum_images=160,160}">
+												</a>
+											</div>
+											<div class="p-name">
+												<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$like['goods_id']))}">{$like.goods_name}</a>
+											</div>
+											<div class="p-price">
+												<strong><em>￥</em><i>{$like.shop_price}</i></strong>
+											</div>
+											<div class="p-btn-adc">
+												<a onclick="javascript:AjaxAddCart({$like.goods_id},1);" class="btn-append"><b></b>加入购物车</a>
+											</div>
+										</div>
+									</li>
+								</volist>
+							</ul>
+						</div>
+						<div class="c-page-acar">
+							<a href="javascript:void(0)" class="c-prev">&lt;</a>
+							<a href="javascript:void(0)" class="c-next">&gt;</a>
+						</div>
+					</div>
+				</div>
+				<div class="switchable-panel" id="collect-products" style="display: none">
+					<div class="goods-list-tab" ></div>
+					<div class="s-panel-main"></div>
+				</div>
+				<div class="switchable-panel" id="history-products" style="display: none">
+					<div class="goods-list-tab" ></div>
+					<div class="s-panel-main"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->
+<!--底部猜你喜欢-->
 <!--删除商品弹窗-s-->
 <div class="ui-dialog">
 	<div class="ui-dialog-title" style="width: 380px;">

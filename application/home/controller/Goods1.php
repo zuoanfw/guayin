@@ -39,8 +39,7 @@ class Goods extends Base
      */
     public function goodsInfo()
     {
-
-        //C('TOKEN_ON',true);
+        //C('TOKEN_ON',true);        
         $goodsLogic = new GoodsLogic();
         $goods_id = I("get.id/d");
         $Goods = new \app\common\model\Goods();
@@ -57,24 +56,10 @@ class Goods extends Base
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
         $filter_spec = $goodsLogic->get_spec($goods_id);//规格参数
         $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
-        $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,goods_num,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
-        //遍历规格获取价格数组
-        foreach ($spec_goods_price as $key=>$vo){
-            $spec_goods_price[$key]['price'] = explode(',',$vo['price']);
-        }
-        //halt($spec_goods_price);
+        $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
         //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
         $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
-
-        //如果 是爆品印品 需读取商品购买数量 价格 拆分
-        if($goods['goods_num']){
-            $goods_num =  explode(',',$goods['goods_num']);
-            $this->assign('goods_num',$goods_num);
-            $goods_price = explode(',',$goods['shop_price']);
-            $this->assign('goods_price',json_encode($goods_price,true));
-        }
-
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航
@@ -99,12 +84,10 @@ class Goods extends Base
         $goods_id = input('goods_id/d');//商品id
         $item_id = input('item_id/d');//规格id
         $goods_num = input('goods_num/d');//欲购买的商品数量
-        $num_key = input('num_key');  //欲购买的商品数量的 数组 对应的key  ，为了获取当前的单价
         $Goods = new \app\common\model\Goods();
         $goods = $Goods::get($goods_id);
         $goodsPromFactory = new GoodsPromFactory();  //商品活动工厂类
-        //prom_type  0默认1抢购2团购3优惠促销4预售5虚拟(5其实没用)6拼团7搭配购
-        if ($goodsPromFactory->checkPromType($goods['prom_type'])) {  //判断是否有参加活动
+        if ($goodsPromFactory->checkPromType($goods['prom_type'])) {
             //这里会自动更新商品活动状态，所以商品需要重新查询
             if ($item_id) {
                 $specGoodsPrice = SpecGoodsPrice::get($item_id);
@@ -128,11 +111,6 @@ class Goods extends Base
         if (!empty($goods['price_ladder'])) {
             $goodsLogic = new GoodsLogic();
             $goods->shop_price = $goodsLogic->getGoodsPriceByLadder($goods_num, $goods['shop_price'], $goods['price_ladder']);
-        }
-        //判断爆品印品 获取 商品数量 和 价格 字符串 第一个值
-        if (!empty($goods['goods_num'])) {
-            $goods_price = explode(',',$goods['shop_price']);
-            $goods->shop_price = $goods_price[$num_key];
         }
         $this->ajaxReturn(['status' => 1, 'msg' => '该商品没有参与活动', 'result' => ['goods' => $goods]]);
     }
@@ -372,7 +350,6 @@ class Goods extends Base
         } else {
             $dispatching_data = ['status' => 0, 'msg' => '该地区不支持配送', 'result' => ''];
         }
-        //halt($dispatching_data);
         $this->ajaxReturn($dispatching_data);
     }
 

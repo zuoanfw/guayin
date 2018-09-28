@@ -319,7 +319,7 @@ class GoodsLogic extends Model
                        
          $spec = M('Spec')->getField('id,name'); // 规格表
          $specItem = M('SpecItem')->getField('id,item,spec_id');//规格项
-         $keySpecGoodsPrice = M('SpecGoodsPrice')->where('goods_id = '.$goods_id)->getField('key,key_name,price,goods_weight,goods_volume,goods_send_date,store_count,bar_code,sku,market_price,cost_price,commission');//规格项
+         $keySpecGoodsPrice = M('SpecGoodsPrice')->where('goods_id = '.$goods_id)->getField('key,key_name,goods_num,price,goods_weight,goods_volume,goods_send_date,store_count,bar_code,sku,market_price,cost_price,commission');//规格项
                           
        $str = "<table class='table table-bordered' id='spec_input_tab'>";
        $str .="<tr>";
@@ -330,8 +330,9 @@ class GoodsLogic extends Model
            $str .=" <td><b>{$spec[$v]}</b></td>";
            $str_fill .=" <td><b></b></td>";
        }
-        $str .="<td><b>价格(单价)</b></td>
-               <td><b>市场价(单价)</b></td>
+        $str .="<!--<td><b>数量(多个用,隔开)</b></td>-->
+                <td><b>价格(数量对应的单价)</b></td>
+               <td><b>市场价(数量对应的单价)</b></td>
                <td><b>重量(g)</b></td>
                <td><b>体积(立方米)</b></td>
                <td><b>出货周期</b></td>
@@ -341,8 +342,9 @@ class GoodsLogic extends Model
                <td><b>操作</b></td>
              </tr>";
         if(count($spec_arr2) > 0){
-            $str_fill .='<td><input id="item_price" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)" onpaste="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)"></td>
-               <td><input id="item_market_price" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)" onpaste="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)"></td>
+            $str_fill .='<!--<td><input id="item_goods_num" value="0"></td>-->
+               <td><input id="item_price" value="0"></td>
+               <td><input id="item_market_price" value="0"></td>
                <td><input id="item_goods_weight" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)" onpaste="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)"></td>
                <td><input id="item_goods_volume" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)" onpaste="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)"></td>
                <td><input id="item_goods_send_date" value="0" onkeyup="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)" onpaste="this.value=this.value.replace(/[^\d.]/g,&quot;&quot;)"></td>
@@ -368,12 +370,13 @@ class GoodsLogic extends Model
 			$keySpecGoodsPrice[$item_key][price] ? false : $keySpecGoodsPrice[$item_key][price] = 0; // 价格默认为0
 			$keySpecGoodsPrice[$item_key][store_count] ? false : $keySpecGoodsPrice[$item_key][store_count] = 0; //库存默认为0
 			$keySpecGoodsPrice[$item_key][market_price] ? false : $keySpecGoodsPrice[$item_key][market_price] = 0; //市场价默认为0
-            $str .="<td><input name='item[$item_key][price]' value='{$keySpecGoodsPrice[$item_key][price]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")' /></td>";
-           $str .="<td><input name='item[$item_key][market_price]' value='{$keySpecGoodsPrice[$item_key][market_price]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")' /></td>";
-           $str .="<td><input name='item[$item_key][goods_weight]' value='{$keySpecGoodsPrice[$item_key][goods_weight]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")'/></td>";
-           $str .="<td><input name='item[$item_key][goods_volume]' value='{$keySpecGoodsPrice[$item_key][goods_volume]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")'/></td>";
-           $str .="<td><input name='item[$item_key][goods_send_date]' value='{$keySpecGoodsPrice[$item_key][goods_send_date]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")'/></td>";
-            $str .="<td><input name='item[$item_key][store_count]' value='{$keySpecGoodsPrice[$item_key][store_count]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")'/></td>";
+           //$str .="<td><input name='item[$item_key][goods_num]' value='{$keySpecGoodsPrice[$item_key][goods_num]}' /></td>";
+            $str .="<td><input name='item[$item_key][price]' value='{$keySpecGoodsPrice[$item_key][price]}' /></td>";
+           $str .="<td><input name='item[$item_key][market_price]' value='{$keySpecGoodsPrice[$item_key][market_price]}' /></td>";
+           $str .="<td><input name='item[$item_key][goods_weight]' value='{$keySpecGoodsPrice[$item_key][goods_weight]}' /></td>";
+           $str .="<td><input name='item[$item_key][goods_volume]' value='{$keySpecGoodsPrice[$item_key][goods_volume]}' /></td>";
+           $str .="<td><input name='item[$item_key][goods_send_date]' value='{$keySpecGoodsPrice[$item_key][goods_send_date]}'/></td>";
+            $str .="<td><input name='item[$item_key][store_count]' value='{$keySpecGoodsPrice[$item_key][store_count]}' /></td>";
             $str .="<td><button type='button' class='btn btn-default delete_item'>无效</button></td>";
             $str .="</tr>";
        }
@@ -775,6 +778,7 @@ class GoodsLogic extends Model
             foreach ($goods_item as $k => $v) {
                 $keyArr .= $k.',';
                 // 批量添加数据
+                $v['goods_num'] = trim($v['goods_num']);
                 $v['price'] = trim($v['price']);
                 $v['store_count'] = trim($v['store_count']); // 记录商品总库存
                 $v['sku'] = trim($v['sku']);
@@ -785,6 +789,7 @@ class GoodsLogic extends Model
                     'goods_id' => $goods_id,
                     'key' => $k,
                     'key_name' => $v['key_name'],
+                    'goods_num' => $v['goods_num'],
                     'price' => $v['price'],
                     'goods_send_date' => $v['goods_send_date'],
                     'goods_weight' => $v['goods_weight'],
@@ -826,6 +831,7 @@ class GoodsLogic extends Model
                 ));
             }
             if($keyArr){
+                //删除之前的老的列表
                 Db::name('spec_goods_price')->where('goods_id',$goods_id)->whereNotIn('key',$keyArr)->delete();
             }
         }else{

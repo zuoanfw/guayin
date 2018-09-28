@@ -27,15 +27,9 @@
 <div class="search-box p">
     <div class="w1224">
         <div class="search-path fl">
-            <foreach name="navigate_goods" key="k" item="v">
-                <if condition="$goods.cat_id eq '3'">
                     <!--现货通用品数量计算-->
-                    <a href="{:U('/Home/Goods/fastBuy',array('id'=>$k))}">{$v}</a>
-                 <else/>
-                    <a href="{:U('/Home/Goods/goodsList',array('id'=>$k))}">{$v}</a>
-                 </if>
+                    <a href="{:U('/Home/Goods/integralList')}">积分商城</a>
                 <i class="litt-xyb"></i>
-            </foreach>
             <div class="havedox">
                 <span>{$goods.goods_name}</span>
             </div>
@@ -166,40 +160,13 @@
             <input type="hidden" name="activity_title" value=""/><!-- 活动标题 -->
             <input type="hidden" name="prom_detail" value=""/><!-- 促销活动的促销类型 -->
             <input type="hidden" name="activity_is_on" value=""/><!-- 活动是否正在进行中 -->
-            <input type="hidden" name="item_id" value="{$Request.param.item_id}"/><!-- 商品规格表spec_goods_price的id -->
+            <input type="hidden" name="item_id" value="{$Request.param.item_id}"/><!-- 商品规格id -->
             <input type="hidden" name="exchange_integral" value="{$goods.exchange_integral}"/><!-- 积分 -->
             <input type="hidden" name="point_rate" value="{$point_rate}"/><!-- 积分兑换比 -->
             <input type="hidden" name="is_virtual" value="{$goods.is_virtual}"/><!-- 是否是虚拟商品 -->
             <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
             <div class="detail-ggsl">
                 <h1>{$goods.goods_name}</h1>
-                <p style="color: #fd4f3e;">{$goods.goods_remark}</p>
-                <div class="goods_attr">
-                     <!--<ul>
-                         <foreach name="goods_attr_list" item="v" key="k">
-                             <li><span>{$goods_attribute[$v[attr_id]]}：</span><span>{$v[attr_value]}</span></li>
-                         </foreach>
-                     </ul>-->
-                        <ul>
-                            <li><span>使用场景：</span><span>{$goods.goods_use_scene}</span></li>
-                            <li><span>推荐指数：</span><span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
-                            <li><span>推荐理由：</span><span>{$goods.goods_rec_reason}</span></li>
-                        </ul>
-                </div>
-                <div class="standard p">
-                    <ul>
-                        <li class="jaj"><span>产品规格：</span></li>
-                        <li><span class="service">{$goods['goods_spec']}</span></li>
-                    </ul>
-                </div>
-                <div class="standard p"  style="padding-bottom: 15px;border-bottom:1px solid #ddd;">
-                    <ul>
-                        <li class="jaj"><span>用户评价：</span></li>
-                        <li class="lawir_gailv"><img src="__STATIC__/images/goodinfo_03.jpg" alt=""></li>
-                        <li class="lawir"><span class="service">{$goods['goods_comment']}</span></li>
-                        <li class="lawir_gailv"><img src="__STATIC__/images/goodinfo_06.jpg" alt=""></li>
-                    </ul>
-                </div>
                 <!-- 规格 start [[-->
                 <foreach name="filter_spec" item="v" key="k">
                     <div class="spec_goods_price_div standard p">
@@ -207,7 +174,7 @@
                             <li class="jaj"><span>{$k}：</span></li>
                             <li class="lawir colo">
                                 <foreach name="v" item="v2" key="k2">
-                                    <input type="radio" spec_val="{$k}" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
+                                    <input type="radio" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
                                     <a id="goods_spec_a_{$v2[item_id]}" class="spec_item">
                                         <if condition="$v2[src] neq ''">
                                             <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
@@ -221,38 +188,10 @@
                         </ul>
                     </div>
                 </foreach>
+                <script>
+
+                </script>
                 <!-- 规格end ]]-->
-                <if condition="$goods_num neq ''">
-                    <!--爆款印品 如果没有规格 就按详情里填的数量走 默认按这个取第一值。如果有规格就按照规格的数量计算-->
-                    <input  id="number" type="hidden" name="goods_num" value="{$goods_num['0']}">
-                    <input id="num_key" type="hidden" name="num_key" value="0">
-                    <div class="spec_goods_price_div standard p">
-                        <ul>
-                            <li class="jaj"><span>数量(张)：</span></li>
-                            <li class="lawir colo">
-                                <foreach name="goods_num" item="n" key="m">
-                                    <a val="{$m}" <if condition="$m eq '0'"> class="goods_num_item red"<else/>class="goods_num_item"</if>>
-                                        {$n}
-                                    </a>
-                                </foreach>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="spec_goods_price_div standard p">
-                        <ul>
-                            <li class="jaj"><span>印刷文件：</span></li>
-                            <li class="lawir colo1">
-                                <input type="hidden" id="goods_file_id" name="goods_file_id" value="1"/>
-                                <a val="1" class="goods_file_item red">
-                                    使用自己的设计
-                                </a>
-                                <a val="2" class="goods_file_item">
-                                    需要帮我设计
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                 <else/>
                     <!--现货通用品数量计算-->
                     <div class="standard" style="padding: 13px 10px">
                         <ul class="p">
@@ -268,7 +207,7 @@
                             </li>
                         </ul>
                     </div>
-                </if>
+
                 <if condition="$goods[is_virtual] eq 0">
                     <div class="standard p">
                         <!-- 收货地址，物流运费 -start-->
@@ -298,12 +237,12 @@
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>预估净重：</span></li>
-                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>千克
+                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>克
                         </li>
                     </ul>
                 </div>
                 </notempty>
-                <if condition="$goods['volume'] gt '0'">
+                <notempty name="$goods['volume']">
                     <div class="standard p">
                         <ul>
                             <li class="jaj"><span>预估体积：</span></li>
@@ -311,24 +250,16 @@
                             </li>
                         </ul>
                     </div>
-                </if>
-                <notempty name="$goods['send_date']">
-                <div class="standard p">
-                    <ul>
-                        <li class="jaj"><span>生产周期：</span></li>
-                        <li class="lawir">
-                            <span id="goods_send_date" class="service">{$goods.send_date}</span>天
-                        </li>
-                    </ul>
-                </div>
                 </notempty>
+
                 <div class="presale-time" style="display: none">
                     <div class="pre-icon fl">
                         <span class="ys"><i class="detai-ico"></i><span id="activity_type">抢购活动</span></span>
                     </div>
                     <div class="pre-icon fr">
                         <span class="per" style="display: none"><i class="detai-ico"></i><em id="order_user_num">0</em>人预定</span>
-                        <span class="ti" id="activity_time"><i class="detai-ico"></i>剩余时间：<span id="overTime"></span></span>
+                        <span class="ti" id="activity_time"><i class="detai-ico"></i>剩余时间：<span
+                                id="overTime"></span></span>
                         <span class="ti" id="prom_detail"></span>
                     </div>
                 </div>
@@ -340,43 +271,19 @@
                     </li>
                 </ul>
                 </div>
-                <if condition="$goods.cat_id eq '3'">
-                    <!--现货通用分类id 3 的价格显示-->
+                    <!--现货通用的价格显示-->
                     <div class="standard p">
                         <ul>
                             <li class="jaj"><span>限时促销：</span></li>
                             <li class="lawir">
-                                <span class="service"><span><span id="goods_price">{$goods.shop_price}</span></span></span>
+                                <span class="service"><span><span id="goods_price">{$goods.market_price}</span></span></span>
                             </li>
                         </ul>
                     </div>
-                 <else/>
-                    <!--爆品印品-->
-                    <div class="standard p" style="padding-top:10px; ">
-                        <img src="__STATIC__/images/goodinfo_11.jpg" alt="">
-                        <span class="goods_price">
-                           <span id="goods_price_all"><em>￥</em>{$goods_price['0']*$goods_num['0']}</span>
-                           <span>（平均<span id="goods_price">{$goods_price['0']}</span>元/张）</span>
-                        </span>
-                    </div>
-                </if>
+
                 <div class="shop-price-cou p" style="display: none">
                     <div class="shop-price-le">
-                        <!--
-                        <ul>
-                            <li class="though-line"></span>
-                                <span class="mobile-buy-cheap">
-                                    手机购买更便宜
-                                    <i>
-                                    <img class="small-qrcode-h" src="/template/pc/rainbow/static/images/qrcode.png"
-                                         alt=""/>
-                                    <img class="big-qrcode-h"
-                                         img-url="/index.php?m=Home&c=Index&a=qr_code&data={$ShareLink}&head_pic={$head_pic}&back_img={$back_img}"
-                                         alt=""/>
-                                    </i>
-                                </span>
-                            </li>
-                        </ul>-->
+
                         <ul id="activity_title_div" style="display: none">
                             <li class="jaj"><span id="activity_label"></span></li>
                             <li><span id="activity_title"
@@ -399,6 +306,21 @@
                     </div>-->
                 </div>
 
+                <!--<div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>服&nbsp;&nbsp;务：</span></li>
+                        <li class="lawir"><span class="service">由<a>{$tpshop_config['shop_info_store_name']}</a>发货并提供售后服务</span>
+                        </li>
+                    </ul>
+                </div>-->
+                <notempty name="$goods['brand']">
+                    <div class="standard p">
+                        <ul>
+                            <li class="jaj"><span>品&nbsp;&nbsp;牌：</span></li>
+                            <li class="lawir"><span class="service">{$goods['brand']['name']}</span></li>
+                        </ul>
+                    </div>
+                </notempty>
                 <!--is_virtual是否为虚拟商品 1是，0否   exchange_integral 积分兑换：0不参与积分兑换，积分和现金的兑换比例见后台配置-->
                 <if condition="$goods['is_virtual'] eq 0 and $goods['exchange_integral'] gt 0">
                     <div class="standard p">
@@ -477,7 +399,7 @@
 </div>
 <script type="text/javascript">
     //	商品详情页 滚动到一定位置固定定位
-    /*$(window).scroll(function () {
+    $(window).scroll(function () {
         if ($(window).scrollTop() <= 850) {
             $("#datail-nav-top").css("position", "static");
         } else {
@@ -490,7 +412,7 @@
                 "background-color": "#fff"
             });
         }
-    });*/
+    });
 
 </script>
 <!--footer-s-->
@@ -513,7 +435,7 @@
         $('#photoBody').addClass('picshow-ac').removeClass('videoshow-ac');
         video.pause();
     });
-    var goods_price_arr = {$goods_price | default = 'null'} //爆品印品对应的价格数组
+    var commentType = 1;// 默认评论类型
     var spec_goods_price = {$spec_goods_price |default= 'null'};//规格库存价格
     $(document).ready(function () {
         /*商品缩略图放大镜*/
@@ -624,7 +546,7 @@
                 })
             }
         })
-        if (item_id > 0 && !$.isEmptyObject(spec_goods_price)) { //点击规格切换的时候
+        if (item_id > 0 && !$.isEmptyObject(spec_goods_price)) {
             var item_arr = [];
             $.each(spec_goods_price, function (i, o) {
                 item_arr.push(o.item_id);
@@ -645,7 +567,7 @@
                     }
                 })
             }
-        } else { //刚进入页面的时候
+        } else {
             initFirstSpec();
         }
     }
@@ -656,14 +578,23 @@
             var firstSpecRadio = $(this).find("input[type='radio']").eq(0);
             firstSpecRadio.attr('checked', 'checked').prop('checked', 'checked');
             firstSpecRadio.parent().find('a').eq(0).addClass('red');
-
-            // 判断数量 赋值默认印刷数量
-           /* var spec_val = firstSpecRadio.attr('spec_val');
-            if(spec_val == "数量(张)"){
-                $('#number').val($.trim(firstSpecRadio.parent().find('a').eq(0).text()));
-            }*/
         })
     }
+
+    //看了又看切换
+    /*var tmpindex = 0;
+    var look_see_length = $('#look_see').children().length;
+    function replace_look() {
+        var listr = '';
+        if (tmpindex * 2 >= look_see_length) tmpindex = 0;
+        $('#look_see').children().each(function (i, o) {
+            if ((i >= tmpindex * 2) && (i < (tmpindex + 1) * 2)) {
+                listr += '<div class="tjhot-shoplist type-bot">' + $(o).html() + '</div>';
+            }
+        });
+        tmpindex++;
+        $('#see_and_see').empty().append(listr);
+    }*/
 
     //缩略图切换
     $('.small-pic-li').mouseenter(function () {
@@ -744,13 +675,11 @@
         /*        initGoodsPrice();*/
     }
 
-    //初始化商品价格库存  进入页面自动执行
+    //初始化商品价格库存
     function initGoodsPrice() {
         var goods_id = $('input[name="goods_id"]').val();
         var goods_num = parseInt($('#number').val());
-        var num_key = $("#num_key").val();
         if (!$.isEmptyObject(spec_goods_price)) {
-            //如果商品规格不为空，获取商品规格id
             var goods_spec_arr = [];
             $("input[name^='goods_spec']").each(function () {
                 if ($(this).attr('checked') == 'checked') {
@@ -774,13 +703,10 @@
         $.ajax({
             type: 'post',
             dataType: 'json',
-            // 根据数量数组的key 获取当前数量的商品单价 num_key
-            data: {goods_id: goods_id, item_id: item_id, goods_num: goods_num,num_key:num_key},
+            data: {goods_id: goods_id, item_id: item_id, goods_num: goods_num},
             url: "{:U('Home/Goods/activity')}",  /*判断商品是否参加活动了*/
             success: function (data) {
-                //console.log(data);
                 if (data.status == 1) {
-                    //在读取规格数量价格的时候 先从详情里读取数据，兼容没有规格的商品
                     $('input[name="goods_prom_type"]').attr('value', data.result.goods.prom_type);//商品活动类型
                     $('input[name="shop_price"]').attr('value', data.result.goods.shop_price);//商品价格
                     $('input[name="store_count"]').attr('value', data.result.goods.store_count);//商品库存
@@ -794,7 +720,7 @@
                     $('input[name="prom_detail"]').attr('value', data.result.goods.prom_detail);//促销详情
                     $('input[name="activity_is_on"]').attr('value', data.result.goods.activity_is_on);//活动是否正在进行中
                     price_ladder = data.result.goods.price_ladder;
-                    goods_activity_theme();  //真正的设置商品价格 体重，生成周期等；
+                    goods_activity_theme();
                     buy_button();
                 }
                 doInitRegion();
@@ -826,7 +752,7 @@
         var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');
         var activity_is_on = $('input[name="activity_is_on"]').attr('value');
         if (activity_is_on == 0) {
-            setNormalGoodsPrice();  //没有参加活动设置正常的价格
+            setNormalGoodsPrice();
         } else {
             if (goods_prom_type == 0 || goods_prom_type == 6) {
                 //普通商品
@@ -858,7 +784,6 @@
 
     //普通商品库存和价格, 重量 ，体积，出货周期
     function setNormalGoodsPrice() {
-        var num_key = $("#num_key").val();
         var goods_price, store_count,goods_send_date,goods_weight,goods_volume;//商品价,商品库存
         var buy_num = parseInt($('#number').val());//购买数
         var market_price = $("input[name='market_price']").attr('value');// 商品市场价
@@ -873,7 +798,7 @@
                 }
             });
             var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
-            goods_price = spec_goods_price[spec_key]['price'][num_key]; // 找到对应规格的价格(单个的价格)
+            goods_price = spec_goods_price[spec_key]['price']; // 找到对应规格的价格(单个的价格)
             store_count = spec_goods_price[spec_key]['store_count']; // 找到对应规格的库存
             market_price = spec_goods_price[spec_key]['market_price']; // 找到对应规格的市场价(单个的价格)
             goods_send_date =  spec_goods_price[spec_key]['goods_send_date']; // 商品出货周期
@@ -895,7 +820,7 @@
         goods_volume = $("input[name='goods_volume']").attr('value');//商品单个的体检
         $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
         //get_send_date('20170528');
-        $('#goods_weight').empty().html(goods_weight*buy_num/1000);// 商品体重
+        $('#goods_weight').empty().html(goods_weight*buy_num);// 商品体重
         $('#goods_volume').empty().html(goods_volume*buy_num);
 
         $('#market_price').empty().html(market_price*buy_num);
@@ -1045,11 +970,9 @@
         if (spec_item_img_src != '') {
             $('#zoomimg').attr('jqimg', spec_item_img_src).attr('src', spec_item_img_src);
         }
-       /* var spec_item_val = $.trim($(this).text());
+        var spec_item_val = $.trim($(this).text());
         //alert(spec_item_val);
-        if($(this).prev('input').attr("spec_val") == "数量(张)"){
-            $("#number").val(spec_item_val);//根据规格改变商品数量
-        }*/
+        $("#number").val(spec_item_val);//根据规格改变商品数量
         $(this).addClass('red').siblings('a').removeClass('red');
         $(this).siblings('input').removeAttr('checked');
         $(this).prev('input').attr('checked', 'checked').prop('checked', 'checked');
@@ -1071,28 +994,6 @@
         $(this).addClass('red').siblings('a').removeClass('red');
         $(this).siblings('input').removeAttr('checked');
     })
-    //爆品印品点击切换数量 获取 数量 和 数量对应的价格
-    $(document).on('click', '.goods_num_item', function () {
-        /*var goods_weight = $("input[name='goods_weight']").attr('value'); //商品单个的重量
-        var goods_volume = $("input[name='goods_volume']").attr('value');//商品单个的体检
-        var market_price = "{$goods.market_price}";*/
-        var goods_num_key = $(this).attr('val');
-        //var goods_price = goods_price_arr[goods_num_key];
-        var buy_num = $.trim($(this).text());
-        //alert(goods_price_arr[goods_num_key]);
-        $('#number').val(buy_num);//据规格改变商品数量
-        $('#num_key').val(goods_num_key);//商品数量数组的key值
-        /*$('#goods_weight').empty().html(goods_weight*buy_num/1000);// 商品体重 千克
-        $('#goods_volume').empty().html(goods_volume*buy_num);
-        $('#market_price').empty().html(market_price*buy_num);
-        $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
-        $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示*/
-        $(this).addClass('red').siblings('a').removeClass('red');
-        $(this).siblings('input').removeAttr('checked');
-        initGoodsPrice();
-        doInitRegion();//重新获取运费
-    })
-    //console.log(goods_price_arr);
 </script>
 </body>
 </html>

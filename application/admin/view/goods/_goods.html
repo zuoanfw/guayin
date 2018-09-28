@@ -286,13 +286,23 @@
                 </dd>
             </dl>-->
             <dl class="row">
+                <dt class="tit"><em></em>
+                    <label>数量（爆品印刷）</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" value="{$goods.goods_num}" name="goods_num" class="t_mane"/>
+                    <span class="err" id="err_goods_num"></span>
+                    <p class="notic"> 爆品印品的时候填写 500,1000,2000等</p>
+                </dd>
+            </dl>
+            <dl class="row">
                 <dt class="tit"><em>*</em>
                     <label>本店售价</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" value="{$goods.shop_price}" name="shop_price" class="t_mane"
-                           onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                    <input type="text" value="{$goods.shop_price}" name="shop_price" class="t_mane"/>
                     <span class="err" id="err_shop_price"></span>
+                    <p class="notic"> 爆品印品的时候填写和上面数量对应的单个的单价 0.4,0.3,0.2等</p>
                 </dd>
             </dl>
             <dl class="row">
@@ -300,9 +310,9 @@
                     <label>市场价</label>
                 </dt>
                 <dd class="opt">
-                    <input type="text" value="{$goods.market_price}" name="market_price" class="t_mane"
-                           onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                    <input type="text" value="{$goods.market_price}" name="market_price" class="t_mane"/>
                     <span class="err" id="err_market_price"></span>
+                    <!--<p class="notic"> 爆品印品的时候填写和上面数量对应的单个的单价 0.4,0.3,0.2等</p>-->
                 </dd>
             </dl>
             <!--<dl class="row">
@@ -482,7 +492,7 @@
                     <p class="notic"></p>
                 </dd>
             </dl>
-            <dl class="row virtual" style="display: none;">
+            <!--<dl class="row virtual" style="display: none;">
                 <dt class="tit">
                     <label>虚拟商品有效期至</label>
                 </dt>
@@ -527,7 +537,7 @@
                     <span class="err" id="err_virtual_collect_sum"></span>
                     <p class="notic"> 虚拟收藏量（请输入0~9999999）：虚拟收藏量 + 真实收藏量</p>
                 </dd>
-            </dl>
+            </dl>-->
             <dl class="row">
                 <dt class="tit">
                     <label>商品详情描述</label>
@@ -571,7 +581,8 @@
         </div>   
         <!-- 商品相册-->
         <!-- 商品模型-->
-		<div class="ncap-form-default tab_div_3" style="display:none;">
+		<div class="ncap-form-default tab_div_3" style="display:none;overflow-x: scroll;
+        overflow-y: scroll;">
             <dl class="row">
                 <div class="tab-pane" id="tab_goods_spec">
                     <table class="table table-bordered" id="goods_spec_table">
@@ -590,7 +601,9 @@
                     </table>
                     <div class="row">
                         <!-- ajax 返回规格-->
-                        <div id="ajax_spec_data" class="col-xs-8" ></div>
+                        <div id="ajax_spec_data" class="col-xs-8" >
+
+                        </div>
                         <div class="col-xs-4" >
                             <table class="table table-bordered" id="goods_attr_table">
                                 <tr>

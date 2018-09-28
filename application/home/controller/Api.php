@@ -35,6 +35,16 @@ class Api extends Base
         parent::_initialize();
         session('user');
     }
+    //vue 接口  接收 json数据的
+    /*public function vuedata()
+    {
+        header('Access-Control-Allow-Origin:*');  // 响应类型
+        header('Access-Control-Allow-Methods:POST');  // 响应头设置
+        header('Access-Control-Allow-Headers:x-requested-with,content-type');
+        $params =json_decode(I('params','','strip_tags'),true);
+        var_dump($params);
+        echo($params['enterName']);
+    }*/
 
     /*
      * 获取地区

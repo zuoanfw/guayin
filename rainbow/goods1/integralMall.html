@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>积分商城-{$tpshop_config['shop_info_store_title']}</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
+		<link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/layer/layer-min.js"></script>
+		<script src="__PUBLIC__/js/global.js"></script>
+		<script src="__PUBLIC__/js/pc_common.js"></script>
+	</head>
+	<style>
+		.litt-titt {
+			display: flex;
+			justify-content: space-between;
+		}
+		.litt-titt H2{
+			font-size: 18px;
+			font-weight: normal;
+		}
+		.litt-titt p{
+			font-size: 14px;
+		}
+		.opt-list .brand-big {
+			display: block;
+			width: 1224px;
+			height: 285px;
+			overflow: hidden;
+			margin-top: 10px;
+		}
+	</style>
+	<body>
+	<!--header-s-->
+	<include file="public/header" w='w1224'/>
+		<!--header-e-->
+		<div class="search-opt classify">
+			<div class="w1224">
+				<div class="opt-list">
+					<adv pid='402' limit='1' item='v'>
+						<a class="brand-big" href="{$v[ad_link]}"><img class="w-100" src="{$v[ad_code]}" alt="{$v[title]}" /></a>
+					</adv>
+				</div>
+			</div>
+		</div>
+		<div class="shop-list-tour ma-to-20 p">
+			<div class="w1224">
+				<div class="stsho pre-sts intergra">
+                    <!--商品-s-->
+					<div class="jpateki p">
+						<div class="litt-titt"><h2>精品推荐</h2> <p><a href="{:U('Home/Goods/integralList')}">更多</a></p></div>
+						<tpshop sql="select * from `__PREFIX__goods` where is_on_sale eq 1 and exchange_integral gt 0 and is_recommend eq 1 and is_virtual eq 0 limit 5" item="goods" key="k">
+								<ul>
+								<li class="mar0">
+									<div class="sbox">
+										<div class="contelim">
+											<img src="{$goods['goods_id']|goods_thum_images=165,188}"/>
+										</div>
+										<div class="contifo">
+											<p class="shop_name"><a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">{$goods['goods_name']}</a></p>
+											<p>参考价：￥<span class="lithe">{$goods['shop_price']}</span></p>
+											<p>换购价：<span class="red">￥<em>{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}</em>积分</span></p>
+											<div class="duchan">
+												<span><em>{$goods['sales_sum']}</em>人换购</span>
+												<a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">立即换购</a>
+											</div>
+										</div>
+									</div>
+								</li>
+								</ul>
+						</tpshop>
+
+						<div class="litt-titt"><h2>热门兑换</h2> <p><a href="{:U('Home/Goods/integralList')}">更多</a></p></div>
+						<tpshop sql="select * from `__PREFIX__goods` where is_on_sale eq 1 and exchange_integral gt 0 and is_hot eq 1 and is_virtual eq 0 limit 7" item="goods" key="k">
+							<ul>
+								<li class="mar0">
+									<div class="sbox">
+										<div class="contelim">
+											<img src="{$goods['goods_id']|goods_thum_images=165,188}"/>
+										</div>
+										<div class="contifo">
+											<p class="shop_name"><a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">{$goods['goods_name']}</a></p>
+											<p>参考价：￥<span class="lithe">{$goods['shop_price']}</span></p>
+											<p>换购价：<span class="red">￥<em>{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}</em>积分</span></p>
+											<div class="duchan">
+												<span><em>{$goods['sales_sum']}</em>人换购</span>
+												<a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">立即换购</a>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</tpshop>
+					</div>
+                    <!--商品-e-->
+				</div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<div class="footer p">
+            <include file="public/footer" />
+		</div>
+		<!--footer-e-->
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.f-sort ul li').click(function(){
+            $(this).find('i').addClass('jta-w').parents('li').siblings().find('i').removeClass('jta-w');
+        })
+    })
+</script>
+</body>
+</html>
