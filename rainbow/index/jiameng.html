@@ -1,54 +1,116 @@
-<extend name="Base/common"/>
-<block name="body">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>意见反馈-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/layer/layer-min.js"></script>
+</head>
 <style>
-.joinus_form{
-	margin-bottom: 30px;
-}
-.error_mess{
-	color:red;
-}
-.caption h3 {
-	text-align:center;
-}
-.caption p{
-	height:155px;
-}
-p{
-	line-height:30px;
-}
+    button, html input[type="button"], input[type="reset"], input[type="submit"] {
+        -webkit-appearance: button;
+        cursor: pointer;
+    }
+    .form-group{
+        padding-top: 30px;
+    }
+    .form-group label{
+        padding-bottom: 12px;
+        display: block;
+    }
+    .checkbox{
+        padding-top: 20px;
+    }
+    .form-control {
+        margin-bottom: 10px;
+        margin-right: 20px;
+        display: block;
+        width: 90%;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+    .col-md{
+        float: left;
+        width: 40%;
+        margin-right: 20px;
+    }
+    .btn-success{
+        background-color: #ff8a5c;
+        color: #fff;
+        display: inline-block;
+        padding: 8px 52px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
 </style>
+<body>
+<include file="public/header" w="w1224"/>
 <div class="joinus_title">
-  <div class="container">
-         <div style="float:left;width:100%;padding:60px 100px;">
-	         <div class="col-md-7">
-	               <div style="font-size:20px;">呱呱印全国布局</div>
+  <div class="w1224">
+         <div style="padding: 70px 60px;">
+	         <div class="joinus_one fl">
+	               <div style="font-size:20px;color: #fff;">呱呱印全国布局</div>
 	                <div style="font-size:35px;color:#ff3c00;font-weight:bold;">500城市合作伙伴</div>
-	                <div style="font-size:40px;font-weight:bold;border-bottom:2px solid #fff;">招募全面启动</div>
-	                <div style="padding-top:20px;">区域印刷精心化、区域独有品牌支撑、区域服务最大化。</div>
+	                <div style="font-size:40px;font-weight:bold;color:#fff;width:400px;border-bottom:2px solid #fff;">招募全面启动</div>
+	                <div style="padding-top:20px;color: #fff;">区域印刷精心化、区域独有品牌支撑、区域服务最大化。</div>
 	         </div>
-             <div class="col-md-offset-1 col-md-4">
-                 <div style="text-align:center;margin:0 auto;padding:20px;border:1px solid #ddd;background-color:rgba(0,0,0,0.2);">
-                    <div><a href="#join_us" class="btn btn-warning" style="padding:8px 50px; font-size:20px;">
+             <div class="joinus_sec fr">
+                 <div style="text-align:center;margin:0 auto;padding:20px;border:1px solid #ddd;background-color:#fff;">
+                    <div><a href="#join_us" class="btn btn-success" style="padding:8px 50px; font-size:20px;">
                                              立即申请</a></div>
                     <div style="text-align:right;padding-top:15px;padding-bottom:10px;border-bottom:1px dotted #ff3c00">供应商登录</div>
-                    <div style="padding-top:25px;">协助开通或咨询，请致电钱经理</div>
-                    <div style="padding-top:20px;">电话：<span style="color:#ff3c00;font-size:22px;">187 &nbsp; 6164 &nbsp; 0729</span></div>
-                    <div style="padding-top:10px;text-align:left;padding-left:15px;">QQ：<span style="font-size:18px;">175 &nbsp; 225 &nbsp; 066</span></div>
-                    <div style="padding-top:10px;text-align:left;padding-left:15px;">E-mail：<span style="font-size:18px;">bd@guaguayin.cn</span></div>
+                    <div style="padding-top:25px;text-align:left;">协助开通或咨询，请致电钱经理</div>
+                    <div style="padding-top:20px;text-align:left;">电话：<span style="color:#ff3c00;font-size:22px;">187 &nbsp; 6164 &nbsp; 0729</span></div>
+                    <div style="padding-top:10px;text-align:left;">QQ：<span style="font-size:18px;">175 &nbsp; 225 &nbsp; 066</span></div>
+                    <div style="padding-top:10px;text-align:left;">E-mail：<span style="font-size:18px;">bd@guaguayin.cn</span></div>
                  </div>
              </div>
-       </div>  </div>
+       </div>
+  </div>
 </div>
-<div class="container">
-   <div class="row">
-   	  <div class="col-md-12" style="text-align:center;"><h3>我们是谁</h3></div>
-      <div class="col-md-12">
-       <p>南京呱呱印信息科技有限公司是互联网＋印刷产业的践行者。呱呱印将以互联网的方式重构传统商务印刷和包装产业，致力于打造中国最大的互联网印刷和设计服务平台。呱呱印核心团队来自百度、海德堡等知名企业，团队成员具有多年的互联网和印刷行业经验，包括产品、设计、IT开发、运营推广、印刷技术、色彩管理、客服、物流等。呱呱印先期将投资1000万，主要用于品牌打造，并在设计、印刷、物流方面三马齐驱，终将改变印刷包装产业格局。</p>
+<div class="w1224">
+   	  <div style="text-align:center;padding: 40px;"><h2>我们是谁</h2></div>
+      <div>
+       <p style="line-height: 45px;padding-bottom: 40px;">南京呱呱印信息科技有限公司是互联网＋印刷产业的践行者。呱呱印将以互联网的方式重构传统商务印刷和包装产业，致力于打造中国最大的互联网印刷和设计服务平台。呱呱印核心团队来自百度、海德堡等知名企业，团队成员具有多年的互联网和印刷行业经验，包括产品、设计、IT开发、运营推广、印刷技术、色彩管理、客服、物流等。呱呱印先期将投资1000万，主要用于品牌打造，并在设计、印刷、物流方面三马齐驱，终将改变印刷包装产业格局。</p>
       </div>
-      <div class="col-md-12" style="text-align:center;"><h3>为什么加入我们</h3></div>
-       <div class="col-md-3">
+</div>
+<div style="background-color:#f5f5f5;height: 540px;">
+    <div class="w1224">
+     <div style="text-align:center;padding: 40px;"><h2>为什么加入我们</h2></div>
+       <div class="joinus_fl">
             <div class="thumbnail">
-		      <img src="__IMG__/join_kh.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <img src="__STATIC__/images/join_kh.png" width="140px" height="140px" class="img-circle" alt="...">
 		      <div class="caption">
 		        <h3>客户多</h3>
 		        <p>
@@ -59,9 +121,9 @@ p{
 		      </div>
 		    </div>
        </div>
-       <div class="col-md-3">
+       <div class="joinus_fl">
             <div class="thumbnail">
-		      <img src="__IMG__/join_lrg.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <img src="__STATIC__/images/join_lrg.png" width="140px" height="140px" class="img-circle" alt="...">
 		      <div class="caption">
 		        <h3>利润高</h3>
 		        <p>
@@ -72,9 +134,9 @@ p{
 		      </div>
 		    </div>
        </div>
-       <div class="col-md-3">
+       <div class="joinus_fl">
             <div class="thumbnail">
-		      <img src="__IMG__/join_zqd.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <img src="__STATIC__/images/join_zqd.png" width="140px" height="140px" class="img-circle" alt="...">
 		      <div class="caption">
 		        <h3>无账期</h3>
 		        <p>
@@ -85,9 +147,9 @@ p{
 		      </div>
 		    </div>
        </div>
-       <div class="col-md-3">
+       <div class="joinus_fl">
             <div class="thumbnail">
-		      <img src="__IMG__/join_lcd.png" width="140px" height="140px" class="img-circle" alt="...">
+		      <img src="__STATIC__/images/join_lcd.png" width="140px" height="140px" class="img-circle" alt="...">
 		      <div class="caption">
 		        <h3>流程短</h3>
 		        <p>
@@ -97,71 +159,99 @@ p{
 		      </div>
 		    </div>
        </div>
-       <div class="col-md-12" style="text-align:center;" id="join_us"><h3>名额有限，抢先加盟</h3></div>
+    </div>
+</div>
+<div class="w1224">
+       <div class="join_form_title" style="text-align:center;" id="join_us">
+           <h3>名额有限，抢先加盟</h3></div>
        <form action="{:U('Index/jiameng')}" id="feedform" method="post">
-            <div class="col-md-6 joinus_form">
+            <div class="joinus_form_fl">
               <input type="text" class="form-control" name="company" id="company" placeholder="公司全称">
             </div>
-            <div class="col-md-6 joinus_form">
+            <div class="joinus_form_fl">
               <input type="text" class="form-control" name="address" id="comaddress" placeholder="所在地区">
             </div>
-            <div class="col-md-6 joinus_form">
-              <input type="text" class="form-control" name="name" id="name" placeholder="姓名">
+            <div class="joinus_form_fl">
+              <input type="text" class="form-control" name="linkname" id="linkname" placeholder="姓名">
               <div class="error_mess name_error"></div>
             </div>
-            <div class="col-md-6 joinus_form">
-              <input type="text" class="form-control" name="contact" id="contact" placeholder="手机号">
+            <div class="joinus_form_fl">
+              <input type="text" class="form-control" name="username" id="username" placeholder="手机号">
               <div class="error_mess contact_error"></div>
             </div>
-            <div class="col-md-12 joinus_form">
+            <div class="col-md-12 joinus_form" style="width: 95%;">
                 <textarea class="form-control" name="content" rows="3" placeholder="您想对我们说点什么"></textarea>
                 <div class="error_mess con_error"></div>
             </div>
             <div class="clearfix"></div>
-	        <div class="col-md-3" style="padding-top:0px;">
+	        <div class="col-md-3" style="padding-top:0px;float: left;width: 20%;padding-right: 20px;">
 	        <input type="text" class="form-control verify" name="verify" placeholder="请输入验证码">
 	        <div class="error_mess verify_error"></div>
 	        </div>
-	        <div class="col-md-2" style="padding-top:0px;">
+	        <div class="col-md-2" style="padding-top:0px;float: left;width: 20%">
 	        <a href="javascript:void(0)" class="reloadverify">
-              <img src="{:U("User/verify")}" class="verifyimg"></a>
+              <img src="{:U("User/verify")}" width="150px" class="verifyimg"></a>
 	        </div>
 	        <div class="clearfix"></div>
             <div class="col-md-2">
-            <button type="button" id="feedback_sub" class="btn btn-warning btn-lg btn-block">提交</button></div>
+                <input type="hidden" name="consult_type" value="6"/>
+            <button type="button" id="feedback_sub" class="btn btn-success btn-lg btn-block">提交</button></div>
        </form>
-       
-   </div>
 </div>
- <script type="text/javascript">
-$(function () {
-	$("#feedback_sub").click(function(){
-		 var sub = true;
-		 if($.trim($("#name").val()) == ''){
-			 $(".name_error").text("请输入您的姓名");
-			 sub = false;
-		 }
-		 if($.trim($("#contact").val()) == ''){
-			 $(".contact_error").text("请输入您的联系方式");
-			 sub = false;
-		 }
-		 if($.trim($(".verify").val()) == ''){
-			 $(".verify_error").text("请输入验证码");
-			 sub = false;
-		 }
-		 if (sub == true){
-			 $("#feedform").submit();
-		 }
-	 })
-	 var verifyimg = $(".verifyimg").attr("src");
-    $(".reloadverify").click(function(){
-        if( verifyimg.indexOf('?')>0){
-            $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
-        }else{
-            $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
-        }
+<include file="public/footer"/>
+<script>
+    $(document).ready(function () {
+        verify();
     });
-})
+    // 普通 图形验证码
+    function verify() {
+        $('#verify_code').attr('src', '/index.php?m=Home&c=User&a=verify&type=consult&r=' + Math.random());
+    }
+    $(document).on('click', '#verify_code', function () {
+        verify();
+    })
+    //提交咨询信息
+    $(document).on('click', '#call_submit', function () {
+        var content = $.trim($('#content').val());
+        var linkname = $.trim($("#linkname").val());
+        var username = $.trim($("#username").val());
+        var verify_code_val = $.trim($("#verify_code_val").val());
+        /*if (content.length == 0) {
+            layer.msg('请填写您反馈的意见！', {icon: 3});
+            $('#content').focus();
+            return false;
+        }*/
+        if (linkname.length == 0) {
+            layer.msg('请填写您的姓名！', {icon: 3});
+            $('#linkname').focus();
+            return false;
+        }
+        if (username.length == 0) {
+            layer.msg('请填写您的联系方式！', {icon: 3});
+            $('#username').focus();
+            return false;
+        }
+        if (verify_code_val.length == 0) {
+            layer.msg('请填写验证码！', {icon: 3});
+            $('#verify_code_val').focus();
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:U('Goods/consult')}",
+            data: $("#consultForm").serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg, {icon: 1});
+                    location.reload();
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
 
-</script>        
-</block> 
+    })
+</script>
+</body>
+</html>

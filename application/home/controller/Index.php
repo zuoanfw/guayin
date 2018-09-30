@@ -94,7 +94,7 @@ class Index extends Base {
     /**
      *  加盟详情页
      */
-    public function joinus(){
+    public function jiameng(){
         return $this->fetch();
     }
 

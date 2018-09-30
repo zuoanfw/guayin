@@ -935,3 +935,49 @@ user-select:none;
     border-top: 1px solid #efefef
 }
 /** 搜索框提示样式 e *
+
+ */
+
+/** 加盟页面样式 b*
+
+ */
+.joinus_title{
+    background-image: url("../images/join_bg.jpg");
+    height: 450px;
+}
+.joinus_one{
+    width: 60%;
+}
+.joinus_one div{
+    padding-bottom: 25px;
+}
+.joinus_sec{
+    width: 30%;
+}
+.joinus_fl{
+    float: left;
+    width: 20%;
+    text-align: center;
+    height: 330px;
+    padding: 20px 15px;
+    background-color: #ffffff;
+    margin: 14px;
+}
+.caption h3{
+    padding: 15px;
+}
+.caption p{
+    text-align: left;
+    line-height: 25px;
+}
+.join_form_title{
+    padding:40px;
+}
+.joinus_form_fl{
+    float: left;
+    width: 45%;
+}
+#join_us div{
+    padding-bottom: 20px;
+}
+/** 加盟页面样式 e*
