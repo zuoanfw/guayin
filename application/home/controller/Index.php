@@ -254,6 +254,10 @@ class Index extends Base {
         $this->assign('favourite_goods',$favourite_goods);
         return $this->fetch();
     }
-    
-    
+    public function linkmongo(){
+        $conn = new MongoClient();
+        $db = $conn->qyquan;
+        $prefix = 'pic';
+        $collection = $db->getGridFS($prefix);
+    }
 }

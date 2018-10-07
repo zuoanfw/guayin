@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>包装专区列表</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
+	<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
+	<script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/pc_common.js"></script>
+</head>
+<body>
+<include file="public/header" w="w1224"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/goodslist.css" />
+<div class="shop-list-tour ma-to-20 p">
+	<div class="w1224">
+        <!--<div class="brand_tap">
+            <ul>
+                <foreach name="cateArr" item="v" key="k">
+                    <li <if condition="$cat_id eq $v['id']"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                </foreach>
+            </ul>
+        </div>-->
+        <div class="brand_tap">
+            <!-- 属性筛选 start -->
+            <foreach name="filter_attr" item="v" key="k">
+                <ul class="brand-section m-tr">
+                    <li>{$v.attr_name}:</li>
+                    <li class="ri-section">
+                        <div class="clearfix p">
+                            <a href="{:U('Home/Pack/packList',array('id'=>'4'))}">不限</a>
+                            <foreach name="v[attr_value]" item="v2" key="k2">
+                                <a href="{$v2[href]}" data-href="{$v2[href]}" data-val='{$v2[val]}' <if condition="$attr_val eq $v2[val]">class="selected"</if> data-key='{$v2[key]}'>
+                                    <input class="shaix_la" type="checkbox" style="display: none"/>
+                                    <span >{$v2[attr_value]}</span>
+                                </a>
+                            </foreach>
+                        </div>
+                    </li>
+                </ul>
+            </foreach>
+            <!-- 属性筛选 end -->
+        </div>
+		<div class="stsho fl">
+			<div class="shop-list-splb p">
+				<ul>
+                    <empty name="goods_list">
+                        <p class="ncyekjl" style="font-size: 16px;margin:100px auto;text-align: center;">-- 抱歉没找到您要搜索的商品，换个条件试试！--</p>
+                    <else/>
+                        <foreach name="goods_list" item="v" key="k">
+                            <li>
+                                <div class="s_xsall">
+                                    <div class="xs_img">
+                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}">
+                                            <img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
+                                        </a>
+                                    </div>
+                                    <!--<div class="xs_slide">
+                                        <div class="small-xs-shop">
+                                            <ul>
+                                                <foreach name="goods_images" item="v2" key="k2">
+                                                    <if condition="$v2[goods_id] eq $v[goods_id]">
+                                                        <li>
+                                                              <a href="javascript:void(0);">
+                                                                <img class="lazy-list" data-original="{$v2|get_sub_images=$v[goods_id],400,400}"/>
+                                                            </a>
+                                                        </li>
+                                                    </if>
+                                                </foreach>
+                                            </ul>
+                                        </div>
+                                    </div>-->
+
+                                </div>
+                                <div class="s_xsall_text">
+                                    <h4 class="media-heading">
+                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+                                    <p style="color:#ffa000;"> {$v.goods_remark}</p>
+                                    <p>●&nbsp;使用场景：{$v.goods_use_scene}</p>
+                                    <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
+                                    <p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
+                                    <div class="media-bottom">
+                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}" class="btn-warning">
+                                            免费获取报价</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </foreach>
+                    </empty>
+
+				</ul>
+			</div>
+			<div class="page p">
+				{$page->show()}
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--footer-s-->
+<include file="public/footer"/>
+<!--footer-e-->
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/popt.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

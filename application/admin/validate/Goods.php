@@ -10,10 +10,11 @@ class Goods extends Validate
     // 验证规则
     protected $rule = [
         'goods_id' => 'checkGoodsId',
-        'goods_name' => 'require|min:3|max:150|unique:goods',
+        'goods_name' => 'require|min:2|max:150|unique:goods',
         'cat_id' => 'number|gt:0',
         'goods_sn' => 'unique:goods|max:20',
-        'shop_price' => ['require', 'regex' => '([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[0-9])'],
+        //'shop_price' => ['require', 'regex' => '([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[0-9])'],
+        'shop_price' => 'require',
         'market_price' => 'require|regex:\d{1,10}(\.\d{1,2})?$|checkMarketPrice',
         'weight' => 'regex:\d{1,10}(\.\d{1,2})?$',
         'give_integral' => 'regex:^\d+$',
@@ -28,7 +29,7 @@ class Goods extends Validate
     //错误信息
     protected $message = [
         'goods_name.require' => '商品名称必填',
-        'goods_name.min' => '名称长度至少3个字符',
+        'goods_name.min' => '名称长度至少2个字符',
         'goods_name.max' => '名称长度至多50个汉字',
         'goods_name.unique' => '商品名称重复',
         'cat_id.number' => '商品分类必须填写',

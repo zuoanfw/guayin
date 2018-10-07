@@ -538,10 +538,13 @@ class Goods extends Base
      */
     public function consult()
     {
+        header('Content-Type:application/json; charset=utf-8');
         $goods_id = input("goods_id/d", '0'); // 商品id
+        $company = trim(input('company', ''));
+        $company_address = trim(input('company_address', ''));
         $consult_type = input("consult_type", '1'); // 商品咨询类型
-        $linkname = input("linkname", '咨询用户'); // 网友咨询
-        $username = input("username", '咨询用户'); // 网友咨询
+        $linkname = trim(input("linkname", '')); // 网友咨询
+        $username = trim(input("username")); // 网友咨询
         $content = trim(input("content", '')); // 咨询内容
         $verify_code = input('verify_code');
         if (strlen($content) > 500) {
@@ -559,12 +562,15 @@ class Goods extends Base
         $data = array(
             'goods_id' => $goods_id,
             'consult_type' => $consult_type,
+            'company' => $company,
+            'company_address' => $company_address,
             'username' => $username,
             'linkname' => $linkname,
             'content' => $content,
             'is_show' => 1,
             'add_time' => time(),
         );
+        //halt($data);
         Db::name('goodsConsult')->add($data);
         $this->ajaxReturn(['status' => 1, 'msg' => '内容已提交!']);
     }

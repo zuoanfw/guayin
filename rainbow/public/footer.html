@@ -54,21 +54,12 @@
             <!--</tpshop>-->
         </div>
         <p class="mod_copyright_auth">
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_1" href="" target="_blank">经营性网站备案中心</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_2" href="" target="_blank">可信网站信用评估</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_3" href="" target="_blank">网络警察提醒你</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_4" href="" target="_blank">诚信网站</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_5" href="" target="_blank">中国互联网举报中心</a>
+			<img width="80" height="32" src="__STATIC__/images/foot1.png"><img width="80" height="32" src="__STATIC__/images/foot2.png">
+			<img width="80" height="32" src="__STATIC__/images/foot3.png">
+			<img width="31" height="32" src="__STATIC__/images/foot4.png">
+			<img width="80" height="32" src="__STATIC__/images/foot5.png"><img width="38" height="32" src="__STATIC__/images/foot6.png">
         </p>
 		<p>Copyright © 2016-2025 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
-		<div class="friendship-links clearfix w1224">
-			<span>友情链接 : </span>
-			<div class="links-wrap-h clearfix">
-				<tpshop sql="select * from `__PREFIX__friend_link` where is_show=1" key="k" item='v'>
-					<a href="{$v[link_url]}" <if condition="$v.target eq 1">target="_blank"</if> >{$v[link_name]}</a>
-				</tpshop>
-			</div>
-		</div>
 	</div>
 </div>
 <style>

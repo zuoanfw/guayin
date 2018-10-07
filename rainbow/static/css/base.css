@@ -11,7 +11,7 @@ a{text-decoration:none;color:inherit;}
 a:active,a:hover {outline:none;}
 input,button,textarea{outline:none;border:none;}
 textarea{resize:none;}
-img{vertical-align:top;}
+/*img{vertical-align:top;}*/
 label { /*文字不能选中*/
 -moz-user-select:none;/*火狐*/
 -webkit-user-select:none;/*webkit浏览器*/
@@ -75,7 +75,10 @@ user-select:none;
     display: block
 }
 /*共用头部区域-header*/
-
+.topnew{
+    z-index: 1000;
+    background: url("../images/new.png") no-repeat 60px -10px;
+}
 .tpshop-tm-hander {
     background-color: white;
 }
@@ -525,7 +528,7 @@ user-select:none;
     height: 40px;
     padding-left: 25px;
     width: 986px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 .navitems>li{
     float: left;

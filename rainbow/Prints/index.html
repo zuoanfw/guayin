@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>定制印品-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
+</head>
+<style>
+	button, html input[type="button"], input[type="reset"], input[type="submit"] {
+		-webkit-appearance: button;
+		cursor: pointer;
+	}
+	.standard a {
+		display: inline-block;
+		padding: 1px 2px;
+		border: 1px solid #dadada;
+		margin: 0 15px 15px 0;
+		cursor: pointer;
+		text-align: center;
+		width: 150px;
+		font-size: 16px;
+		padding: 10px 20px;
+	}
+</style>
+<body>
+<!--header-s-->
+    <include file="public/header" w="w1224"/>
+<div class="floor  w1224">
+	<div class="floor-top">
+		<h3 class="floor-title">印刷产品</h3>
+	</div>
+	<div class="standard">
+			<foreach name="printsgoods" item="g" key="gk">
+				<a class="colo" href="{:U('Home/Prints/PrintsInfo',array('id'=>$g[goods_id]))}">
+					{$g[goods_name]|getSubstr=0,50}
+				</a>
+			</foreach>
+	</div>
+</div>
+
+<include file="public/footer"/>
+
+<!--楼层导航-e-->
+<!--侧边栏-s-->
+<div class="slidebar-right">
+	<a class="slidebar-item ico-slidebar1" target="_blank" href="tencent://message/?uin={$tpshop_config['shop_info_qq2']}&amp;Site=呱呱印商城&amp;Menu=yes" >
+		<div class="sbar-hover-txt">客服服务</div>
+	</a>
+	<a class="slidebar-item ico-slidebar2" target="_blank" href="javascript:;" >
+		<div class="sbar-hover-txt">关注微信</div>
+		<div class="sbar-hover-pic">
+			<div class="qrcode-wrap"><img class="w-100" src="__STATIC__/images/foot-wechat.jpg" alt="" /></div>
+			<p class="qrcode-des">扫码关注官方微信,先人一步知晓促销活动</p>
+		</div>
+	</a>
+	<a class="slidebar-item ico-slidebar4 t-all" target="_blank" href="javascript:;" >
+		<div class="sbar-hover-txt">回到顶部</div>
+	</a>
+</div>
+<script>
+
+</script>
+</body>
+</html>

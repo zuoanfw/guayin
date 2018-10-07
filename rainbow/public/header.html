@@ -4,7 +4,7 @@
 <div class="tpshop-tm-hander">
 	<div class="top-hander">
 		<div class="[w] pr clearfix">
-			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' && strtolower(ACTION_NAME) neq 'integralinfo' ">
+			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' && strtolower(ACTION_NAME) neq 'integralinfo' && strtolower(ACTION_NAME) neq 'printsinfo'">
 			<div class="fl">
                       <link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
                       <div class="sendaddress pr fl">
@@ -68,6 +68,7 @@
 				<li><a target="_blank" href="{:U('Home/User/goods_collect')}">我的收藏</a></li>-->
 				<li><a target="_blank" class="shop_cart" href="{:U('Home/Cart/index')}">购物车<em class="shop-nums red" id="cart_quantity"></em>件</a></li>
 				<li><a target="_blank" href="{:U('Home/Index/feedback')}">反馈意见</a></li>
+				<li><a target="_blank" href="{:U('Home/Index/jiameng')}">加盟我们</a></li>
 				<!--<li class="hover-ba-navdh">
 					<div class="nav-dh">
 						<span>网站导航</span>
@@ -93,7 +94,7 @@
 	</div>
 	<div class="nav-middan-z [w] clearfix">
 		<a class="ecsc-logo" href="{:U('Home/index/index')}">
-            <img src="{$tpshop_config.shop_info_store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}" style="width: 159px;height: 58px;">
+            <img src="{$tpshop_config.shop_info_store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}" style="width: 170px;">
         </a>
 		<div class="ecsc-search">
 			<form id="searchForm" name="" method="get" action="{:U('Home/Goods/search')}" class="ecsc-search-form">
@@ -191,7 +192,8 @@
 			</div>-->
 			<div class="fl"><img width="90" src="__STATIC__/images/foot-wechat.jpg"></div>
 			<div class="fl">
-				<span style="font-size: 28px;padding-top: 10px;display: block;">025-85563008</span>
+				<span style="font-size: 24px;padding-top: 10px;display: block;">
+					<img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;025-85563008</span>
 				<span style="color: #999;font-size: 13px;padding-top: 5px;display: block">全国统一客服热线：9:00-18:00</span>
 			</div>
 
@@ -343,7 +345,14 @@
 			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
 			<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
 			<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
-       			<a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >{$v[name]}</a>
+				<if condition="strpos($v[url],'fastBuy')">
+					<span><img style="position: relative;top:-20px;left: 100px;" src="__STATIC__/images/new.png"></span>
+       			    <a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >
+					{$v[name]}</a>
+
+				<else/>
+					<a href="{$v[url]}" style="padding-left: 33px" <if condition="$v[is_new] eq 1">target="_blank" </if> >{$v[name]}</a>
+				</if>
        		</li>
 			</tpshop>
 		</ul>

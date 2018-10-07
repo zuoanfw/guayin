@@ -26,7 +26,7 @@
         padding-top: 20px;
     }
     .form-control {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         margin-right: 20px;
         display: block;
         width: 90%;
@@ -53,8 +53,8 @@
         background-color: #ff8a5c;
         color: #fff;
         display: inline-block;
-        padding: 8px 52px;
-        margin-bottom: 10px;
+        padding: 10px 52px;
+        margin-bottom: 40px;
         margin-top: 10px;
         font-size: 14px;
         font-weight: normal;
@@ -163,34 +163,30 @@
 </div>
 <div class="w1224">
        <div class="join_form_title" style="text-align:center;" id="join_us">
-           <h3>名额有限，抢先加盟</h3></div>
-       <form action="{:U('Index/jiameng')}" id="feedform" method="post">
+           <h2>名额有限，抢先加盟</h2></div>
+       <form action="" id="feedform" method="post">
             <div class="joinus_form_fl">
               <input type="text" class="form-control" name="company" id="company" placeholder="公司全称">
             </div>
             <div class="joinus_form_fl">
-              <input type="text" class="form-control" name="address" id="comaddress" placeholder="所在地区">
+              <input type="text" class="form-control" name="company_address" id="company_address" placeholder="所在地区">
             </div>
             <div class="joinus_form_fl">
               <input type="text" class="form-control" name="linkname" id="linkname" placeholder="姓名">
-              <div class="error_mess name_error"></div>
             </div>
             <div class="joinus_form_fl">
               <input type="text" class="form-control" name="username" id="username" placeholder="手机号">
-              <div class="error_mess contact_error"></div>
             </div>
             <div class="col-md-12 joinus_form" style="width: 95%;">
-                <textarea class="form-control" name="content" rows="3" placeholder="您想对我们说点什么"></textarea>
-                <div class="error_mess con_error"></div>
+                <textarea class="form-control" id="content" name="content" rows="3" placeholder="您想对我们说点什么"></textarea>
             </div>
             <div class="clearfix"></div>
 	        <div class="col-md-3" style="padding-top:0px;float: left;width: 20%;padding-right: 20px;">
-	        <input type="text" class="form-control verify" name="verify" placeholder="请输入验证码">
-	        <div class="error_mess verify_error"></div>
+	        <input type="text" class="form-control verify" name="verify_code" id="verify_code_val" placeholder="请输入验证码">
 	        </div>
 	        <div class="col-md-2" style="padding-top:0px;float: left;width: 20%">
 	        <a href="javascript:void(0)" class="reloadverify">
-              <img src="{:U("User/verify")}" width="150px" class="verifyimg"></a>
+                <img id="verify_code" width="130" onclick="verify()"></a>
 	        </div>
 	        <div class="clearfix"></div>
             <div class="col-md-2">
@@ -211,7 +207,8 @@
         verify();
     })
     //提交咨询信息
-    $(document).on('click', '#call_submit', function () {
+    $(document).on('click', '#feedback_sub', function () {
+        verify();
         var content = $.trim($('#content').val());
         var linkname = $.trim($("#linkname").val());
         var username = $.trim($("#username").val());
@@ -239,12 +236,13 @@
         $.ajax({
             type: "POST",
             url: "{:U('Goods/consult')}",
-            data: $("#consultForm").serialize(),
+            //data: {company:$("#company").val(),company_address:$("#company_address").val(),linkname:linkname,username:username,content:content},
+            data:$("#feedform").serialize(),
             dataType: "json",
             success: function (data) {
                 if (data.status == 1) {
                     layer.msg(data.msg, {icon: 1});
-                    location.reload();
+                    //location.reload();
                 } else {
                     layer.msg(data.msg, {icon: 2});
                 }
