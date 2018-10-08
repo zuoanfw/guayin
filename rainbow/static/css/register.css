@@ -58,3 +58,104 @@
     background-color: #ff8a5c;
     border-color: #ff8a5c;
 }
+.judgp {
+    background: url(../images/loginchat.png) no-repeat;
+    display: inline-block
+}
+
+.sum_reme_for {
+    color: #666666;
+    padding: 0 21px
+}
+
+.sum_reme_for .autplog {
+    float: left
+}
+
+.sum_reme_for .autplog label,.sum_reme_for .autplog input {
+    vertical-align: middle;
+    cursor: pointer
+}
+
+.sum_reme_for .foget_pwt {
+    float: right
+}
+
+.sum_reme_for .foget_pwt a {
+    cursor: pointer
+}
+
+{
+    padding: 14px 0;
+    overflow: hidden
+}
+
+.tecant_c {
+    float: left;
+    margin-left: 21px
+}
+
+.tecant_c ul li {
+    float: left
+}
+
+.tecant_c ul li .justclix {
+    display: block;
+    cursor: pointer
+}
+
+.tecant_c ul li .justclix i {
+    width: 27px;
+    height: 27px;
+    vertical-align: middle
+}
+
+.tecant_c ul li .justclix span {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 16px
+}
+
+.tecant_c ul li .co_qq {
+    background-position: -31px 2px
+}
+
+.tecant_c ul li .co_wechat {
+    background-position: -33px -30px
+}
+
+.tecant_c ul li .co_alipay {
+    background-position: -66px 2px
+}
+
+.tecant_c ul .spacer {
+    margin: 9px 25px 0 26px
+}
+
+.register_c {
+    float: right;
+    margin-right: 21px;
+    margin-top: 10px
+}
+
+.register_c .justclix {
+    display: block;
+    cursor: pointer
+}
+
+.register_c .justclix .co_register {
+    width: 27px;
+    height: 27px;
+    background-position: -30px -60px;
+    vertical-align: middle
+}
+
+.register_c .justclix span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 16px;
+    color: #bf1919
+}
+.clearfix{
+    clear: both;
+}

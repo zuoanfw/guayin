@@ -14,6 +14,12 @@
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__PUBLIC__/js/md5.min.js"></script>
 </head>
+<style>
+    .tecant_c ul li{
+        float: left;
+        list-style: none;
+    }
+</style>
 <body>
 <div class="container reg_head">
     <div class="row">
@@ -72,7 +78,7 @@
             <div class="form-group">
                 <button type="button" onClick="checkSubmit();" class="btn btn-success btn-block">登录</button>
             </div>
-            <!--<div class="form-group tecant_c">
+            <div class="form-group tecant_c">
                 <ul>
                     <tpshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">
                         <if condition="$v['code'] eq 'weixin'">
@@ -103,8 +109,8 @@
                         </if>
                     </tpshop>
                 </ul>
-            </div>-->
-            <div class="form-group">
+            </div>
+            <div class="form-group clearfix">
                 <p>还没有账号 &nbsp;&nbsp;<a href="{:U('Home/User/reg')}">点击注册</a></p>
             </div>
         </form>
