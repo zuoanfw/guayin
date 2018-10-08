@@ -1,6 +1,7 @@
 /*初始化元素*/
 html,body{
-    font-family:tahoma,arial,"Hiragino Sans GB","微软雅黑",simsun,sans-serif;
+   /* font-family:tahoma,arial,"Hiragino Sans GB","微软雅黑",simsun,sans-serif;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: normal;
     font-size: 14px;
 }

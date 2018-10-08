@@ -1,28 +1,35 @@
 /*关联手机号*/
-.tp-correlation{
-	width: 100%;
-	min-height:1080px;
-	background: url(../images/tp-pc-gl-bg.png) no-repeat;
+.tp-correlation-wrap{
 
 }
-.tp_correlation_warp{
-	position: absolute;
-    top: 35%;
-    left: 0;
-    width: 100%;
+.tp-correlation{
+	width: 100%;
+	/*min-height:1080px;*/
+	height: 100%;
+	float: left;
+	background: url(../images/login_bg.jpg) no-repeat;
+	background-size:100% 100%;
 }
 .tp-correlation-container{
-	width: 1000px;
+	width: 100%;
     height: auto;
-    margin: -198px auto 0;
-    box-shadow: #444 0px 0px 30px;
+    /*margin: -198px auto 0;
+    box-shadow: #444 0px 0px 30px;*/
     overflow: hidden;
 }
 .tp-correlation-container .correlation-left{
-	width: 430px;
+	width: 580px;
 	height: 650px;
 	/*background: url(../img/tp-pc-gl-bg2.png) no-repeat;*/
-	padding: 0 35px;
+	padding: 30 35px;
+}
+.reg_word{
+	font-size: 23px;
+	color: #fff;
+	font-weight: 500;
+	line-height:45px;
+	padding-top: 40px;
+	letter-spacing: 4px;
 }
 .correlation-left a{
 	display: block;
@@ -35,6 +42,7 @@
     height: 650px;
     padding: 0 106px 0 95px;
     background: #edf9ff;
+	margin-top: 30px;
 }
  .container-right .container-head{
 	width: 92px;

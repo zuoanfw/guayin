@@ -9,6 +9,7 @@
     background:url(../images/login_bg.jpg) no-repeat;
     float: left;
     height:100%;
+    width: 100%;
     background-size:100% 100%;
     padding:40px 40px;
 }
