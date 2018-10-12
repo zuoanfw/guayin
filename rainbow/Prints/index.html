@@ -37,7 +37,7 @@
 	</div>
 	<div class="standard">
 			<foreach name="printsgoods" item="g" key="gk">
-				<a class="colo" href="{:U('Home/Prints/PrintsInfo',array('id'=>$g[goods_id]))}">
+				<a class="colo" href="{:U('Home/Prints/printsInfo',array('id'=>$g[goods_id]))}">
 					{$g[goods_name]|getSubstr=0,50}
 				</a>
 			</foreach>

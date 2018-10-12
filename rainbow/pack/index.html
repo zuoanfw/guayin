@@ -151,7 +151,7 @@
 		</div>
 		<div class="floor-goods-list">
 			<foreach name="index_first_goods" item="g" key="gk">
-				<a class="floor-goods-item" href="{:U('Home/Goods/goodsInfo',array('id'=>$g[goods_id]))}">
+				<a class="floor-goods-item" href="{:U('Home/Pack/packInfo',array('id'=>$g[goods_id]))}">
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
 					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>
@@ -180,7 +180,7 @@
 		</div>
 		<div class="floor-goods-list">
 			<foreach name="index_first_goods" item="g" key="gk">
-				<a class="floor-goods-item" href="{:U('Home/Goods/goodsInfo',array('id'=>$g[goods_id]))}">
+				<a class="floor-goods-item" href="{:U('Home/Pack/packInfo',array('id'=>$g[goods_id]))}">
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
 					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>

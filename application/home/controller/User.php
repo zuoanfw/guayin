@@ -696,11 +696,22 @@ class User extends Base{
             $this->ajaxReturn(['status'=>0,'msg'=>$check_code['msg'],'result'=>'']);
         }
         if(empty($mobile) || !check_mobile($mobile)){
+
             $this->ajaxReturn(['status' => 0, 'msg' => '手机格式错误']);
         }
         $users = Db::name('users')->where('mobile',$mobile)->find();
         if (empty($users)) {
-            $this->ajaxReturn(['status' => 0, 'msg' => '账号不存在']);
+            //如果没有账号注册一个新账号 密码默认 888888
+            $thirdUser = session('third_oauth');
+            $data = $logic->reg($mobile, $password, $password, 0, [], $nickname, $thirdUser['head_pic']);
+            if ($data['status'] != 1) {
+                $this->ajaxReturn(['status'=>0,'msg'=>$data['msg'],'result'=>'']);
+            }
+            //$user = new \app\common\logic\User();
+            //$user->setUserById($data['result']['user_id']);
+            //绑定成功后重新定义users 用户信息
+            $users = Db::name('users')->where('user_id',$data['result']['user_id'])->find();
+            //$this->ajaxReturn(['status' => 0, 'msg' => '账号不存在']);
         }
         $user = new \app\common\logic\User();
         $user->setUserById($users['user_id']);
