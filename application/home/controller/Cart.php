@@ -220,6 +220,9 @@ class Cart extends Base
         if ($this->user_id == 0) {
             $this->error('请先登录', U('Home/User/login'));
         }
+        //获取支付方式
+        $payment_type = C('payment_type');
+        $this->assign('payment_type', $payment_type);  //优惠券，用able判断是否可用
         $cartLogic = new CartLogic();
         $couponLogic = new CouponLogic();
         $cartLogic->setUserId($this->user_id);
@@ -306,6 +309,7 @@ class Cart extends Base
         $user_money = input("user_money/f", 0); //  使用余额
         $user_note = input("user_note/s", ''); // 用户留言
         $delivery_time = input("delivery_time/d", ''); // 商品派送时间
+        $payment_type = input("payment_type/d", ''); // 支付方式
         $payPwd = input("payPwd/s", ''); // 支付密码
         $goods_id = input("goods_id/d"); // 商品id
         $goods_num = input("goods_num/d");// 商品数量  立即购买 单个类型的商品时候
@@ -358,6 +362,7 @@ class Cart extends Base
                 $placeOrder->setInvoiceTitle($invoice_title);
                 $placeOrder->setUserNote($user_note);
                 $placeOrder->setDeliveryTime($delivery_time);
+                $placeOrder->setPaymentType($payment_type);
                 $placeOrder->setTaxpayer($taxpayer);
                 $placeOrder->setPayPsw($payPwd);
                 $placeOrder->setTakeTime($take_time);
@@ -416,6 +421,14 @@ class Cart extends Base
                 $this->error('对不起，该预售商品已过尾款支付时间' . date('Y-m-d H:i:s', $pre_sell_info['retainage_start']));
             }
         }
+        if($order['payment_type'] == '3'){
+            //货到付款
+           M('recharge')->where("order_id", $order['order_id'])->save(array('pay_code'=>'cod','pay_name'=>'货到付款'));
+            M('order')->where("order_id", $order['order_id'])->save(array('order_status'=>'1'));
+            $order_detail_url = U("Home/Order/order_detail", array('id' => $order['order_id']));
+            header("Location: $order_detail_url");
+            exit;
+        }
         $payment_where = array(
             'type' => 'payment',
             'status' => 1,
@@ -423,7 +436,8 @@ class Cart extends Base
         );
         //预售和抢购暂不支持货到付款
         $orderGoodsPromType = M('order_goods')->where(['order_id' => $order['order_id']])->getField('prom_type', true);
-        $no_cod_order_prom_type = ['4,5'];//预售订单，虚拟订单不支持货到付款
+        $no_cod_order_prom_type = ['4,5'];//预售订单，虚拟订单不支
+        //持货到付款
         if (in_array($order['prom_type'], $no_cod_order_prom_type) || in_array(1, $orderGoodsPromType) || $order['shop_id'] > 0) {
             $payment_where['code'] = array('neq', 'cod');
         }
@@ -432,7 +446,7 @@ class Cart extends Base
 
         foreach ($paymentList as $key => $val) {
             $val['config_value'] = unserialize($val['config_value']);
-            if ($val['config_value']['is_bank'] == 2) {
+            if ($val['config_value']['is_bank'] == 1) {
                 $bankCodeList[$val['code']] = unserialize($val['bank_code']);
             }
         }

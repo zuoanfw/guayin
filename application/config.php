@@ -254,6 +254,12 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+    //付款方式配置
+    'payment_type'               => [
+        '1'      => '在线支付',
+        '2'  => '企业转账',
+        //'3' => '货到付款',
+    ],
     // 密码加密串
     //'AUTH_CODE' => "TPSHOP", //安装完毕之后不要改变，否则所有密码都会出错
     'AUTH_CODE' => "GGYIN",

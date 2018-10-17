@@ -745,15 +745,15 @@ h1 {
 	cursor:pointer
 }
 .dataTables_paginate .pagination .paginate_button:hover {
-	background:#e23435;
-	border-color:#e23435
+	background:#ff8a5c;
+	border-color:#ff8a5c
 }
 .dataTables_paginate .pagination .paginate_button:hover a {
 	color:white
 }
 .dataTables_paginate .pagination .active {
-	background-color:#e23435;
-	border-color:#e23435
+	background-color:#ff8a5c;
+	border-color:#ff8a5c
 }
 .dataTables_paginate .pagination .active a {
 	color:white

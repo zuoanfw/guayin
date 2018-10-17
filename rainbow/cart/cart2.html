@@ -50,7 +50,8 @@
     <!--立即购买才会用到-e-->
     <input type="hidden" name="payPwd" value="">
     <input type="hidden" name="user_note" value="">
-    <input type="hidden" name="delivery_time" value="">
+    <input type="hidden" name="payment_type" value="1"> <!--支付方式-->
+    <input type="hidden" name="delivery_time" value="0">  <!-- 配送时间-->
     <input type="hidden" name="consignee" value="">
     <input type="hidden" name="mobile" value="">
     <input type="hidden" name="shop_id" value="">
@@ -149,6 +150,14 @@
 </div>
 <!--编辑地址弹窗-e--->
 <div class="ui-mask" id="address_dialog_mask"></div>
+<div class="w1224 z-parkage-pc p">
+    <span class="paragraph "><i class="ddd"></i> 支付方式</span>
+    <ul class="z-parkage-pc-ul payment_type p">
+        <volist name="payment_type" key="k" id="paytype">
+            <li class="fl ul_li_width <if condition='$k eq 1'> z-parkage-li</if>" val="{$key}">{$paytype}<span></span></li>
+        </volist>
+    </ul>
+</div>
 <!--上门自提和快速配送切换 s-->
 <div class="w1224 z-parkage-pc p">
     <span class="paragraph "><i class="ddd"></i> 配送方式</span>
@@ -219,6 +228,14 @@
 </div>
 <script>
     $(function () {
+        //更换 支付方式
+        $(document).on("click", '.payment_type li', function (e) {
+            if (!$(this).hasClass('z-parkage-li')) {
+                $(this).siblings().removeClass("z-parkage-li");
+                $(this).addClass("z-parkage-li");
+                $("input[name='payment_type']").val($(this).attr('val'));
+            }
+        })
         //更换 配送时间
         $(document).on("click", '.delivery-time li', function (e) {
             if (!$(this).hasClass('z-parkage-li')) {

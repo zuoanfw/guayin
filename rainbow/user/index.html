@@ -105,13 +105,13 @@
 			    				</ul>
 			    			</div>
 			    		</div>
-			    		<div class="order-list p">
+			    		<!--<div class="order-list p">
 			    			<div class="ddlb-ayh">
 			    				<div class="ddlb-tit">
 			                       <h1>我的订单</h1>
 			                       <a class="u-view-all" href="{:U('Home/Order/order_list')}">查看全部订单</a>
-			                       <!--<i class="u-sep"></i>-->
-			                       <!--<a class="u-view-pre" href="">预售单<span class="hide">(待付款 <em>0</em>)</span></a>-->
+			                       &lt;!&ndash;<i class="u-sep"></i>&ndash;&gt;
+			                       &lt;!&ndash;<a class="u-view-pre" href="">预售单<span class="hide">(待付款 <em>0</em>)</span></a>&ndash;&gt;
 			    				</div>
 								<tpshop sql="select * from `__PREFIX__order` where user_id = $user[user_id] and prom_type < 5 order by order_id desc limit 1" result_name="order_list"></tpshop>
 								<empty name="order_list">
@@ -130,7 +130,7 @@
 													<div class="fl_ttmm">
 														<span class="time-num">下单时间：<em class="num">{$list.add_time|date='Y-m-d H:i:s',###}</em></span>
 														<span class="time-num">订单编号：<em class="num">{$list.order_sn}</em></span>
-														<!--<span class="time-num">卖家：<a href="tencent://message/?uin={$store_list[$list[store_id]][store_qq]}&Site=guaguayin商城&Menu=yes"><em class="num">{$store_list[$list[store_id]][store_name]}<i class="ear"></i></em></a></span>-->
+														&lt;!&ndash;<span class="time-num">卖家：<a href="tencent://message/?uin={$store_list[$list[store_id]][store_qq]}&Site=guaguayin商城&Menu=yes"><em class="num">{$store_list[$list[store_id]][store_name]}<i class="ear"></i></em></a></span>&ndash;&gt;
 														<div class="paysoon">
 														<if condition="$list.pay_btn eq 1">
 															<a class="ps_lj" href="{:U('/Home/Cart/cart4',array('order_id'=>$list[order_id]))}"  target="_blank">立即支付</a>
@@ -145,10 +145,10 @@
                                                                     <a class="consoorder" href="javascript:void(0);" data-url="{:U('Home/Order/refund_order',array('order_id'=>$list[order_id]))}" onClick="refund_order(this)" >取消订单</a>
                                                                 </if>
                                                                 <else/>
-                                                                <!--<div class="dele" onclick="verConfirm('确认删除该订单?','{:U('Home/Order/del_order',array('order_id'=>$list['order_id'], 'type'=>$Request.param.type))}')"></div>-->
+                                                                &lt;!&ndash;<div class="dele" onclick="verConfirm('确认删除该订单?','{:U('Home/Order/del_order',array('order_id'=>$list['order_id'], 'type'=>$Request.param.type))}')"></div>&ndash;&gt;
                                                             </if>
 														</div>
-														<!--<div class="dele"></div>-->
+														&lt;!&ndash;<div class="dele"></div>&ndash;&gt;
 													</div>
 													<div class="fr_ttmm"></div>
 												</td>
@@ -199,8 +199,8 @@
 																	<a href="{:U('Home/Order/order_detail',array('id'=>$list['order_id']))}">查看详情</a>
 																</if>
 															</p>
-															<!--<p class="inspect"><a href="{:U('Home/User/order_detail',array('id'=>$list['order_id']))}">查看物流</a></p>-->
-															<!--<p class="ps_r"><a href="javascript:void(0);">配送</a></p>-->
+															&lt;!&ndash;<p class="inspect"><a href="{:U('Home/User/order_detail',array('id'=>$list['order_id']))}">查看物流</a></p>&ndash;&gt;
+															&lt;!&ndash;<p class="ps_r"><a href="javascript:void(0);">配送</a></p>&ndash;&gt;
 														</div>
 													</td>
 													<td class="sx6">
@@ -221,15 +221,15 @@
 								</div>
 								</empty>
 			    			</div>
-			    		</div>
+			    		</div>-->
 			    		<div class="order-list bgno p">
 			    			<div class="ddlb-zy">
-			    				<div class="coll-coupon fl">
+			    				<!--<div class="coll-coupon fl">
 			    					<div class="coll-etl">
 										<tpshop sql="select c.*,g.shop_price from __PREFIX__goods_collect c INNER JOIN __PREFIX__goods g on c.goods_id = g.goods_id  where c.user_id = $user[user_id] order by collect_id desc limit 3" result_name="collect_result"></tpshop>
 										<div class="ddlb-tit">
 					                       <h1>我的收藏</h1>
-					                       <!--<a class="cx-fk" class="J-childCollect" href="{:U('Home/User/goods_collect')}">促销（<em>{$collect_result|count}</em>）</a>-->
+					                       &lt;!&ndash;<a class="cx-fk" class="J-childCollect" href="{:U('Home/User/goods_collect')}">促销（<em>{$collect_result|count}</em>）</a>&ndash;&gt;
 					                       <a class="u-view-all" href="{:U('Home/User/goods_collect')}">查看更多</a>
 					    				</div>
 					    				<div class="shop-sc-t">
@@ -245,7 +245,7 @@
 					    					</ul>
 					    				</div>
 			    					</div>
-			    				</div>
+			    				</div>-->
 			    				<div class="coll-coupon malrh fl">
 			    					<div class="coupon-etl">
 			    						<div class="ddlb-tit">

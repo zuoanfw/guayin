@@ -13,7 +13,7 @@ return array(
      '杭州银行'=>'HZCB_OUT.gif',
      '中国民生银行'=>'CMBC_OUT.gif',
      '北京农商银行'=>'BJRCB_OUT.gif',    
-     '招商银行'=>'to_cmb.jpg',
-     '中国工商银行'=>'to_icbc.jpg',
+     '招商银行'=>'CMB_OUT.gif',
+     '中国工商银行'=>'ICBC_OUT.gif',
      '上海银行'=>'to_bos.jpg',    
 );        

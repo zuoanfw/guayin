@@ -34,6 +34,7 @@ class PlaceOrder
     private $invoiceTitle;
     private $userNote;
     private $deliveryTime;
+    private $paymentType;
     private $taxpayer;
     private $pay;
     private $order;
@@ -231,7 +232,10 @@ class PlaceOrder
             $orderData['user_note'] = $this->userNote;// 用户下单备注
         }
         if (!empty($this->deliveryTime)) {
-            $orderData['delivery_time'] = $this->deliveryTime;// 商品派送时间
+        $orderData['delivery_time'] = $this->deliveryTime;// 商品派送时间
+        }
+        if (!empty($this->paymentType)) {
+            $orderData['payment_type'] = $this->paymentType;// 商品派送时间
         }
         if (!empty($this->taxpayer)) {
             $orderData['taxpayer'] = $this->taxpayer; //'发票纳税人识别号',
@@ -399,6 +403,10 @@ class PlaceOrder
     public function setDeliveryTime($deliveryTime)
     {
         $this->deliveryTime = $deliveryTime;
+    }
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
     }
     public function setTaxpayer($taxpayer)
     {

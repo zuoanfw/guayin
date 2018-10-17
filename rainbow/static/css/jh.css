@@ -116,46 +116,76 @@ a.Sub-orders{ width:118px; font-size:14px}
 .sc-acti-list a.gwc-qjs:hover{border-color:#e64a4d; background-color:#e64a4d;}
 .ma-bo-135{margin-bottom:100px}
 .order-ha{font-family: 'Tahoma','\5FAE\8F6F\96C5\9ED1';margin-bottom: 48px;}
-.erhuh{border-top: none;background-color: #f1f8ee;position: relative;padding-left: 165px;min-height: 116px;padding-bottom: 21px;}
-.icon-succ{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon30.png) no-repeat}
+.erhuh{border-top: none;position: relative;padding-left: 35px;min-height: 116px;padding-bottom: 21px;    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;}
+.icon-succ{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;/*background-position: 0 0; background:url(../images/icon30.png) no-repeat*/}
 .icon-succa{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon33.png) -34px 0 no-repeat}
 .icon-sucsa{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon33.png) -116px 0 no-repeat}
 
 .erhuh h3{font-size: 18px;color: #7baa61;padding: 27px 0 2px; font-weight:400}
-.erhuh p{ color:#777}
-.erhuh p b{    font-size: 14px;color: #e01d20;}
+.erhuh p{ color:#777;padding-bottom: 15px;    padding-left: 55px;}
+.erhuh p b{    font-size: 14px;color: #ff8a5c;}
 .succ-tip{padding-top: 12px;color: #777;}
 .succ-tip b{ font-size:14px}
 .ddxq-xiaq{ border-top:1px solid #d7ebcb}
 .ddxq-xiaq a{display: block;width: 108px;height: 32px;background-color: #f1f8ee;border: 1px solid #d7ebcb;border-top-color: #f1f8ee;margin: -1px auto 0;position: relative;line-height: 30px;font-size: 14px;color: #649a45;text-indent: 31px;}
 .ddxq-xiaq a i{ background:url(../images/sprites6.png) no-repeat;    position: absolute;height: 3px;font-size: 1px;line-height: 1px; width: 6px;background-position: -138px -312px;left: 17px;top: 14px;}
 .orde-sjyy{ font-family:'Tahoma','\5FAE\8F6F\96C5\9ED1';}
-.titls{font-size: 14px;border-left: 4px solid #e5e5e5;padding-left: 6px;line-height: 1.1;margin-bottom: 10px; font-weight:400}
+.titls{font-size: 18px;border-left: 4px solid #e5e5e5;padding-left: 6px;line-height: 1.1;margin-bottom: 10px; font-weight:400}
 .titls b{font-size: 12px;font-weight: 400;color: #28c0c6;margin-left: 8px;}
 .titls b a{color: #28c0c6;}
-.bsjy-g dl{border: 1px solid #dedede;border-bottom: 0 none;}
+.bsjy-g dl{border-bottom: 0 none;}
 .bsjy-g dl dd{ position:relative}
-.dsfzfpte{text-align: center;height: 30px;line-height: 30px;border-bottom: 1px solid #dedede;background-color: #fcfcfc;}
 .dsfzf-ee{padding: 30px 0 0 25px;}
-.dsfzfpte b{ font-weight:400}
 .dsfzf-ee ul li{float: left;width: 167px;padding-bottom: 25px;}
 .payment-area, .payment-area label {display: inline-block;position: relative;}
 .payment-area input[type=radio]{ margin-right:5px; cursor:default}
-.payment-area label{display: inline-block;position: relative;}
-.payment-area label img {vertical-align: middle;cursor: pointer;border: 1px solid #ededed;}
+.payment-area label{display: inline-block;position: relative;border: 1.5px solid #ededed;padding: 2px;}
+.payment-area  .check_active{
+    border: 1.5px solid #ff8a5c;
+}
+.payment-area label img {vertical-align: middle;cursor: pointer;}
 .payment-area label:hover img{ border-color:#bf0f0f}
+.zhuang_pay ul li{
+    border: 1.5px solid #ededed;padding: 12px;width: 300px;margin-right: 30px;margin-bottom: 20px;position: relative;
+}
+.zhuang_pay ul li .pay_men{
+    position: absolute;
+    right: 0px;
+    top:0px;
+    background: #0000EE;
+    color: #fff;
+    padding: 5px;
+}
+.zhuang_pay ul li p{
+    padding: 8px;
+}
+.zhuan_pay{
+margin: 20px 10px 40px 5px;
+}
+.zhuan_pay p{
+    margin-bottom: 10px;
+}
+.zhuan_pay p input{
+    border: 1.5px solid #ededed;padding: 8px 5px;width: 300px;
+}
+.dsfzfpte{
+    margin-top:35px ;
+}
+.dsfzfpte .compay_pay{
+       border: 1.5px solid #ededed;padding: 10px 34px;margin: 10px 20px;cursor: pointer;
+   }
+.dsfzfpte .compay_pay_active{
+    border: 1.5px solid #ff8a5c;
+}
 .dsfzf-ee ul:before{ content:""; display:table}
 .dsfzf-ee ul:after{ content:""; display:table; clear:both}
-.order-payment-area {border-bottom: 1px solid #dedede;}
-.dsfzfpte em{ margin-left:8px; color:#999}
-.dsfzfpte span{ color:#28c0c6; margin-left:6px;}
-.dsfzfpte span a{ color:#28c0c6;}
-.dsfzfpte span a:hover{ text-decoration:underline}
+.order-payment-area {/*border-bottom: 1px solid #dedede;*/}
 .payment-area label i{display: inline-block;width: 20px;height: 30px;border: 1px solid #ffcd88;border-left: 0 none;background-color: #ffd594;color: #4c3f2c;vertical-align: middle;text-align: center;line-height: 1.1;padding-top: 2px;font-style: normal;}
 .payment-area label:hover i{border:1px solid #bf0f0f; border-left:0 }
 .order-payment-action-area .voucher-use {font-size: 14px;margin-right: 20px;color: #888;line-height: 20px;}
 .order-payment-action-area { font-family:'Tahoma','\5FAE\8F6F\96C5\9ED1'; margin:40px 0 60px;}
-.order-payment-action-area a{ margin-left:50px; border-radius:4px;}
+.order-payment-action-area a{ margin-left:1px; border-radius:4px;}
 .return-wallet{ border:1px solid #ccc; color:#c2c2c2; display:inline-block; text-align:center;}
 
 .button-confirm-payment, .button-go-payment ,.return-wallet{font-family: \5FAE\8F6F\96C5\9ED1;font-size: 16px;width: 148px;height: 42px;line-height: 42px;}
