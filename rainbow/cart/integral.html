@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>积分商品结算-{$tpshop_config['shop_info_store_title']}</title>
+		<title>瓜豆商品结算-{$tpshop_config['shop_info_store_title']}</title>
 		<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
 		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
         <link rel="stylesheet" type="text/css" href="__STATIC__/css/jh.css" />
@@ -129,7 +129,7 @@
 													<a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}" target="_blank">{$goods.goods_name}</a>
 												</div>
 												<div class="p-price">
-													<strong class="tp-price" style="width: 130px">￥ {:round($goods_price-$goods['exchange_integral']/$point_rate,2)}+{$goods['exchange_integral']}积分</strong>
+													<strong class="tp-price" style="width: 130px">￥ {:round($goods_price-$goods['exchange_integral']/$point_rate,2)}+{$goods['exchange_integral']}瓜豆</strong>
 													<span class="p-num f-l-noe" style="width: 40px">x{$goods_num}</span>
 													<span class="p-state" id="goods_shipping_title_{$goods[goods_id]}">有货</span>
 													<span class="tp-weight tp-price">{$goods[weight]}g</span>
@@ -156,17 +156,17 @@
 		<div class="usecou-step-tit" id="usecou-step-tit">
 			<div class="w1224">
 				<div class="top_leg p ma-to-20">
-					<span class="paragraph usewhilejs fl"><i class="ddd"></i>使用积分/余额</span>
+					<span class="paragraph usewhilejs fl"><i class="ddd"></i>使用瓜豆/余额</span>
 				</div>
 				<div class="coupon-detail">
 					<div class="score-list">
 						<p class="item">
 							<label>
-								使用积分余额 :
+								使用瓜豆余额 :
 								<input id="pay_points" value="" type="text" <if condition="$user['pay_points'] eq 0">disabled="disabled"</if>>
-								点（您当前积分<span>{$user['pay_points']}</span>点）
+								点（您当前瓜豆<span>{$user['pay_points']}</span>点）
 							</label>
-							<!--<a href="javascript:;">了解什么是积分？</a>-->
+							<!--<a href="javascript:;">了解什么是瓜豆？</a>-->
 						</p>
 						<p class="item">
 							<label>
@@ -206,7 +206,7 @@
 						<em class="price" id="balance">-￥0.00</em>
 					</div>
 					<div class="list">
-						<span>积分支付：</span>
+						<span>瓜豆支付：</span>
 						<em class="price" id="pointsFee">-￥0.00</em>
 					</div>
 				</div>
@@ -404,7 +404,7 @@
 					}
 				});
 			})(jQuery);
-			//积分选项框点击事件
+			//瓜豆选项框点击事件
 			$(function(){
 				$(document).on("click", '#user_money_checkbox', function (e) {
 					if($(this).is(':checked')){
@@ -419,7 +419,7 @@
 					}
 				})
 			})
-			//积分输入框keyUp事件
+			//瓜豆输入框keyUp事件
 			$(function(){
 				$('#pay_points').donetyping(function(){
 					if($(this).parent().find("input[type='checkbox']").is(':checked')){
@@ -578,8 +578,8 @@
 						// console.log(data);
 						$("#postFee").text('￥'+data.result.shipping_price); // 物流费
 						$("#balance").text('-￥'+data.result.user_money);// 余额
-						$("#pointsFee").text('-￥'+data.result.integral_money);// 积分支付
-						$("#pay_points").val(data.result.pay_points);// 积分支付
+						$("#pointsFee").text('-￥'+data.result.integral_money);// 瓜豆支付
+						$("#pay_points").val(data.result.pay_points);// 瓜豆支付
 						$("#payables").text('￥'+data.result.order_amount);// 应付
 					}
 				});

@@ -226,7 +226,7 @@ class Order extends MobileBase
     public function cancel_order()
     {
         $id = I('get.id/d');
-        //检查是否有积分，余额支付
+        //检查是否有瓜豆，余额支付
         $logic = new OrderLogic();
         $data = $logic->cancel_order($this->user_id, $id);
         $this->ajaxReturn($data);

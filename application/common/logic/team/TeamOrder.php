@@ -134,10 +134,10 @@ class TeamOrder
                 }
             }
         }
-        //已经使用优惠券/积分/余额支付的订单不能更改数量
+        //已经使用优惠券/瓜豆/余额支付的订单不能更改数量
         if($this->orderGoods['goods_num'] != $goods_num){
             if($this->order['user_money'] > 0 || $this->order['coupon_price'] > 0 || $this->order['integral'] > 0){
-                throw new TpshopException('拼团订单', 0, ['status' => 0, 'msg' => '使用优惠券/积分/余额支付的订单不能更改数量', 'result' => []]);
+                throw new TpshopException('拼团订单', 0, ['status' => 0, 'msg' => '使用优惠券/瓜豆/余额支付的订单不能更改数量', 'result' => []]);
             }
             $this->orderGoods['goods_num'] = $goods_num;
             $this->order['goods_price'] = round($this->orderGoods['member_goods_price'] * $goods_num, 2);
@@ -230,9 +230,9 @@ class TeamOrder
         $placeOrder = new PlaceOrder($this->pay);
         $placeOrder->setPayPsw($this->payPsw);
         $placeOrder->check();
-        //支付方式，可能是余额支付或积分兑换，后面其他支付方式会替换
+        //支付方式，可能是余额支付或瓜豆兑换，后面其他支付方式会替换
         if($this->order['integral'] > 0 || $this->order['user_money'] > 0){
-            $this->order['pay_name'] = $this->order['user_money'] ? '余额支付' : '积分兑换';
+            $this->order['pay_name'] = $this->order['user_money'] ? '余额支付' : '瓜豆兑换';
         }
         $this->order->save();
         if($this->order['order_amount'] == 0){

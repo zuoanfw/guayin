@@ -839,7 +839,7 @@ class GoodsLogic extends Model
     }
     
     /**
-     * 积分商城
+     * 瓜豆商城
      */
     public function integralMall($rank, $user_id, $p = 1)
     {
@@ -847,17 +847,17 @@ class GoodsLogic extends Model
         if ($rank == 'num') {
             $ranktype = 'sales_sum';//以兑换量（购买量）排序
         } elseif ($rank == 'integral') {
-            $ranktype = 'exchange_integral';//以需要积分排序
+            $ranktype = 'exchange_integral';//以需要瓜豆排序
         }
         
         $point_rate = tpCache('shopping.point_rate');
         $goods_where['is_on_sale'] = 1;//是否上架
         $goods_where['is_virtual'] = 0;//是否虚拟商品
-        //积分兑换筛选
+        //瓜豆兑换筛选
         $exchange_integral_where_array = array(array('gt',0));
         //我能兑换
         if ($rank == 'exchange' && !empty($user_id)) {
-            //获取用户积分
+            //获取用户瓜豆
             $user_pay_points = intval(M('users')->where(array('user_id' => $user_id))->getField('pay_points'));
             if ($user_pay_points !== false) {
                 array_push($exchange_integral_where_array, array('lt', $user_pay_points));
@@ -1011,13 +1011,13 @@ class GoodsLogic extends Model
         $po = M('prom_order')->where(['start_time' => ['<=', $cur_time], 'end_time' => ['>', $cur_time], 'is_close' => 0])->select();
         if (!empty($po)) {
             foreach ($po as $p) {
-                //type:0满额打折,1满额优惠金额,2满额送积分,3满额送优惠券
+                //type:0满额打折,1满额优惠金额,2满额送瓜豆,3满额送优惠券
                 if ($p['type'] == 0) {
                     $data[] = ['title' => '折扣', 'content' => "满{$p['money']}元打{$p['expression']}折"];
                 } elseif ($p['type'] == 1) {
                     $data[] = ['title' => '优惠', 'content' => "满{$p['money']}元优惠{$p['expression']}元"];
                 } elseif ($p['type'] == 2) {
-                    //积分暂不支持?
+                    //瓜豆暂不支持?
                 } elseif ($p['type'] == 3) {
                     $couponLogic = new \app\common\logic\CouponLogic;
                     $money = $couponLogic->getSendValidCouponMoney($p['expression'], $goods['goods_id'],  $goods['cat_id']);

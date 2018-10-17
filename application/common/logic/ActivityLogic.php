@@ -435,13 +435,13 @@ class ActivityLogic extends Model
         $po = Db::query($sql);
         if (!empty($po)) {
             foreach ($po as $p) {
-                //type:0满额打折,1满额优惠金额,2满额送积分,3满额送优惠券
+                //type:0满额打折,1满额优惠金额,2满额送瓜豆,3满额送优惠券
                 if ($p['type'] == 0) {
                     $data[] = ['title' => '折扣', 'content' => "满{$p['money']}元打".round($p['expression']/10, 1)."折"];
                 } elseif ($p['type'] == 1) {
                     $data[] = ['title' => '优惠', 'content' => "满{$p['money']}元优惠{$p['expression']}元"];
                 } elseif ($p['type'] == 2) {
-                    //积分暂不支持?
+                    //瓜豆暂不支持?
                 } elseif ($p['type'] == 3) {
                     $couponLogic = new \app\common\logic\CouponLogic;
                     $money = $couponLogic->getSendValidCouponMoney($p['expression'], $goods['goods_id'], $goods['cat_id']);
@@ -471,7 +471,7 @@ class ActivityLogic extends Model
         $po = Db::query($sql);
         if (!empty($po)) {
             foreach ($po as $p) {
-                //type:0满额打折,1满额优惠金额,2满额送积分,3满额送优惠券
+                //type:0满额打折,1满额优惠金额,2满额送瓜豆,3满额送优惠券
                 if ($p['type'] == 0) {
                     $data = "满{$p['money']}元打".round($p['expression']/10, 1)."折";
                 } elseif ($p['type'] == 1) {

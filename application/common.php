@@ -540,7 +540,7 @@ function tpCache($config_key,$data = array()){
  * 记录帐户变动
  * @param   int     $user_id        用户id
  * @param   int    $user_money     可用余额变动
- * @param   int     $pay_points     消费积分变动
+ * @param   int     $pay_points     消费瓜豆变动
  * @param   string  $desc    变动说明
  * @param   int    distribut_money 分佣金额
  * @param int $order_id 订单id
@@ -928,7 +928,7 @@ function confirm_order($id,$user_id = 0){
 }
 
 /**
- * 下单赠送活动：优惠券，积分
+ * 下单赠送活动：优惠券，瓜豆
  * @param $order|订单数组
  */
 function order_give($order)
@@ -978,14 +978,14 @@ function order_give($order)
                     }
                 }
             }
-            //购买商品送积分
+            //购买商品送瓜豆
             if ($prom_order['type'] == 2) {
-                accountLog($order['user_id'], 0, $prom_order['expression'], "订单活动赠送积分");
+                accountLog($order['user_id'], 0, $prom_order['expression'], "订单活动赠送瓜豆");
             }
             break;
     }
     $points = M('order_goods')->where("order_id", $order['order_id'])->sum("give_integral * goods_num");
-    $points && accountLog($order['user_id'], 0, $points, "下单赠送积分", 0, $order['order_id'], $order['order_sn']);
+    $points && accountLog($order['user_id'], 0, $points, "下单赠送瓜豆", 0, $order['order_id'], $order['order_sn']);
 }
 
 
@@ -1236,7 +1236,7 @@ function getTabByTime($startTime='', $endTime='')
 }
 
 /**
- * 积分转化成金额
+ * 瓜豆转化成金额
  * @param $pay_point
  * @return float
  */

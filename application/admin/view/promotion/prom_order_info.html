@@ -55,7 +55,7 @@
                     <select id="prom_type" name="type">
                         <option value="0" <if condition="$info[type] eq 0">selected</if>>直接打折</option>
                         <option value="1" <if condition="$info[type] eq 1">selected</if>>减价优惠</option>
-                        <option value="2" <if condition="$info[type] eq 2">selected</if>>满额送积分</option>
+                        <option value="2" <if condition="$info[type] eq 2">selected</if>>满额送瓜豆</option>
                         <option value="3" <if condition="$info[type] eq 3">selected</if>>买就赠代金券</option>
                     </select>
                     <p class="notic">促销活动类型</p>
@@ -143,7 +143,7 @@
             switch(type){
                 case 0:{msg='折扣值输入错误！';break;}
                 case 1:{msg='优惠金额输入错误!';break;}
-                case 2:{msg='积分额度输入错误' ;break;}
+                case 2:{msg='瓜豆额度输入错误' ;break;}
             }
             ajax_return_srtatus=1;
             layer.msg(msg, {icon: 2,time: 1000});
@@ -207,9 +207,9 @@
                 break;
             }
             case 2:{
-                expression = '<dt class="tit"><label><em>*</em>积分</label></dt>'
+                expression = '<dt class="tit"><label><em>*</em>瓜豆</label></dt>'
                         + '<dd class="opt"><input type="text" name="expression" onkeyup="this.value=this.value.replace(/[^\\d]/g,\'\')" pattern="int" value="" class="input-txt">'
-                        + '<p class="notic">订单送积分额度</p></dd>';
+                        + '<p class="notic">订单送瓜豆额度</p></dd>';
                 break;
             }
             case 3:{

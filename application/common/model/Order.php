@@ -193,6 +193,8 @@ class Order extends Model
     public function getAdminOrderButtonAttr($value, $data){
         /*
          *  操作按钮汇总 ：付款、设为未付款、确认、取消确认、无效、去发货、确认收货、申请退货
+         * 付款、设为未付款  操作 支付状态
+         * 确认、取消确认  操作 订单状态
          *
          */
         $os = $data['order_status'];//订单状态
@@ -225,6 +227,10 @@ class Order extends Model
                     $btn['pay_cancel'] = '设为未付款';
                     $btn['confirm'] = '确认';
                 }
+            }elseif($os == 0 && $ps == 5){
+                //$btn['pay'] = '付款';
+                $btn['pay_cancel'] = '设为未付款';
+                $btn['confirm'] = '确认';
             }elseif($os == 1 && $ps == 1 && ($ss == 0 || $ss == 2)){
                 if($pt != 6){
                     $btn['cancel'] = '取消确认';

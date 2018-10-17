@@ -305,7 +305,7 @@ class Cart extends Base
         $invoice_title = input('invoice_title');  // 发票
         $taxpayer = input('taxpayer');       // 纳税人识别号
         $coupon_id = input("coupon_id/d"); //  优惠券id
-        $pay_points = input("pay_points/d", 0); //  使用积分
+        $pay_points = input("pay_points/d", 0); //  使用瓜豆
         $user_money = input("user_money/f", 0); //  使用余额
         $user_note = input("user_note/s", ''); // 用户留言
         $delivery_time = input("delivery_time/d", ''); // 商品派送时间
@@ -523,7 +523,7 @@ class Cart extends Base
     }
 
     /**
-     * 兑换积分商品
+     * 兑换瓜豆商品
      */
     public function buyIntegralGoods()
     {
@@ -547,7 +547,7 @@ class Cart extends Base
     }
 
     /**
-     *  积分商品结算页
+     *  瓜豆商品结算页
      * @return mixed
      */
     public function integral()
@@ -594,7 +594,7 @@ class Cart extends Base
     }
 
     /**
-     *  积分商品价格提交
+     *  瓜豆商品价格提交
      * @return mixed
      */
     public function integral2()

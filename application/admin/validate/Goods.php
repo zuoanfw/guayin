@@ -43,8 +43,8 @@ class Goods extends Validate
         'market_price.regex' => '市场价格式不对',
         'market_price.checkMarketPrice' => '市场价不得小于本店价',
         'weight.regex' => '重量格式不对',
-        'give_integral.regex' => '赠送积分必须是正整数',
-        'exchange_integral.checkExchangeIntegral' => '积分抵扣金额不能超过商品总额',
+        'give_integral.regex' => '赠送瓜豆必须是正整数',
+        'exchange_integral.checkExchangeIntegral' => '瓜豆抵扣金额不能超过商品总额',
         'is_virtual.checkVirtualIndate' => '虚拟商品有效期不得小于当前时间',
         'is_free_shipping.require' => '请选择商品是否包邮',
     ];
@@ -86,14 +86,14 @@ class Goods extends Validate
         }
         return true;
     }
-    // 检查积分兑换
+    // 检查瓜豆兑换
     protected function checkExchangeIntegral($value, $rule, $data)
     {
         if ($value > 0) {
             $goods = Db::name('goods')->where('goods_id', $data['goods_id'])->find();
             if (!empty($goods)) {
                 if ($goods['prom_type'] > 0) {
-                    return '该商品参与了其他活动。设置兑换积分无效，请设置为零';
+                    return '该商品参与了其他活动。设置兑换瓜豆无效，请设置为零';
                 }
             }
         }
@@ -114,7 +114,7 @@ class Goods extends Validate
 
         $point_rate_value = empty($point_rate_value) ? 0 : $point_rate_value;
         if ($value > ($goods_price * $point_rate_value)) {
-            return '积分抵扣金额不能超过商品总额';
+            return '瓜豆抵扣金额不能超过商品总额';
         } else {
             return true;
         }

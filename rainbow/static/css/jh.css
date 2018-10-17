@@ -116,7 +116,8 @@ a.Sub-orders{ width:118px; font-size:14px}
 .sc-acti-list a.gwc-qjs:hover{border-color:#e64a4d; background-color:#e64a4d;}
 .ma-bo-135{margin-bottom:100px}
 .order-ha{font-family: 'Tahoma','\5FAE\8F6F\96C5\9ED1';margin-bottom: 48px;}
-.erhuh{border-top: none;position: relative;padding-left: 35px;min-height: 116px;padding-bottom: 21px;    border-bottom: 1px solid #ccc;
+.erhuh{border-top: none;position: relative;padding-left: 35px;
+    min-height: 156px;padding-bottom: 41px;    /*border-bottom: 1px solid #ccc;*/
     margin-bottom: 20px;}
 .icon-succ{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;/*background-position: 0 0; background:url(../images/icon30.png) no-repeat*/}
 .icon-succa{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon33.png) -34px 0 no-repeat}

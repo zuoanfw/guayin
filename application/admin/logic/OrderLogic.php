@@ -427,7 +427,7 @@ class OrderLogic
     		if($order_goods['give_integral']>0){
     			$user = get_user_info($return_goods['user_id']);
     			if($order_goods['give_integral']>$user['pay_points']){
-    				//积分被使用则从退款金额里扣
+    				//瓜豆被使用则从退款金额里扣
     				$return_goods['refund_money'] = $return_goods['refund_money'] - $order_goods['give_integral']/100;
     			}
     		}

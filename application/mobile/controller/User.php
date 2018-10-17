@@ -878,7 +878,7 @@ class User extends MobileBase
             $Page = new Page($count, 16);
             $account_log = M('recharge')->where("user_id", $this->user_id)->order('order_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
         } else if ($type == 'points') {
-            //积分记录明细
+            //瓜豆记录明细
             $count = M('account_log')->where(['user_id' => $this->user_id, 'pay_points' => ['<>', 0]])->count();
             $Page = new Page($count, 16);
             $account_log = M('account_log')->where(['user_id' => $this->user_id, 'pay_points' => ['<>', 0]])->order('log_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
@@ -1430,7 +1430,7 @@ class User extends MobileBase
 
 
     /**
-     * 会员签到积分奖励
+     * 会员签到瓜豆奖励
      * 2017/9/28
      */
     public function sign()

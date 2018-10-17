@@ -146,7 +146,7 @@ class User extends Base {
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">注册时间</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">最后登陆</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">余额</td>';
-    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">积分</td>';
+    	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">瓜豆</td>';
     	$strTable .= '<td style="text-align:center;font-size:12px;" width="*">累计消费</td>';
     	$strTable .= '</tr>';
         $user_ids =I('user_ids');
@@ -269,12 +269,12 @@ class User extends Base {
             if (($user['user_money']+$user_money)<0){
                 $this->ajaxReturn(['status'=>0,'msg'=>"用户剩余资金不足！！"]);
             }
-            //加减用户积分
+            //加减用户瓜豆
             $p_op_type = I('post.point_act_type');
             $pay_points = I('post.pay_points/d');
             $pay_points =  $p_op_type ? $pay_points : 0-$pay_points;
             if(($pay_points+$user['pay_points'])<0 ){
-                $this->ajaxReturn(['status'=>0,'msg'=>'用户剩余积分不足！！']);
+                $this->ajaxReturn(['status'=>0,'msg'=>'用户剩余瓜豆不足！！']);
             }
             //加减冻结资金
             $f_op_type = I('post.frozen_act_type');

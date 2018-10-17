@@ -165,22 +165,6 @@
         <li class="fl z-parkage-li" id="express_delivery">快递配送<span></span></li>
         <li class="fl" id="door_to_door" style="display: none">上门自提<span></span></li>
     </ul>
-    <!--<div class="dis-modes-li p" id="express_delivery_modes">
-        <div class="shipment">
-            <div class="fore1 p">
-                <span class="mode-label">配送时间：</span>
-
-                <div class="mode-infor hover-y">
-                    <p><label>工作日、双休日与节假日均可送货</label></p>
-                    &lt;!&ndash;<p><label><input type="checkbox" name="" value="" /> 双休日、假日送</label></p>&ndash;&gt;
-                </div>
-            </div>
-        </div>
-        <div class="standard_wei buy-remarks p">
-            <span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注 :</span>
-            <textarea class="user_note_txt fl" maxlength="50" placeholder="最多输入50个字"></textarea>
-        </div>
-    </div>-->
     <div class="dis-modes-li modes-li-two p" id="door_to_door_modes" style="display: none;">
         <p class="modes-li-title">附近自提点 <span>免运费</span></p>
 
@@ -503,13 +487,13 @@
                 <p class="item">
                     <label>
                         <input id="pay_points_checkbox" type="checkbox" <if condition="$user['pay_points'] eq 0">disabled="disabled"</if>>
-                        使用积分余额 :
+                        使用瓜豆余额 :
                         <input id="pay_points" type="text" disabled="disabled"
                                onpaste="this.value=this.value.replace(/[^\d]/g,'')"
                                onkeyup="this.value = this.value.replace(/[^\d]/g, '')">
-                        点（您当前积分<span>{$user['pay_points']}</span>点）
+                        点（您当前瓜豆<span>{$user['pay_points']}</span>点）
                     </label>
-                    <!--<a href="javascript:;">了解什么是积分？</a>-->
+                    <!--<a href="javascript:;">了解什么是瓜豆？</a>-->
                 </p>
                 <p class="item">
                     <label>
@@ -725,7 +709,7 @@
                 <em class="price" id="balance">-￥0.00</em>
             </div>
             <div class="list">
-                <span>积分支付：</span>
+                <span>瓜豆支付：</span>
                 <em class="price" id="pointsFee">-￥0.00</em>
             </div>
         </div>
@@ -774,7 +758,7 @@
             </div>
             <div class="zinvoice-tips">
                 <i>1</i>
-                <span class="tip-cont">开票金额不包优惠券和积分支付部分。
+                <span class="tip-cont">开票金额不包优惠券和瓜豆支付部分。
                     <!--<a target="_blank" class="newadd" href="">发票信息相关问题&gt;&gt;</a>--></span>
                 <i>2</i>
                 <span class="tip-cont">开企业抬头发票须填写纳税人识别号，以免影响报销</span>
@@ -899,7 +883,7 @@
             }
         });
     })(jQuery);
-    //积分选项框点击事件
+    //瓜豆选项框点击事件
     $(function () {
         $(document).on("click", '#pay_points_checkbox', function (e) {
             if ($(this).is(':checked')) {
@@ -934,7 +918,7 @@
             }
         })
     })
-    //积分输入框keyUp事件
+    //瓜豆输入框keyUp事件
     $(function () {
         $('#pay_points').donetyping(function () {
             if ($(this).parent().find("input[type='checkbox']").is(':checked')) {
@@ -1138,7 +1122,7 @@
                     $("#couponFee").text('-￥' + data.result.coupon_price);// 优惠券
                 }
                 $("#balance").text('-￥' + data.result.user_money);// 余额
-                $("#pointsFee").text('-￥' + data.result.integral_money);// 积分支付
+                $("#pointsFee").text('-￥' + data.result.integral_money);// 瓜豆支付
                 $("#payables").text('￥' + data.result.order_amount);// 应付
                 $("#order_prom_amount").text('-￥' + data.result.order_prom_amount);// 订单 优惠活动
             }

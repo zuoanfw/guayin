@@ -25,7 +25,7 @@ class RefundLogic extends Model
 {
     protected  $refund_deposit=0;  //要退的余额
     protected  $refund_money=0;     //要退的金额（三方支付的）
-    protected  $refund_integral=0;  //要退的积分
+    protected  $refund_integral=0;  //要退的瓜豆
 
     public function setRefundDeposit($refund_deposit)
     {
@@ -53,7 +53,7 @@ class RefundLogic extends Model
             'refund_time'=>time(),
             'status'=>5
         ];
-        //使用积分或者余额抵扣部分原路退还
+        //使用瓜豆或者余额抵扣部分原路退还
         if(($this->refund_deposit >0 || $this->refund_integral>0)){
             accountLog($return_goods['user_id'],$this->refund_deposit,$this->refund_integral,'用户申请商品退款',0,$return_goods['order_id'],$return_goods['order_sn']);
         }
@@ -65,11 +65,11 @@ class RefundLogic extends Model
         Db::name('order_goods')->where(['rec_id'=>$rec_id])->save(['is_send'=>3]);//修改订单商品状态
         Db::name('order')->where(['order_id'=>$return_goods['order_id']])->save(['order_status'=>5]);//修改订单状态为作废，以后给6也行，不然统计销售额的时候会统计进去
         if($return_goods['is_receive'] == 1){
-            //赠送积分追回
+            //赠送瓜豆追回
             if($order_goods['give_integral']>0){
                 $user = get_user_info($return_goods['user_id']);
                 if($order_goods['give_integral']<$user['pay_points']){
-                    accountLog($return_goods['user_id'],0,-$order_goods['give_integral'],'退货积分追回',0,$return_goods['order_id'],$return_goods['order_sn']);
+                    accountLog($return_goods['user_id'],0,-$order_goods['give_integral'],'退货瓜豆追回',0,$return_goods['order_id'],$return_goods['order_sn']);
                 }
             }
             //追回订单商品赠送的优惠券
@@ -141,7 +141,7 @@ class RefundLogic extends Model
      * @return bool
      */
     function updateRefundOrder($order,$type=0){
-        //使用积分或者余额抵扣部分一一退还
+        //使用瓜豆或者余额抵扣部分一一退还
         if ($order['user_money'] > 0 || $order['integral'] > 0) {
             $update_money_res = accountLog($order['user_id'], $order['user_money'], $order['integral'], '用户申请订单退款', 0, $order['order_id'], $order['order_sn']);
             if(!$update_money_res){

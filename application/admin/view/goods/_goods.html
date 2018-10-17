@@ -107,7 +107,7 @@
                 <li><a href="javascript:void(0);" data-index='1' class="tab current"><span>通用信息</span></a></li>
                 <li><a href="javascript:void(0);" data-index='2' class="tab"><span>商品相册</span></a></li>
                 <li><a href="javascript:void(0);" data-index='3' class="tab"><span>商品模型</span></a></li>
-                <li><a href="javascript:void(0);" data-index='5' class="tab"><span>积分折扣</span></a></li>
+                <li><a href="javascript:void(0);" data-index='5' class="tab"><span>瓜豆折扣</span></a></li>
             </ul>
         </div>
     </div>
@@ -616,7 +616,7 @@
             </dl>
         </div>   
         <!-- 商品模型-->
-        <!--积分折扣-->
+        <!--瓜豆折扣-->
 		<div class="ncap-form-default tab_div_5" style="display:none;">
             <!--<dl class="row">
                 <dt class="tit">
@@ -656,23 +656,23 @@
                         
             <dl class="row">
                 <dt class="tit">
-                    <label>赠送积分</label>
+                    <label>赠送瓜豆</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" value="{$goods.give_integral}" name="give_integral" class="t_mane"
-                           onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />	订单完成后赠送积分
+                           onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />	订单完成后赠送瓜豆
                     <span class="err" id="err_give_integral"></span>
                 </dd>
             </dl>  
             
             <dl class="row">
                 <dt class="tit">
-                    <label>兑换积分</label>
+                    <label>兑换瓜豆</label>
                 </dt>
                 <dd class="opt">
                     <input type="text" value="{$goods.exchange_integral}" name="exchange_integral" class="t_mane"
                            onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />
-                    不得高于商品最低价格与兑换比的积，如果设置0，则不支持积分抵扣
+                    不得高于商品最低价格与兑换比的积，如果设置0，则不支持瓜豆抵扣
                     <span class="err" id="err_exchange_integral"></span>
                 </dd>
             </dl>

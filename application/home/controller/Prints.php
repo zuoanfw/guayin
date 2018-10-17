@@ -167,7 +167,7 @@ class Prints extends Base {
         //halt($spec_goods_price);
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
         //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
-        $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
+        $point_rate = tpCache('shopping.point_rate');//<!-- 瓜豆兑换比 -->
 
         //如果 是爆品印品 需读取商品购买数量 价格 拆分
         if($goods['goods_num']){

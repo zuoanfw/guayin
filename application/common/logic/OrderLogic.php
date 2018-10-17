@@ -51,7 +51,7 @@ class OrderLogic
 		//$log = M('account_log')->where(array('order_id'=>$order_id))->find();
 		//有余额支付的情况
 		if($order['user_money'] > 0 || $order['integral'] > 0){
-			accountLog($user_id,$order['user_money'],$order['integral'],"订单取消，退回{$order['user_money']}元,{$order['integral']}积分",0,$order['order_id'],$order['order_sn']);
+			accountLog($user_id,$order['user_money'],$order['integral'],"订单取消，退回{$order['user_money']}元,{$order['integral']}瓜豆",0,$order['order_id'],$order['order_sn']);
 		}
 
 		if($order['coupon_price'] >0){
@@ -93,8 +93,8 @@ class OrderLogic
             $useRapplyReturnMoney = $order_goods['final_price']*$data['goods_num'];    //要退的总价 商品购买单价*申请数量
             $userExpenditureMoney = $order['goods_price']-$order['order_prom_amount']-$order['coupon_price'];    //用户实际使用金额
             $rate = round($useRapplyReturnMoney/$userExpenditureMoney,8);
-            $data['refund_integral'] = floor($rate*$order['integral']);//该退积分支付
-            $integralDeductionMoney = $data['refund_integral']/tpCache('shopping.point_rate') ;  //积分抵了多少钱，要扣掉
+            $data['refund_integral'] = floor($rate*$order['integral']);//该退瓜豆支付
+            $integralDeductionMoney = $data['refund_integral']/tpCache('shopping.point_rate') ;  //瓜豆抵了多少钱，要扣掉
             if($order['order_amount']>0){
                 $order_amount = $order['order_amount']+$order['paid_money'];   //三方支付总额，预售要退定金
                 if($order_amount>$order['shipping_price']){
@@ -408,7 +408,7 @@ class OrderLogic
 		$data2['goods_price']        = $goods['shop_price']; // 商品团价
 		$data2['cost_price']         = $goods['cost_price']; // 成本价
 		$data2['member_goods_price'] = $pre_sell_price['cut_price']; //预售价钱
-		$data2['give_integral']      = $goods_activity['integral']; // 购买商品赠送积分
+		$data2['give_integral']      = $goods_activity['integral']; // 购买商品赠送瓜豆
 		$data2['prom_type']          = 4; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠 ,4 预售商品
 		$data2['prom_id']    		 = $goods_activity['act_id'];
 		Db::name('order_goods')->insert($data2);
@@ -980,7 +980,7 @@ class OrderLogic
             if($order_goods['give_integral']>0){
                 $user = get_user_info($return_goods['user_id']);
                 if($order_goods['give_integral']>$user['pay_points']){
-                    //积分被使用则从退款金额里扣
+                    //瓜豆被使用则从退款金额里扣
                     $return_goods['refund_money'] = $return_goods['refund_money'] - $order_goods['give_integral']/100;
                 }
             }

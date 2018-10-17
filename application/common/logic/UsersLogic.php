@@ -60,13 +60,13 @@ class UsersLogic extends Model
             $levelName = Db::name("user_level")->where("level_id", $levelId)->getField("level_name");
             $user['level_name'] = $levelName;
 
-            //判断用户当天是否是第一次登陆 增加积分
+            //判断用户当天是否是第一次登陆 增加瓜豆
             $last_login = $user['last_login'];
             $today = strtotime(date('Y-m-d'));
             if($last_login < $today) {
                 $basic = tpCache('basic');
                 $add_integral =$basic['login_integral'];
-                accountLog($user['user_id'], 0,$add_integral, '每日登陆赠送积分'); // 记录日志流水
+                accountLog($user['user_id'], 0,$add_integral, '每日登陆赠送瓜豆'); // 记录日志流水
             }
 
             $data1 = ['last_login' => time()];
@@ -427,17 +427,17 @@ class UsersLogic extends Model
 			$map['first_leader'] = 0;
 		}
 		if(is_array($invite) && !empty($invite)){
-            //暂不支持下级下单分成，只赠送积分
+            //暂不支持下级下单分成，只赠送瓜豆
 			/*$map['first_leader'] = $invite['user_id'];
 			$map['second_leader'] = $invite['first_leader'];
 			$map['third_leader'] = $invite['second_leader'];*/
-            //需要给推荐人送积分
+            //需要给推荐人送瓜豆
             $basic = tpCache('basic');
             $invite_integral =$basic['invite_integral'];
             if($invite_integral > 0 && $basic['invite']){
                 $integral_sum = $invite['pay_points']+$invite_integral;
                 Db::name('users')->where(['user_id' => $invite['user_id']])->save(['pay_points'=>$integral_sum]);
-                accountLog($invite['user_id'], 0,$invite_integral, '邀请人会员注册赠送积分'); // 记录日志流水
+                accountLog($invite['user_id'], 0,$invite_integral, '邀请人会员注册赠送瓜豆'); // 记录日志流水
             }
 		}/*  else if(tpCache('basic.invite') ==1 && empty($invite)){
 		    return array('status'=>-1,'msg'=>'请填写正确的推荐人手机号');
@@ -457,9 +457,9 @@ class UsersLogic extends Model
         if($user_id === false)
             return array('status'=>-1,'msg'=>'注册失败');
         
-        $pay_points = tpCache('basic.reg_integral'); // 会员注册赠送积分
+        $pay_points = tpCache('basic.reg_integral'); // 会员注册赠送瓜豆
         if($pay_points > 0){
-            accountLog($user_id, 0,$pay_points, '会员注册赠送积分'); // 记录日志流水
+            accountLog($user_id, 0,$pay_points, '会员注册赠送瓜豆'); // 记录日志流水
         }
         $user = Db::name('users')->where("user_id", $user_id)->find();
         return array('status'=>1,'msg'=>'注册成功','result'=>$user);
@@ -1215,7 +1215,7 @@ class UsersLogic extends Model
     }
     
     /**
-     * 积分明细
+     * 瓜豆明细
      */
     public function points($user_id, $type='all')
     {
@@ -1255,8 +1255,8 @@ class UsersLogic extends Model
         $result['msg'] = '签到失败!';
         if (Db::name('user_sign')->add($data)) {
             $result['status'] = true;
-            $result['msg'] = '签到旅程开始啦,积分奖励!';
-            accountLog($user_id, 0, $config['sign_integral'], '第一次签到赠送' . $config['sign_integral'] . '积分');
+            $result['msg'] = '签到旅程开始啦,瓜豆奖励!';
+            accountLog($user_id, 0, $config['sign_integral'], '第一次签到赠送' . $config['sign_integral'] . '瓜豆');
         }
         return $result;
     }
@@ -1273,10 +1273,10 @@ class UsersLogic extends Model
         $update_data = array(
             'sign_total' => ['exp', 'sign_total+' . 1],                                     //累计签到天数
             'sign_last'  => ['exp', "'$date'"],                                             //最后签到时间
-            'cumtrapz'   => ['exp', 'cumtrapz+' . $config['sign_integral']],                //累计签到获取积分
+            'cumtrapz'   => ['exp', 'cumtrapz+' . $config['sign_integral']],                //累计签到获取瓜豆
             'sign_time'  => ['exp', "CONCAT_WS(',',sign_time ,'$date')"],                   //历史签到记录
             'sign_count' => ['exp', 'sign_count+' . 1],                                     //连续签到天数
-            'this_month' => ['exp', 'this_month+' . $config['sign_integral']],              //本月累计积分
+            'this_month' => ['exp', 'this_month+' . $config['sign_integral']],              //本月累计瓜豆
         );
         $daya = $userInfo['sign_last'];
         $dayb = date("Y-n-j", strtotime($date) - 86400);
@@ -1293,9 +1293,9 @@ class UsersLogic extends Model
         $result['status'] = false;
         $result['msg'] = '签到失败!';
         if ($update>0) {
-            accountLog($userInfo['user_id'], 0, $config['sign_integral'], '签到赠送' . $config['sign_integral'] . '积分');
+            accountLog($userInfo['user_id'], 0, $config['sign_integral'], '签到赠送' . $config['sign_integral'] . '瓜豆');
             $result['status'] = true;
-            $result['msg']    = '签到成功!奖励' . $config['sign_integral'] . '积分';
+            $result['msg']    = '签到成功!奖励' . $config['sign_integral'] . '瓜豆';
             $userFind = Db::name('user_sign')->where(['user_id' => $userInfo['user_id']])->find();
             //满足额外奖励
             if ($userFind['sign_count'] >= $config['sign_signcount']) {
@@ -1318,7 +1318,7 @@ class UsersLogic extends Model
             'cumtrapz' => ['exp', 'cumtrapz+' . $config['sign_award']],
             'this_month' => ['exp', 'this_month+' . $config['sign_award']]
         ]);
-        $msg = '连续签到奖励' . $config['sign_award'] . '积分';
+        $msg = '连续签到奖励' . $config['sign_award'] . '瓜豆';
         accountLog($userSingInfo['user_id'], 0, $config['sign_award'], $msg);
     }
 

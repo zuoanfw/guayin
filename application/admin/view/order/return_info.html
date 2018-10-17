@@ -72,7 +72,7 @@
                         <dd class="opt">
                             <if condition="$return_goods['refund_money'] gt 0"> <label>需退还金额 ：<input type="text" name="refund_money" value="{$return_goods['refund_money']}"></label></if>
                             <if condition="$return_goods['refund_deposit'] gt 1"> <label>需退还余额 ：<input type="text" name="refund_deposit" value="{$return_goods['refund_deposit']}"></label></if>
-                            <if condition="$return_goods['refund_integral'] gt 2"> <label>需退还积分：<input type="text" name="refund_integral" value="{$return_goods['refund_integral']}"></label></if>
+                            <if condition="$return_goods['refund_integral'] gt 2"> <label>需退还瓜豆：<input type="text" name="refund_integral" value="{$return_goods['refund_integral']}"></label></if>
                         </dd>
                     </dl>
                 </if>
@@ -178,7 +178,7 @@
                                 <label>需退还余额 ：<input type="text" name="refund_deposit" value="{$return_goods['refund_deposit']}"></label>
                             </if>
                             <if condition="$return_goods['refund_integral'] gt 0">
-                                <label>需退还积分：<input type="text" name="refund_integral" value="{$return_goods['refund_integral']}"></label>
+                                <label>需退还瓜豆：<input type="text" name="refund_integral" value="{$return_goods['refund_integral']}"></label>
                             </if>
                         </form>
                     </dd>

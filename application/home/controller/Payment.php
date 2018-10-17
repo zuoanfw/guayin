@@ -55,7 +55,8 @@ class Payment extends Base {
      */
     public function getCode(){        
             //C('TOKEN_ON',false); // 关闭 TOKEN_ON
-            header("Content-type:text/html;charset=utf-8");            
+            header("Content-type:text/html;charset=utf-8");
+           //    echo ($_REQUEST['backnum']);exit();
             $order_id = I('order_id/d'); // 订单id
             session('order_id',$order_id); // 最近支付的一笔订单 id
             if(!session('user')) $this->error('请先登录',U('User/login'));
@@ -70,11 +71,15 @@ class Payment extends Base {
             $payment_arr = M('Plugin')->where("`type` = 'payment'")->getField("code,name");
             M('order')->where("order_id",$order_id)->save(array('pay_code'=>$this->pay_code,'pay_name'=>$payment_arr[$this->pay_code]));
 
-            // tpshop 订单支付提交
+            // 订单支付提交
             $pay_radio = $_REQUEST['pay_radio'];
             $config_value = parse_url_param($pay_radio); // 类似于 pay_code=alipay&bank_code=CCB-DEBIT 参数
             $payBody = getPayBody($order_id);
             $config_value['body'] = $payBody;
+            //银行转账
+            $config_value['banknum'] = $_REQUEST['banknum'];
+
+            //var_dump($config_value);exit;
             
             //微信JS支付
            if($this->pay_code == 'weixin' && $_SESSION['openid'] && strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger')){
@@ -87,7 +92,7 @@ class Payment extends Base {
            $this->assign('order_id', $order_id);           
            return $this->fetch('payment');  // 分跳转 和不 跳转 
     }
-
+    /*没有用到*/
     public function getPay(){
     	//C('TOKEN_ON',false); // 关闭 TOKEN_ON
     	header("Content-type:text/html;charset=utf-8"); 
@@ -115,18 +120,19 @@ class Payment extends Base {
     	return $this->fetch('recharge'); //分跳转 和不 跳转
     }
     
-    // 服务器点对点 // http://www.guaguayin.cn/index.php/Home/Payment/notifyUrl        
+    // 支付回调地址 服务器点对点 // http://www.guaguayin.cn/index.php/Home/Payment/notifyUrl
     public function notifyUrl(){            
         $this->payment->response();            
         exit();
     }
 
-    // 页面跳转 // http://www.guaguayin.cn/index.php/Home/Payment/returnUrl        
+    // 付款成功页面跳转 // http://www.guaguayin.cn/index.php/Home/Payment/returnUrl
     public function returnUrl(){
         $result = $this->payment->respond2(); // $result['order_sn'] = '201512241425288593';
         
         if(stripos($result['order_sn'],'recharge') !== false)
         {
+            //用户充值
             $order = M('recharge')->where("order_sn", $result['order_sn'])->find();
             $this->assign('order', $order);
             if($result['status'] == 1)

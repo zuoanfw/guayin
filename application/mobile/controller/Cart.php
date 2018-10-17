@@ -171,7 +171,7 @@ class Cart extends MobileBase {
         $invoice_title = I('invoice_title'); // 发票
         $taxpayer = I('taxpayer'); // 纳税人编号
         $coupon_id =  I("coupon_id/d"); //  优惠券id
-        $pay_points =  I("pay_points/d",0); //  使用积分
+        $pay_points =  I("pay_points/d",0); //  使用瓜豆
         $user_money =  I("user_money/f",0); //  使用余额
         $user_note = trim(I('user_note'));   //买家留言
         $payPwd =  I("payPwd",''); // 支付密码
@@ -460,7 +460,7 @@ class Cart extends MobileBase {
     }
 
     /**
-     * 兑换积分商品
+     * 兑换瓜豆商品
      */
     public function buyIntegralGoods(){
         $goods_id = input('goods_id/d');
@@ -483,7 +483,7 @@ class Cart extends MobileBase {
     }
 
     /**
-     *  积分商品结算页
+     *  瓜豆商品结算页
      * @return mixed
      */
     public function integral(){
@@ -531,7 +531,7 @@ class Cart extends MobileBase {
     }
 
     /**
-     *  积分商品价格提交
+     *  瓜豆商品价格提交
      * @return mixed
      */
     public function integral2()

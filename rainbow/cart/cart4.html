@@ -116,7 +116,7 @@
                                         <div class="dsfzfpte">
                                            <!-- <b>{$paymentList[$k]['name']}</b>-->
                                             <span val="wangyin_pay" class="compay_pay compay_pay_active">网银支付</span>
-                                           <!-- <span val="zhuang_pay" class="compay_pay">线下汇款</span>-->
+                                           <span val="zhuang_pay" class="compay_pay">线下汇款</span>
                                         </div>
                                         <foreach name="bankCodeList" item="v" key="k">
                                         <div class="po-re dsfzf-ee wangyin_pay">
@@ -140,6 +140,7 @@
                                         </div>
                                         </foreach>
                                         <div class="po-re dsfzf-ee zhuang_pay" style="display: none;">
+                                            <input  style="display:none;" type="radio" id="zhuang_pay" name="pay_radio" class="radio vam" value="pay_code=banktrans">
                                             <div style="margin-bottom: 20px;"><span style="font-size: 20px;">转账汇款</span><span style="color: #999">（到账周期为1-3个工作日）</span></div>
                                             <ul>
                                                 <li>
@@ -202,7 +203,7 @@
                                                 <p>为了及时处理您的订单，请您汇款时将订单号 xxxxxxx 填写至电汇凭证的［汇款用途］栏内。</p>
                                                 <p> 请您完成汇款后拨打 400-897-7678 或 在线客服 告诉我们，以便能及时确认您的款项到账情况。</p>
 
-                                                <p><input type="text" name="" value="" placeholder="请填写回单编号"></p>
+                                                <p><input type="text" name="banknum" value="" placeholder="请填写回单编号"></p>
                                                 <p>
                                                     <a class="button-style-5 button-confirm-payment" href="javascript:void(0);" onClick="$('#cart4_form').submit();">我已完成汇款</a>
                                                 </p>
@@ -254,6 +255,9 @@
             $(this).addClass("compay_pay_active").siblings("span").removeClass("compay_pay_active");
             var pay_type_show = $(this).attr('val');
             var pay_type_hide = $(this).siblings("span").attr('val');
+            if(pay_type_show == 'zhuang_pay'){
+                $("#zhuang_pay").trigger('click');
+            }
             $("."+pay_type_show).show();
             $("."+pay_type_hide).hide();
         })

@@ -130,7 +130,7 @@ class System extends Base
             '/index.php?m=Home&c=Activity&a=flash_sale_list' => '限时抢购',
             '/index.php?m=Home&c=Activity&a=group_list' => '团购',
             '/index.php?m=Home&c=Index&a=street' => '店铺街',
-            '/index.php?m=Home&c=Goods&a=integralMall' => '积分商城',*/
+            '/index.php?m=Home&c=Goods&a=integralMall' => '瓜豆商城',*/
         );
         $system_nav = array_merge($system_nav,$select_option);
         $this->assign('system_nav',$system_nav);

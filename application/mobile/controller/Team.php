@@ -358,7 +358,7 @@ class Team extends MobileBase
             $teamOrder->useUserAddressById($address_id);//设置配送地址
             $teamOrder->useCouponById($coupon_id);//使用优惠券
             $teamOrder->useUserMoney($user_money);//使用余额
-            $teamOrder->usePayPoints($pay_points);//使用积分
+            $teamOrder->usePayPoints($pay_points);//使用瓜豆
             $order = $teamOrder->getOrder();//获取订单信息
             $orderGoods = $teamOrder->getOrderGoods();//获取订单商品信息
             if ($act == 'submit_order') {

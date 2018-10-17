@@ -295,7 +295,7 @@ class Goods extends MobileBase {
     }
 
     /**
-     * 积分商城
+     * 瓜豆商城
      */
     public function integralMall()
     {
@@ -305,7 +305,7 @@ class Goods extends MobileBase {
             $ranktype = 'sales_sum';
             $order = 'desc';
         }
-        //以需要积分排序
+        //以需要瓜豆排序
         if($rank == 'integral'){
             $ranktype = 'exchange_integral';
             $order = 'desc';
@@ -314,7 +314,7 @@ class Goods extends MobileBase {
         $goods_where = array(
             'is_on_sale' => 1,  //是否上架
         );
-        //积分兑换筛选
+        //瓜豆兑换筛选
         $exchange_integral_where_array = array(array('gt',0));
 
         // 分类id
@@ -324,7 +324,7 @@ class Goods extends MobileBase {
         //我能兑换
         $user_id = cookie('user_id');
         if ($rank == 'exchange' && !empty($user_id)) {
-            //获取用户积分
+            //获取用户瓜豆
             $user_pay_points = intval(M('users')->where(array('user_id' => $user_id))->getField('pay_points'));
             if ($user_pay_points !== false) {
                 array_push($exchange_integral_where_array, array('lt', $user_pay_points));

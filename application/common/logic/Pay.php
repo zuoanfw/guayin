@@ -36,9 +36,9 @@ class Pay
     private $goodsPrice = 0;//商品总价
     private $cutFee = 0;//共节约多少钱
     private $totalNum = 0;// 商品总共数量
-    private $integralMoney = 0;//积分抵消金额
+    private $integralMoney = 0;//瓜豆抵消金额
     private $userMoney = 0;//使用余额
-    private $payPoints = 0;//使用积分
+    private $payPoints = 0;//使用瓜豆
     private $couponPrice = 0;//优惠券抵消金额
 
     private $orderPromId;//订单优惠ID
@@ -98,7 +98,7 @@ class Pay
         for ($goodsCursor = 0; $goodsCursor < $goodsListCount; $goodsCursor++) {
             //优先使用member_goods_price，没有member_goods_price使用goods_price
             if(empty($goods_list[$goodsCursor]['member_goods_price'])){
-                //积分商品不打折。因为是全积分商品打会员折扣，结算会出现负数
+                //瓜豆商品不打折。因为是全瓜豆商品打会员折扣，结算会出现负数
                 if($goods_list[$goodsCursor]['exchange_integral'] > 0){
                     $goods_list[$goodsCursor]['member_goods_price'] = $goods_list[$goodsCursor]['goods_price'];
                 }else{
@@ -152,33 +152,33 @@ class Pay
     }
 
     /**
-     * 使用积分
+     * 使用瓜豆
      * @throws TpshopException
      * @param $pay_points
-     * @param $is_exchange|是否有使用积分兑换商品流程
+     * @param $is_exchange|是否有使用瓜豆兑换商品流程
      */
     public function usePayPoints($pay_points, $is_exchange = false)
     {
         if($pay_points > 0 && $this->orderAmount > 0){
             $point_rate = tpCache('shopping.point_rate'); //兑换比例
             if($is_exchange == false){
-                $use_percent_point = tpCache('shopping.point_use_percent')/100;     //最大使用限制: 最大使用积分比例, 例如: 为50时, 未50% , 那么积分支付抵扣金额不能超过应付金额的50%
-                $min_use_limit_point = tpCache('shopping.point_min_limit'); //最低使用额度: 如果拥有的积分小于该值, 不可使用
+                $use_percent_point = tpCache('shopping.point_use_percent')/100;     //最大使用限制: 最大使用瓜豆比例, 例如: 为50时, 未50% , 那么瓜豆支付抵扣金额不能超过应付金额的50%
+                $min_use_limit_point = tpCache('shopping.point_min_limit'); //最低使用额度: 如果拥有的瓜豆小于该值, 不可使用
                 if($use_percent_point == 0){
-                    throw new TpshopException("计算订单价格",0,['status' => -1, 'msg' => '该笔订单不能使用积分', 'result' => '']);
+                    throw new TpshopException("计算订单价格",0,['status' => -1, 'msg' => '该笔订单不能使用瓜豆', 'result' => '']);
                 }
                 if($use_percent_point > 0 && $use_percent_point < 1){
-                    //计算订单最多使用多少积分
+                    //计算订单最多使用多少瓜豆
                     $point_limit = intval($this->totalAmount * $point_rate * $use_percent_point);
                     if($pay_points > $point_limit){
-                        throw new TpshopException("计算订单价格",0,['status' => -1, 'msg' => "该笔订单, 您使用的积分不能大于" .$point_limit, 'result' => '']);
+                        throw new TpshopException("计算订单价格",0,['status' => -1, 'msg' => "该笔订单, 您使用的瓜豆不能大于" .$point_limit, 'result' => '']);
                     }
                 }
                 if($pay_points > $this->user['pay_points']){
-                    throw new TpshopException("计算订单价格",0,['status' => -5, 'msg' => "你的账户可用积分为:" . $this->user['pay_points'], 'result' => '']);
+                    throw new TpshopException("计算订单价格",0,['status' => -5, 'msg' => "你的账户可用瓜豆为:" . $this->user['pay_points'], 'result' => '']);
                 }
                 if ($min_use_limit_point > 0 && $pay_points < $min_use_limit_point) {
-                    throw new TpshopException("计算订单价格",0,['status' => -1, 'msg' => "您使用的积分必须大于".$min_use_limit_point."才可以使用", 'result' => '']);
+                    throw new TpshopException("计算订单价格",0,['status' => -1, 'msg' => "您使用的瓜豆必须大于".$min_use_limit_point."才可以使用", 'result' => '']);
                 }
                 $order_amount_pay_point = $this->orderAmount * $point_rate;
                 if($pay_points > $order_amount_pay_point){
@@ -189,13 +189,13 @@ class Pay
                 $this->integralMoney = $this->payPoints / $point_rate;
                 $this->orderAmount = $this->orderAmount - $this->integralMoney;
             }else{
-                //积分兑换流程
+                //瓜豆兑换流程
                 if($pay_points <= $this->user['pay_points']){
                     $this->payPoints = $pay_points;
-                    $this->integralMoney = $pay_points / $point_rate;//总积分兑换成的金额
+                    $this->integralMoney = $pay_points / $point_rate;//总瓜豆兑换成的金额
                 }else{
-                    $this->payPoints = 0;//需要兑换的总积分
-                    $this->integralMoney = 0;//总积分兑换成的金额
+                    $this->payPoints = 0;//需要兑换的总瓜豆
+                    $this->integralMoney = 0;//总瓜豆兑换成的金额
                 }
                 $this->orderAmount = $this->orderAmount - $this->integralMoney;
             }
@@ -345,7 +345,7 @@ class Pay
     }
 
     /**
-     * 获取实际上使用的积分抵扣金额
+     * 获取实际上使用的瓜豆抵扣金额
      * @return float
      */
     public function getIntegralMoney(){
@@ -353,7 +353,7 @@ class Pay
     }
 
     /**
-     * 获取实际上使用的积分
+     * 获取实际上使用的瓜豆
      * @return float|int
      */
     public function getPayPoints()

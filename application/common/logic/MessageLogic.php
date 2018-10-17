@@ -332,7 +332,7 @@ class MessageLogic extends Model
     
     /**
      * 推送资金变动/我的资产消息
-     * @param type $change_type 1:积分,2:余额,3:优惠券
+     * @param type $change_type 1:瓜豆,2:余额,3:优惠券
      * @param type $title
      * @param type $discription
      * @param type $money 优惠券类型通知时该值才大于0

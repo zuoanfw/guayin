@@ -80,8 +80,8 @@
             <input type="hidden" name="prom_detail" value=""/><!-- 促销活动的促销类型 -->
             <input type="hidden" name="activity_is_on" value=""/><!-- 活动是否正在进行中 -->
             <input type="hidden" name="item_id" value="{$Request.param.item_id}"/><!-- 商品规格表spec_goods_price的id -->
-            <input type="hidden" name="exchange_integral" value="{$goods.exchange_integral}"/><!-- 积分 -->
-            <input type="hidden" name="point_rate" value="{$point_rate}"/><!-- 积分兑换比 -->
+            <input type="hidden" name="exchange_integral" value="{$goods.exchange_integral}"/><!-- 瓜豆 -->
+            <input type="hidden" name="point_rate" value="{$point_rate}"/><!-- 瓜豆兑换比 -->
             <input type="hidden" name="is_virtual" value="{$goods.is_virtual}"/><!-- 是否是虚拟商品 -->
             <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
             <div class="detail-ggsl">
@@ -218,7 +218,7 @@
                         </ul>
                         <if condition="$goods['give_integral'] gt 0">
                             <ul>
-                                <li class="jaj ls4"><span>赠送积分：</span></li>
+                                <li class="jaj ls4"><span>赠送瓜豆：</span></li>
                                 <li><span class="fullminus">{$goods.give_integral}</span></li>
                             </ul>
                         </if>
@@ -387,7 +387,7 @@
     //购买按钮显示
     function buy_button(){
         var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
-        var exchange_integral = $("input[name='exchange_integral']").val();//是否是为积分商品
+        var exchange_integral = $("input[name='exchange_integral']").val();//是否是为瓜豆商品
         var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');//活动商品
         var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
         buy_now.hide();
@@ -420,7 +420,7 @@
                 return;
             }
             var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
-            var exchange_integral = $("input[name='exchange_integral']").val();//是否是积分兑换商品
+            var exchange_integral = $("input[name='exchange_integral']").val();//是否是瓜豆兑换商品
             var goods_id = $("input[name='goods_id']").val();
             var store_count = $("input[name='store_count']").attr('value');// 商品原始库存
             var goods_num = parseInt($("input[name='goods_num']").val());
@@ -666,8 +666,8 @@
         var goods_price, store_count,goods_send_date,goods_weight,goods_volume;//商品价,商品库存
         var buy_num = parseInt($('#number').val());//购买数
         var market_price = $("input[name='market_price']").attr('value');// 商品市场价
-        var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换积分
-        var point_rate = $("input[name='point_rate']").attr('value');// 积分金额比
+        var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换瓜豆
+        var point_rate = $("input[name='point_rate']").attr('value');// 瓜豆金额比
         // 如果有规格属性选择项 读取规格选项中的价格库存等
         if (!$.isEmptyObject(spec_goods_price)) {
             var goods_spec_arr = [];
@@ -706,7 +706,7 @@
         $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
         $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
         var integral = round(goods_price - (exchange_integral / point_rate), 2);
-        $("#integral").html(integral + '+' + exchange_integral + '积分'); //积分显示
+        $("#integral").html(integral + '+' + exchange_integral + '瓜豆'); //瓜豆显示
         $('#spec_store_count').html(store_count);
         $('.presale-time').hide();
         $('#number').attr('max', store_count);

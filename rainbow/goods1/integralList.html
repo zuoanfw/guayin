@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>积分商城-{$tpshop_config['shop_info_store_title']}</title>
+		<title>瓜豆商城-{$tpshop_config['shop_info_store_title']}</title>
 		<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
 		<link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
 		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -19,7 +19,7 @@
 				<div class="search-path fl">
 					<a href="{:U('Home/Goods/integralMall')}">全部结果</a>
 					<i class="litt-xyb"></i>
-					<span>积分商城</span>
+					<span>瓜豆商城</span>
 				</div>
 				<!--<div class="search-clear fr">
 					<span><a href="{:U('Home/Goods/integralMall')}">清空筛选条件</a></span>
@@ -60,8 +60,8 @@
 						<div class="f-sort fl">
 							<ul>
 								<li <if condition="$Request.param.brandType eq '0'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>0))}">全部<i class="jta jta-w"></i></a></li>
-								<li <if condition="$Request.param.brandType eq '1'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>1))}">积分+金额<i class="jta"></i></a></li>
-								<li <if condition="$Request.param.brandType eq '2'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>2))}">全积分<i class="jta"></i></a></li>
+								<li <if condition="$Request.param.brandType eq '1'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>1))}">瓜豆+金额<i class="jta"></i></a></li>
+								<li <if condition="$Request.param.brandType eq '2'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>2))}">全瓜豆<i class="jta"></i></a></li>
 							</ul>
 						</div>
 						<div class="f-total fr">
@@ -91,7 +91,7 @@
 										<div class="contifo">
 											<p class="shop_name"><a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">{$goods['goods_name']}</a></p>
 											<p>参考价：￥<span class="lithe">{$goods['shop_price']}</span></p>
-											<p>换购价：<span class="red">￥<em>{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}</em>积分</span></p>
+											<p>换购价：<span class="red">￥<em>{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}</em>瓜豆</span></p>
 											<div class="duchan">
 												<span><em>{$goods['sales_sum']}</em>人换购</span>
 												<a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">立即换购</a>

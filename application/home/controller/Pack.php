@@ -166,7 +166,7 @@ class Pack extends Base {
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
         //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
-        $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
+        $point_rate = tpCache('shopping.point_rate');//<!-- 瓜豆兑换比 -->
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航

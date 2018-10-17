@@ -235,7 +235,7 @@ class CartLogic extends Model
             throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '购买商品不存在']);
         }
         if ($this->goods['exchange_integral'] > 0) {
-            throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '积分商品跳转', 'result' => ['url' => U('Goods/goodsInfo', ['id' => $this->goods['goods_id'], 'item_id' => $this->specGoodsPrice['item_id']], '', true)]]);
+            throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '瓜豆商品跳转', 'result' => ['url' => U('Goods/goodsInfo', ['id' => $this->goods['goods_id'], 'item_id' => $this->specGoodsPrice['item_id']], '', true)]]);
         }
         $userCartCount = Db::name('cart')->where(['user_id' => $this->user_id, 'session_id' => $this->session_id])->count();//获取用户购物车的商品有多少种
         if ($userCartCount >= 20) {

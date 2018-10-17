@@ -220,7 +220,7 @@ class Index extends MobileBase {
     	$p = I('p/d',1);
         $where = [
             'is_recommend' => 1,
-            'exchange_integral'=>0,  //积分商品不显示
+            'exchange_integral'=>0,  //瓜豆商品不显示
             'is_on_sale' => 1,
             'virtual_indate' => ['exp', ' = 0 OR virtual_indate > ' . time()]
         ];

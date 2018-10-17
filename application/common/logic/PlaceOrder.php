@@ -69,12 +69,12 @@ class PlaceOrder
         if($reduce== 1 || empty($reduce)){
             minus_stock($this->order);//下单减库存
         }
-        // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付
+        // 如果应付金额为0  可能是余额支付 + 瓜豆 + 优惠券 这里订单支付状态直接变成已支付
         if ($this->order['order_amount'] == 0) {
             update_pay_status($this->order['order_sn']);
         }
         $this->deductionCoupon();//扣除优惠券
-        $this->changUserPointMoney($this->order);//扣除用户积分余额
+        $this->changUserPointMoney($this->order);//扣除用户瓜豆余额
         $this->queueDec();
     }
 
@@ -92,7 +92,7 @@ class PlaceOrder
                 minus_stock($this->order);//下单减库存
             }
         }
-        // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付
+        // 如果应付金额为0  可能是余额支付 + 瓜豆 + 优惠券 这里订单支付状态直接变成已支付
         if ($this->order['order_amount'] == 0) {
             update_pay_status($this->order['order_sn']);
         }
@@ -200,8 +200,8 @@ class PlaceOrder
             'shipping_price' => $this->pay->getShippingPrice(),//'物流价格',
             'user_money' => $this->pay->getUserMoney(),//'使用余额',
             'coupon_price' => $this->pay->getCouponPrice(),//'使用优惠券',
-            'integral' => $this->pay->getPayPoints(), //'使用积分',
-            'integral_money' => $this->pay->getIntegralMoney(),//'使用积分抵多少钱',
+            'integral' => $this->pay->getPayPoints(), //'使用瓜豆',
+            'integral_money' => $this->pay->getIntegralMoney(),//'使用瓜豆抵多少钱',
             'total_amount' => $this->pay->getTotalAmount(),// 订单总额
             'order_amount' => $this->pay->getOrderAmount(),//'应付款金额',
             'add_time' => time(), // 下单时间
@@ -253,7 +253,7 @@ class PlaceOrder
             $orderData['prom_id'] = $this->promId;//活动id
         }
         if ($orderData['integral'] > 0 || $orderData['user_money'] > 0) {
-            $orderData['pay_name'] = $orderData['user_money'] ? '余额支付' : '积分兑换';//支付方式，可能是余额支付或积分兑换，后面其他支付方式会替换
+            $orderData['pay_name'] = $orderData['user_money'] ? '余额支付' : '瓜豆兑换';//支付方式，可能是余额支付或瓜豆兑换，后面其他支付方式会替换
         }
 
         $this->order->data($orderData, true);
@@ -304,7 +304,7 @@ class PlaceOrder
             }
             $orderGoodsData['sku'] = $payItem['sku']; // sku
             $orderGoodsData['member_goods_price'] = $payItem['member_goods_price']; // 会员折扣价
-            $orderGoodsData['give_integral'] = $goodsArr[$payItem['goods_id']]['give_integral']; // 购买商品赠送积分
+            $orderGoodsData['give_integral'] = $goodsArr[$payItem['goods_id']]['give_integral']; // 购买商品赠送瓜豆
             if ($payItem['prom_type']) {
                 $orderGoodsData['prom_type'] = $payItem['prom_type']; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
                 $orderGoodsData['prom_id'] = $payItem['prom_id']; // 活动id
@@ -339,7 +339,7 @@ class PlaceOrder
     }
 
     /**
-     * 扣除用户积分余额
+     * 扣除用户瓜豆余额
      * @param Order $order
      */
     public function changUserPointMoney(Order $order)
@@ -348,7 +348,7 @@ class PlaceOrder
             $user = $this->pay->getUser();
             $user = Users::get($user['user_id']);
             if($this->pay->getPayPoints() > 0){
-                $user->pay_points = $user->pay_points - $this->pay->getPayPoints();// 消费积分
+                $user->pay_points = $user->pay_points - $this->pay->getPayPoints();// 消费瓜豆
             }
             if($this->pay->getUserMoney() > 0){
                 $user->user_money = $user->user_money - $this->pay->getUserMoney();// 抵扣余额

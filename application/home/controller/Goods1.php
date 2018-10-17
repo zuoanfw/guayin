@@ -59,7 +59,7 @@ class Goods extends Base
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
         //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
-        $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
+        $point_rate = tpCache('shopping.point_rate');//<!-- 瓜豆兑换比 -->
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航
@@ -555,7 +555,7 @@ class Goods extends Base
     }
 
     /**
-     * 积分商城
+     * 瓜豆商城
      */
     public function integralMall()
     {
@@ -570,25 +570,25 @@ class Goods extends Base
             'is_on_sale' => 1,  //是否上架
             'is_virtual' => 0,
         );
-        //积分兑换筛选
+        //瓜豆兑换筛选
         $exchange_integral_where_array = array(array('gt', 0));
         // 分类id
         if (!empty($cat_id)) {
             $goods_where['cat_id'] = array('in', getCatGrandson($cat_id));
         }
-        //积分截止范围
+        //瓜豆截止范围
         if (!empty($maxValue)) {
             array_push($exchange_integral_where_array, array('elt', $maxValue));
         }
-        //积分起始范围
+        //瓜豆起始范围
         if (!empty($minValue)) {
             array_push($exchange_integral_where_array, array('egt', $minValue));
         }
-        //积分+金额
+        //瓜豆+金额
         if ($brandType == 1) {
             array_push($exchange_integral_where_array, array('exp', ' < shop_price* ' . $point_rate));
         }
-        //全部积分
+        //全部瓜豆
         if ($brandType == 2) {
             array_push($exchange_integral_where_array, array('exp', ' = shop_price* ' . $point_rate));
         }
@@ -621,7 +621,7 @@ class Goods extends Base
         return $this->fetch();
     }
     /**
-     * 积分商城列表
+     * 瓜豆商城列表
      */
     public function integralList()
     {
@@ -636,25 +636,25 @@ class Goods extends Base
             'is_on_sale' => 1,  //是否上架
             'is_virtual' => 0,
         );
-        //积分兑换筛选
+        //瓜豆兑换筛选
         $exchange_integral_where_array = array(array('gt', 0));
         // 分类id
         if (!empty($cat_id)) {
             $goods_where['cat_id'] = array('in', getCatGrandson($cat_id));
         }
-        //积分截止范围
+        //瓜豆截止范围
         if (!empty($maxValue)) {
             array_push($exchange_integral_where_array, array('elt', $maxValue));
         }
-        //积分起始范围
+        //瓜豆起始范围
         if (!empty($minValue)) {
             array_push($exchange_integral_where_array, array('egt', $minValue));
         }
-        //积分+金额
+        //瓜豆+金额
         if ($brandType == 1) {
             array_push($exchange_integral_where_array, array('exp', ' < shop_price* ' . $point_rate));
         }
-        //全部积分
+        //全部瓜豆
         if ($brandType == 2) {
             array_push($exchange_integral_where_array, array('exp', ' = shop_price* ' . $point_rate));
         }
@@ -687,7 +687,7 @@ class Goods extends Base
         return $this->fetch();
     }
     /**
-     * 积分商城商品详情页
+     * 瓜豆商城商品详情页
      */
     public function integralInfo()
     {
@@ -711,7 +711,7 @@ class Goods extends Base
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
         //$commentStatistics = $goodsLogic->commentStatistics($goods_id);// 获取某个商品的评论统计
-        $point_rate = tpCache('shopping.point_rate');//<!-- 积分兑换比 -->
+        $point_rate = tpCache('shopping.point_rate');//<!-- 瓜豆兑换比 -->
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航

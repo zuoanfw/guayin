@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>我的积分-{$tpshop_config['shop_info_store_title']}</title>
+		<title>我的瓜豆-{$tpshop_config['shop_info_store_title']}</title>
 		<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
 		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
 		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -14,37 +14,37 @@
 				<div class="g-crumbs">
 			       	<a href="{:U('Home/User/index')}">我的商城</a>
 			       	<i class="litt-xyb"></i>
-			       	<span>我的积分</span>
+			       	<span>我的瓜豆</span>
 			    </div>
 			    <div class="home-main">
 					<include file="user/menu"/>
 			    	<div class="ri-menu fr">
 						<div class="menumain p">
 							<div class="goodpiece">
-								<h1>我的积分</h1>
-								<!--<a href=""><span class="co_blue">积分规则</span></a>-->
+								<h1>我的瓜豆</h1>
+								<!--<a href=""><span class="co_blue">瓜豆规则</span></a>-->
 							</div>
 							<div class="shopcard myjfhg ma-to-20 p">
 								<div class="cuschan">
-									<span class="kycha"><i class="kyjf"></i>目前可用积分：</span>
+									<span class="kycha"><i class="kyjf"></i>目前可用瓜豆：</span>
 									<span class="co">{$user.pay_points}</span>
-									<a class="jfhg" href="{:U('Home/Goods/integralMall')}">积分换购</a>
+									<a class="jfhg" href="{:U('Home/Goods/integralMall')}">瓜豆换购</a>
 								</div>
 								<div class="cuschan">
 									<span class="kycha"><i class="dsxjf"></i>目前可用余额：</span>
 									<span class="co">{$user.user_money}</span>
 								</div>
 						<!--		<div class="cuschan">
-									<span class="kycha"><i class="gqjf"></i>即将过期积分：</span>
+									<span class="kycha"><i class="gqjf"></i>即将过期瓜豆：</span>
 									<span class="co">0</span>
 								</div>-->
 							</div>
                             <form action="" method="get" id="searchform">
 							<div class="time-sala timsearch">
 								<ul>
-									<li class="<if condition='$Request.param.type eq null OR $Request.param.type eq 0'>red<else/>mal-l</if>"><a href="{:U('Home/User/account')}">积分明细</a></li>
-									<li class="<if condition='$Request.param.type eq 1'>red<else/>mal-l</if>"><a href="{:U('Home/User/account',array('type'=>1))}">积分累计</a></li>
-                                    <li class="<if condition='$Request.param.type eq 2'>red<else/>mal-l</if>"><a href="{:U('Home/User/account',array('type'=>2))}">积分消费</a></li>
+									<li class="<if condition='$Request.param.type eq null OR $Request.param.type eq 0'>red<else/>mal-l</if>"><a href="{:U('Home/User/account')}">瓜豆明细</a></li>
+									<li class="<if condition='$Request.param.type eq 1'>red<else/>mal-l</if>"><a href="{:U('Home/User/account',array('type'=>1))}">瓜豆累计</a></li>
+                                    <li class="<if condition='$Request.param.type eq 2'>red<else/>mal-l</if>"><a href="{:U('Home/User/account',array('type'=>2))}">瓜豆消费</a></li>
 								</ul>
 
 								<div class="time-qjc" style="display: block;"></div>
@@ -57,7 +57,7 @@
 							<!--<div class="searc_sx">
 								<span>快捷筛选：</span>
 								<a class="red" href="javascript:void(0);">全部</a>
-								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单赠送积分')))}">下单赠送积分</a>
+								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单赠送瓜豆')))}">下单赠送瓜豆</a>
 								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'下单消费')))}">下单消费</a>
 								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'订单退货')))}">订单退货</a>
 								<a href="{:U('Home/User/account',array_merge(array('type'=>I('type',0)),array('desc'=>'退款到用户余额')))}">退款到用户余额</a>
@@ -65,7 +65,7 @@
                             </form>
 							<div class="card-list accbala bor-acc">
 								<ul>
-									<li><a href="javascript:void(0);">积分</a></li>
+									<li><a href="javascript:void(0);">瓜豆</a></li>
 									<li><a href="javascript:void(0);">订单编号</a></li>
 									<li><a href="javascript:void(0);">详情</a></li>
 									<li><a href="javascript:void(0);">时间</a></li>

@@ -145,7 +145,7 @@ class Virtual extends MobileBase
     	$data2['sku']                = $goods['sku']; // 商品条码
     	$data2['member_goods_price'] = $goods['shop_price']; // 会员折扣价
     	$data2['cost_price']         = $goods['cost_price']; // 成本价
-    	$data2['give_integral']      = $goods['give_integral']; // 购买商品赠送积分
+    	$data2['give_integral']      = $goods['give_integral']; // 购买商品赠送瓜豆
     	$data2['prom_type']          = $goods['prom_type']; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
     	$order_goods_id              = M("OrderGoods")->add($data2);
 

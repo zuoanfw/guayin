@@ -134,7 +134,7 @@ class Promotion extends Base
      */
     public function prom_order_list()
     {
-        $parse_type = array('0' => '满额打折', '1' => '满额优惠金额', '2' => '满额送积分', '3' => '满额送优惠券');
+        $parse_type = array('0' => '满额打折', '1' => '满额优惠金额', '2' => '满额送瓜豆', '3' => '满额送优惠券');
         $level = M('user_level')->select();
         if ($level) {
             foreach ($level as $v) {
