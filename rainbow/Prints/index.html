@@ -11,6 +11,23 @@
     <script src="__PUBLIC__/js/global.js"></script>
 	<script src="__PUBLIC__/js/layer/layer-min.js"></script>
 </head>
+<body>
+<!--header-s-->
+    <include file="public/header" w="w1224"/>
+<div class="floor  w1224">
+	<div class="floor-top">
+		<h3 class="floor-title">印刷产品</h3>
+	</div>
+	<div class="standard">
+			<foreach name="printsgoods" item="g" key="gk">
+				<a class="colo" href="{:U('Home/Prints/printsInfo',array('id'=>$g[goods_id]))}">
+					{$g[goods_name]|getSubstr=0,50}
+				</a>
+			</foreach>
+	</div>
+	<div style="padding: 20px 0px 40px 0px;"><span>没有您要的？</span>
+		<a id="join_cart" style="color: #ff8a5c" class="get_price buy_button" href="javascript:;"><i class="sk"></i>点击呼叫客服</a></div>
+</div>
 <style>
 	button, html input[type="button"], input[type="reset"], input[type="submit"] {
 		-webkit-appearance: button;
@@ -27,23 +44,18 @@
 		font-size: 16px;
 		padding: 10px 20px;
 	}
+	.layui-layer-title {
+		border-bottom: 0px;
+		background-color: #fff;
+	}
+	#consultForm .nickname {
+		line-height: 30px;
+		padding: 10px 0px 5px 0px;
+	}
+	#consultForm .consult_sub {
+		margin-top: 18px;
+	}
 </style>
-<body>
-<!--header-s-->
-    <include file="public/header" w="w1224"/>
-<div class="floor  w1224">
-	<div class="floor-top">
-		<h3 class="floor-title">印刷产品</h3>
-	</div>
-	<div class="standard">
-			<foreach name="printsgoods" item="g" key="gk">
-				<a class="colo" href="{:U('Home/Prints/printsInfo',array('id'=>$g[goods_id]))}">
-					{$g[goods_name]|getSubstr=0,50}
-				</a>
-			</foreach>
-	</div>
-</div>
-
 <include file="public/footer"/>
 
 <!--楼层导航-e-->
@@ -64,7 +76,59 @@
 	</a>
 </div>
 <script>
+    var lay_index;
+    $(function () {
+        //提交咨询信息
+        $(document).on('click', '#join_cart', function () {
+            var consult = '<form method="post" id="consultForm">\n' +
+                '                            <input type="hidden" name="goods_id" value="{$goods.goods_id}"/>\n' +
+                '                            <input type="hidden" name="consult_type" value="1"/>\n' +
+                '                            <div class="publish-cont">\n' +
+                '<div style="color: #999;padding-top: 15px;">填写联系方式，客服将在28分钟内联系您，为您专属报价。</div>\n' +
+                '                                <div class="nickname">\n' +
+                '                                        <input type="text" id="content" name="content" placeholder="您想印什么？" value=""/>\n' +
+                '                                </div>\n' +
+                '                                <div class="nickname">\n' +
+                '                                        <input type="text" name="username" placeholder="请输入您的手机号，座机请加区号" value="{$username}"/>\n' +
+                '                                </div>\n' +
+                '                                <input class="consult_sub" id="consult_submit" type="button"\n' +
+                '                                       value="免费呼叫"/>\n' +
+                '                                <div class="consult_num"><img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;&nbsp;<span style="font-size: 20px;color: #999">400-691-0670&nbsp;&nbsp;免费咨询</span></div>\n' +
+                '                            </div>\n' +
+                '                        </form>';
+            lay_index = layer.open({
+                type: 1,
+                title: '<b></b>',
+                //skin: 'layui-layer-rim', //加上边框
+                area: ['500px', '450px'], //宽高
+                content: consult
+            });
+        })
+    })
 
+    //商品咨询提交
+    $(document).on('click', '#consult_submit', function () {
+        var content = $.trim($('#content').val());
+        if (content=='') {
+            layer.msg('咨询内容不能为空！', {icon: 3});
+            $('#content').focus();
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:U('Goods/consult')}",
+            data: $('#consultForm').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.close(lay_index);
+                    layer.msg("客服已收到您的呼叫请求，稍后给您回电。", {icon: 1});
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

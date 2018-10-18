@@ -116,17 +116,17 @@
 									<span class="kycha"><i class="money"></i>可用余额</span><br />
 									<span class="co"><em>￥</em>{$user.user_money}</span>
 								</div>
-								<div class="cuschan">
+								<!--<div class="cuschan">
 									<span class="kycha"><i class="frozen"></i>冻结金额</span><br />
 									<span class="co"><em>￥</em>{$user.frozen_money}</span>
-								</div>
-								<div class="cuschan jhove">
+								</div>-->
+								<!--<div class="cuschan jhove">
 									<span class="kycha">
 										账户状态：<em><if condition="$user['is_lock'] eq 1">被冻结<else/>已激活</if></em>
 									</span>
-								</div>
+								</div>-->
 								<div class="cuschan tc-uic">
-									<a class="topup-mom" href="{:U('Home/User/withdrawals')}">提现</a>
+									<!--<a class="topup-mom" href="{:U('Home/User/withdrawals')}">提现</a>-->
 									<a class="topup-mom" href="javascript:" onclick="mywalletstopup()">充值</a>
 								</div>
 							</div>
@@ -134,7 +134,7 @@
 								<ul>
                                     <li <if condition="$Request.param.type eq ''">class="red"<else />class="mal-l"</if>><a href="{:U('Home/User/recharge',array(''))}">充值记录</a></li>
                                     <li <if condition="$Request.param.type eq 1">class="red"<else />class="mal-l"</if>><a href="{:U('Home/User/recharge',array('type'=>1))}">消费记录</a></li>
-                                    <li <if condition="$Request.param.type eq 2">class="red"<else />class="mal-l"</if>><a href="{:U('Home/User/recharge',array('type'=>2))}">提现记录</a></li>
+                                    <!--<li <if condition="$Request.param.type eq 2">class="red"<else />class="mal-l"</if>><a href="{:U('Home/User/recharge',array('type'=>2))}">提现记录</a></li>-->
 								</ul>
 							</div>
 							<div class="he"></div>

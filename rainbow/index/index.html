@@ -433,6 +433,12 @@
 		<div class="sbar-hover-txt">回到顶部</div>
 	</a>
 </div>
+<style>
+	.layui-layer-title {
+		border-bottom: 0px;
+		background-color: #fff;
+	}
+</style>
 <script>
     //提交咨询信息
     $(document).on('click', '#call_submit', function () {
@@ -446,19 +452,20 @@
             '                            <input type="hidden" name="goods_id" value="0"/>\n' +
             '                            <input type="hidden" name="consult_type" value="1"/>\n' +
             '                            <div class="publish-cont">\n' +
+				'<div style="color: #999;padding-top: 15px;">填写联系方式，客服将在28分钟内联系您，为您专属报价。</div>\n' +
             '                                <div class="nickname">\n' +
             '                                        <input type="text" id="c_username" name="username" placeholder="请输入您的手机号，座机请加区号" value="{$username}"/>\n' +
             '                                </div>\n' +
             '                                <input class="consult_sub" id="consult_submit" type="button"\n' +
-            '                                       value="获取报价"/>\n' +
-            '                                <div class="consult_num">已累计报价<span style="color:#ff8a5c;">588890</span>次</div>\n' +
+            '                                       value="免费呼叫"/>\n' +
+            '                                <div class="consult_num"><img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;&nbsp;<span style="font-size: 20px;color: #999">400-691-0670&nbsp;&nbsp;免费咨询</span></div>\n' +
             '                            </div>\n' +
             '                        </form>';
         lay_index = layer.open({
             type: 1,
-            title: '<b>咨询</b>',
+            title: '<b></b>',
             //skin: 'layui-layer-rim', //加上边框
-            area: ['460px', '300px'], //宽高
+            area: ['500px', '350px'], //宽高
             content: consult
         });
     })
@@ -479,7 +486,7 @@
             success: function (data) {
                 if (data.status == 1) {
                     layer.close(lay_index);
-                    layer.msg(data.msg, {icon: 1});
+                    layer.msg("客服已收到您的呼叫请求，稍后给您回电。", {icon: 1});
                 } else {
                     layer.msg(data.msg, {icon: 2});
                 }

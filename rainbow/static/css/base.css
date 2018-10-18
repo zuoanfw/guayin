@@ -416,22 +416,26 @@ user-select:none;
     padding: 6px 30px;
     border-radius: 4px;
     display: inline;
+    width: 350px;
+    height: 45px;
     border: 1px solid #ff8a5c;
     color: #fff;
 }
 #consultForm .nickname{
     line-height: 30px;
-    padding: 28px 0px;
+    padding: 18px 0px 28px 0px;
 }
 #consultForm .nickname input{
     border: 1px solid #ddd;
-    line-height: 30px;
-    width: 300px;
+    line-height: 35px;
+    width: 350px;
     margin: 10px;
     padding: 4px;
+    font-size: 14px;
+    text-align: center;
 }
 #consultForm .consult_num{
-    margin: 20px;
+    margin: 40px;
 }
 /*结束*/
 /*侧边栏-购物车-s*/

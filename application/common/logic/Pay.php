@@ -256,7 +256,7 @@ class Pay
      * @param $district_id
      * @throws TpshopException
      */
-    public function delivery($district_id){
+    public function delivery($district_id,$template_id){
         if(empty($this->shop) && empty($district_id)){
             throw new TpshopException("计算订单价格",0,['status'=>-1,'msg'=>'请填写收货信息','result'=>['']]);
         }
@@ -275,7 +275,7 @@ class Pay
         }
         $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
         if($this->goodsPrice < $freight_free || $freight_free == 0){
-            $this->shippingPrice = $GoodsLogic->getFreight($this->payList, $district_id);
+            $this->shippingPrice = $GoodsLogic->getFreight($this->payList, $district_id,$template_id);
             $this->orderAmount = $this->orderAmount + $this->shippingPrice;
             $this->totalAmount = $this->totalAmount + $this->shippingPrice;
         }else{

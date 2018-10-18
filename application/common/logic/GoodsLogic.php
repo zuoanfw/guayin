@@ -558,7 +558,7 @@ class GoodsLogic extends Model
      * @param $region_id
      * @return int
      */
-    public function getFreight($goodsArr, $region_id)
+    public function getFreight($goodsArr, $region_id,$template_id)
     {
         $Goods = new Goods();
         $freightLogic = new FreightLogic();
@@ -571,7 +571,11 @@ class GoodsLogic extends Model
                 if ($cartVal['goods_id'] == $goodsVal['goods_id']) {
                     $goodsArr[$cartKey]['volume'] = $goodsVal['volume'];
                     $goodsArr[$cartKey]['weight'] = $goodsVal['weight'];
-                    $goodsArr[$cartKey]['template_id'] = $goodsVal['template_id'];
+                    if($template_id){
+                        $goodsArr[$cartKey]['template_id'] = $template_id;
+                    }else{
+                        $goodsArr[$cartKey]['template_id'] = $goodsVal['template_id'];
+                    }
                     $goodsArr[$cartKey]['is_free_shipping'] = $goodsVal['is_free_shipping'];
                 }
             }

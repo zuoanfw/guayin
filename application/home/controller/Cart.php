@@ -250,6 +250,8 @@ class Cart extends Base
             $cartList['cartList'] = $cartLogic->getCartList(1); // 获取用户选中的购物车商品
             $cartGoodsTotalNum = count($cartList['cartList']);
         }
+        $freight_template = Db::name('freight_template')->where('')->select();
+        $this->assign('freight_template',$freight_template);
         $cartGoodsList = get_arr_column($cartList['cartList'], 'goods');
         $cartGoodsId = get_arr_column($cartGoodsList, 'goods_id');
         $cartGoodsCatId = get_arr_column($cartGoodsList, 'cat_id');
@@ -310,6 +312,7 @@ class Cart extends Base
         $user_note = input("user_note/s", ''); // 用户留言
         $delivery_time = input("delivery_time/d", ''); // 商品派送时间
         $payment_type = input("payment_type/d", ''); // 支付方式
+        $template_id = input("template_id/d", ''); // 快递派送方式
         $payPwd = input("payPwd/s", ''); // 支付密码
         $goods_id = input("goods_id/d"); // 商品id
         $goods_num = input("goods_num/d");// 商品数量  立即购买 单个类型的商品时候
@@ -348,7 +351,7 @@ class Cart extends Base
                 $cartLogic->checkStockCartList($userCartList);
                 $pay->payCart($userCartList);  // 购物车订单提交
             }
-            $pay->delivery($address['district']);
+            $pay->delivery($address['district'],$template_id);
             $pay->orderPromotion();
             $pay->useCouponById($coupon_id);
             $pay->useUserMoney($user_money);
