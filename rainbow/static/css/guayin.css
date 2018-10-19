@@ -8515,20 +8515,56 @@ select::-ms-expand { display: none; }
 	margin-top: 20px;
 }
 .z-parkage-pc-ul li{
-	width: 140px;
-	height: 30px;
+	width: 180px;
+	height: 35px;
 	text-align: center;
-	line-height: 30px;
+	line-height: 35px;
 	margin-right: 15px;
 	border: 1px solid #ddd;
 	position: relative;
 	cursor: pointer;
 }
 .z-parkage-pc .z-parkage-pc-ul .z-parkage-li{
-	border: 2px solid #ff8a5c;
+	border: 1.2px solid #ff8a5c;
 	color: #ff8a5c;
 	/*background: url(../images/z-li-cheng.png)no-repeat 15px 2px;*/
 }
+
+/*支付派送背景图片*/
+.express-info,.pay-type1, .pay-type2,.express-type1,.express-type2{
+	background-image: url('../images/pay_bg.png');
+	background-repeat: no-repeat;
+	padding: 10px 18px;
+}
+.express-info{
+    background-position: -10px -252px;
+}
+.pay-type1 {
+	background-position: -8px -108px;
+}
+.pay-type2 {
+	background-position: -10px -215px;
+}
+.z-parkage-li .pay-type1{
+	background-position: -8px -515px;
+}
+.z-parkage-li .pay-type2{
+	background-position: -8px -475px;
+}
+
+.express-type1 {
+    background-position: -10px -41px;
+}
+.express-type2 {
+    background-position: -10px -7px;
+}
+.z-parkage-li .express-type1{
+    background-position: -8px -328px;
+}
+.z-parkage-li .express-type2{
+    background-position: -8px -295px;
+}
+
 .z-parkage-pc-ul .ul_li_width{
 	width: 240px;
 }

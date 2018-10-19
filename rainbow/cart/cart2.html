@@ -152,7 +152,9 @@
     <span class="paragraph "><i class="ddd"></i> 支付方式</span>
     <ul class="z-parkage-pc-ul payment_type p">
         <volist name="payment_type" key="k" id="paytype">
-            <li class="fl <if condition='$k eq 1'> z-parkage-li</if>" val="{$key}">{$paytype}<span></span></li>
+            <li class="fl <if condition='$k eq 1'> z-parkage-li</if>" val="{$key}">
+                <i class="pay-type{$k}"></i>&nbsp;&nbsp;{$paytype}
+            </li>
         </volist>
     </ul>
 </div>
@@ -162,7 +164,19 @@
     <ul class="z-parkage-pc-ul p express_type">
         <volist name="freight_template" key="k" id="fr">
         <li class="fl <if condition='$k eq 1'> z-parkage-li</if> express_delivery" val="{$fr['template_id']}">
-            <!--<span><img style="vertical-align: top;width: 25px;" src="__STATIC__/images/expresslog.png"></span>--> {$fr['template_name']}
+            <i class="express-type{$k}"></i>&nbsp;&nbsp; {$fr['template_name']} &nbsp;&nbsp;
+            <i <if condition='$k eq 1'>title="
+            货运物流适合体积重量较大的产品，发到离收货地址最近的物流公司营业网点，
+            需要亲自去物流公司的营业网点领取货物。
+            物流比快递运送周期长，且必须持收货人身份证原件上门自取。
+            "<else/>title="
+            普通快递默认为韵达、圆通、中通快递，偏远地区或乡镇区域由EMS配送；
+            其中，全国站（华中地区、华北地区）发韵快递；
+            全国站（华东地区）发中通快递
+            全国站（华南地区）发圆通快递
+            加急快递：由顺丰配送，客户需补快递费用差价或顺丰到付。
+            "</if> class="express-info"></i>
+            <!--<span><img style="vertical-align: top;width: 25px;" src="__STATIC__/images/expresslog.png"></span>-->
         </li>
         </volist>
         <!--<li class="fl" id="door_to_door">货运物流<span></span></li>-->
