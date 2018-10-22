@@ -27,6 +27,7 @@ class MobileBase extends Controller {
      * 初始化操作
      */
     public function _initialize() {
+        header("Content-type: text/html; charset=utf-8");exit("暂不支持手机浏览");
         session('user'); //不用这个在忘记密码不能获取session('validate_code');
 //        Session::start();
         header("Cache-control: private");  // history.back返回后输入框值丢失问题 参考文章 http://www.guaguayin.cn/article_id_1465.html  http://blog.csdn.net/qinchaoguang123456/article/details/29852881

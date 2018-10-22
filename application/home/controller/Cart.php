@@ -432,11 +432,21 @@ class Cart extends Base
             header("Location: $order_detail_url");
             exit;
         }
-        $payment_where = array(
-            'type' => 'payment',
-            'status' => 1,
-            'scene' => array('in', array(0, 2))
-        );
+        if($order['payment_type'] == '1'){
+            $payment_where = array(
+                'type' => 'payment',
+                'status' => 1,
+                'payment_type' => 1,
+                'scene' => array('in', array(0, 2))
+            );
+        }else{
+            $payment_where = array(
+                'type' => 'payment',
+                'status' => 1,
+                'scene' => array('in', array(0, 2))
+            );
+        }
+
         //预售和抢购暂不支持货到付款
         $orderGoodsPromType = M('order_goods')->where(['order_id' => $order['order_id']])->getField('prom_type', true);
         $no_cod_order_prom_type = ['4,5'];//预售订单，虚拟订单不支

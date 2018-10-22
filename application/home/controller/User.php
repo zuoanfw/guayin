@@ -136,7 +136,7 @@ class User extends Base{
      */
     public function login(){
         if($this->user_id > 0){
-            $this->redirect('Home/User/index');
+            $this->redirect('Home/User/info');
         }
         $redirect_url = Session::get('redirect_url');
         $referurl = $redirect_url ? $redirect_url : U("Home/User/index");
@@ -146,7 +146,7 @@ class User extends Base{
 
     public function pop_login(){
     	if($this->user_id > 0){
-            $this->redirect('Home/User/index');
+            $this->redirect('Home/User/info');
     	}
         $referurl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : U("Home/User/index");
         $this->assign('referurl',$referurl);

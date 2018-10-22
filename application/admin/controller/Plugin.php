@@ -104,7 +104,7 @@ class Plugin extends Base {
         $plugin_list = array();
         $plugin_list['payment'] = $this->dirscan(C('PAYMENT_PLUGIN_PATH'));
         $plugin_list['login'] = $this->dirscan(C('LOGIN_PLUGIN_PATH'));
-        $plugin_list['function'] = $this->dirscan(C('FUNCTION_PLUGIN_PATH'));
+        //$plugin_list['function'] = $this->dirscan(C('FUNCTION_PLUGIN_PATH'));
         
         foreach($plugin_list as $k=>$v){
             foreach($v as $k2=>$v2){
@@ -172,6 +172,7 @@ class Plugin extends Base {
                     $add['code'] = $v['code'];
                     $add['name'] = $v['name'];
                     $add['version'] = $v['version'];
+                    $add['payment_type'] = $v['payment_type'];
                     $add['author'] = $v['author'];
                     $add['desc'] = $v['desc'];
                     $add['bank_code'] = serialize($v['bank_code']);
@@ -199,8 +200,8 @@ class Plugin extends Base {
         $condition['type'] = I('get.type');
         $condition['code'] = I('get.code');
         $model = M('plugin');
-        if(($condition["code"] == "unionpay")){ header("Content-type: text/html; charset=utf-8");exit("请联系guaguayin官网客服购买高级版支持此功能"); } 	
-        if($condition["type"] == "login"  && $condition["code"] == "weixin"){ header("Content-type: text/html; charset=utf-8");exit("请联系guaguayin官网客服购买高级版支持此功能"); } 	
+        if(($condition["code"] == "unionpay")){ header("Content-type: text/html; charset=utf-8");exit("暂不支持此功能"); }
+        if($condition["type"] == "login"  && $condition["code"] == "weixin"){ header("Content-type: text/html; charset=utf-8");exit("暂不支持此功能"); }
         $row = $model->where($condition)->find();
         if(!$row){
             exit($this->error("不存在该插件"));

@@ -4,6 +4,7 @@ return array(
     'code'=> 'weixin',
     'name' => '微信支付',
     'version' => '1.0',
+    'payment_type' => '1',
     'author' => '',
     'desc' => 'PC端+微信公众号支付',
     'icon' => 'logo.jpg',

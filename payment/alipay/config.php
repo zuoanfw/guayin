@@ -3,6 +3,7 @@ return array(
     'code'=> 'alipay',
     'name' => 'PC端支付宝',
     'version' => '1.0',
+    'payment_type' => '1',
     'author' => '',
     'desc' => 'PC端支付宝插件 ',
     'scene' =>2,  // 使用场景 0 PC+手机 1 手机 2 PC
@@ -29,6 +30,6 @@ return array(
             '中国民生银行'=>'CMBC',
             '中国银行'=>'BOC-DEBIT',
             '中国农业银行'=>'ABC',        
-            '上海银行'=>'SHBANK',                                           
+            //'上海银行'=>'SHBANK',
     )
 );

@@ -131,7 +131,7 @@ a.Sub-orders{ width:118px; font-size:14px}
 .ddxq-xiaq{ border-top:1px solid #d7ebcb}
 .ddxq-xiaq a{display: block;width: 108px;height: 32px;background-color: #f1f8ee;border: 1px solid #d7ebcb;border-top-color: #f1f8ee;margin: -1px auto 0;position: relative;line-height: 30px;font-size: 14px;color: #649a45;text-indent: 31px;}
 .ddxq-xiaq a i{ background:url(../images/sprites6.png) no-repeat;    position: absolute;height: 3px;font-size: 1px;line-height: 1px; width: 6px;background-position: -138px -312px;left: 17px;top: 14px;}
-.orde-sjyy{ font-family:'Tahoma','\5FAE\8F6F\96C5\9ED1';}
+.orde-sjyy{ padding-bottom: 30px;}
 .titls{font-size: 18px;border-left: 4px solid #e5e5e5;padding-left: 6px;line-height: 1.1;margin-bottom: 10px; font-weight:400}
 .titls b{font-size: 12px;font-weight: 400;color: #28c0c6;margin-left: 8px;}
 .titls b a{color: #28c0c6;}
