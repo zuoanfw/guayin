@@ -14,6 +14,12 @@
 <body>
 <include file="public/header" w="w1224"/>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/goodslist.css" />
+<style>
+    .brand_tap ul li a {
+        font-size: 16px;
+        margin-right: 15px;
+    }
+</style>
 <div class="shop-list-tour ma-to-20 p">
 	<div class="w1224">
         <!--<div class="brand_tap">
@@ -27,10 +33,10 @@
             <!-- 属性筛选 start -->
             <foreach name="filter_attr" item="v" key="k">
                 <ul class="brand-section m-tr">
-                    <li>{$v.attr_name}:</li>
+                    <li style="font-size: 16px;">{$v.attr_name}：</li>
                     <li class="ri-section">
                         <div class="clearfix p">
-                            <a href="{:U('Home/Pack/packList',array('id'=>'4'))}">不限</a>
+                            <a href="/baozhuangs/4.html">不限</a>
                             <foreach name="v[attr_value]" item="v2" key="k2">
                                 <a href="{$v2[href]}" data-href="{$v2[href]}" data-val='{$v2[val]}' <if condition="$attr_val eq $v2[val]">class="selected"</if> data-key='{$v2[key]}'>
                                     <input class="shaix_la" type="checkbox" style="display: none"/>
@@ -53,7 +59,7 @@
                             <li>
                                 <div class="s_xsall">
                                     <div class="xs_img">
-                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}">
+                                        <a href="/baozhuang/{$v[goods_id]}.html">
                                             <img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
                                         </a>
                                     </div>
@@ -76,13 +82,13 @@
                                 </div>
                                 <div class="s_xsall_text">
                                     <h4 class="media-heading">
-                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+                                        <a href="/baozhuang/{$v[goods_id]}.html" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
                                     <p style="color:#ffa000;"> {$v.goods_remark}</p>
                                     <p>●&nbsp;使用场景：{$v.goods_use_scene}</p>
                                     <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
                                     <p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
                                     <div class="media-bottom">
-                                        <a href="{:U('/Home/Pack/packInfo',array('id'=>$v[goods_id]))}" class="btn-warning">
+                                        <a href="/baozhuang/{$v[goods_id]}.html" class="btn-warning">
                                             免费获取报价</a>
                                     </div>
                                 </div>

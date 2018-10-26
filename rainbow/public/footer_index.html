@@ -7,37 +7,23 @@
                     <dl>
                         <dt>{$v[cat_name]}</dt>
                         <tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id]  and is_open=1 limit 4" key="k2" item='v2'>
-                            <dd><a href="{:U('Home/Article/detail',array('article_id'=>$v2[article_id]))}">{$v2[title]}</a></dd>
+                            <dd><a href="/article/{$v2[article_id]}.html">{$v2[title]}</a></dd>
                         </tpshop>
                     </dl>
                 </tpshop>
             </div>
-            <!--<div class="friendship-links clearfix">
-                <span>友情链接 : </span>
-                <div class="links-wrap-h clearfix">
-                <tpshop sql="select * from `__PREFIX__friend_link` where is_show=1" key="k" item='v'>
-                    <a href="{$v[link_url]}" <if condition="$v.target eq 1">target="_blank"</if> >{$v[link_name]}</a>
-                </tpshop>
-                </div>
-            </div>	-->
         </div>
         <div class="right-contact-us">
             <div class="foot-wechat">
                 <img width="135" src="__STATIC__/images/foot-wechat.jpg">
             </div>
             <div class="foot-contact">
-                <span style="font-size: 28px;padding-top: 5px;display: block;color: #fff">025-85563008</span>
+                <span style="font-size: 28px;padding-top: 5px;display: block;color: #fff">{$tpshop_config['shop_info_phone']}</span>
                 <span style="color: #fff;font-size: 13px;display: block;padding-bottom: 10px;padding-top: 5px;">全国统一客服热线：9:00-18:00</span>
                 <a target="_blank" href="tencent://message/?uin={$tpshop_config['shop_info_qq2']}&amp;Site=呱呱印商城&amp;Menu=yes">
                     <img src="__STATIC__/images/foot-qq.png">
                 </a>
             </div>
-            <!--<span class="phone">{$tpshop_config['shop_info_phone']}</span>
-            <p class="tips">周一至周日8:00-18:00<br />(仅收市话费)</p>
-            <div class="qr-code-list clearfix">
-                <a class="qr-code" href="javascript:;"><img class="w-100" src="__STATIC__/images/qrcode.png" alt="" /></a>
-                <a class="qr-code qr-code-tpshop" href="javascript:;"><img class="w-100" src="__STATIC__/images/qrcode.png" alt="" /></a>
-            </div>-->
         </div>
     </div>
     <div class="mod_copyright p">
@@ -45,24 +31,15 @@
             <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 AND position = 'bottom' ORDER BY `sort` DESC" key="kk" item='vv'>
                 <a href="{$vv[url]}" <if condition="$vv[is_new] eq 1"> target="_blank" </if> >{$vv[name]}</a><span>|</span>
             </tpshop>
-            <a target="_blank" href="{:U('Home/Index/about')}">公司简介</a><span>|</span>
-            <a target="_blank" href="javascript:void (0);">联系我们</a><span>|</span>
-            <a target="_blank" href="javascript:void (0);">诚聘英才</a>
-            <!--<tpshop sql="select * from `__PREFIX__article` where cat_id = 5 and is_open=1" key="k" item='v'>-->
-            <!--<a href="{:U('Home/Article/detail',array('article_id'=>$v[article_id]))}">{$v[title]}</a>-->
-            <!--<span>|</span>-->
-            <!--</tpshop>-->
+            <a target="_blank" href="/about.html">公司简介</a><span>|</span>
+            <a target="_blank" href="/contact.html">联系我们</a><span>|</span>
+            <a target="_blank" href="/job.html">诚聘英才</a>
         </div>
         <p class="mod_copyright_auth">
             <img width="80" height="32" src="__STATIC__/images/foot1.png"><img width="80" height="32" src="__STATIC__/images/foot2.png">
             <img width="80" height="32" src="__STATIC__/images/foot3.png">
             <img width="31" height="32" src="__STATIC__/images/foot4.png">
             <img width="80" height="32" src="__STATIC__/images/foot5.png"><img width="38" height="32" src="__STATIC__/images/foot6.png">
-            <!--<a class="mod_copyright_auth_ico mod_copyright_auth_ico_1" href="" target="_blank">经营性网站备案中心</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_2" href="" target="_blank">可信网站信用评估</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_3" href="" target="_blank">网络警察提醒你</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_4" href="" target="_blank">诚信网站</a>
-            <a class="mod_copyright_auth_ico mod_copyright_auth_ico_5" href="" target="_blank">中国互联网举报中心</a>-->
         </p>
         <p>Copyright © 2016-2025 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
         <div class="friendship-links clearfix w1224">
@@ -121,3 +98,12 @@
         background-position: 0 -217px;
     }
 </style>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?4bcb17f687960dfa393e0d16033d4f48";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>

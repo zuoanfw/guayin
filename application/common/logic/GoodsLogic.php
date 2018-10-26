@@ -141,7 +141,54 @@ class GoodsLogic extends Model
         if ($mode == 1) return $list_attr;
         return array('status' => 1, 'msg' => '', 'result' => $list_attr);
     }
+    /**
+     * @param array $goods_id_arr
+     * @param $filter_param
+     * @param $action
+     * @param int $mode 0  返回数组形式  1 直接返回result
+     * @return array
+     * 获取商品列表页帅选属性
+     */
+    public function get_filter_bz_attr($goods_id_arr = array(), $filter_param, $action, $mode = 0)
+    {
+        $goods_id_str = implode(',', $goods_id_arr);
+        $goods_id_str = $goods_id_str ? $goods_id_str : '0';
+        $goods_attr = M('goods_attr')->where(['goods_id'=>['in',$goods_id_str],'attr_value'=>['<>','']])->select();
+        // $goods_attr = M('goods_attr')->where("attr_value != ''")->select();
+        $goods_attribute = M('goods_attribute')->where("attr_index = 1")->getField('attr_id,attr_name,attr_index');
+        if (empty($goods_attr)) {
+            if ($mode == 1) return array();
+            return array('status' => 1, 'msg' => '', 'result' => array());
+        }
+        $list_attr = $attr_value_arr = array();
+        $old_attr = $filter_param['attr'];
+        foreach ($goods_attr as $k => $v) {
+            // 存在的帅选不再显示
+            if (strpos($old_attr, $v['attr_id'] . '_') === 0 || strpos($old_attr, '@' . $v['attr_id'] . '_'))
+                continue;
+            if ($goods_attribute[$v['attr_id']]['attr_index'] == 0)
+                continue;
+            $v['attr_value'] = trim($v['attr_value']);
+            // 如果同一个属性id 的属性值存储过了 就不再存贮
+            if (in_array($v['attr_id'] . '_' . $v['attr_value'], (array)$attr_value_arr[$v['attr_id']]))
+                continue;
+            $attr_value_arr[$v['attr_id']][] = $v['attr_id'] . '_' . $v['attr_value'];
 
+            $list_attr[$v['attr_id']]['attr_id'] = $v['attr_id'];
+            $list_attr[$v['attr_id']]['attr_name'] = $goods_attribute[$v['attr_id']]['attr_name'];
+
+            // 帅选参数
+            if (!empty($old_attr))
+                $filter_param['attr'] = $old_attr . '@' . $v['attr_id'] . '_' . $v['attr_value'];
+            else
+                $filter_param['attr'] = $v['attr_id'] . '_' . $v['attr_value'];
+
+            $list_attr[$v['attr_id']]['attr_value'][] = array('key' => $v['attr_id'], 'val' => $v['attr_value'], 'attr_value' => $v['attr_value'], 'href' => U("Baozhuang/$action", $filter_param, ''));
+            //unset($filter_param['attr_id_'.$v['attr_id']]);
+        }
+        if ($mode == 1) return $list_attr;
+        return array('status' => 1, 'msg' => '', 'result' => $list_attr);
+    }
     /**
      * 获取某个商品的评论统计
      * c0:全部评论数  c1:好评数 c2:中评数  c3差评数

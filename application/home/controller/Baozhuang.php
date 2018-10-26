@@ -18,7 +18,7 @@ use think\Page;
 use think\Verify;
 use think\Image;
 use think\Db;
-class Pack extends Base {
+class Baozhuang extends Base {
     
     public function index(){      
 
@@ -44,7 +44,7 @@ class Pack extends Base {
     /**
      * 包装专区列表页
      */
-    public function packList()
+    public function baozhuangList()
     {
 
         /*$key = md5($_SERVER['REQUEST_URI'] . I('start_price') . '_' . I('end_price'));
@@ -104,7 +104,7 @@ class Pack extends Base {
         $filter_price = $goodsLogic->get_filter_price($filter_goods_id, $filter_param, 'goodsList'); // 帅选的价格期间
         $filter_brand = $goodsLogic->get_filter_brand($filter_goods_id, $filter_param, 'goodsList'); // 获取指定分类下的帅选品牌
         $filter_spec = $goodsLogic->get_filter_spec($filter_goods_id, $filter_param, 'goodsList', 1); // 获取指定分类下的帅选规格
-        $filter_attr = $goodsLogic->get_filter_attr($filter_attr_goods_id, $filter_param, 'packList', 1); // 获取指定分类下的帅选属性
+        $filter_attr = $goodsLogic->get_filter_bz_attr($filter_attr_goods_id, $filter_param, 'baozhuangList', 1); // 获取指定分类下的帅选属性
 
         $count = count($filter_goods_id);
         $page = new Page($count, 20);
@@ -144,7 +144,7 @@ class Pack extends Base {
     /**
      * 包装盒商品详情页
      */
-    public function packInfo()
+    public function baozhuangInfo()
     {
         //C('TOKEN_ON',true);
         $goodsLogic = new GoodsLogic();

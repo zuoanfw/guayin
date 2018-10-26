@@ -31,7 +31,7 @@
     <div class="w1224">
         <div class="search-path fl">
             <foreach name="navigate_goods" key="k" item="v">
-                <a href="{:U('/Home/Pack/packList',array('id'=>$k))}">{$v}</a>
+                <a href="/baozhuangs/{$k}.html">{$v}</a>
                 <i class="litt-xyb"></i>
             </foreach>
             <div class="havedox">
@@ -84,14 +84,6 @@
                         <a href="javascript:;" class="next-right next-btn fl">></a></div>
                     <!-- 商品小图介绍 end ]]-->
                 </div>
-                <!-- 收藏商品 start [[-->
-                <!--<div class="collect">
-                    <a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-null"></i>
-                        <span class="collect-text">收藏商品</span>
-                        <em class="J_FavCount">({$goods['collect_sum']+$goods['virtual_collect_sum']})</em>
-                    </a>
-                    &lt;!&ndash;<a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-ok"></i>已收藏<em class="J_FavCount">(20)</em></a>&ndash;&gt;
-                </div>-->
                 <!-- 分享商品 -->
                 <div class="share">
                     <div class="jiathis_style">
@@ -154,11 +146,7 @@
                 <h1>{$goods.goods_name}</h1>
                 <p style="color: #fd4f3e;">{$goods.goods_remark}</p>
                 <div class="goods_attr">
-                     <!--<ul>
-                         <foreach name="goods_attr_list" item="v" key="k">
-                             <li><span>{$goods_attribute[$v[attr_id]]}：</span><span>{$v[attr_value]}</span></li>
-                         </foreach>
-                     </ul>-->
+
                         <ul>
                             <li><span>使用场景：</span><span>{$goods.goods_use_scene}</span></li>
                             <li><span>推荐指数：</span><span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>

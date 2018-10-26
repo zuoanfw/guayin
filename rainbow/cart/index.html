@@ -111,11 +111,6 @@
 												<!--抢购--><if condition="$cart[prom_type] eq 1"><img  width="40" height="40" src="/public/images/qianggou2.jpg" style="vertical-align:middle"></if>
 											</p>
 											<div class="msp_return">
-												<!--<if condition="$store['qitian']">
-                                                    <i class="return7"></i><span class="f_blue">支持七天无理由退货</span>
-                                                    <else/>
-                                                    <i class="return7 return7-dark"></i><span class="f_dark">不支持七天无理由退货</span>
-                                                </if>-->
 											</div>
 										</div>
 									</div>
@@ -129,16 +124,6 @@
 										<if condition="$cart.prom_type gt 0">
 											<p class="red">活动价：<span>￥{$cart.member_goods_price}</span></p>
 										</if>
-										<!--<notempty name="$cart['prom_goods']">-->
-										<!--<div class="promptions_in">-->
-										<!--<span class="cx"><em>促销详情</em><i></i></span>-->
-										<!--<div class="promotion-cont">-->
-										<!--<ul>-->
-										<!--<li>{$cart['prom_goods']['prom_detail']}</li>-->
-										<!--</ul>-->
-										<!--</div>-->
-										<!--</div>-->
-										<!--</notempty>-->
 									</div>
 
 
@@ -203,24 +188,11 @@
 											<if condition="$cart_v.prom_type gt 0">
 												<p class="red">活动价：<span>￥{$cart_v.member_goods_price}</span></p>
 											</if>
-											<!--<notempty name="$cart_v['prom_goods']">-->
-											<!--<div class="promptions_in">-->
-											<!--<span class="cx"><em>促销详情</em><i></i></span>-->
-											<!--<div class="promotion-cont">-->
-											<!--<ul>-->
-											<!--<li>{$cart_v['prom_goods']['prom_detail']}</li>-->
-											<!--</ul>-->
-											<!--</div>-->
-											<!--</div>-->
-											<!--</notempty>-->
 										</div>
 
 
 										<div class="column t-quantity mtp quantity-form" style="padding-left: 40px;">
 											<span  id="changeQuantity_{$cart_v['id']}" style="color: #666">{$cart_v['goods_num']}</span>
-											<!--<input name="changeQuantity_{$cart_v['id']}" type="text" id="changeQuantity_{$cart_v['id']}" value="{$cart_v['goods_num']}" disabled>-->
-											<!--无货时隐藏数量选择，显示无货-->
-											<!--<span>无货</span>-->
 										</div>
 
 										<div class="column t-sum sumpri">

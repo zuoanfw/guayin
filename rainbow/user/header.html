@@ -1,23 +1,20 @@
-<script src="__PUBLIC__/js/global.js" type="text/javascript"></script>
-<link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
-<script src="__PUBLIC__/static/js/layer/layer.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+<!--<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>-->
 <link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/favicon.ico'}" media="screen"/>
 <div class="tpshop-tm-hander">
 	<div class="top-hander">
-		<div class="w1224 pr clearfix">
-			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' ">
+		<div class="[w] pr clearfix">
+			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' && strtolower(ACTION_NAME) neq 'integralinfo' && strtolower(ACTION_NAME) neq 'yinpininfo'">
 				<div class="fl">
 					<link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
 					<div class="sendaddress pr fl">
 						<span class="s_address">送货至：</span>
-						<!-- <span>深圳<i class="share-a_a1"></i></span>-->
 						<span>
                               <ul class="list1">
                                   <li class="summary-stock though-line">
                                       <div class="dd" style="border-right:0px;width:200px;">
                                           <div class="store-selector add_cj_p">
-                                              <div class="text"><div></div><b></b></div>
+                                              <div class="text"> <div></div> <b></b> </div>
                                               <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
                                           </div>
                                       </div>
@@ -27,14 +24,38 @@
 					</div>
 					<script src="__PUBLIC__/js/locationJson.js"></script>
 					<script src="__STATIC__/js/location.js"></script>
-					<script>doInitRegion();</script>
+					<script>
+                        if(getCookieByName('province_id')==null || getCookieByName('city_id')==null){
+                            //自动获取地理位置存储在cookie里
+                            $.ajax({
+                                type:'post',
+                                dataType:'json',
+                                data: {},
+                                async: false,
+                                url:"{:U('Home/Api/queryipaddress')}",
+                                success:function(res){
+                                    //console.log(res);
+                                    if(res.ret ==  200){
+                                        IdByName = res.data.region+"省";
+                                        cityIdByName=res.data.city+"市";
+                                        var province_id = getIdByName(IdByName);
+                                        var city_id = getcityIdByName(cityIdByName);
+                                        setCookies('province_id',province_id,30*24*60*60*1000);
+                                        setCookies('city_id',city_id,30*24*60*60*1000);
+                                    }
+                                    // console.log(res);
+                                }
+                            });
+                        }
+                        doInitRegion();
+					</script>
 				</div>
 			</if>
 			<ul class="top-ri-header fr clearfix">
 				<li>
 					<div class="fl nologin">
-						<a style="padding-right: 15px" href="{:U('Home/user/login')}">请登录</a>
-						<a  class="red" href="{:U('Home/user/reg')}">免费注册</a>
+						<a style="padding-right: 15px" href="/login.html">请登录</a>
+						<a  class="red" href="/register.html">免费注册</a>
 					</div>
 					<div class="fl islogin hide">
 						<a class="red userinfo" href="{:U('Home/user/info')}"></a>
@@ -42,14 +63,13 @@
 					</div>
 				</li>
 				<li><a target="_blank" href="{:U('Home/Order/order_list')}">我的订单</a></li>
-				<!--<li><a target="_blank" href="{:U('Home/User/visit_log')}">我的浏览</a></li>
-				<li><a target="_blank" href="{:U('Home/User/goods_collect')}">我的收藏</a></li>-->
 				<li><a target="_blank" class="shop_cart" href="{:U('Home/Cart/index')}">购物车<em class="shop-nums red" id="cart_quantity"></em>件</a></li>
-				<li>反馈意见</li>
+				<li><a target="_blank" href="/feedback.html">反馈意见</a></li>
+				<li><a target="_blank" href="/jiameng.html">加盟我们</a></li>
 			</ul>
 		</div>
 	</div>
-	<div class="nav-middan-z w1224 clearfix">
+	<div class="nav-middan-z [w] clearfix">
 		<a class="ecsc-logo" href="{:U('Home/index/index')}">
 			<img src="{$tpshop_config.shop_info_store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}" style="width: 170px;">
 		</a>
@@ -136,28 +156,17 @@
 			</div>
 		</div>
 		<div class="u-g-cart fr" id="hd-my-cart">
-			<!--<a href="{:U('Home/Cart/index')}">
-			<div class="c-n fl">
-				<i class="share-shopcar-index"></i>
-				<span>我的购物车</span>
-				<em class="shop-nums" id="cart_quantity"></em>
-			</div>
-			</a>
-			<div class="u-fn-cart" id="show_minicart">
-				<div class="minicartContent" id="minicart">
-				</div>
-			</div>-->
 			<div class="fl"><img width="90" src="__STATIC__/images/foot-wechat.jpg"></div>
 			<div class="fl">
 				<span style="font-size: 24px;padding-top: 10px;display: block;">
-					<img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;025-85563008</span>
+					<img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;{$tpshop_config['shop_info_phone']}</span>
 				<span style="color: #999;font-size: 13px;padding-top: 5px;display: block">全国统一客服热线：9:00-18:00</span>
 			</div>
 
+
 		</div>
 	</div>
-	<div class="nav w1224 clearfix">
-
+	<div class="nav [w] clearfix">
 		<div class="categorys home_categorys">
 			<div class="dt">
 				<a href="" target="_blank"><i class="share-a_a2"></i>全部商品分类</a>
@@ -174,7 +183,7 @@
 										<div class="item-left">
 											<h3 class="cata-nav-name">
 												<div class="cata-nav-wrap">
-													<a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" title="{$v2[name]}">{$v2[mobile_name]}</a>
+													<a href="/yinshuas/{$v2[id]}.html" title="{$v2[name]}">{$v2[mobile_name]}</a>
 												</div>
 											</h3>
 										</div>
@@ -184,10 +193,10 @@
 													<foreach name="v2['sub_menu']" key="k3" item='v3'>
 														<if condition="$v3[parent_id] eq $v2['id']">
 															<dl class="clearfix">
-																<dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a></dt>
+																<dt><a href="/yinshuas/{$v3[id]}.html" target="_blank">{$v3[name]}</a></dt>
 																<dd class="clearfix">
 																	<tpshop sql="SELECT * FROM `__PREFIX__goods` where is_on_sale = 1 and is_virtual = 0 and cat_id = '$v3[id]' ORDER BY `sort` DESC" key="k4" item='v4'>
-																		<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v4[goods_id]))}"  target="_blank">{$v4[mobile_name]}</a>
+																		<a href="/yinshua/{$v4[goods_id]}.html"  target="_blank">{$v4[mobile_name]}</a>
 																	</tpshop>
 																	<!-- <foreach name="v2['sub_menu']" key="k3" item='v3'>
                                                                          <if condition="$v3[parent_id] eq $v2['id']">
@@ -211,7 +220,7 @@
 										<div class="item-left">
 											<h3 class="cata-nav-name">
 												<div class="cata-nav-wrap">
-													<a href="{:U('Home/Goods/packList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+													<a href="/baozhuangs/{$v[id]}.html" title="{$v[name]}">{$v[mobile_name]}</a>
 												</div>
 											</h3>
 										</div>
@@ -222,11 +231,11 @@
 												<foreach name="v['tmenu']" key="k2" item='v2'>
 													<if condition="$v2[parent_id] eq $v['id']">
 														<dl class="clearfix">
-															<dt><a href="{:U('Home/Goods/packList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+															<dt><a href="/baozhuangs/{$v2[id]}.html" target="_blank">{$v2[name]}</a></dt>
 															<dd class="clearfix">
 																<foreach name="v2['sub_menu']" key="k3" item='v3'>
 																	<if condition="$v3[parent_id] eq $v2['id']">
-																		<a href="{:U('Home/Goods/packList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+																		<a href="/baozhuangs/{$v3[id]}.html" target="_blank">{$v3[name]}</a>
 																	</if>
 																</foreach>
 															</dd>
@@ -298,21 +307,21 @@
 			</div>
 			<!--全部商品分类-e-->
 		</div>
-	<ul class="navitems clearfix" id="navitems">
-		<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
-		<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
-			<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
-			<if condition="strpos($v[url],'fastBuy')">
-				<span><img style="position: relative;top:-20px;left: 100px;" src="__STATIC__/images/new.png"></span>
-				<a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >
-				{$v[name]}</a>
+		<ul class="navitems clearfix" id="navitems">
+			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
+			<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
+				<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
+				<if condition="strpos($v[url],'fastBuy')">
+					<span><img style="position: relative;top:-20px;left: 100px;" src="__STATIC__/images/new.png"></span>
+					<a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >
+					{$v[name]}</a>
 
-				<else/>
-				<a href="{$v[url]}" style="padding-left: 33px" <if condition="$v[is_new] eq 1">target="_blank" </if> >{$v[name]}</a>
-			</if>
-			</li>
-		</tpshop>
-	</ul>
+					<else/>
+					<a href="{$v[url]}" style="padding-left: 33px" <if condition="$v[is_new] eq 1">target="_blank" </if> >{$v[name]}</a>
+				</if>
+				</li>
+			</tpshop>
+		</ul>
+	</div>
 </div>
-</div>
-<script src="__STATIC__/js/common.js"></script>
+<script src="__STATIC__/js/common.js" type="text/javascript" charset="utf-8"></script>

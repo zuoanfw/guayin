@@ -3173,8 +3173,8 @@ ul.main_shop li img {
 	width: 60px;
 }
 .standard .colo a.red,.standard .colo .ls-dlzc a:hover,.ls-dlzc .standard .colo a:hover,.standard .colo .conta-hv-nav li:hover a,.conta-hv-nav li:hover .standard .colo a {
-	border-color:##ff8a5c;
-	color:##ff8a5c
+	border-color:#ff8a5c;
+	color:#ff8a5c
 }
 
 .standard .colo1 a {
@@ -3187,8 +3187,8 @@ ul.main_shop li img {
 	width: 160px;
 }
 .standard .colo1 a.red{
-	border-color:##ff8a5c;
-	color:##ff8a5c
+	border-color:#ff8a5c;
+	color:#ff8a5c
 }
 .standard .minus-plus {
 	float:left

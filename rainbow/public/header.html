@@ -4,12 +4,11 @@
 <div class="tpshop-tm-hander">
 	<div class="top-hander">
 		<div class="[w] pr clearfix">
-			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' && strtolower(ACTION_NAME) neq 'integralinfo' && strtolower(ACTION_NAME) neq 'printsinfo'">
+			<if condition="strtolower(ACTION_NAME) neq 'goodsinfo' && strtolower(ACTION_NAME) neq 'integralinfo' && strtolower(ACTION_NAME) neq 'yinpininfo'">
 			<div class="fl">
                       <link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
                       <div class="sendaddress pr fl">
                           <span class="s_address">送货至：</span>
-                          <!-- <span>深圳<i class="share-a_a1"></i></span>-->
                           <span>
                               <ul class="list1">
                                   <li class="summary-stock though-line">
@@ -56,7 +55,7 @@
 				<li>
 					<div class="fl nologin">
 						<a style="padding-right: 15px" href="/login.html">请登录</a>
-						<a  class="red" href="{:U('Home/user/reg')}">免费注册</a>
+						<a  class="red" href="/register.html">免费注册</a>
 					</div>
 					<div class="fl islogin hide">
 						<a class="red userinfo" href="{:U('Home/user/info')}"></a>
@@ -64,31 +63,9 @@
 					</div>
 				</li>
 				<li><a target="_blank" href="{:U('Home/Order/order_list')}">我的订单</a></li>
-				<!--<li><a target="_blank" href="{:U('Home/User/visit_log')}">我的浏览</a></li>
-				<li><a target="_blank" href="{:U('Home/User/goods_collect')}">我的收藏</a></li>-->
 				<li><a target="_blank" class="shop_cart" href="{:U('Home/Cart/index')}">购物车<em class="shop-nums red" id="cart_quantity"></em>件</a></li>
-				<li><a target="_blank" href="{:U('Home/Index/feedback')}">反馈意见</a></li>
-				<li><a target="_blank" href="{:U('Home/Index/jiameng')}">加盟我们</a></li>
-				<!--<li class="hover-ba-navdh">
-					<div class="nav-dh">
-						<span>网站导航</span>
-						<i class="share-a_a1"></i>
-					</div>
-					<ul class="conta-hv-nav clearfix">
-                        <li>
-                            <a href="{:U('Home/Activity/promoteList')}">优惠活动</a>
-                        </li>
-                        <li>
-                            <a href="{:U('Home/Activity/pre_sell_list')}">预售活动</a>
-                        </li>
-                        &lt;!&ndash;<li>
-                            <a href="{:U('Home/Goods/integralMall')}">拍卖活动</a>
-                        </li>&ndash;&gt;
-                        <li>
-                            <a href="{:U('Home/Goods/integralMall')}">兑换中心</a>
-                        </li>
-					</ul>
-				</li>-->
+				<li><a target="_blank" href="/feedback.html">反馈意见</a></li>
+				<li><a target="_blank" href="/jiameng.html">加盟我们</a></li>
 			</ul>
 		</div>
 	</div>
@@ -179,21 +156,10 @@
 			</div>
 		</div>
 		<div class="u-g-cart fr" id="hd-my-cart">
-			<!--<a href="{:U('Home/Cart/index')}">
-			<div class="c-n fl">
-				<i class="share-shopcar-index"></i>
-				<span>我的购物车</span>
-				<em class="shop-nums" id="cart_quantity"></em>
-			</div>
-			</a>
-			<div class="u-fn-cart" id="show_minicart">
-				<div class="minicartContent" id="minicart">
-				</div>
-			</div>-->
 			<div class="fl"><img width="90" src="__STATIC__/images/foot-wechat.jpg"></div>
 			<div class="fl">
 				<span style="font-size: 24px;padding-top: 10px;display: block;">
-					<img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;025-85563008</span>
+					<img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;{$tpshop_config['shop_info_phone']}</span>
 				<span style="color: #999;font-size: 13px;padding-top: 5px;display: block">全国统一客服热线：9:00-18:00</span>
 			</div>
 
@@ -217,7 +183,7 @@
 								  <div class="item-left">
 									  <h3 class="cata-nav-name">
 										  <div class="cata-nav-wrap">
-											  <a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" title="{$v2[name]}">{$v2[mobile_name]}</a>
+											  <a href="/yinshuas/{$v2[id]}.html" title="{$v2[name]}">{$v2[mobile_name]}</a>
 										  </div>
 									  </h3>
 								  </div>
@@ -227,10 +193,10 @@
 											  <foreach name="v2['sub_menu']" key="k3" item='v3'>
 												  <if condition="$v3[parent_id] eq $v2['id']">
 													  <dl class="clearfix">
-														  <dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a></dt>
+														  <dt><a href="/yinshuas/{$v3[id]}.html" target="_blank">{$v3[name]}</a></dt>
 														  <dd class="clearfix">
 															  <tpshop sql="SELECT * FROM `__PREFIX__goods` where is_on_sale = 1 and is_virtual = 0 and cat_id = '$v3[id]' ORDER BY `sort` DESC" key="k4" item='v4'>
-																  <a href="{:U('Home/Goods/goodsInfo',array('id'=>$v4[goods_id]))}"  target="_blank">{$v4[mobile_name]}</a>
+																  <a href="/yinshua/{$v4[goods_id]}.html"  target="_blank">{$v4[mobile_name]}</a>
 															  </tpshop>
 															 <!-- <foreach name="v2['sub_menu']" key="k3" item='v3'>
 																  <if condition="$v3[parent_id] eq $v2['id']">
@@ -254,7 +220,7 @@
 									  <div class="item-left">
 										  <h3 class="cata-nav-name">
 											  <div class="cata-nav-wrap">
-												  <a href="{:U('Home/Pack/packList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+												  <a href="/baozhuangs/{$v[id]}.html" title="{$v[name]}">{$v[mobile_name]}</a>
 											  </div>
 										  </h3>
 									  </div>
@@ -265,11 +231,11 @@
 											  <foreach name="v['tmenu']" key="k2" item='v2'>
 												  <if condition="$v2[parent_id] eq $v['id']">
 													  <dl class="clearfix">
-														  <dt><a href="{:U('Home/Pack/packList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+														  <dt><a href="/baozhuangs/{$v2[id]}.html" target="_blank">{$v2[name]}</a></dt>
 														  <dd class="clearfix">
 															  <foreach name="v2['sub_menu']" key="k3" item='v3'>
 																  <if condition="$v3[parent_id] eq $v2['id']">
-																	  <a href="{:U('Home/Pack/packList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+																	  <a href="/baozhuangs/{$v3[id]}.html" target="_blank">{$v3[name]}</a>
 																  </if>
 															  </foreach>
 														  </dd>

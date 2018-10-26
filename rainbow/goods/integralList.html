@@ -17,9 +17,9 @@
 		<div class="search-box p">
 			<div class="w1224">
 				<div class="search-path fl">
-					<a href="{:U('Home/Goods/integralMall')}">全部结果</a>
+					<a href="/haoli.html">全部结果</a>
 					<i class="litt-xyb"></i>
-					<span>瓜豆商城</span>
+					<span>好礼兑换</span>
 				</div>
 				<!--<div class="search-clear fr">
 					<span><a href="{:U('Home/Goods/integralMall')}">清空筛选条件</a></span>
@@ -89,12 +89,12 @@
 											<img src="{$goods['goods_id']|goods_thum_images=165,188}"/>
 										</div>
 										<div class="contifo">
-											<p class="shop_name"><a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">{$goods['goods_name']}</a></p>
+											<p class="shop_name"><a href="/haoli/{$goods['goods_id']}.html">{$goods['goods_name']}</a></p>
 											<p>参考价：￥<span class="lithe">{$goods['shop_price']}</span></p>
 											<p>换购价：<span class="red">￥<em>{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}</em>瓜豆</span></p>
 											<div class="duchan">
 												<span><em>{$goods['sales_sum']}</em>人换购</span>
-												<a href="{:U('Home/Goods/integralInfo',array('id'=>$goods['goods_id']))}">立即换购</a>
+												<a href="/haoli/{$goods['goods_id']}.html">立即换购</a>
 											</div>
 										</div>
 									</div>

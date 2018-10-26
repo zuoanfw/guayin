@@ -28,7 +28,7 @@
     <div class="w1224">
         <div class="search-path fl">
                     <!--现货通用品数量计算-->
-                    <a href="{:U('/Home/Goods/integralList')}">瓜豆商城</a>
+                    <a href="/haoli.html">好礼兑换</a>
                 <i class="litt-xyb"></i>
             <div class="havedox">
                 <span>{$goods.goods_name}</span>
@@ -81,13 +81,13 @@
                     <!-- 商品小图介绍 end ]]-->
                 </div>
                 <!-- 收藏商品 start [[-->
-                <div class="collect">
+                <!--<div class="collect">
                     <a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-null"></i>
                         <span class="collect-text">收藏商品</span>
                         <em class="J_FavCount">({$goods['collect_sum']+$goods['virtual_collect_sum']})</em>
                     </a>
-                    <!--<a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-ok"></i>已收藏<em class="J_FavCount">(20)</em></a>-->
-                </div>
+                    &lt;!&ndash;<a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-ok"></i>已收藏<em class="J_FavCount">(20)</em></a>&ndash;&gt;
+                </div>-->
                 <!-- 分享商品 -->
                 <div class="share">
                     <div class="jiathis_style">
@@ -233,7 +233,7 @@
                         <!-- 收货地址，物流运费 -end-->
                     </div>
                 </if>
-                <notempty name="$goods['weight']">
+                <!--<notempty name="$goods['weight']">
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>预估净重：</span></li>
@@ -262,8 +262,8 @@
                                 id="overTime"></span></span>
                         <span class="ti" id="prom_detail"></span>
                     </div>
-                </div>
-                <div class="standard p">
+                </div>-->
+                <!--<div class="standard p">
                 <ul>
                     <li class="jaj"><span>商品金额：</span></li>
                     <li class="lawir">
@@ -271,7 +271,7 @@
                     </li>
                 </ul>
                 </div>
-                    <!--现货通用的价格显示-->
+                    &lt;!&ndash;现货通用的价格显示&ndash;&gt;
                     <div class="standard p">
                         <ul>
                             <li class="jaj"><span>限时促销：</span></li>
@@ -279,7 +279,7 @@
                                 <span class="service"><span><span id="goods_price">{$goods.market_price}</span></span></span>
                             </li>
                         </ul>
-                    </div>
+                    </div>-->
 
                 <div class="shop-price-cou p" style="display: none">
                     <div class="shop-price-le">
@@ -313,17 +313,17 @@
                         </li>
                     </ul>
                 </div>-->
-                <notempty name="$goods['brand']">
+                <!--<notempty name="$goods['brand']">
                     <div class="standard p">
                         <ul>
                             <li class="jaj"><span>品&nbsp;&nbsp;牌：</span></li>
                             <li class="lawir"><span class="service">{$goods['brand']['name']}</span></li>
                         </ul>
                     </div>
-                </notempty>
+                </notempty>-->
                 <!--is_virtual是否为虚拟商品 1是，0否   exchange_integral 瓜豆兑换：0不参与瓜豆兑换，瓜豆和现金的兑换比例见后台配置-->
                 <if condition="$goods['is_virtual'] eq 0 and $goods['exchange_integral'] gt 0">
-                    <div class="standard p">
+                    <div class="standard p" style="padding-top: 10px">
                         <ul>
                             <li class="jaj"><span>可&nbsp;&nbsp;用：</span></li>
                             <li class="lawir">
@@ -383,7 +383,7 @@
                 </div>
                 <div class="standard p">
                     <div class="standard p">
-                        <img width="790" src="__STATIC__/images/goodinfo_15.png" alt="">
+                        <img width="760" src="__STATIC__/images/goodinfo_15.png" alt="">
                     </div>
                 </div>
             </div>

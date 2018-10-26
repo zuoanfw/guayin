@@ -27,7 +27,7 @@
 						<ul>
 							<foreach name="goods_category" item="v" key="k">
 								<if condition="($v[parent_id] eq $goods_category[$goodsCate[parent_id]][parent_id])">
-									<li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+									<li><a href="/yinshuas/{$v[id]}.html">{$v[name]}</a></li>
 								</if>
 							</foreach>
 						</ul>
@@ -43,7 +43,7 @@
                             </empty>
                             <foreach name="goods_category" item="v" key="k">
                                 <if condition="($v[level] eq $goodsCate[level]) AND ($v[parent_id] eq $goodsCate[parent_id])">
-                                    <li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+                                    <li><a href="/yinshuas/{$v[id]}.html">{$v[name]}</a></li>
                                 </if>
                             </foreach>
                         </ul>
@@ -59,7 +59,7 @@
 						<ul>
 							<foreach name="goods_category" item="v" key="k">
 								<if condition="($v[parent_id] eq $goodsCate[parent_id])">
-									<li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+									<li><a href="/yinshuas/{$v[id]}.html">{$v[name]}</a></li>
 								</if>
 							</foreach>
 						</ul>
@@ -70,11 +70,11 @@
 			<!--当前分类-->
 			<if condition="$goodsCate[level] eq 1">
 				<div class="havedox">
-					<div class="disenk"><span><a href="{:U('Home/Goods/goodsList',array('id'=>$goodsCate['id']))}">{$goodsCate.name}</a></span><i class="litt-xxd"></i></div>
+					<div class="disenk"><span><a href="/yinshuas/{$goodsCate['id']}.html">{$goodsCate.name}</a></span><i class="litt-xxd"></i></div>
 					<div class="hovshz">
 						<ul>
 							<foreach name="cateArr" item="v" key="k">
-								<li><a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">{$v[name]}</a></li>
+								<li><a href="/yinshuas/{$v[id]}.html">{$v[name]}</a></li>
 							</foreach>
 						</ul>
 					</div>
@@ -86,7 +86,7 @@
 		    <a title="{$v['text']}" href="{$v['href']}" class="u-av-label">{$v['text']}<i>x</i></a>
 	    </foreach>
 		<div class="search-clear fr">
-			<span><a href="{:U('Home/Goods/goodsList',array('id'=>$cat_id))}">清空筛选条件</a></span>
+			<span><a href="/yinshuas/{$cat_id}.html">清空筛选条件</a></span>
 		</div>
 	</div>
 </div>
@@ -104,7 +104,7 @@
                                 <div class="clearfix p">
                                     <foreach name="goods_category" item="v" key="k">
                                         <if condition="$v[parent_id] eq $goodsCate[id]">
-                                            <a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}">
+                                            <a href="/yinshuas/{$v[id]}.html">
                                                 <span >{$v[name]}</span>
                                             </a>
                                         </if>
@@ -232,14 +232,14 @@
                             <li>
                                 <div class="s_xsall">
                                     <div class="xs_img">
-                                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+                                        <a href="/yinshua/{$v[goods_id]}.html">
                                             <img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
                                         </a>
                                     </div>
                                 </div>
                                 <div class="s_xsall_text">
                                     <h4 class="media-heading">
-                                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+                                        <a href="/yinshua/{$v[goods_id]}.html" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
                                     <p style="color:#ffa000;"> {$v.goods_remark}</p>
                                     <p>●&nbsp;使用场景：{$v.goods_use_scene}</p>
                                     <p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
@@ -253,7 +253,7 @@
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]}</em></span>
                                         </if>
-                                        <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="btn-warning"> 马上抢</a>
+                                        <a href="/yinshua/{$v[goods_id]}.html" class="btn-warning"> 马上抢</a>
                                     </div>
                                 </div>
                             </li>

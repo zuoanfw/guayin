@@ -21,23 +21,6 @@
 <div class="fn-cart-pay">
     <!-- cart-title -->
     <div class="wrapper1190">
-        <!--<div class="order-header">
-            <div class="layout after">
-                <div class="fl">
-                    <div class="logo pa-to-36 wi345">
-                        <a href="/"><img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}" alt="" style="max-width: 240px;max-height: 80px;"></a>
-                    </div>
-                </div>
-                <div class="fr">
-                    <div class="pa-to-36 progress-area">
-                        <div class="progress-area-wd" style="display:none">我的购物车</div>
-                        <div class="progress-area-tx" style="display:none">填写核对订单信息</div>
-                        <div class="progress-area-cg">成功提交订单</div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-        <!-- end cart-title -->
 
         <div class="layout after-ta order-ha">
             <div class="erhuh">
@@ -70,17 +53,9 @@
                     </p>
                 </if>
 
-                <!--<div class="succ-tip">
-                    请您在&nbsp;&nbsp;<b>{$pay_date}</b>&nbsp;前完成支付，否则订单将自动取消
-                </div>-->
+
             </div>
-            <!--<div class="ddxq-xiaq">
-                <if condition="$master_order_sn neq ''">
-                    <a href="{:U('Home/Order/order_list')}">订单详情<i></i></a>
-                    <else/>
-                    <a href="{:U('Home/Order/order_detail',array('id'=>$order['order_id']))}">订单详情<i></i></a>
-                </if>
-            </div>-->
+
             <form action="{:U('Home/Payment/getCode')}" method="post" name="cart4_form" id="cart4_form">
                 <div class="orde-sjyy">
                     <h3 class="titls">选择支付方式</h3>

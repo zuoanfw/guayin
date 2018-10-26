@@ -20,7 +20,7 @@
 	</div>
 	<div class="standard">
 			<foreach name="printsgoods" item="g" key="gk">
-				<a class="colo" href="{:U('Home/Prints/printsInfo',array('id'=>$g[goods_id]))}">
+				<a class="colo" href="yinpin/{$g[goods_id]}.html">
 					{$g[goods_name]|getSubstr=0,50}
 				</a>
 			</foreach>
