@@ -194,7 +194,7 @@ function getAreaList(result) {
 						currentAreaInfo.currentTownId = 0;
 						currentAreaInfo.currentTownName = "";
 					}
-				}/；
+				}
 				else if (currentAreaInfo.currentLevel == 4) {
 					currentAreaInfo.currentTownId = id;
 					currentAreaInfo.currentTownName = name;
@@ -258,7 +258,8 @@ function getAreaList(result) {
 				setCookies('city_id',currentAreaInfo.currentCityId,30*24*60*60*1000);
 				setCookies('district_id',currentAreaInfo.currentAreaId,30*24*60*60*1000);
 				setCookies('parent_region', parentRegion);
-				ajaxDispatching(tID);//选中地址事件}
+				ajaxDispatching(tID);//选中地址事件
+			}
 
 
 			window.getAreaListcallback = function (r) { ////////全局JSONP回调

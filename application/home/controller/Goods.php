@@ -462,13 +462,15 @@ class Goods extends Base
             if ($filter_goods_id2)
                 $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->select();
         }
-
-        foreach ($goods_list as $key => $vo){
-            if($vo['goods_num']){
-                $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
-                $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+        if($goods_list){
+            foreach ($goods_list as $key => $vo){
+                if($vo['goods_num']){
+                    $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
+                    $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+                }
             }
         }
+
         $this->assign('goods_list', $goods_list);
         $this->assign('goods_images', $goods_images);  // 相册图片
         $this->assign('filter_menu', $filter_menu);  // 帅选菜单

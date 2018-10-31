@@ -311,7 +311,7 @@
 			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
 			<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
 				<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
-				<if condition="strpos($v[url],'fastBuy')">
+				<if condition="strpos($v[url],'yinshua')">
 					<span><img style="position: relative;top:-20px;left: 100px;" src="__STATIC__/images/new.png"></span>
 					<a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >
 					{$v[name]}</a>

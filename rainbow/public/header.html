@@ -14,7 +14,9 @@
                                   <li class="summary-stock though-line">
                                       <div class="dd" style="border-right:0px;width:200px;">
                                           <div class="store-selector add_cj_p">
-                                              <div class="text"> <div></div> <b></b> </div>
+                                              <div class="text">
+												  <div></div> <b></b>
+											  </div>
                                               <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
                                           </div>
                                       </div>
@@ -198,11 +200,6 @@
 															  <tpshop sql="SELECT * FROM `__PREFIX__goods` where is_on_sale = 1 and is_virtual = 0 and cat_id = '$v3[id]' ORDER BY `sort` DESC" key="k4" item='v4'>
 																  <a href="/yinshua/{$v4[goods_id]}.html"  target="_blank">{$v4[mobile_name]}</a>
 															  </tpshop>
-															 <!-- <foreach name="v2['sub_menu']" key="k3" item='v3'>
-																  <if condition="$v3[parent_id] eq $v2['id']">
-																	  <a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
-																  </if>
-															  </foreach>-->
 														  </dd>
 													  </dl>
 												  </if>
@@ -311,7 +308,7 @@
 			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
 			<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
 			<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
-				<if condition="strpos($v[url],'fastBuy')">
+				<if condition="strpos($v[url],'yinshua')">
 					<span><img style="position: relative;top:-20px;left: 100px;" src="__STATIC__/images/new.png"></span>
        			    <a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >
 					{$v[name]}</a>
