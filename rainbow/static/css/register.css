@@ -59,6 +59,11 @@
     background-color: #ff8a5c;
     border-color: #ff8a5c;
 }
+.btn-success:hover {
+    color: #fff;
+    background-color: #ff8a5c;
+    border-color: #ff8a5c;
+}
 .judgp {
     background: url(../images/loginchat.png) no-repeat;
     display: inline-block

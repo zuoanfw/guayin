@@ -220,10 +220,12 @@ class Goods extends Base
             if ($filter_goods_id2)
                 $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->cache(true)->select();
         }
-        foreach ($goods_list as $key => $vo){
-            if($vo['goods_num']){
-                $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
-                $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+        if($goods_list) {
+            foreach ($goods_list as $key => $vo) {
+                if ($vo['goods_num']) {
+                    $goods_list[$key]['goods_num'] = explode(',', $vo['goods_num']);
+                    $goods_list[$key]['shop_price'] = explode(',', $vo['shop_price']);
+                }
             }
         }
         //halt($goods_list);
@@ -321,10 +323,12 @@ class Goods extends Base
             if ($filter_goods_id2)
                 $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->cache(true)->select();
         }
-        foreach ($goods_list as $key => $vo){
-            if($vo['goods_num']){
-                $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
-                $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+        if($goods_list) {
+            foreach ($goods_list as $key => $vo) {
+                if ($vo['goods_num']) {
+                    $goods_list[$key]['goods_num'] = explode(',', $vo['goods_num']);
+                    $goods_list[$key]['shop_price'] = explode(',', $vo['shop_price']);
+                }
             }
         }
         // print_r($filter_menu);
@@ -546,7 +550,7 @@ class Goods extends Base
         $company_address = trim(input('company_address', ''));
         $consult_type = input("consult_type", '1'); // 商品咨询类型
         $linkname = trim(input("linkname", '')); // 网友咨询
-        $username = trim(input("username")); // 网友咨询
+        $username = trim(input("username")); // 网友咨询 电话
         $content = trim(input("content", '')); // 咨询内容
         $verify_code = input('verify_code');
         if (strlen($content) > 500) {

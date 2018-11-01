@@ -33,10 +33,11 @@
                     
                 }
             } else {
-                leftpos = imageLeft - settings.xzoom - settings.offset;
+                /*leftpos = imageLeft - settings.xzoom - settings.offset;
                 if (leftpos < 0) {
                     leftpos = imageLeft + imageWidth + settings.offset
-                }
+                }*/
+                leftpos = -510
             }
             $("div.zoomdiv").css({
                 top: 1,//imageTop,

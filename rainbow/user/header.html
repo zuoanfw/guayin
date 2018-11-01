@@ -70,7 +70,7 @@
 		</div>
 	</div>
 	<div class="nav-middan-z [w] clearfix">
-		<a class="ecsc-logo" href="{:U('Home/index/index')}">
+		<a class="ecsc-logo" href="/">
 			<img src="{$tpshop_config.shop_info_store_logo|default='/public/static/images/logo/pc_home_logo_default.png'}" style="width: 170px;">
 		</a>
 		<div class="ecsc-search">
@@ -308,7 +308,7 @@
 			<!--全部商品分类-e-->
 		</div>
 		<ul class="navitems clearfix" id="navitems">
-			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="{:U('Index/index')}">首页</a></li>
+			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="/">首页</a></li>
 			<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
 				<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
 				<if condition="strpos($v[url],'yinshua')">

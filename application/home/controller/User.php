@@ -55,7 +55,7 @@ class User extends Base{
                 'forget_pwd', 'check_captcha', 'check_username', 'send_validate_code','bind_account','bind_guide','bind_reg',
         	);
         	if(!in_array(ACTION_NAME,$nologin)){
-                $this->redirect('Home/User/login');
+                $this->redirect('/login.html');
         		exit;
         	}
         }

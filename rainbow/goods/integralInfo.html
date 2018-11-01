@@ -13,7 +13,6 @@
     <script type="text/javascript" src="__STATIC__/js/jquery.jqzoom.js"></script>
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__PUBLIC__/js/pc_common.js"></script>
-    <link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
 </head>
 <style>
     .store-selector .text {
@@ -34,11 +33,6 @@
                 <span>{$goods.goods_name}</span>
             </div>
         </div>
-		<!--
-        <div class="online-service fr p">
-        	<a href="javascript:void(0);" class="z-onlines z-online-service fr"><i></i>在线客服</a>
-        </div>
-		-->
     </div>
 </div>
 <div class="details-bigimg p">
@@ -80,14 +74,7 @@
                         <a href="javascript:;" class="next-right next-btn fl">></a></div>
                     <!-- 商品小图介绍 end ]]-->
                 </div>
-                <!-- 收藏商品 start [[-->
-                <!--<div class="collect">
-                    <a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-null"></i>
-                        <span class="collect-text">收藏商品</span>
-                        <em class="J_FavCount">({$goods['collect_sum']+$goods['virtual_collect_sum']})</em>
-                    </a>
-                    &lt;!&ndash;<a href="javascript:void(0);" id="collectLink"><i class="collect-ico collect-ico-ok"></i>已收藏<em class="J_FavCount">(20)</em></a>&ndash;&gt;
-                </div>-->
+
                 <!-- 分享商品 -->
                 <div class="share">
                     <div class="jiathis_style">
@@ -188,9 +175,15 @@
                         </ul>
                     </div>
                 </foreach>
-                <script>
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>市场价：</span></li>
+                        <li class="lawir">
+                            <span class="service"><span><em>￥</em><span>{$goods.shop_price}元</span></span></span>
+                        </li>
+                    </ul>
+                </div>
 
-                </script>
                 <!-- 规格end ]]-->
                     <!--现货通用品数量计算-->
                     <div class="standard" style="padding: 13px 10px">
@@ -228,58 +221,10 @@
                                 </div>
                             </li>
                         </ul>
-                        <script src="__PUBLIC__/js/locationJson.js"></script>
-                        <script src="__STATIC__/js/location.js"></script>
                         <!-- 收货地址，物流运费 -end-->
                     </div>
                 </if>
-                <!--<notempty name="$goods['weight']">
-                <div class="standard p">
-                    <ul>
-                        <li class="jaj"><span>预估净重：</span></li>
-                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>克
-                        </li>
-                    </ul>
-                </div>
-                </notempty>
-                <notempty name="$goods['volume']">
-                    <div class="standard p">
-                        <ul>
-                            <li class="jaj"><span>预估体积：</span></li>
-                            <li class="lawir"><span id="goods_volume" class="service">{$goods.volume}</span>立方
-                            </li>
-                        </ul>
-                    </div>
-                </notempty>
 
-                <div class="presale-time" style="display: none">
-                    <div class="pre-icon fl">
-                        <span class="ys"><i class="detai-ico"></i><span id="activity_type">抢购活动</span></span>
-                    </div>
-                    <div class="pre-icon fr">
-                        <span class="per" style="display: none"><i class="detai-ico"></i><em id="order_user_num">0</em>人预定</span>
-                        <span class="ti" id="activity_time"><i class="detai-ico"></i>剩余时间：<span
-                                id="overTime"></span></span>
-                        <span class="ti" id="prom_detail"></span>
-                    </div>
-                </div>-->
-                <!--<div class="standard p">
-                <ul>
-                    <li class="jaj"><span>商品金额：</span></li>
-                    <li class="lawir">
-                        <span class="service though-line"><span><em>￥</em><span id="market_price">{$goods.market_price}</span></span></span>
-                    </li>
-                </ul>
-                </div>
-                    &lt;!&ndash;现货通用的价格显示&ndash;&gt;
-                    <div class="standard p">
-                        <ul>
-                            <li class="jaj"><span>限时促销：</span></li>
-                            <li class="lawir">
-                                <span class="service"><span><span id="goods_price">{$goods.market_price}</span></span></span>
-                            </li>
-                        </ul>
-                    </div>-->
 
                 <div class="shop-price-cou p" style="display: none">
                     <div class="shop-price-le">
@@ -297,30 +242,8 @@
                             </ul>
                         </if>
                     </div>
-                    <!--<div class="shop-cou-ri">
-                        <div class="allcomm"><p>累计评价</p>
-                            <p class="f_blue">{$goods['comment_count']}</p></div>
-                        <div class="br1"></div>
-                        <div class="allcomm"><p>累计销量</p>
-                            <p class="f_blue">{$goods['sales_sum']+$goods['virtual_sales_sum']}</p></div>
-                    </div>-->
                 </div>
 
-                <!--<div class="standard p">
-                    <ul>
-                        <li class="jaj"><span>服&nbsp;&nbsp;务：</span></li>
-                        <li class="lawir"><span class="service">由<a>{$tpshop_config['shop_info_store_name']}</a>发货并提供售后服务</span>
-                        </li>
-                    </ul>
-                </div>-->
-                <!--<notempty name="$goods['brand']">
-                    <div class="standard p">
-                        <ul>
-                            <li class="jaj"><span>品&nbsp;&nbsp;牌：</span></li>
-                            <li class="lawir"><span class="service">{$goods['brand']['name']}</span></li>
-                        </ul>
-                    </div>
-                </notempty>-->
                 <!--is_virtual是否为虚拟商品 1是，0否   exchange_integral 瓜豆兑换：0不参与瓜豆兑换，瓜豆和现金的兑换比例见后台配置-->
                 <if condition="$goods['is_virtual'] eq 0 and $goods['exchange_integral'] gt 0">
                     <div class="standard p" style="padding-top: 10px">
@@ -381,11 +304,11 @@
                         <a id="join_cart" class="addcar buy_button" href="javascript:;" style="display: none"><i class="sk"></i>加入购物车</a>
                     </div>
                 </div>
-                <div class="standard p">
+                <!--<div class="standard p">
                     <div class="standard p">
                         <img width="760" src="__STATIC__/images/goodinfo_15.png" alt="">
                     </div>
-                </div>
+                </div>-->
             </div>
         </form>
     </div>

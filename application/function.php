@@ -455,7 +455,8 @@ function check_mobile($mobile){
  * @return bool
  */
 function check_telephone($mobile){
-    if(preg_match('/^([0-9]{3,4}-)?[0-9]{7,8}$/',$mobile))
+    //if(preg_match('/^([0-9]{3,4}-)?[0-9]{7,8}$/',$mobile))  //可以不带区号
+    if(preg_match('/^[0-9]{3,4}-[0-9]{7,8}|[0-9]{3,4}[0-9]{7,8}$/',$mobile))
         return true;
     return false;
 }

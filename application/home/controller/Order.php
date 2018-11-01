@@ -46,7 +46,7 @@ class Order extends Base {
             $this->assign('user_message_count', $user_message_count);
         }else{
             redirect()->remember();
-            $this->redirect('User/login');
+            $this->redirect('/login.html');
         }
         //用户中心面包屑导航
         $navigate_user = navigate_user();

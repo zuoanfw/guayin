@@ -17,8 +17,10 @@ ol, ul{list-style:none outside none;padding:0;margin:0;}
 .store-selector dd{padding-bottom:5px;line-height:18px}
 .store-selector a:link,.store-selector a:visited{color:#005aa0}
 .store-selector a:hover,.store-selector a:active{background:#005aa0;color:#fff}
-.store-selector .text{float:left;+float:none;_float:left;position:relative;top:0px;left: 0px;z-index:2;height:30px;border:0;color: #fff;padding:0 20px 0 4px;overflow:hidden}
+.store-selector .text{float:left;+float:none;_float:left;position:relative;top:0px;left: 0px;z-index:2;height:30px;border:0;padding:0 20px 0 4px;overflow:hidden}
 .store-selector .text b{display:block;position:absolute;top:0;right:0;overflow:hidden;width:17px;height:24px;background:url(../images/btn20121210.png) 0 4px no-repeat}
+.store-selector .headtext{float:left;+float:none;_float:left;position:relative;top:1px;left: 0px;z-index:2;height:30px;border:0;padding:0 20px 0 4px;overflow:hidden}
+.store-selector .headtext b{display:block;position:absolute;top:0;right:0;overflow:hidden;width:17px;height:24px;background:url(../images/btn20121210.png) 0 4px no-repeat}
 .store-selector .close{display:none;position:absolute;z-index:2000;top:19px;left:520px;cursor:pointer;width:17px;height:17px;background:url(../images/20120418.png) no-repeat -40px 0}
 .store-selector a:hover{background:#B79567;color:#fff;cursor:pointer}
 .store-selector.hover .text{border-bottom:0}
@@ -31,7 +33,11 @@ ol, ul{list-style:none outside none;padding:0;margin:0;}
 .store-selector .content{display:none;position:absolute;top:23px;left:-45px;border:1px solid #cecbce;width:550px;padding:15px;background:#fff;-moz-box-shadow:0 0 5px #ddd;-webkit-box-shadow:0 0 5px #ddd;box-shadow:0 0 5px #ddd}
 .store-selector .content select{float:left;width:120px;border:1px solid #cecbce;margin-right:15px}
 .store-selector .content .select3{margin-right:0}
+.store-selector .headcontent{display:none;position:absolute;top:23px;left:-45px;border:1px solid #cecbce;width:550px;padding:15px;background:#fff;-moz-box-shadow:0 0 5px #ddd;-webkit-box-shadow:0 0 5px #ddd;box-shadow:0 0 5px #ddd}
+.store-selector .headcontent select{float:left;width:120px;border:1px solid #cecbce;margin-right:15px}
+.store-selector .headcontent .select3{margin-right:0}
 .store-selector.hover .content,.store-selector.hover .close{display:block}
+.store-selector.hover .headcontent,.store-selector.hover .close{display:block}
 .JD-stock{position:relative;margin-bottom:0}
 .JD-stock .tab{width:100%;height:25px;float:left;border-bottom:2px solid #edd28b;overflow:visible;*overflow:hidden}
 .JD-stock .tab li{float:left;clear:none;height:23px;padding:1px 1px 0;border:1px solid #ddd;border-bottom:0;margin-right:3px;background-color:#fff;line-height:22px;text-decoration:none}
