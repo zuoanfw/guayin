@@ -15,7 +15,7 @@ class Goods extends Validate
         'goods_sn' => 'unique:goods|max:20',
         //'shop_price' => ['require', 'regex' => '([1-9]\d*(\.\d*[1-9])?)|(0\.\d*[0-9])'],
         'shop_price' => 'require',
-        'market_price' => 'require|regex:\d{1,10}(\.\d{1,2})?$|checkMarketPrice',
+        //'market_price' => 'require|regex:\d{1,10}(\.\d{1,2})?$|checkMarketPrice',
         'weight' => 'regex:\d{1,10}(\.\d{1,2})?$',
         'give_integral' => 'regex:^\d+$',
         'is_virtual' => 'checkVirtualIndate',
@@ -58,11 +58,11 @@ class Goods extends Validate
      */
     protected function checkItems($value, $rule, $data)
     {
-        foreach($data['item'] as $itemKey => $item){
+        /*foreach($data['item'] as $itemKey => $item){
             if($item['price'] > $item['market_price']){
                 return '规格市场价不得小于购买价';
             }
-        }
+        }*/
         return true;
     }
 
