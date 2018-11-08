@@ -1,10 +1,4 @@
-/*
- *  Name  Details Public
- *  Copyright frontEnd
- *  Description  @tongao.tong
- *  Date 2014-11-24 15:30
- *  upDate 2014-12-24
- */
+
 /* detail.base 样式模块 */
 /* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
 html {
@@ -495,9 +489,9 @@ a.blue {
   width: 122px;
   background-position: 0px -326px;
 }
-.ui-button-122:hover {
+/*.ui-button-122:hover {
   background-position: 0px -355px;
-}
+}*/
 .ui-button-90 {
   background-position: -123px -326px;
   width: 90px;

@@ -13,6 +13,7 @@
  */
 namespace app\home\controller;
 use think\Db;
+use think\Page;
 
 class Article extends Base {
     
@@ -27,8 +28,13 @@ class Article extends Base {
      * 文章内列表页
      */
     public function articleList(){
-        $article_cat = M('ArticleCat')->where("parent_id  = 0")->select();
-        $this->assign('article_cat',$article_cat);
+        //$article_cat = M('ArticleCat')->where("parent_id  = 0")->select();
+        $cat_id = I('cat_id/d',2);
+        $count = Db::name('article')->where("cat_id", $cat_id)->count();
+        $page = new Page($count, 20);
+        $article = Db::name('article')->where("cat_id", $cat_id)->order('article_id desc')->limit($page->firstRow . ',' . $page->listRows)->select();
+        $this->assign('article',$article);
+        $this->assign('page', $page);// 赋值分页输出
         return $this->fetch();
     }    
     /**
@@ -39,6 +45,7 @@ class Article extends Base {
     	$article = Db::name('article')->where("article_id", $article_id)->find();
     	if($article){
     		$parent = Db::name('article_cat')->where("cat_id",$article['cat_id'])->find();
+            $this->assign('cat_id',$article['cat_id']);
     		$this->assign('cat_name',$parent['cat_name']);
     		$this->assign('article',$article);
     	}

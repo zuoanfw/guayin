@@ -790,6 +790,7 @@ class GoodsLogic extends Model
                     'key' => $k,
                     'key_name' => $v['key_name'],
                     'goods_num' => $v['goods_num'],
+                    'unit' => $v['unit'],
                     'price' => $v['price'],
                     'goods_send_date' => $v['goods_send_date'],
                     'goods_weight' => $v['goods_weight'],

@@ -2,7 +2,11 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>商品列表</title>
+    <if condition="$cat_id eq 3">
+	<title>现货通用品</title>
+    <else/>
+        <title>爆品快购</title>
+    </if>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 	<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
 	<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -15,15 +19,12 @@
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/goodslist.css" />
 <div class="shop-list-tour ma-to-20 p">
 	<div class="w1224">
-        <div class="brand_tap">
+        <!--<div class="brand_tap">
             <ul>
-                <!--<foreach name="cateArr" item="v" key="k">
-                    <li <if condition="$cat_id eq $v['id']"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>$v['id']))}">{$v[name]}</a></li>
-                </foreach>-->
                 <li <if condition="$cat_id eq 8"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>8))}">爆品印品</a></li>
                 <li <if condition="$cat_id eq 3"> class='selected'</if> > <a href="{:U('Home/Goods/fastBuy',array('id'=>3))}">现货通用品</a></li>
             </ul>
-        </div>
+        </div>-->
 		<div class="stsho fl">
 			<div class="shop-list-splb p">
 				<ul>
@@ -67,7 +68,7 @@
                                         <if condition="$v['goods_num']['0'] neq ''">
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v['shop_price']['0']*$v['goods_num']['0']}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]*$v['goods_num']['0']}</em></span>
-                                            ({$v['goods_num']['0']}张，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/张)
+                                            ({$v['goods_num']['0']}{$v['unit']['0']|default='张'}，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/{$v['unit']['0']|default='张'})
                                             <else/>
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]}</em></span>

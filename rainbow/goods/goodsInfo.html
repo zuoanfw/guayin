@@ -38,7 +38,7 @@
             <foreach name="navigate_goods" key="k" item="v">
                 <if condition="$goods.cat_id eq '3'">
                     <!--现货通用品数量计算-->
-                    <a href="{:U('/Home/Goods/fastBuy',array('id'=>$k))}">{$v}</a>
+                    <a href="/xianhuo.html">{$v}</a>
                  <else/>
                     <a href="/yinshuas/{$k}.html">{$v}</a>
                  </if>
@@ -67,7 +67,7 @@
                     <i class="video-play"></i>
                     <!-- 商品大图介绍 start [[-->
                     <div class="product-img jqzoom">
-                        <img id="zoomimg" src="{$goods.goods_id|goods_thum_images=400,400}"
+                        <img id="zoomimg" src="{$goods.goods_id|goods_thum_images=800,800}"
                              jqimg="{$goods.goods_id|goods_thum_images=800,800}">
                     </div>
                     <!-- 商品大图介绍 end ]]-->
@@ -79,7 +79,7 @@
                                 <volist name="goods_images_list" id="img">
                                     <li class="small-pic-li <if condition='$i eq 0'>active</if>">
                                     <a href="javascript:;"><img src="{$img|get_sub_images=$img[goods_id],60,60}"
-                                                                data-img="{$img|get_sub_images=$img[goods_id],400,400}"
+                                                                data-img="{$img|get_sub_images=$img[goods_id],800,800}"
                                                                 data-big="{$img|get_sub_images=$img[goods_id],800,800}">
                                         <i></i></a>
                                     </li>
@@ -172,15 +172,18 @@
                 <div class="goods_attr">
 
                         <ul>
-                            <li><span style="padding-right: 20px">使用场景</span><span>{$goods.goods_use_scene}</span></li>
-                            <li><span style="padding-right: 20px">推荐指数</span><span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
-                            <li><span style="padding-right: 20px">推荐理由</span><span>{$goods.goods_rec_reason}</span></li>
+                            <li style="float:left;clear: both;"><span style="padding-right: 20px;width: 62px;display: inline-block;float: left;">使用场景</span>
+                                <span style="width: 700px;display: inline-block;float: left;">{$goods.goods_use_scene}</span></li>
+                            <li><span style="padding-right: 20px">推荐指数</span>
+                                <span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
+                            <li  style="float:left;clear: both;"><span style="padding-right: 20px;width: 62px;display: inline-block;float: left;">推荐理由</span>
+                                <span  style="width: 700px;display: inline-block;float: left;">{$goods.goods_rec_reason}</span></li>
                         </ul>
                 </div>
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>产品规格</span></li>
-                        <li><span class="service">{$goods['goods_spec']}</span></li>
+                        <li style="width: 670px;"><span class="service">{$goods['goods_spec']}</span></li>
                     </ul>
                 </div>
                 <div class="standard p"  style="padding-bottom: 15px;border-bottom:1px solid #ddd;">
@@ -226,7 +229,7 @@
                     <input id="num_key" type="hidden" name="num_key" value="0">
                     <div class="spec_goods_price_div standard p">
                         <ul>
-                            <li class="jaj"><span>数量(张)</span></li>
+                            <li class="jaj"><span>数量({$goods['unit']|default="张"})</span></li>
                             <li class="lawir colo">
                                 <foreach name="goods_num" item="n" key="m">
                                     <a val="{$m}" <if condition="$m eq '0'"> class="goods_num_item red"<else/>class="goods_num_item"</if>>

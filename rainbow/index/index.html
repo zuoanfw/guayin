@@ -124,7 +124,7 @@
 </div>
 <div class="floor  w1224">
 	<div class="floor-top">
-		<h3 class="floor-title">热销推荐</h3>
+		<h3 class="floor-title">热销印品</h3>
 
 	</div>
 	<div class="floor-main">
@@ -137,8 +137,32 @@
 			</adv>
 		</div>
 		<div class="floor-goods-list">
-			<foreach name="index_first_goods" item="g" key="gk">
+			<foreach name="index_first_goods1" item="g" key="gk">
 				<a class="floor-goods-item" href="/yinshua/{$g[goods_id]}.html">
+
+					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
+					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>
+					<div class="googs-title ellipsis-1">{$g[goods_name]|getSubstr=0,50}</div>
+				</a>
+			</foreach>
+		</div>
+	</div>
+	<div class="floor-top">
+		<h3 class="floor-title">精品包装盒</h3>
+
+	</div>
+	<div class="floor-main">
+		<div class="floor-brand">
+			<adv item="vl" pid="10" limit="1">
+				<a class="brand-big" href="{$vl[ad_link]}"><img class="w-100" src="{$vl[ad_code]}" alt="{$vl[title]}" /></a>
+			</adv>
+			<adv item="vs" pid="20" limit="1">
+				<a class="brand-samll" href="{$vs[ad_link]}"><img class="w-100" src="{$vs[ad_code]}" alt="{$vs[title]}" /></a>
+			</adv>
+		</div>
+		<div class="floor-goods-list">
+			<foreach name="index_first_goods2" item="g" key="gk">
+				<a class="floor-goods-item" href="/baozhuang/{$g[goods_id]}.html">
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
 					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>

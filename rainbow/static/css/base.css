@@ -783,6 +783,7 @@ user-select:none;
     line-height: 30px;
     font-size: 18px;
     color: #fff;
+    padding-bottom: 12px;
 }
 .left-help-list dl>dd{
     display: block;
@@ -794,8 +795,11 @@ user-select:none;
     color: #fff;
     overflow: hidden;
 }
-.left-help-list dl a:hover{
-    /*color: #ff8a5c;*/
+.left-help-list dl dd a:hover{
+    color: #ff8a5c;
+    text-decoration: underline;
+
+
 }
 /* 友情链接 */
 .friendship-links{

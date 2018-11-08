@@ -2982,6 +2982,7 @@ ul.main_shop li img {
 	background-color:#f4f4f4;
 	padding:10px;
 	margin: 10px 0px;
+	float: left;
 }
 .detail-ggsl .goods_attr ul li{
 	padding: 3px 0px;

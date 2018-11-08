@@ -3,7 +3,6 @@
  * tpshop
  * ============================================================================
  * * 版权所有 2015-2027 guaguayin，并保留所有权利。
- * 网站地址: http://www.tpshop.cn
  * ----------------------------------------------------------------------------
  * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
  * 不允许对程序代码以任何形式任何目的的再发布。
@@ -26,61 +25,31 @@ class Index extends Base {
         /*if(isMobile()){
             redirect(U('Mobile/Index/index'));
         }*/
-        $hot_goods = $hot_cate = $cateList = $recommend_goods = array();
-        $sql = "select a.goods_name,a.goods_id,a.shop_price,a.goods_remark,a.cat_id,b.parent_id_path,b.name from ".C('database.prefix')."goods as a left join ";
-        $sql .= C('database.prefix')."goods_category as b on a.cat_id=b.id where a.is_hot=1 and a.is_on_sale=1 order by a.sort";//二级分类下热卖商品       
-        $index_hot_goods = S('index_hot_goods');
-        if(empty($index_hot_goods))
+        //热销爆品一个楼层，定制印品一个楼层，包装盒1个楼层，现货一个楼层，
+        $cat_id_arr = getCatGrandson('8'); //热销爆品  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+        $index_hot_goods1 = S('index_hot_goods1');
+        if(empty($index_hot_goods1))
         {
-            $index_hot_goods = Db::query($sql);//首页热卖商品
-            S('index_hot_goods',$index_hot_goods,TPSHOP_CACHE_TIME);
+            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
+            $index_hot_goods1 = Db::name('goods')->where($goods_where)->cache(true)->select();
+            S('index_hot_goods1',$index_hot_goods1,TPSHOP_CACHE_TIME);
         }
-       
-        if($index_hot_goods){
-              /*foreach($index_hot_goods as $val){
-                  $cat_path = explode('_', $val['parent_id_path']);
-                  $hot_goods[$cat_path[1]][] = $val;
-              }*/
-              $this->assign("index_first_goods",$index_hot_goods);
-        }
-        
-        $sql2 = "select a.goods_name,a.goods_id,a.shop_price,a.market_price,a.cat_id,b.parent_id_path,b.name from ".C('database.prefix')."goods as a left join ";
-        $sql2 .= C('database.prefix')."goods_category as b on a.cat_id=b.id where a.is_recommend=1 and a.is_on_sale=1 order by a.sort";//二级分类下热卖商品
-        $index_recommend_goods = S('index_recommend_goods');
-        if(empty($index_recommend_goods))
-        {
-        	$index_recommend_goods = Db::query($sql2);//首页推荐商品
-        	S('index_recommend_goods',$index_recommend_goods,TPSHOP_CACHE_TIME);
-        }
-         
-        if($index_recommend_goods){
-        	/*foreach($index_recommend_goods as $va){
-        		$cat_path2 = explode('_', $va['parent_id_path']);
-        		$recommend_goods[$cat_path2[1]][] = $va;
-        	}*/
-            $this->assign("index_second_goods",$index_recommend_goods);
+        if($index_hot_goods1){
+            $this->assign("index_first_goods1",$index_hot_goods1);
         }
 
-        /*$hot_category = M('goods_category')->where("is_hot=1 and level=3 and is_show=1")->cache(true,TPSHOP_CACHE_TIME)->select();//热门三级分类
-        foreach ($hot_category as $v){
-        	$cat_path = explode('_', $v['parent_id_path']);
-        	$hot_cate[$cat_path[1]][] = $v;
-        }*/
-        //halt($this->cateTrre);
-        foreach ($this->cateTrre as $k=>$v){
-            /*if($v['is_hot']==1){
-        		$v['hot_goods'] = empty($hot_goods[$k]) ? '' : $hot_goods[$k];
-        		$v['recommend_goods'] = empty($recommend_goods[$k]) ? '' : $recommend_goods[$k];
-        		$v['hot_cate'] = empty($hot_cate[$k]) ? array() : $hot_cate[$k];
-        		$cateList[]=$goods_category_tree[] = $v;
-        	}else{
-                $goods_category_tree[] = $v;
-            }*/
-            $goods_category_tree[] = $v;
+        $cat_id_arr = getCatGrandson('4'); //包装盒  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+        $index_hot_goods2 = S('index_hot_goods2');
+        if(empty($index_hot_goods2))
+        {
+            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
+            $index_hot_goods2 = Db::name('goods')->where($goods_where)->cache(true)->select();
+            S('index_hot_goods2',$index_hot_goods2,TPSHOP_CACHE_TIME);
         }
-        //halt($goods_category_tree);
-        $this->assign('cateList',$cateList);
-        $this->assign('goods_category_tree',$goods_category_tree);
+        if($index_hot_goods2){
+            $this->assign("index_first_goods2",$index_hot_goods2);
+        }
+
         return $this->fetch();
     }
  

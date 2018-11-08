@@ -88,7 +88,6 @@
 /* 默认不显示下划线，保持页面简洁 */
 .pageContent a,ins {
     text-decoration:none;
-	font-size:12px; 
 	color:#3c3c3c;
 }
 /* 去除 ie6 & ie7 焦点点状线 */
@@ -149,9 +148,7 @@
 .pageContent .hc-warp .hc-crumbs a {
     display: inline-block;
     padding: 0px 8px 0px 6px;
-    font-family: "宋体";
     color: #3c3c3c;
-    font-size: 12px;
 }
 .pageContent .hc-warp .hc-crumbs a.p-fb {
     font-weight: bold;
@@ -159,23 +156,27 @@
 }
 .pageContent .hc-warp .hc-crumbs a:hover {
     text-decoration: underline;
-    color: #F22E00;
+    /*color: #F22E00;*/
+    cursor: pointer;
+}
+.article_list li a:hover{
+    text-decoration: underline;
     cursor: pointer;
 }
 .pageContent .hc-warp .hc-crumbs .p-colF22E00 {
     color: #F22E00;
 }
 /* 帮助中心左侧栏目样式*/
-.pageContent .hc-warp .hc-column{ width:188px; overflow:hidden; border:1px #e9eaec solid; float:left;}
+.pageContent .hc-warp .hc-column{ width:218px; overflow:hidden; border:1px #e9eaec solid; float:left;}
 .pageContent .hc-warp .hc-column .hc-column-box h2{ height:34px; padding-left:10px; line-height:34px; font-weight:bold; font-size:14px; background:#f4f4f4; color:#3c3c3c;}
 .pageContent .hc-warp .hc-column .hc-column-box ul{ padding:6px 10px 5px 20px;}
-.pageContent .hc-warp .hc-column .hc-column-box ul li{ display:inline; height:22px; line-height:22px; overflow:hidden;}
-.pageContent .hc-warp .hc-column .hc-column-box ul li a{ display:block; font-size:12px; color:#3c3c3c; cursor:pointer;}
-.pageContent .hc-warp .hc-column .hc-column-box ul li a:hover{ color:#0066cc; text-decoration:underline;}
-.pageContent .hc-warp .hc-column .hc-column-box ul li a.hover{ color:#0066cc; text-decoration:underline;}
+.pageContent .hc-warp .hc-column .hc-column-box ul li{ display:inline; height:28px; line-height:28px; overflow:hidden;}
+.pageContent .hc-warp .hc-column .hc-column-box ul li a{ display:block; color:#3c3c3c; cursor:pointer;}
+.pageContent .hc-warp .hc-column .hc-column-box ul li a:hover{ /*color:#0066cc;*/ text-decoration:underline;}
+.pageContent .hc-warp .hc-column .hc-column-box ul li a.hover{ /*color:#0066cc;*/ text-decoration:underline;}
 
 /* 帮助中心右侧总容器*/
-.pageContent .hc-warp .hc-content{ width:980px; overflow:hidden; float:right;}
+.pageContent .hc-warp .hc-content{ width:950px; overflow:hidden; float:right;}
 /* 帮助中心右侧有红色左边框的div样式*/
 .pageContent .hc-warp .hc-content .hc-redBlDiv{ border:1px #e9eaec solid; margin-bottom:25px;}
 .pageContent .hc-warp .hc-content .hc-redBlDiv .redBlTitle{ height:34px; border-bottom:1px #e9eaec solid; line-height:34px;}

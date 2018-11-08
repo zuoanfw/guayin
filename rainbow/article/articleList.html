@@ -6,8 +6,9 @@
     <meta http-equiv="content-language" content="zh-cn"/>
     <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
     <meta http-equiv="Cache-control" content="public" max-age="no-cache"/>
-    <title>{$article.title}-{$tpshop_config['shop_info_store_title']}</title>
-    <meta name="description" content="{$article.description}"/>
+    <title>列表-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
     <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
     <script src="__PUBLIC__/js/global.js"></script>
@@ -22,8 +23,7 @@
 <!-- <div style="clear: both; height:45px"></div> -->
 <div id="pageContent" class="pageContent p">
     <div class="hc-warp" id="page">
-        <div class="hc-crumbs"><a class="p-fb" href="" target="_blank">帮助中心</a>&gt;
-            <a href="{:U('/Home/Article/articleList',array('cat_id'=>$cat_id))}">{$cat_name}</a></div>
+        <div class="hc-crumbs"><a class="p-fb" href="" target="_blank">帮助中心</a></div>
         <div class="hc-column">
             <tpshop sql="select * from `__PREFIX__article_cat` where cat_type=1 and show_in_nav = 1 order by sort_order" key="k" item='v'>
                 <div class="hc-column-box">
@@ -42,15 +42,14 @@
         </div>
         <!--可编辑区域开始-->
         <div id="content"> <!--可编辑区域开始-->
-            <div style="width: 990px; overflow: hidden; float: right;">
-                <div style="border: 1px solid rgb(233, 234, 236); margin-bottom: 25px;">
-                    <h2 style="height: 34px; line-height: 34px; border-bottom-color: rgb(233, 234, 236); border-bottom-width: 1px; border-bottom-style: solid;"><span
-                            style="color: rgb(60, 60, 60); padding-top: 4px; padding-bottom: 4px; padding-left: 10px; font-size: 14px; font-weight: bold; border-left-color: rgb(242, 46, 0); border-left-width: 3px; border-left-style: solid;">{$article.title}</span>
-                    </h2>
-                    <img src="{$article.thumb}"/>
-                    <div style="padding: 20px 30px 0px; color: rgb(60, 60, 60);">
-                        {$article.content|htmlspecialchars_decode}
-                    </div>
+            <div style="width: 980px; overflow: hidden; float: right;">
+                <ul class="article_list">
+                    <foreach name="article" item="v" key="k">
+                        <li style="padding-bottom: 5px;"><a href="/article/{$v[article_id]}.html">{$v['title']}</a></li>
+                    </foreach>
+                </ul>
+                <div class="page p">
+                    {$page->show()}
                 </div>
             </div>
             <!--可编辑区域结束-->

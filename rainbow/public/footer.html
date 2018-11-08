@@ -6,7 +6,7 @@
 				<tpshop sql="select * from `__PREFIX__article_cat` where cat_id < 4  order by sort_order asc" key="k" item='v'>
 					<dl>
 						<dt>{$v[cat_name]}</dt>
-						<tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id]  and is_open=1 limit 4" key="k2" item='v2'>
+						<tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id]  and is_open=1 order by article_id desc limit 4" key="k2" item='v2'>
 						<dd><a href="/article/{$v2[article_id]}.html">{$v2[title]}</a></dd>
 						</tpshop>
 					</dl>
@@ -33,8 +33,9 @@
                 <a href="{$vv[url]}" <if condition="$vv[is_new] eq 1"> target="_blank" </if> >{$vv[name]}</a><span>|</span>
             </tpshop>
             <a target="_blank" href="/about.html">公司简介</a><span>|</span>
-            <a target="_blank" href="/contact.html">联系我们</a><span>|</span>
-			<a target="_blank" href="/job.html">诚聘英才</a>
+            <a target="_blank" href="/article/134.html">联系我们</a><span>|</span>
+			<a target="_blank" href="/article/135.html">诚聘英才</a><span>|</span>
+			<a target="_blank" href="/jiameng.html">加盟我们</a>
         </div>
         <p class="mod_copyright_auth">
 			<img width="80" height="32" src="__STATIC__/images/foot1.png"><img width="80" height="32" src="__STATIC__/images/foot2.png">
@@ -42,7 +43,7 @@
 			<img width="31" height="32" src="__STATIC__/images/foot4.png">
 			<img width="80" height="32" src="__STATIC__/images/foot5.png"><img width="38" height="32" src="__STATIC__/images/foot6.png">
         </p>
-		<p>Copyright © 2016-2025 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
+		<p>Copyright © 2016-2019 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
 	</div>
 </div>
 <style>
