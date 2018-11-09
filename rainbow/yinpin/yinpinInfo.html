@@ -30,10 +30,10 @@
         display: inline-block;
         padding: 1px 2px;
         border: 1px solid #dadada;
-        margin: 0 15px 1px 0;
+        margin: 0 15px 6px 0;
         cursor: pointer;
         text-align: center;
-        width: 90px;
+        width: auto;
         padding: 2px 10px;
     }
     .store-selector .text {
@@ -215,7 +215,7 @@
                         <img src="__STATIC__/images/goodinfo_11.jpg" alt="">
                         <span class="goods_price">
                            <span id="goods_price_all"><em>￥</em>{$goods_price['0']*$goods_num['0']}</span>
-                           <span>（平均<span id="goods_price">{$goods_price['0']}</span>元/张）</span>
+                           <span>（平均<span id="goods_price">{$goods_price['0']}</span>元/{$goods['unit']|default="张"}）</span>
                         </span>
                     </div>
                 <div class="shop-price-cou p" style="display: none">
