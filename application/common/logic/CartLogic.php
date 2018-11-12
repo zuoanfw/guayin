@@ -933,7 +933,7 @@ class CartLogic extends Model
      */
     public function getCartPriceInfo($cartList = null)
     {
-        $total_fee = $goods_fee = $goods_num = 0;//初始化数据。商品总额/节约金额/商品总共数量
+        $total_fee = $goods_fee = $goods_num = $goods_type_num = 0;//初始化数据。商品总额/节约金额/商品总共数量
         if ($cartList) {
             foreach ($cartList as $cartKey => $cartItem) {
                 $total_fee += $cartItem['goods_fee'];
