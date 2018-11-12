@@ -624,11 +624,14 @@ class CartLogic extends Model
     {
         if ($this->user_id) {
             $goods_num = Db::name('cart')->where(['user_id' => $this->user_id])->sum('goods_num');
+            $goods_type_num = Db::name('cart')->where(['user_id' => $this->user_id])->count();
         } else {
             $goods_num = Db::name('cart')->where(['session_id' => $this->session_id])->sum('goods_num');
+            $goods_type_num = Db::name('cart')->where(['session_id' => $this->session_id])->count();
         }
         $goods_num = empty($goods_num) ? 0 : $goods_num;
         setcookie('cn', $goods_num, null, '/');
+        setcookie('ctn', $goods_type_num, null, '/');
         return $goods_num;
     }
 
@@ -897,14 +900,14 @@ class CartLogic extends Model
         $cartList = $Cart->where('id', 'IN', $cartSelectedId)->where($cartWhere)->select();
         $cartListArr = $cartList;
         //查出搭配购的商品
-        foreach ($cartList as $cartKey => $cartVal) {
-            if ($cartVal['prom_type'] == 7) {
+        /*foreach ($cartList as $cartKey => $cartVal) {
+            if ($cartVal['prom_type'] == 7) {  //0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠,7 搭配购
                 //xwy-2018-6-4,加入购物车改了主商品的combination_group_id为0 ，这里只能能拿id
 //                $arr= $Cart->where(['combination_group_id' => $cartVal['combination_group_id'], 'id' => ['neq', $cartVal['id']]])->select();
                 $arr = $Cart->where(['combination_group_id' => $cartVal['id'], 'id' => ['neq', $cartVal['id']]])->select();
                 $cartListArr = array_merge($cartListArr, $arr);
             }
-        }
+        }*/
         foreach ($cartListArr as $cartKey => $cartVal) {
             if ($cartListArr[$cartKey]['selected'] == 0) {
                 $Cart->where('id', 'IN', $cartSelectedId)->where($cartWhere)->update(['selected' => 1]);
@@ -937,8 +940,9 @@ class CartLogic extends Model
                 $goods_fee += $cartItem['cut_fee'];
                 $goods_num += $cartItem['goods_num'];
             }
+            $goods_type_num = count($cartList);
         }
-        return compact('total_fee', 'goods_fee', 'goods_num');
+        return compact('total_fee', 'goods_fee', 'goods_num','goods_type_num');
     }
 
     /**

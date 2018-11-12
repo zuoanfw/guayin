@@ -7,13 +7,13 @@ $(function(){
 })
 /****购物车 start****/
 function get_cart_num() {
-	var cart_cn = getCookie('cn');
+	var cart_cn = getCookie('ctn');
 	if (cart_cn == '') {
 		$.ajax({
 			type: "GET",
 			url: "/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
 			success: function (data) {
-				cart_cn = getCookie('cn');
+				cart_cn = getCookie('ctn');
 				$('#cart_quantity').html(cart_cn);
 				$('#tab_cart_num').html(cart_cn);
 			}
@@ -71,7 +71,7 @@ function ajax_side_cart_list() {
 		type: "GET",
 		url: "/index.php?m=Home&c=Cart&a=header_cart_list&template=ajax_side_cart_list",//+tab,
 		success: function (data) {
-			cart_cn = getCookie('cn');
+			cart_cn = getCookie('ctn');
 			$('#cart_quantity').html(cart_cn);
 			$('#tab_cart_num').html(cart_cn);
 			$('.shop-car-sider').html(data);
