@@ -236,7 +236,11 @@
                         <volist name="cartList" id="cart">
                             <tr>
                                 <td style="text-align: left;">
-                                    <a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$cart['goods_id']))}">
+                                    <if condition="$cart.cat_id == '15'">
+                                        <a target="_blank" href="/yinpin/{$cart[goods_id]}.html">
+                                        <else/>
+                                        <a target="_blank" href="/yinshua/{$cart[goods_id]}.html">
+                                    </if>
                                     <div style="float: left"><img width="102" src="{$cart.goods_id|goods_thum_images=102,102}" alt=""></div>
                                     <div style="float: left;padding-left: 10px;padding-top: 5px;">{$cart.goods_name}<br><br>
                                     <span style="color: #666">{$cart[spec_key_name]}</span></div>

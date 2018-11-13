@@ -157,6 +157,7 @@ class CartLogic extends Model
         $buyGoods = [
             'user_id' => $this->user_id,
             'session_id' => $this->session_id,
+            'cat_id' => $this->goods['cat_id'],
             'goods_id' => $this->goods['goods_id'],
             'goods_sn' => $this->goods['goods_sn'],
             'goods_name' => $this->goods['goods_name'],
@@ -671,13 +672,17 @@ class CartLogic extends Model
         $cartList = $cart->where($cartWhere)->select();  // 获取购物车商品
         $cartCheckAfterList = $this->checkCartList($cartList);
         foreach ($cartCheckAfterList as $cartKey =>$cart){
-            foreach ($cart['combination_cart'] as $k=>$v ){
+            /*foreach ($cart['combination_cart'] as $k=>$v ){
                 $cartCheckAfterList[$cartKey]['count_price'] = $cart['goods_price'] - $cart['member_goods_price'];
                 if($v['prom_type']==7){
                     $cartCheckAfterList[$cartKey]['count_price'] += $v['goods_price'] - $v['member_goods_price'];
                 }
-            }
+            }*/
+            $map['goods_id'] = $cart['goods_id'];
+            //echo $cart['goods_id'];exit;
+            $cartCheckAfterList[$cartKey]['cat_id'] =  Db::name('goods')->where($map)->value("cat_id");
         }
+        //var_dump($cartCheckAfterList);exit;
         return $cartCheckAfterList;
     }
 
@@ -696,7 +701,7 @@ class CartLogic extends Model
                 continue;
             }
             //活动商品的活动是否失效
-            if ($goodsPromFactory->checkPromType($cart['prom_type'])) {
+            /*if ($goodsPromFactory->checkPromType($cart['prom_type'])) {
                 if (!empty($cart['spec_key'])) {
                     $specGoodsPrice = SpecGoodsPrice::get(['goods_id' => $cart['goods_id'], 'key' => $cart['spec_key']], '', true);
                     if ($specGoodsPrice['prom_id'] != $cart['prom_id']) {
@@ -727,7 +732,7 @@ class CartLogic extends Model
                     unset($cartList[$cartKey]);
               }
 
-            }
+            }*/
         }
         $this->getUserCartGoodsNum();//删除后，需要重新设置cookie值
         return $cartList;

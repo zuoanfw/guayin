@@ -159,23 +159,21 @@
                                                         <img src="{$goods.goods_id|goods_thum_images=60,60}" width="60" height="60" />
                                                     </div>
                                                     <div class="shop_name">
-                                                        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
+                                                        <!--<a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
                                                             {$goods.goods_name}
-                                                        </a>
+                                                        </a>-->
+                                                        <if condition="$goods.cat_id == '15'">
+                                                            <a href="/yinpin/{$goods[goods_id]}.html">{$goods.goods_name}</a>
+                                                            <else/>
+                                                            <a href="/yinshua/{$goods[goods_id]}.html">{$goods.goods_name}</a>
+                                                        </if>
                                                         <p>{$goods.spec_key_name}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="sx2"><span>￥</span><span>{$goods.member_goods_price}</span></td>
                                             <td class="sx3">
-                                                <span>x{$goods.goods_num}</span>
-                                                <if condition="$goods[is_send] gt 1">
-                                                    <a class="applyafts">已申请售后</a>
-                            					<else />
-	                            					<if condition="($list[return_btn] eq 1) and ($list[shipping_status] eq 1)">
-	                                                    <a href="{:U('Home/Order/return_goods',array('rec_id'=>$goods['rec_id']))}" class="applyafts">申请售后</a>
-	                                                </if>
-                                                </if>
+                                                <span>{$goods.goods_num}</span>
                                             </td>
                                             <td class="sx3">
                                                 <!--印刷文件-->
@@ -224,16 +222,6 @@
                                                     </p>
                                                 </div>
                                             </td>
-                                            <!--<td class="sx6" rowspan="{$list.goods_list|count}">
-                                                <div class="rbac">
-                                                    <p class=""><a class="buy_order" data-order-id="{$list.order_id}" href="javascript:;">再次购买</a></p>
-                                                    <if condition="($list[comment_btn] eq 1) and ($goods[is_comment] eq 0)">
-                                                        <p class="inspect">
-                                                            <a href="{:U('Home/Order/comment',array('status'=>0))}">评价</a>
-                                                        </p>
-                                                    </if>
-                                                </div>
-                                            </td>-->
                                         </tr>
                                     <else />
                                         <tr class="conten_or">
@@ -243,22 +231,24 @@
                                                         <img src="{$goods.goods_id|goods_thum_images=60,60}" width="60" height="60"/>
                                                     </div>
                                                     <div class="shop_name">
-                                                        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
-                                                            {$goods.goods_name}
-                                                        </a>
+                                                        <if condition="$goods.cat_id == '15'">
+                                                            <a href="/yinpin/{$goods[goods_id]}.html">{$goods.goods_name}</a>
+                                                            <else/>
+                                                            <a href="/yinshua/{$goods[goods_id]}.html">{$goods.goods_name}</a>
+                                                        </if>
                                                         <p>{$goods.spec_key_name}</p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="sx2"><span>￥</span><span>{$goods.member_goods_price}</span></td>
                                             <td class="sx3">
-                                                <span>x{$goods.goods_num}</span>
-                                                <if condition="($list[return_btn] eq 1) and ($goods[is_send] lt 2)">
+                                                <span>{$goods.goods_num}</span>
+                                                <!--<if condition="($list[return_btn] eq 1) and ($goods[is_send] lt 2)">
                                                     <a href="{:U('Home/Order/return_goods',array('rec_id'=>$goods['rec_id']))}" class="applyafts">申请售后</a>
                                                 </if>
                                                 <if condition="$goods[is_send] gt 1">
                                                     <a class="applyafts">已申请售后</a>
-                                                </if>
+                                                </if>-->
                                             </td>
                                             <td class="sx3">
                                                 <!--印刷文件-->

@@ -127,67 +127,7 @@
                             <span class="green <if condition='$order[confirm_time] gt 0'> now </if>"><i class="las-flo"></i><em>交易成功</em></span>
                         </div>
                     </div>
-                    <!--<div class="liuchaar p">
-                        <ul>
-                            <li>
-                                <div class="aloinfe">
-                                    <i class="y-comp"></i>
-                                    <div class="ddfon">
-                                        <p>提交订单</p>
-                                        <p>{$order.add_time|date='Y-m-d H:i:s',###}</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><i class='y-comp91 <if condition="$order[pay_time] eq 0">top322</if>'></i></li>
-                            <li>
-                                <div class="aloinfe fime1">
-                                    <i class='y-comp2 <if condition="$order[pay_time] eq 0">lef64</if>'></i>
-                                    <div class="ddfon">
-                                        <p>付款成功</p>
-                                        <if condition="$order[pay_time] gt 0">
-                                            <p>{$order.pay_time|date='Y-m-d H:i:s',###}</p>
-                                        </if>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><i class='y-comp91 <if condition="($order.shop_id eq 0 and $order[shipping_time] eq 0) or $order[shop_order][is_write_off] eq 0">top322</if>'></i></li>
-                            <li>
-                                <div class="aloinfe fime2">
-                                    <i class='y-comp3 <if condition="($order.shop_id eq 0 and $order[shipping_time] eq 0) or $order[shop_order][is_write_off] eq 0">lef64</if>'></i>
-                                    <div class="ddfon">
-                                        <p><if condition="$order['shop_id'] eq 0">卖家发货<else/>等待自提</if></p>
-                                        <if condition="$order[shipping_time] gt 0">
-                                            <p>{$order.shipping_time|date='Y-m-d',###}</p>
-                                            <p>{$order.shipping_time|date='H:i:s',###}</p>
-                                        </if>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><i class='y-comp91 <if condition="($order.shop_id eq 0 and $order[shipping_time] eq 0)">top322</if>'></i></li>
-                            <if condition="$order['shop_id'] eq 0">
-                            <li>
-                                <div class="aloinfe fime3">
-                                    <i class='y-comp4 <if condition="($order.shop_id eq 0 and $order[shipping_time] eq 0)">lef64</if>'></i>
-                                    <div class="ddfon">
-                                        <p>等待收货</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li><i class='y-comp91 <if condition="$order[confirm_time] eq 0">top322</if>'></i></li>
-                            </if>
-                            <li>
-                                <div class="aloinfe fime4">
-                                    <i class='y-comp5 <if condition="$order[confirm_time] eq 0">lef64</if>'></i>
-                                    <div class="ddfon">
-                                        <p>完成</p>
-                                        <if condition="$order[confirm_time] gt 0">
-                                            <p>{$order.confirm_time|date='Y-m-d H:i:s',###}</p>
-                                        </if>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>-->
+
                     <div class="grouupanjf">
                         <if condition="$order.pay_status eq 0">
                             <a href="javascript:;">完成订单可能获得:<i class="y-comp7"></i>瓜豆&nbsp;&nbsp;<i class="y-comp8"></i>会员成长值&nbsp;&nbsp;<i class="y-comp7"></i>优惠券</a>
@@ -251,21 +191,7 @@
         </if>
         <div class="home-main ma-to-20">
             <div class="rshrinfmas">
-                <if condition="$order['shop_id'] gt 0">
-                   <div class="spff spff-two">
-                        <h2>自提信息</h2>
-                        <div class="psbaowq">
-                            <p><span class="fircl">地址：</span>
-                                <span class="lascl">{$order.full_address}</span>
-                            </p>
-                            <p><span class="fircl">提货时间：</span><span class="lascl">{$order['shop_order']['take_time']}</span></p>
-                            <p><span class="fircl">提货人：</span><span class="lascl">{$order.consignee}</span></p>
-                            <p><span class="fircl">手机号码：</span><span class="lascl">{$order.mobile}</span></p>
-                            <p><span class="fircl">提货码：</span><span class="lascl">{$order.shop_order.shop_order_id}</span></p>
-                            <p><span class="fircl">联系自提点：</span><span class="lascl">{$order.shop.phone}</span></p>
-                        </div>
-                    </div>
-                    <else/>
+
                     <div class="spff spff-two">
                         <h2>收货人信息</h2>
                         <div class="psbaowq">
@@ -276,7 +202,6 @@
                             <p><span class="fircl">手机号码：</span><span class="lascl">{$order.mobile}</span></p>
                         </div>
                     </div>
-                </if>
 
                 <div class="spff spff-two">
                     <h2>配送信息</h2>
@@ -371,10 +296,13 @@
                             <td class="sx1">
                                 <div class="shop-if-dif">
                                     <div class="shop-difimg">
-                                        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}"><img src="{$goods.goods_id|goods_thum_images=78,78}"></a>
+                                        <img src="{$goods.goods_id|goods_thum_images=78,78}">
                                     </div>
                                     <div class="cebigeze">
-                                        <div class="shop_name"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">{$goods.goods_name}</a></div>
+                                        <div class="shop_name">
+                                           {$goods.goods_name}
+
+                                        </div>
                                         <p class="mayxl">{$goods.spec_key_name}</p>
                                     </div>
                                 </div>

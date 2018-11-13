@@ -112,7 +112,11 @@
 									</div>
 									<div class="column t-goods">
 										<p class="msp_spname">
-											<a href="{:U('Home/Goods/goodsInfo',array('id'=>$cart[goods_id]))}">{$cart.goods_name}</a>
+											<if condition="$cart.cat_id == '15'">
+											<a href="/yinpin/{$cart[goods_id]}.html">{$cart.goods_name}</a>
+											<else/>
+												<a href="/yinshua/{$cart[goods_id]}.html">{$cart.goods_name}</a>
+											</if>
 										</p>
 									</div>
 								</div>
