@@ -19,13 +19,14 @@
                       <link rel="stylesheet" href="__STATIC__/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
                       <div class="sendaddress pr fl">
                           <span class="s_address">送货至：</span>
-                          <!-- <span>深圳<i class="share-a_a1"></i></span>-->
                           <span>
-                              <ul class="list1">
+                              <ul class="list1head">
                                   <li class="summary-stock though-line">
                                       <div class="dd" style="border-right:0px;width:200px;">
                                           <div class="store-selector add_cj_p">
-                                              <div class="text"><div></div><b></b></div>
+                                              <div class="headtext">
+												  <div></div><b></b>
+											  </div>
                                               <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
                                           </div>
                                       </div>
@@ -40,8 +41,8 @@
 			<ul class="top-ri-header fr clearfix">
 				<li>
 					<div class="fl nologin">
-						<a style="padding-right: 15px" href="{:U('Home/user/login')}">请登录</a>
-						<a  class="red" href="{:U('Home/user/reg')}">免费注册</a>
+						<a style="padding-right: 15px" href="/login.html">请登录</a>
+						<a  class="red" href="/register.html">免费注册</a>
 					</div>
 					<div class="fl islogin hide">
 						<a class="red userinfo" href="{:U('Home/user/info')}"></a>
@@ -50,7 +51,7 @@
 				</li>
 				<li><a target="_blank" href="{:U('Home/Order/order_list')}">我的订单</a></li>
 				<li><a target="_blank" class="shop_cart" href="{:U('Home/Cart/index')}">购物车<em class="shop-nums red" id="cart_quantity"></em>件</a></li>
-				<li><a target="_blank" href="{:U('Home/Index/feedback')}">反馈意见</a></li>
+				<li><a target="_blank" href="/feedback.html">反馈意见</a></li>
 
 			</ul>
 		</div>

@@ -18,6 +18,7 @@ namespace app\common\logic;
 use app\common\model\FreightConfig;
 use app\common\model\FreightRegion;
 use app\common\model\FreightTemplate;
+use app\common\model\SpecGoodsPrice;
 use app\common\model\Goods;
 use app\common\model\Store;
 use app\common\util\TpshopException;
@@ -35,6 +36,7 @@ class FreightLogic extends Model
     protected $goodsNum;//件数
     private $freightTemplate;
     private $freight = 0;
+    private $specGoodsPrice;//单个商品对应的规格，当有规格到时候去规格对应的重量
 
 
     /**
@@ -65,6 +67,19 @@ class FreightLogic extends Model
     {
         $this->goodsNum = $goodsNum;
     }
+    /**
+     * 通过item_id包含一个商品规格模型
+     * @param $item_id
+     */
+    public function setSpecGoodsPriceById($item_id)
+    {
+        if ($item_id > 0) {
+            $specGoodsPriceModel = new SpecGoodsPrice();
+            $this->specGoodsPrice = $specGoodsPriceModel::get($item_id, '', 10);
+        }else{
+            $this->specGoodsPrice = null;
+        }
+    }
 
     /**
      * 进行一系列运算
@@ -81,7 +96,12 @@ class FreightLogic extends Model
             switch ($this->freightTemplate['type']) {
                 case 1:
                     //按重量
-                    $total_unit = (array_key_exists('total_weight', $this->goods)) ? $this->goods['total_weight'] : $this->goods['weight'] * $this->goodsNum;//总重量
+                    if($this->specGoodsPrice['goods_weight']){
+                        $total_unit = (array_key_exists('total_weight', $this->goods)) ? $this->goods['total_weight'] : $this->specGoodsPrice['goods_weight'] * $this->goodsNum;//总重量
+                    }else{
+                        $total_unit = (array_key_exists('total_weight', $this->goods)) ? $this->goods['total_weight'] : $this->goods['weight'] * $this->goodsNum;//总重量
+                    }
+
                     break;
                 case 2:
                     //按体积

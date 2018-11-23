@@ -12,44 +12,16 @@
 		<script src="__PUBLIC__/js/layer/layer.js"></script>
 		<script src="__PUBLIC__/js/global.js" type="text/javascript" charset="utf-8"></script>
 		<script src="__PUBLIC__/js/md5.min.js"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YS98vTHsjeSS1GBn84kUwf8a"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.js"></script>
-		<link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.5/src/SearchInfoWindow_min.css" />
 	</head>
 	<body>
-		<!--顶部广告-s-->
-		<adv pid="1" limit="1" item="v">
-			<div class="topic-banner" style="background: #f37c1e;">
-				<div class="w1224">
-					<a href="{$v.ad_link}">
-						<img src="{$v[ad_code]}"/>
-					</a>
-					<i onclick="$('.topic-banner').hide();"></i>
-				</div>
-			</div>
-		</adv>
-		<!--顶部广告-e-->
 		<!--header-s-->
 		<div class="sett_hander p">
-			<include file="public/sign-header"/>
-			<div class="nav-middan-z p">
-				<div class="header w1224">
-					<div class="ecsc-logo fon_gwcshcar" style="width: 330px">
-						<a href="/" class="logo"> <img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}"></a>
-						<span>核对订单</span>
-					</div>
-					<div class="liucsell">
-						<div class="line-flowpath">
-			    			<span class="green now"><i class="las-flo"></i><em>1、填写核对订单信息</em></span>
-			    			<span><i class="las-flo2"></i><em>2、成功提交订单</em></span>
-			    		</div>
-					</div>
-				</div>
-			</div>
+			<include file="public/sign-header" w="w1224"/>
 		</div>
 		<!--header-e-->
 		<form name="cart2_form" id="cart2_form" method="post" autocomplete="off">
 			<input type="hidden" name="goods_id" value="{$Request.param.goods_id}">
+            <input type="hidden" name="goods_file_id" value="{$Request.param.goods_file_id}">
 			<input type="hidden" name="item_id" value="{$Request.param.item_id}">
 			<input type="hidden" name="goods_num" value="{$Request.param.goods_num}">
 			<input type="hidden" name="address_id" value="">
@@ -91,7 +63,7 @@
 								<tr><th width="30%">商品</th><th  width="10%">单价（元）</th><th  width="10%">数量</th><th  width="10%">所需金额（元）</th><th  width="15%">所需瓜豆</th></tr>
 									<tr>
 										<td style="text-align: left;">
-											<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
+											<a target="_blank" href="/haoli/{$goods['goods_id']}.html">
 												<div style="float: left"><img width="102" src="{$goods.goods_id|goods_thum_images=102,102}" alt=""></div>
 												<div style="float: left;padding-left: 10px;padding-top: 5px;">{$goods.goods_name}<br></div>
 											</a>
@@ -110,44 +82,7 @@
 							</div>
 						</div>
 					</div>
-					<!--<div class="goods-list-ri">
-						<div class="goodsforma">
-							<div class="modti p">
-							</div>
-							<ul class="buy-shopping-list">
-								<li>
-									<div class="goods-extra clearfix">
-										<div class="p-img">
-											<a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
-												<img src="{$goods.goods_id|goods_thum_images=102,102}" alt="">
-											</a>
-											<div class="p-img-tips" id="goods_shipping_img_{$goods[goods_id]}" style="display: none">暂无商品</div>
-										</div>
-										<div class="goods-msg clearfix">
-											<div class="goods-msg-gel">
-												<div class="p-name">
-													<a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}" target="_blank">{$goods.goods_name}</a>
-												</div>
-												<div class="p-price">
-													<strong class="tp-price" style="width: 130px">￥ {:round($goods_price-$goods['exchange_integral']/$point_rate,2)}+{$goods['exchange_integral']}瓜豆</strong>
-													<span class="p-num f-l-noe" style="width: 40px">x{$goods_num}</span>
-													<span class="p-state" id="goods_shipping_title_{$goods[goods_id]}">有货</span>
-													<span class="tp-weight tp-price">{$goods[weight]}g</span>
-												</div>
-											</div>
-										</div>
-										<div class="msp_return">
-											<p class="guarantee-item">
-												&lt;!&ndash;<i class="return7"></i><span class="f_blue">支持七天无理由退货</span>&ndash;&gt;
-												&lt;!&ndash;<i class="return7 return7-dark"></i><span class="f_dark">不支持七天无理由退货</span>&ndash;&gt;
-											</p>
-											&lt;!&ndash;<p class="btn-check-date"><i class="yb-h-gwc return7"></i><span class="f_blue f-999">选延保</span></p>&ndash;&gt;
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>-->
+
 				</div>
 				<!--商品列表-e-->
 			</div>
@@ -168,7 +103,7 @@
 							</label>
 							<!--<a href="javascript:;">了解什么是瓜豆？</a>-->
 						</p>
-						<p class="item">
+						<!--<p class="item">
 							<label>
 								<input id="user_money_checkbox" type="checkbox" <if condition="$user['user_money'] eq 0">disabled="disabled"</if>>
 								使用账户余额 :
@@ -185,7 +120,7 @@
                                     	请先<a href="{:U('User/paypwd')}" style="color: #e23435;">设置支付密码</a>
                                 </if>
                             </label>
-                        </p>
+                        </p>-->
 					</div>
 				</div>
 			</div>
@@ -680,65 +615,7 @@
 				this.longitude = longitude;
 				this.latitude = latitude;
 			}
-			//自提点
-			$(function () {
-				//更换自提点
-				$(document).on("click", '#replace_shop', function (e) {
-					$(".z-instead-bg").show();
-					$(".z-instead-cont").show();
-					widget_area(last_select_address_arr.province_id,last_select_address_arr.city_id,last_select_address_arr.district_id,last_select_address_arr.town_id,'address_province','address_city','address_district');
-					show_map();
-				})
-				//点击快递配送
-				$(document).on("click", '#express_delivery', function (e) {
-					if(!$(this).hasClass('z-parkage-li')){
-						$('#door_to_door').removeClass("z-parkage-li");
-						$(this).addClass("z-parkage-li");
-						$('#door_to_door_modes').hide();
-						$('#express_delivery_modes').show();
-						$("input[name='shop_id']").val('');
-						$('.addressItem').find('.item_select_t').eq(0).trigger('click');
-					}
-				})
-				//点击上门自提
-				$(document).on("click", '#door_to_door', function (e) {
-					if(!$(this).hasClass('z-parkage-li')){
-						$('#express_delivery').removeClass("z-parkage-li");
-						$(this).addClass("z-parkage-li");
-						$('#express_delivery_modes').hide();
-						$('#door_to_door_modes').show();
-						$('.addressItem').find('.item_select_t').removeClass('curtr');
-						initShop();
-						ajax_order_price();
-					}
-				})
-				//关闭自提点弹窗
-				$(document).on("click", '#shop_dialog_close', function (e) {
-					$(".z-instead-bg").hide();
-					$(".z-instead-cont").hide();
-				})
-				//点击自提点弹窗确认
-				$(document).on("click", '#shop_submit', function (e) {
-					var shop_label = $('.class-labels');
-					if(shop_label.length == 0){
-						layer.open({icon: 2, time: 2000, content: "请选择自提点"});
-					}
-					initShopInfo();
-					$('#shop_dialog_close').trigger('click');
-				})
-				//点击自提点弹窗取消
-				$(document).on("click", '#shop_dialog_cancle', function (e) {
-					$('#shop_dialog_close').trigger('click');
-				})
 
-				//自提点联系人和联系方式
-				$(document).on('keyup', '#mobile', function () {
-					$('input[name="mobile"]').val(this.value);
-				})
-				$(document).on('keyup', '#consignee', function () {
-					$('input[name="consignee"]').val(this.value);
-				})
-			})
 			//设置商品有货无货
 			function goods_shipping(goods_id,is_have){
 				if(is_have == true){
@@ -749,54 +626,6 @@
 					$('#goods_shipping_title_'+goods_id).addClass('red').text('无货');
 				}
 			}
-
-			/*function self_motion_load() {
-				$.get("{:U('Cart/invoice')}", function(json) {
-					var data = eval("(" + json + ")");
-					if (data.status > 0) {
-						if(data.result.invoice_title!="个人"){
-							$('#order_invoice_title').val(data.result.invoice_title);
-							$('#order_taxpayer').val(data.result.taxpayer);
-							$('#invoice_title').val(data.result.invoice_title);
-							$("#invoice_desc").val(data.result.invoice_desc);
-							$("#taxpayer").val(data.result.taxpayer);
-							$('#adddiv').show();
-							$("#ratepaying").show();
-						}
-
-						if (data.result.invoice_desc == "不开发票") {
-							$('#order_invoice_title').val("");
-							$('#order_taxpayer').val("");
-							$("#span1,#span2,#span3").hide();
-							$("#span4").show();
-						}else{
-							if(data.result.invoice_title!= ""){
-								$('#order_invoice_title').val(data.result.invoice_title);
-								$('#order_taxpayer').val(data.result.taxpayer);
-								$('#invoice_desc').val(data.result.invoice_desc);
-								$('#span2').text(data.result.invoice_title);
-								$('#span3').text(data.result.invoice_desc);
-								$("#span4").hide();
-								$("#span1,#span2,#span3").show();
-							}
-							$("#invoice_title").css({"border": "2px solid #e4393c"});
-							$("#personage").css({"border": ""});
-							$("#no_invoice").attr("class","item_select_t");
-							$("#detail_invoice").attr("class","item_select_t curtr");
-						}
-						if (!$('#adddiv').is(":hidden")) {
-							$("#addinvoice").hide();
-						}else{
-							$("#addinvoice").show();
-						}
-					}else{
-						$('#order_invoice_title').val("");
-						$('#order_taxpayer').val("");
-						$("#span1,#span2,#span3").hide();
-						$("#span4").show();
-					}
-				});
-			}*/
 
             //新增编辑地址
             $(function () {

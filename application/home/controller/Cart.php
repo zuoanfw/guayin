@@ -240,6 +240,7 @@ class Cart extends Base
                 $error = $t->getErrorArr();
                 $this->error($error['msg']);
             }
+            //halt($buyGoods);exit;
             $cartList['cartList'][0] = $buyGoods;
             $cartGoodsTotalNum = $goods_num;
         } else {
@@ -348,7 +349,7 @@ class Cart extends Base
                 $pay->payGoodsList($cartList);  //立即购买 订单提交
             } else {
                 $userCartList = $cartLogic->getCartList(1);
-                $cartLogic->checkStockCartList($userCartList);
+                //$cartLogic->checkStockCartList($userCartList);
                 $pay->payCart($userCartList);  // 购物车订单提交
             }
             $pay->delivery($address['district'],$template_id);
@@ -618,6 +619,7 @@ class Cart extends Base
         $goods_id = input('goods_id/d');
         $item_id = input('item_id/d');
         $goods_num = input('goods_num/d');
+        $goods_file_id = input('goods_file_id/d');
         $address_id = input("address_id/d"); //  收货地址id
         $user_note = input('user_note'); // 给卖家留言
         $delivery_time = input('delivery_time'); // 派送时间
@@ -634,6 +636,7 @@ class Cart extends Base
         $integral->setShopById($shop_id);
         $integral->setGoodsById($goods_id);
         $integral->setBuyNum($goods_num);
+        $integral->setGoodsFileId($goods_file_id);
         $integral->setSpecGoodsPriceById($item_id);
         $integral->setUserAddressById($address_id);
         $integral->useUserMoney($user_money);

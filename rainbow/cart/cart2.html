@@ -357,7 +357,7 @@
                     </label>
                     <!--<a href="javascript:;">了解什么是瓜豆？</a>-->
                 </p>
-                <p class="item">
+                <!--<p class="item">
                     <label>
                         <input id="user_money_checkbox" type="checkbox" <if condition="$user['user_money'] eq 0">disabled="disabled"</if>>
                         使用账户余额 :
@@ -366,7 +366,7 @@
                                onkeyup="this.value = /^\d+\.?\d{0,2}$/.test(this.value) ? this.value : ''">
                         元（您当前余额<span>{$user['user_money']}</span>元）
                     </label>
-                </p>
+                </p>-->
                 <p class="item">
                     <label>
                         <input type="checkbox" id="coupon_code_checkbox">
@@ -379,7 +379,7 @@
                         </button>
                     </label>
                 </p>
-                <p class="item">
+                <!--<p class="item">
                     <label>
                         支　付　密　码 :
                         <input type="password" id="payPwd">
@@ -387,7 +387,7 @@
                             请先<a href="{:U('User/paypwd')}" style="color: #e23435;">设置支付密码</a>
                         </if>
                     </label>
-                </p>
+                </p>-->
             </div>
         </div>
     </div>
@@ -566,10 +566,10 @@
                 <span>运费：</span>
                 <em class="price" id="postFee">￥0.00</em>
             </div>
-            <div class="list">
+            <!--<div class="list">
                 <span>余额支付：</span>
                 <em class="price" id="balance">-￥0.00</em>
-            </div>
+            </div>-->
             <div class="list">
                 <span>瓜豆支付：</span>
                 <em class="price" id="pointsFee">-￥0.00</em>

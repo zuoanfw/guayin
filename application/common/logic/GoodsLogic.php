@@ -249,7 +249,7 @@ class GoodsLogic extends Model
         if ($keys) {
             $specImage = M('SpecImage')->where(['goods_id'=>$goods_id,'src'=>['<>','']])->getField("spec_image_id,src");// 规格对应的 图片表， 例如颜色
             $keys = str_replace('_', ',', $keys);
-            $sql = "SELECT a.name,a.order,b.* FROM __PREFIX__spec AS a INNER JOIN __PREFIX__spec_item AS b ON a.id = b.spec_id WHERE b.id IN($keys) ORDER BY b.id";
+            $sql = "SELECT a.name,a.order,b.* FROM __PREFIX__spec AS a INNER JOIN __PREFIX__spec_item AS b ON a.id = b.spec_id WHERE b.id IN($keys) ORDER BY a.order desc,b.id";
             $filter_spec2 = \think\Db::query($sql);
             //var_dump($filter_spec2);exit;
             //array(1) { [0]=> array(5) { ["name"]=> string(15) "数量（张）" ["order"]=> int(50) ["id"]=> int(1) ["spec_id"]=> int(1) ["item"]=> string(3) "500" }

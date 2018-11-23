@@ -706,7 +706,7 @@
         $('#goods_volume').empty().html(goods_volume*buy_num);
 
         $('#market_price').empty().html(market_price*buy_num);
-        $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
+        $('#goods_price_all').empty().html("<em>￥</em>" +parseFloat(goods_price*buy_num).toFixed(2));
         $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
         var integral = round(goods_price - (exchange_integral / point_rate), 2);
         $("#integral").html(integral + '+' + exchange_integral + '瓜豆'); //瓜豆显示
@@ -718,30 +718,6 @@
     function sortNumber(a, b) {
         return a - b;
     }
-
-    //收藏商品
-    $('#collectLink').click(function () {
-        if (getCookie('user_id') == '') {
-            layer.msg('请先登录！', {icon: 1});
-        } else {
-            var goods_arr = new Array();
-            //单个收藏
-            goods_arr.push($('input[name="goods_id"]').val());
-            $.ajax({
-                type: 'post',
-                dataType: 'json',
-                data: {goods_ids: goods_arr},
-                url: "{:U('Home/Goods/collect_goods')}",
-                success: function (res) {
-                    if (res.status == 1) {
-                        layer.msg(res.msg, {icon: 1});
-                    } else {
-                        layer.msg(res.msg, {icon: 3});
-                    }
-                }
-            });
-        }
-    });
 
     //点击切换规格
     $(document).on('click', '.spec_item', function () {

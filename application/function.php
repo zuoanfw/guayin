@@ -723,7 +723,7 @@ function mobile_hide($mobile){
  * @example who use,who knows
  * @return resource of GD
  */
-function imagecreatefrombmp( $filename ){
+function imagecreatefrombmp2( $filename ){
     if ( !$f1 = fopen( $filename, "rb" ) )
         return FALSE;
     $FILE = unpack( "vfile_type/Vfile_size/Vreserved/Vbitmap_offset", fread( $f1, 14 ) );
@@ -823,7 +823,7 @@ function imagecreatefrombmp( $filename ){
 * 
 * @return integer 
 */ 
-function imagebmp(&$im, $filename = '', $bit = 8, $compression = 0) 
+function imagebmp2(&$im, $filename = '', $bit = 8, $compression = 0)
 { 
     if (!in_array($bit, array(1, 4, 8, 16, 24, 32))) 
     { 

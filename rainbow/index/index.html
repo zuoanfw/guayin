@@ -25,8 +25,8 @@
 	<ul class="carousel-inner">
         <adv pid="2" item="v1" limit="5">
 		<li class="item" style="background:{$v1.bgcolor};">
-			<a class="item-pic" href="{$v1[ad_link]}" <if condition="$v1['target'] eq 1">target="_blank"</if>>
-			<img class="w-100" src="{$v1[ad_code]}" title="{$v1[title]}" alt="{$v1[title]}"></a>
+			<a class="item-pic" href="{$v1['ad_link']}" <if condition="$v1['target'] eq 1">target="_blank"</if>>
+			<img class="w-100" src="{$v1['ad_code']}" title="{$v1['title']}" alt="{$v1['title']}"></a>
 		</li>
 		</adv>
 	</ul>
@@ -130,19 +130,19 @@
 	<div class="floor-main">
 		<div class="floor-brand">
 			<adv item="vl" pid="10" limit="1">
-				<a class="brand-big" href="{$vl[ad_link]}"><img class="w-100" src="{$vl[ad_code]}" alt="{$vl[title]}" /></a>
+				<a class="brand-big" href="{$vl['ad_link']}"><img class="w-100" src="{$vl['ad_code']}" alt="{$vl['title']}" /></a>
 			</adv>
 			<adv item="vs" pid="20" limit="1">
-				<a class="brand-samll" href="{$vs[ad_link]}"><img class="w-100" src="{$vs[ad_code]}" alt="{$vs[title]}" /></a>
+				<a class="brand-samll" href="{$vs['ad_link']}"><img class="w-100" src="{$vs['ad_code']}" alt="{$vs['title']}" /></a>
 			</adv>
 		</div>
 		<div class="floor-goods-list">
 			<foreach name="index_first_goods1" item="g" key="gk">
-				<a class="floor-goods-item" href="/yinshua/{$g[goods_id]}.html">
+				<a class="floor-goods-item" href="/yinshua/{$g['goods_id']}.html">
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
-					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>
-					<div class="googs-title ellipsis-1">{$g[goods_name]|getSubstr=0,50}</div>
+					<div class="goods-pic"><img class="w-100" src="{$g['goods_id']|goods_thum_images=400,400}" alt=""></div>
+					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,50}</div>
 				</a>
 			</foreach>
 		</div>
@@ -154,19 +154,19 @@
 	<div class="floor-main">
 		<div class="floor-brand">
 			<adv item="vl" pid="10" limit="1">
-				<a class="brand-big" href="{$vl[ad_link]}"><img class="w-100" src="{$vl[ad_code]}" alt="{$vl[title]}" /></a>
+				<a class="brand-big" href="{$vl['ad_link']}"><img class="w-100" src="{$vl['ad_code']}" alt="{$vl['title']}" /></a>
 			</adv>
 			<adv item="vs" pid="20" limit="1">
-				<a class="brand-samll" href="{$vs[ad_link]}"><img class="w-100" src="{$vs[ad_code]}" alt="{$vs[title]}" /></a>
+				<a class="brand-samll" href="{$vs['ad_link']}"><img class="w-100" src="{$vs['ad_code']}" alt="{$vs['title']}" /></a>
 			</adv>
 		</div>
 		<div class="floor-goods-list">
 			<foreach name="index_first_goods2" item="g" key="gk">
-				<a class="floor-goods-item" href="/baozhuang/{$g[goods_id]}.html">
+				<a class="floor-goods-item" href="/baozhuang/{$g['goods_id']}.html">
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
-					<div class="goods-pic"><img class="w-100" src="{$g[goods_id]|goods_thum_images=400,400}" alt=""></div>
-					<div class="googs-title ellipsis-1">{$g[goods_name]|getSubstr=0,50}</div>
+					<div class="goods-pic"><img class="w-100" src="{$g['goods_id']|goods_thum_images=400,400}" alt=""></div>
+					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,50}</div>
 				</a>
 			</foreach>
 		</div>

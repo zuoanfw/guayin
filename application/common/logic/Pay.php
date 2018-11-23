@@ -256,7 +256,7 @@ class Pay
      * @param $district_id
      * @throws TpshopException
      */
-    public function delivery($district_id,$template_id){
+    public function delivery($district_id,$template_id='2'){
         if(empty($this->shop) && empty($district_id)){
             throw new TpshopException("计算订单价格",0,['status'=>-1,'msg'=>'请填写收货信息','result'=>['']]);
         }

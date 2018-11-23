@@ -122,7 +122,7 @@ class PlaceOrder
      */
     public function check()
     {
-        $shop = $this->pay->getShop();
+        /*$shop = $this->pay->getShop();
         if($shop['shop_id'] > 0){
             if($this->take_time <= time()){
                 throw new TpshopException('提交订单', 0, ['status' => 0, 'msg' => '自提时间不能小于当前时间', 'result' => '']);
@@ -161,7 +161,7 @@ class PlaceOrder
             if ($this->payPsw !== $user['paypwd'] && encrypt($this->payPsw) !== $user['paypwd']) {
                 throw new TpshopException('提交订单', 0, ['status' => -8, 'msg' => '支付密码错误', 'result' => '']);
             }
-        }
+        }*/
     }
 
     private function queueInc()
@@ -274,11 +274,12 @@ class PlaceOrder
             $orderDiscounts = $this->pay->getCouponPrice();  //整个订单优惠价钱
         }
         $payList = $this->pay->getPayList();
+        //var_dump($payList);exit;
         $goods_ids = get_arr_column($payList,'goods_id');
         $goodsArr = Db::name('goods')->where('goods_id', 'IN', $goods_ids)->getField('goods_id,cost_price,give_integral');
         $orderGoodsAllData = [];
         foreach ($payList as $payKey => $payItem) {
-            if($this->pay->getGoodsPrice() ==0){  //清华要求加上
+            if($this->pay->getGoodsPrice() ==0){  //
                 $totalPriceToRatio =0;
             }else{
                 $totalPriceToRatio = $payItem['member_goods_price'] / $this->pay->getGoodsPrice();  //商品价格占总价的比例
@@ -289,7 +290,9 @@ class PlaceOrder
             $orderGoodsData['goods_name'] = $payItem['goods_name']; // 商品名称
             $orderGoodsData['goods_sn'] = $payItem['goods_sn']; // 商品货号
             $orderGoodsData['goods_num'] = $payItem['goods_num']; // 购买数量
-            $orderGoodsData['goods_file_id'] = $payItem['goods_file_id']; // 文件类型
+            if($payItem['goods_file_id']){
+                $orderGoodsData['goods_file_id'] = $payItem['goods_file_id']; // 文件类型
+            }
             $orderGoodsData['final_price'] = $finalPrice; // 每件商品实际支付价格
             $orderGoodsData['goods_price'] = $payItem['goods_price']; // 商品价               为照顾新手开发者们能看懂代码，此处每个字段加于详细注释
             if (!empty($payItem['spec_key'])) {

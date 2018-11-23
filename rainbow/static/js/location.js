@@ -130,12 +130,13 @@ function ajaxDispatching(region_id) {
     //region_id  地区的最后第三个id
     var goods_id = $("input[name='goods_id']").val();
     var goods_num = $("input[name='goods_num']").val();
+    var item_id = $("input[name='item_id']").val();
     $('#dispatching_msg').attr('region_id',region_id);
     if(typeof(goods_id) != 'undefined' && region_id!= ''){
         $.ajax({
             type: "POST",
             dataType: 'json',
-            data: {goods_id: goods_id, region_id: region_id,goods_num:goods_num},
+            data: {goods_id: goods_id, region_id: region_id,goods_num:goods_num,item_id:item_id},
             url: "/index.php?m=Home&c=Goods&a=dispatching",
             success: function (data) {
                 if (data.status == 1) {

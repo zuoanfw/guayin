@@ -370,6 +370,8 @@ return [
         '5'=>array('商家发货','尊敬的${userName}用户，您的订单已发货，收货人${consignee}，请您及时查收','order_shipping_sms_enable'),
         '6'=>array('身份验证','尊敬的用户，您的验证码为${code}, 请勿告诉他人.','bind_mobile_sms_enable'),
         '7'=>array('购买虚拟商品通知','尊敬的用户，您购买的虚拟商品${goodsName}兑换码已生成,请注意查收.','virtual_goods_sms_enable'),
+        '8'=>array('修改注册手机号','本次验证码是：${code}（15分钟内有效），您正在修改手机号。验证码打死也不要告诉别人哦。［呱呱印］','change_telphone_enable'),
+        '9'=>array('设置支付密码','本次验证码是：${code}（15分钟内有效），您正在设置支付密码。验证码打死也不要告诉别人哦。［呱呱印］','change_password_enable'),
     ),
     
     'APP_TOKEN_TIME' => 60 * 60 * 24 , //App保持token时间 , 此处为1天

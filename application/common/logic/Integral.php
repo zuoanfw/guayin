@@ -33,6 +33,7 @@ class Integral
     private $goods;
     private $specGoodsPrice;
     private $buyNum;
+    protected $goods_file_id; //印刷文件
     private $user;
     private $userAddress;
     private $userMoney;
@@ -64,6 +65,9 @@ class Integral
      */
     public function setBuyNum($buyNum){
         $this->buyNum = $buyNum;
+    }
+    public function setGoodsFileId($goods_file_id){
+        $this->goods_file_id = $goods_file_id;
     }
 
     /**
@@ -168,6 +172,7 @@ class Integral
         if (empty($this->specGoodsPrice)) {
             //没有规格
             $integralGoods['goods_price'] = $this->goods['shop_price'];
+            $integralGoods['goods_file_id'] = $this->goods_file_id;
             $integralGoods['sku'] = $this->goods['sku'];
         } else {
             //有规格
@@ -175,6 +180,7 @@ class Integral
             $integralGoods['spec_key'] = $this->specGoodsPrice['key'];// 商品规格
             $integralGoods['spec_key_name'] = $this->specGoodsPrice['key_name'];// 商品规格名称
             $integralGoods['sku'] = $this->specGoodsPrice['sku'];
+            $integralGoods['goods_file_id'] = $this->goods_file_id;
         }
         $integralGoods['goods_num'] = $this->buyNum;
         $goodsList[0] = $integralGoods;

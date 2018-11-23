@@ -1,3 +1,4 @@
+<script src="__PUBLIC__/js/layer/layer-min.js"></script>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
 <!--<script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8"></script>-->
 <link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/favicon.ico'}" media="screen"/>
@@ -182,7 +183,7 @@
 								  <div class="item-left">
 									  <h3 class="cata-nav-name">
 										  <div class="cata-nav-wrap">
-											  <a href="/yinshuas/{$v2[id]}.html" title="{$v2[name]}">{$v2[mobile_name]}</a>
+											  <a href="/yinshuas/{$v2['id']}.html" title="{$v2['name']}">{$v2['mobile_name']}</a>
 										  </div>
 									  </h3>
 								  </div>
@@ -190,12 +191,12 @@
 									  <div class="cata-nav-left">
 										  <div class="subitems">
 											  <foreach name="v2['sub_menu']" key="k3" item='v3'>
-												  <if condition="$v3[parent_id] eq $v2['id']">
+												  <if condition="$v3['parent_id'] eq $v2['id']">
 													  <dl class="clearfix">
-														  <dt><a href="/yinshuas/{$v3[id]}.html" target="_blank">{$v3[name]}</a></dt>
+														  <dt><a href="/yinshuas/{$v3['id']}.html" target="_blank">{$v3['name']}</a></dt>
 														  <dd class="clearfix">
 															  <tpshop sql="SELECT * FROM `__PREFIX__goods` where is_on_sale = 1 and is_virtual = 0 and cat_id = '$v3[id]' ORDER BY `sort` DESC" key="k4" item='v4'>
-																  <a href="/yinshua/{$v4[goods_id]}.html"  target="_blank">{$v4[mobile_name]}</a>
+																  <a href="/yinshua/{$v4['goods_id']}.html"  target="_blank">{$v4['mobile_name']}</a>
 															  </tpshop>
 														  </dd>
 													  </dl>
@@ -210,11 +211,11 @@
 						  <case value="4">
 							 <!-- // 包装专区-->
 							  <div class="item">
-								  <if condition="$v[level] eq 1">
+								  <if condition="$v['level'] eq 1">
 									  <div class="item-left">
 										  <h3 class="cata-nav-name">
 											  <div class="cata-nav-wrap">
-												  <a href="/baozhuangs/{$v[id]}.html" title="{$v[name]}">{$v[mobile_name]}</a>
+												  <a href="/baozhuangs/{$v['id']}.html" title="{$v['name']}">{$v['mobile_name']}</a>
 											  </div>
 										  </h3>
 									  </div>
@@ -223,13 +224,13 @@
 									  <div class="cata-nav-left">
 										  <div class="subitems">
 											  <foreach name="v['tmenu']" key="k2" item='v2'>
-												  <if condition="$v2[parent_id] eq $v['id']">
+												  <if condition="$v2['parent_id'] eq $v['id']">
 													  <dl class="clearfix">
-														  <dt><a href="/baozhuangs/{$v2[id]}.html" target="_blank">{$v2[name]}</a></dt>
+														  <dt><a href="/baozhuangs/{$v2['id']}.html" target="_blank">{$v2['name']}</a></dt>
 														  <dd class="clearfix">
 															  <foreach name="v2['sub_menu']" key="k3" item='v3'>
-																  <if condition="$v3[parent_id] eq $v2['id']">
-																	  <a href="/baozhuangs/{$v3[id]}.html" target="_blank">{$v3[name]}</a>
+																  <if condition="$v3['parent_id'] eq $v2['id']">
+																	  <a href="/baozhuangs/{$v3['id']}.html" target="_blank">{$v3['name']}</a>
 																  </if>
 															  </foreach>
 														  </dd>
@@ -248,7 +249,7 @@
 									  <h3 class="cata-nav-name">
 										  <div class="cata-nav-wrap">
 											  <!--<i class="ico ico-nav-{$kr-1}"></i>-->
-											  <a href="{:U('Home/Goods/goodsList',array('id'=>$v[id]))}" title="{$v[name]}">{$v[mobile_name]}</a>
+											  <a href="{:U('Home/Goods/goodsList',array('id'=>$v['id']))}" title="{$v['name']}">{$v['mobile_name']}</a>
 										  </div>
 										  <!--<a href="" >手机店</a>-->
 									  </h3>
@@ -258,13 +259,13 @@
 								  <div class="cata-nav-left">
 									  <div class="subitems">
 										  <foreach name="v['tmenu']" key="k2" item='v2'>
-											  <if condition="$v2[parent_id] eq $v['id']">
+											  <if condition="$v2['parent_id'] eq $v['id']">
 												  <dl class="clearfix">
-													  <dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v2[id]))}" target="_blank">{$v2[name]}</a></dt>
+													  <dt><a href="{:U('Home/Goods/goodsList',array('id'=>$v2['id']))}" target="_blank">{$v2['name']}</a></dt>
 													  <dd class="clearfix">
 														  <foreach name="v2['sub_menu']" key="k3" item='v3'>
-															  <if condition="$v3[parent_id] eq $v2['id']">
-																  <a href="{:U('Home/Goods/goodsList',array('id'=>$v3[id]))}" target="_blank">{$v3[name]}</a>
+															  <if condition="$v3['parent_id'] eq $v2['id']">
+																  <a href="{:U('Home/Goods/goodsList',array('id'=>$v3['id']))}" target="_blank">{$v3['name']}</a>
 															  </if>
 														  </foreach>
 													  </dd>
@@ -275,14 +276,14 @@
 								  </div>
 								  <div class="advertisement_down">
 									  <adv pid="10+$kr" item="v3" limit="5">
-										  <a href="{$v3[ad_link]}" <if condition="$v3['target'] eq 1">target="_blank"</if>>
-										  <img class="w-100" src="{$v3[ad_code]}" title="{$v3[title]}"/>
+										  <a href="{$v3['ad_link']}" <if condition="$v3['target'] eq 1">target="_blank"</if>>
+										  <img class="w-100" src="{$v3['ad_code']}" title="{$v3['title']}"/>
 										  </a>
 									  </adv>
 								  </div>
 								  <adv item="az" pid="51" limit="1">
-									  <a href="{$az[ad_link]}" class="cata-nav-rigth" <if condition="$az['target'] eq 1">target="_blank"</if>>
-									  <img class="w-100" src="{$az[ad_code]}" title="{$az[title]}" />
+									  <a href="{$az['ad_link']}" class="cata-nav-rigth" <if condition="$az['target'] eq 1">target="_blank"</if>>
+									  <img class="w-100" src="{$az['ad_code']}" title="{$az[title]}" />
 									  </a>
 								  </adv>
 							  </div>
@@ -304,14 +305,14 @@
 		<ul class="navitems clearfix" id="navitems">
 			<li <if condition=" CONTROLLER_NAME eq 'Index' ">class="selected"</if>><a href="/">首页</a></li>
 			<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 and position = 'top' ORDER BY `sort` DESC" key="k" item='v'>
-			<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='selected'";}?>>
-				<if condition="strpos($v[url],'yinshua')">
+			<li <?php if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v['url'])){ echo "class='selected'";}?>>
+				<if condition="strpos($v['url'],'yinshua')">
 					<span><img style="position: relative;top:-20px;left: 100px;" src="__STATIC__/images/new.png"></span>
-       			    <a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if> >
-					{$v[name]}</a>
+       			    <a href="{$v['url']}" <if condition="$v['is_new'] eq 1">target="_blank" </if> >
+					{$v['name']}</a>
 
 				<else/>
-					<a href="{$v[url]}" style="padding-left: 33px" <if condition="$v[is_new] eq 1">target="_blank" </if> >{$v[name]}</a>
+					<a href="{$v['url']}" style="padding-left: 33px" <if condition="$v['is_new'] eq 1">target="_blank" </if> >{$v['name']}</a>
 				</if>
        		</li>
 			</tpshop>

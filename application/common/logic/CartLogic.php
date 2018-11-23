@@ -148,9 +148,11 @@ class CartLogic extends Model
         if (empty($this->goodsBuyNum)) {
             throw new TpshopException('立即购买', 0, ['status' => 0, 'msg' => '购买商品数量不能为0', 'result' => '']);
         }
-        if($this->num_key === ''){
+
+        if($this->num_key === '' || $this->num_key === null){  //如过商品没有数量数组key，就走单个价格
             $shop_price = $this->goods['shop_price'];
-        }else{
+            //echo $shop_price;exit;
+        }else{ // 如果有就用,号拆分价格，根据数量数组key获取当前价格
            $shop_price_arr = explode(',',$this->goods['shop_price']);
             $shop_price = $shop_price_arr[$this->num_key];
         }
@@ -197,9 +199,12 @@ class CartLogic extends Model
             $prom_type = $this->specGoodsPrice['prom_type'];
             $store_count = $this->specGoodsPrice['store_count'];
         }
-        if ($this->goodsBuyNum > $store_count) {
-            throw new TpshopException('立即购买', 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $this->goods['store_count'], 'result' => '']);
+        if($this->goods['cat_id'] == "3"){
+            if ($this->goodsBuyNum > $store_count) {
+                throw new TpshopException('立即购买', 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $this->goods['store_count'], 'result' => '']);
+            }
         }
+
         $goodsPromFactory = new GoodsPromFactory();
         if ($goodsPromFactory->checkPromType($prom_type)) {  //如果有参加促销活动
             $goodsPromLogic = $goodsPromFactory->makeModule($this->goods, $this->specGoodsPrice);
@@ -307,18 +312,16 @@ class CartLogic extends Model
         $userCartGoodsSum = db('cart')->where($cart_whereCount)->sum('goods_num');
         //判断库存
         $userWantGoodsNum = $this->goodsBuyNum + $userCartGoodsSum;//本次要购买的数量加上购物车的本身存在的数量
-        /*if ($userWantGoodsNum > 200) {
-            $userWantGoodsNum = 200;
-        }*/
-        if ($userWantGoodsNum > $store_count) {
-            $userCartGoodsNum = empty($userCartGoodsSum) ? 0 : $userCartGoodsSum;///获取用户购物车的抢购商品数量
-            throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);
+        //只有现货的时候判断库存
+        if($this->goods['cat_id'] == '3'){
+            if ($userWantGoodsNum > $store_count) {
+                $userCartGoodsNum = empty($userCartGoodsSum) ? 0 : $userCartGoodsSum;///获取用户购物车的抢购商品数量
+                throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);
+            }
         }
 
-        // 如果该商品已经存在购物车  印刷文件类型用第一次的选择项
-        if ($userCartGoods && empty($this->num_key)) {
-            //判断出货周期
-            $send_date = $send_date + $userCartGoods['goods_send_date'];//本次要购买的出货周期加上购物车的本身存在的出货周期
+        // 如果现货通用品该商品已经存在购物车数量自增  印品的单独在按另一件算印刷文件类型用第一次的选择项
+        if ($userCartGoods && empty($this->num_key) && $this->goods['cat_id'] == '3') {
 
             $userCartGoods['goods_num'] = $userCartGoodsSum?$userCartGoodsSum:0;
             $userWantGoodsNum = $this->goodsBuyNum + $userCartGoods['goods_num'];//本次要购买的数量加上购物车的本身存在的数量
@@ -335,11 +338,14 @@ class CartLogic extends Model
                 $userCartGoodsNum = empty($userCartGoods['goods_num']) ? 0 : $userCartGoods['goods_num'];///获取用户购物车的抢购商品数量
                 throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $store_count . ',当前购物车已有' . $userCartGoodsNum . '件']);
             }
-            $cartResult = $userCartGoods->save(['goods_num' => $userWantGoodsNum,'goods_send_date' => $send_date, 'goods_price' => $price, 'member_goods_price' => $price]);
+            $cartResult = $userCartGoods->save(['goods_num' => $userWantGoodsNum,'goods_price' => $price, 'member_goods_price' => $price]);
         } else {
             //如果该商品没有存在购物车
-            if ($this->goodsBuyNum > $store_count) {
-                throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $this->goods['store_count']]);
+            //只有现货的时候判断库存
+            if($this->goods['cat_id'] == '3') {
+                if ($this->goodsBuyNum > $store_count) {
+                    throw new TpshopException("加入购物车", 0, ['status' => 0, 'msg' => '商品库存不足，剩余' . $this->goods['store_count']]);
+                }
             }
             //如果有阶梯价格,就是用阶梯价格
             if (!empty($this->goods['price_ladder'])) {
@@ -1077,9 +1083,9 @@ class CartLogic extends Model
     public function checkStockCartList($cartList)
     {
         foreach ($cartList as $cartKey => $cartVal) {
-            if ($cartVal->goods_num > $cartVal->limit_num) {
+            /*if ($cartVal->goods_num > $cartVal->limit_num) {
                 throw new TpshopException('计算订单价格', 0, ['status' => 0, 'msg' => $cartVal->goods_name . '购买数量不能大于' . $cartVal->limit_num, 'result' => ['limit_num' => $cartVal->limit_num]]);
-            }
+            }*/
             if ($cartVal['prom_type'] == 7) {
                 $combination_goods_where = ['combination_id' => $cartVal['prom_id'], 'goods_id' => $cartVal['goods_id']];
                 if ($cartVal['spec_key'] != '') {

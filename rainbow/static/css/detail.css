@@ -77,7 +77,7 @@ button,
 input,
 select,
 textarea {
-  font: 12px/1.5 tahoma, arial, sans-serif, "Hiragino Sans GB";
+  font: 14px/1.5 tahoma, arial, sans-serif, "Hiragino Sans GB";
 }
 input,
 select,
@@ -473,6 +473,26 @@ a.blue {
 }
 .tip-warning {
   background-position: -223px -21px;
+}
+.ui-button-cart-conture {
+  display: block;
+  height: 28px;
+  text-align: center;
+  line-height: 28px;
+  color: #3C3C3C !important;
+  border: 1px solid #999;
+  padding: 0px 20px;
+}
+.ui-button-cart {
+  display: block;
+  height: 28px;
+  text-align: center;
+  line-height: 28px;
+  color: #FFF !important;
+  background-color:#ff8a5c;
+  border: 1px solid #ff8a5c;
+  padding: 0px 20px;
+  margin-left: 35px;
 }
 .ui-button {
   display: block;
@@ -3017,7 +3037,7 @@ a:hover {
 .collect-public .add-cart-btn {
   height: 28px;
   line-height: 28px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 .collect-public .add-cart-btn .ui-button-txt {
   padding: 0 26px;
@@ -3607,6 +3627,7 @@ a#toprice:hover {
 }
 .ui-dialog-body {
   padding: 15px;
+  padding-top: 35px;
 }
 .ui-dialog-content {
   display: inline-block;

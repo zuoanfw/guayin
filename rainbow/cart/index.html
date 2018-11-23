@@ -131,11 +131,10 @@
 								<div class="column t-quantity mtp quantity-form">
 									<!--判断是否显示数量 增删按钮 爆品印品不显示-->
 									<if condition="$cart.num_key === ''">
-										<a href="javascript:void(0);" class="decrement" id="decrement_{$cart['id']}">-</a>
+										<!--<a href="javascript:void(0);" class="decrement" id="decrement_{$cart['id']}">-</a>
 										<input name="changeQuantity_{$cart['id']}" type="text" id="changeQuantity_{$cart['id']}" value="{$cart['goods_num']}">
-										<a href="javascript:void(0);" class="increment" id="increment_{$cart['id']}">+</a>
-										<!--无货时隐藏数量选择，显示无货-->
-										<!--<span>无货</span>-->
+										<a href="javascript:void(0);" class="increment" id="increment_{$cart['id']}">+</a>-->
+										{$cart['goods_num']}
 									<else/>
 										{$cart['goods_num']}
 									</if>
@@ -181,7 +180,6 @@
 							<i class="checkall checkFull"></i>
 							全选
 							<a class="mal18 deleteGoods deleteAll" href="javascript:void(0);">删除选中的商品</a>
-							<!--<a class="mal18 moveCollect collectAll">移到我的收藏</a>-->
 						</div>
 					</div>
 					<div class="row_foot_last">
@@ -198,7 +196,6 @@
 									<div class="ui-tips-main">不含运费及送装服务费</div>
 									<span class="price-tipsbox-arrow"></span>
 								</div>
-								<!--<span class="car_conta">已节省：<em id="goods_fee">-￥0</em></span>-->
 							</div>
 
 						</div>
