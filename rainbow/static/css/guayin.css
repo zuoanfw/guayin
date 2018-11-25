@@ -3545,7 +3545,9 @@ ul.main_shop li img {
     word-wrap: break-word;
     word-break: normal;
 }
-.detail-img-b img{width: 100%;}
+.detail-img-b img{
+
+}
 .de_cb {color:#007cdc}
 .twic_a_alon {overflow:hidden;margin-bottom:20px}
 .twic_a_alon p {

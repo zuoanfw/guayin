@@ -140,7 +140,7 @@
 									</if>
 								</div>
 								<div class="column t-quantity mtp quantity-form">
-									{$cart['goods_send_date']|get_send_date}
+									{$cart['goods_send_date']|get_send_date_arr}
 								</div>
 								<div class="column t-sum sumpri">
 									<span id="cart_{$cart.id}_total_price">￥{$cart['goods_price']*$cart['goods_num']}</span>

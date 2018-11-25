@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <script>
-                        var bd_url = "http://{$_SERVER[HTTP_HOST]}/index.php?m=Home&c=Goods&a=goodsInfo&id={$_GET[id]}";
+                        var bd_url = "http://{$_SERVER[HTTP_HOST]}/yinshua/{$_GET[id]}.html";
                         var bd_pic = "http://{$_SERVER[HTTP_HOST]}{$goods[goods_id]|goods_thum_images=400,400}";
                         var bdText = "{$goods.goods_name}";
                         var is_distribut = getCookie('is_distribut');
@@ -316,7 +316,7 @@
                         <li class="jaj">
                             <span class="product_week" title="货物货期说明&#10;1、货期即出货周期，是指订单从投入生产到生产完成的时间（不包含配送时间）；&#10;2、货期=生产天数+加工天数，不包含周日和法定节假日；&#10;3、17:00前支付并上传文件的订单，若印刷文件通过审核，当晚投入生产，17:00后支付并上传文件的订单，次日投入生产；">生产周期</span></li>
                         <li class="lawir">
-                            <span id="goods_send_date" class="service">{$goods.send_date}</span>天
+                            <span id="goods_send_date" class="service">{$goods.send_date}</span>天 <span id="yuji_send_date">（预计{$goods.send_date|get_send_date_arr}出货）</span>
                         </li>
                     </ul>
                 </div>
@@ -858,6 +858,7 @@
         goods_weight = $("input[name='goods_weight']").attr('value'); //商品单个的重量
         goods_volume = $("input[name='goods_volume']").attr('value');//商品单个的体检
         $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
+        //$('#yuji_send_date').empty().html();
         //get_send_date('20170528');
         $('#goods_weight').empty().html(goods_weight*buy_num/1000);// 商品体重
         $('#goods_volume').empty().html(goods_volume*buy_num);

@@ -62,7 +62,7 @@
                     <i class="video-play"></i>
                     <!-- 商品大图介绍 start [[-->
                     <div class="product-img jqzoom">
-                        <img id="zoomimg" src="{$goods.goods_id|goods_thum_images=400,400}"
+                        <img id="zoomimg" src="{$goods.goods_id|goods_thum_images=800,800}"
                              jqimg="{$goods.goods_id|goods_thum_images=800,800}">
                     </div>
                     <!-- 商品大图介绍 end ]]-->
@@ -73,8 +73,8 @@
                             <ul class="small-pic" id="small-pic" style="left:0;">
                                 <volist name="goods_images_list" id="img">
                                     <li class="small-pic-li <if condition='$i eq 0'>active</if>">
-                                    <a href="javascript:;"><img src="{$img|get_sub_images=$img[goods_id],60,60}"
-                                                                data-img="{$img|get_sub_images=$img[goods_id],400,400}"
+                                    <a href="javascript:;"><img src="{$img|get_sub_images=$img[goods_id],400,400}"
+                                                                data-img="{$img|get_sub_images=$img[goods_id],800,800}"
                                                                 data-big="{$img|get_sub_images=$img[goods_id],800,800}">
                                         <i></i></a>
                                     </li>
@@ -97,8 +97,8 @@
                         </div>
                     </div>
                     <script>
-                        var bd_url = "http://{$_SERVER[HTTP_HOST]}/index.php?m=Home&c=Goods&a=goodsInfo&id={$_GET[id]}";
-                        var bd_pic = "http://{$_SERVER[HTTP_HOST]}{$goods[goods_id]|goods_thum_images=400,400}";
+                        var bd_url = "http://{$_SERVER[HTTP_HOST]}/baozhuang/{$_GET[id]}.html";
+                        var bd_pic = "http://{$_SERVER[HTTP_HOST]}{$goods[goods_id]|goods_thum_images=800,800}";
                         var bdText = "{$goods.goods_name}";
                         var is_distribut = getCookie('is_distribut');
                         var user_id = getCookie('user_id');
@@ -148,15 +148,18 @@
                 <div class="goods_attr">
 
                         <ul>
-                            <li><span>使用场景：</span><span>{$goods.goods_use_scene}</span></li>
-                            <li><span>推荐指数：</span><span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
-                            <li><span>推荐理由：</span><span>{$goods.goods_rec_reason}</span></li>
+                            <li style="float:left;clear: both;"><span style="width: 72px;display: inline-block;float: left;">产品规格：</span>
+                                <span style="width: 690px;display: inline-block;float: left;">{$goods['goods_spec']}</span></li>
+                            <li><span style="float:left;clear: both;">使用场景：</span>
+                                <span style="width: 690px;display: inline-block;float: left;">{$goods.goods_use_scene}</span></li>
+                            <li  style="float:left;clear: both;"><span style="width: 72px;display: inline-block;float: left;">推荐理由：</span>
+                                <span  style="width: 690px;display: inline-block;float: left;">{$goods.goods_rec_reason}</span></li>
                         </ul>
                 </div>
                 <div class="standard p">
                     <ul>
-                        <li class="jaj"><span>产品规格：</span></li>
-                        <li><span class="service">{$goods['goods_spec']}</span></li>
+                        <li class="jaj"><span>推荐指数：</span></li>
+                        <li style="padding-top: 3px;"><span class="service"><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
                     </ul>
                 </div>
                 <div class="standard p"  style="padding-bottom: 15px;border-bottom:1px solid #ddd;">
@@ -238,7 +241,7 @@
 </div>
 <script type="text/javascript">
     //	商品详情页 滚动到一定位置固定定位
-    $(window).scroll(function () {
+    /*$(window).scroll(function () {
         if ($(window).scrollTop() <= 850) {
             $("#datail-nav-top").css("position", "static");
         } else {
@@ -251,7 +254,7 @@
                 "background-color": "#fff"
             });
         }
-    });
+    });*/
 
 </script>
 <!--footer-s-->

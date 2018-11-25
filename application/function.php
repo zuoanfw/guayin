@@ -1060,3 +1060,16 @@ function get_send_date($send_date){
     }
     return date('m月d日',strtotime('+'.$send_date.' day'));
 }
+function get_send_date_arr($send_date){
+    //return strtotime("+1 day");
+    $send_date = $send_date+1;
+    for($i=1;$i<=$send_date;$i++){
+        $date = date('Ymd',strtotime('+'.$i.' day'));
+        $datas = ['20181125','20181201','20181202','20181208','20181209','20181215','20181216','20181222','20181223','20181229','20181230'];
+        if (in_array($send_date,$datas))
+        {
+            $send_date++;
+        }
+    }
+    return date('m月d日',strtotime('+'.$send_date.' day'));
+}
