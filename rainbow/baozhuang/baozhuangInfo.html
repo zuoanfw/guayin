@@ -6,6 +6,7 @@
     <meta name="keywords" content="{$goods.keywords}"/>
     <meta name="description" content="{$goods.goods_remark}"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.jqzoom.css">
     <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="__STATIC__/js/move.js" type="text/javascript" charset="utf-8"></script>
@@ -204,7 +205,7 @@
                 </div>
                 <div class="standard p">
                     <div class="standard p">
-                        <img width="790" src="__STATIC__/images/goodinfo_15.png" alt="">
+                        <img src="__STATIC__/images/goodinfo_15.png" alt="">
                     </div>
                 </div>
             </div>
@@ -239,6 +240,21 @@
         <include file="goods/goodsInfoDetail"/>
     </div>
 </div>
+<div class="slidebar-right">
+    <a class="slidebar-item ico-slidebar1" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$tpshop_config['shop_info_qq2']}&site=qq&menu=yes" >
+        <div class="sbar-hover-txt">客服服务</div>
+    </a>
+    <a class="slidebar-item ico-slidebar2" target="_blank" href="javascript:;" >
+        <div class="sbar-hover-txt">关注微信</div>
+        <div class="sbar-hover-pic">
+            <div class="qrcode-wrap"><img class="w-100" src="__STATIC__/images/foot-wechat.jpg" alt="" /></div>
+            <p class="qrcode-des"> 扫一扫，免费领名片</p>
+        </div>
+    </a>
+    <a class="slidebar-item ico-slidebar4 t-all" target="_blank" href="javascript:;" >
+        <div class="sbar-hover-txt">回到顶部</div>
+    </a>
+</div>
 <script type="text/javascript">
     //	商品详情页 滚动到一定位置固定定位
     /*$(window).scroll(function () {
@@ -263,6 +279,20 @@
 <script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="__STATIC__/js/headerfooter.js"></script>
 <script type="text/javascript">
+    rightBar();
+    function rightBar(){  //右侧边栏
+        var $_slidebar4 = $('.ico-slidebar4');
+        $(window).scroll(function(){
+            if($(window).scrollTop()>100){
+                $_slidebar4.css('height',40);
+            }else{
+                $_slidebar4.css('height',0);
+            }
+        })
+        $_slidebar4.click(function () {
+            $('html,body').animate({'scrollTop':0},500)
+        });
+    }
     //判断是否有视频标签
     if ($('#video').length > 0) {
         $('#photoBody').addClass('videoshow-ac');
@@ -316,7 +346,7 @@
                 '                                </div>\n' +
                 '                                <input class="consult_sub" id="consult_submit" type="button"\n' +
                 '                                       value="获取报价"/>\n' +
-                '                                <div class="consult_num"><img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;&nbsp;<span style="font-size: 20px;color: #999">400-691-0670&nbsp;&nbsp;免费咨询</span></div>\n' +
+                '                                <div class="consult_num"><img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;&nbsp;<span style="font-size: 20px;color: #999">{$tpshop_config["shop_info_phone"]}&nbsp;&nbsp;免费咨询</span></div>\n' +
                 '                            </div>\n' +
                 '                        </form>';
             lay_index = layer.open({

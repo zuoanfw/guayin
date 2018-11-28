@@ -5,18 +5,19 @@
             <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 AND position = 'bottom' ORDER BY `sort` DESC" key="kk" item='vv'>
                 <a href="{$vv[url]}" <if condition="$vv[is_new] eq 1"> target="_blank" </if> >{$vv[name]}</a><span>|</span>
             </tpshop>
-            <a href="/about.html">公司简介</a><span>|</span>
-            <a href="javascript:void (0);">联系我们</a><span>|</span>
-			<a href="javascript:void (0);">诚聘英才</a>
+            <a target="_blank" href="/about.html">公司简介</a><span>|</span>
+            <a target="_blank" href="/article/134.html">联系我们</a><span>|</span>
+            <a target="_blank" href="/article/135.html">诚聘英才</a><span>|</span>
+            <a target="_blank" href="/jiameng.html">印刷厂入驻</a>
         </div>
 
-		<p>Copyright © 2016-2025 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
+		<p>Copyright © 2016-2019 {$tpshop_config.shop_info_store_name|default='guaguayin商城'} 版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p>
 	</div>
 </div>
 <style>
     .mod_copyright {
-		padding-top: 60px;
-        padding-bottom: 100px;
+		padding-top: 30px;
+        padding-bottom: 30px;
     }
     .grid-top {
         margin: 20px;
@@ -27,11 +28,11 @@
         color: #ccc;
     }
 	.grid-top a{
-		color: #fff;
+		color: #333;
 	}
     .mod_copyright > p {
         margin: 10px;
-        color: #fff;
+        color: #333;
         text-align: center;
     }
     .mod_copyright_auth_ico {

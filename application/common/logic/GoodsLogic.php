@@ -16,6 +16,7 @@ namespace app\common\logic;
 use app\common\model\Goods;
 use think\Model;
 use think\Db;
+use app\common\model\SpecGoodsPrice;
 /**
  * 分类逻辑定义
  * Class CatsLogic
@@ -605,7 +606,7 @@ class GoodsLogic extends Model
      * @param $region_id
      * @return int
      */
-    public function getFreight($goodsArr, $region_id,$template_id)
+    public function getFreight($goodsArr, $region_id,$template_id,$item_id='0')
     {
         $Goods = new Goods();
         $freightLogic = new FreightLogic();
@@ -616,8 +617,23 @@ class GoodsLogic extends Model
         foreach ($goodsArr as $cartKey => $cartVal) {
             foreach ($goodsList as $goodsKey => $goodsVal) {
                 if ($cartVal['goods_id'] == $goodsVal['goods_id']) {
-                    $goodsArr[$cartKey]['volume'] = $goodsVal['volume'];
-                    $goodsArr[$cartKey]['weight'] = $goodsVal['weight'];
+                    if($cartVal['item_id']){
+                        $specGoodsPriceModel = new SpecGoodsPrice();
+                        $specGoodsPrice = $specGoodsPriceModel::get($cartVal['item_id'], '', 10);
+                        $goodsArr[$cartKey]['volume'] = $specGoodsPrice['goods_volume'];
+                        $goodsArr[$cartKey]['weight'] = $specGoodsPrice['goods_weight'];
+                    }else{
+                        if($item_id){
+                            $specGoodsPriceModel = new SpecGoodsPrice();
+                            $specGoodsPrice = $specGoodsPriceModel::get($item_id, '', 10);
+                            $goodsArr[$cartKey]['volume'] = $specGoodsPrice['goods_volume'];
+                            $goodsArr[$cartKey]['weight'] = $specGoodsPrice['goods_weight'];
+                        }else{
+                            $goodsArr[$cartKey]['volume'] = $goodsVal['volume'];
+                            $goodsArr[$cartKey]['weight'] = $goodsVal['weight'];
+                        }
+                    }
+
                     if($template_id){
                         $goodsArr[$cartKey]['template_id'] = $template_id;
                     }else{
@@ -627,6 +643,7 @@ class GoodsLogic extends Model
                 }
             }
         }
+        // halt($goodsArr);
         $template_list = [];
         foreach ($goodsArr as $goodsKey => $goodsVal) {
             $template_list[$goodsVal['template_id']][] = $goodsVal;

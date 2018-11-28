@@ -51,10 +51,10 @@ class Yinpin extends Base {
         if (empty($goods) || ($goods['is_on_sale'] == 0) || ($goods['is_virtual'] == 1 && $goods['virtual_indate'] <= time())) {
             $this->error('该商品已经下架', U('Index/index'));
         }
-        if (cookie('user_id')) {
+        /*if (cookie('user_id')) {
             //用户浏览记录
             $goodsLogic->add_visit_log(cookie('user_id'), $goods);
-        }
+        }*/
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表

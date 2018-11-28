@@ -319,7 +319,7 @@ class Cart extends Base
         $goods_num = input("goods_num/d");// 商品数量  立即购买 单个类型的商品时候
         $num_key = input("num_key");// 商品数量key
         $goods_file_id = input('goods_file_id'); //印刷文件 立即购买 单个类型的商品时候
-        $item_id = input("item_id/d"); // 商品规格id
+        $item_id = input("item_id/d"); // 商品规格价格重量组合id,立即购买的时候有值，购物车中的没有值
         $action = input("action"); // 立即购买
         $shop_id = input('shop_id/d', 0);//自提点id
         $take_time = input('take_time/d');//自提时间
@@ -352,7 +352,7 @@ class Cart extends Base
                 //$cartLogic->checkStockCartList($userCartList);
                 $pay->payCart($userCartList);  // 购物车订单提交
             }
-            $pay->delivery($address['district'],$template_id);
+            $pay->delivery($address['district'],$template_id,$item_id);
             $pay->orderPromotion();
             $pay->useCouponById($coupon_id);
             $pay->useUserMoney($user_money);

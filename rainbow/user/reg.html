@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">   
-    <title>注册-{$tpshop_config['shop_info_store_title']}</title>
-    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
-   
+    <title>注册-{$tpshop_config['shop_info_store_name']}</title>
+
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.css"/>
     <link href="__STATIC__/css/register.css" rel="stylesheet" />
     <script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
@@ -23,11 +21,11 @@
              <span class="m-fntit"><h3>注册</h3></span>
          </div>
          <div class="col-md-4">
-             <div style="float: left"><img width="90" src="__STATIC__/images/foot-wechat.jpg"></div>
-             <div  style="float: left">
+             <!--<div style="float: left"><img width="90" src="__STATIC__/images/foot-wechat.jpg"></div>-->
+             <div  style="float: right">
 				<span style="font-size: 24px;padding-top: 10px;display: block;">
 					<img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;025-85563008</span>
-                 <span style="color: #999;font-size: 13px;padding-top: 5px;display: block">全国统一客服热线：9:00-18:00</span>
+                 <!--<span style="color: #999;font-size: 13px;padding-top: 5px;display: block">周一至周日：8:00-22:00</span>-->
              </div>
          </div>
          </div>
@@ -87,13 +85,10 @@
                  </div>
              </form>
          </div>
-
-    <!--footer-s-->
-    <div class="footer col-md-12 clearfix">
-        <include file="public/login_footer" />
-    </div>
-    <!--footer-e-->
      </div>
+     </div>
+     <div class="footer col-md-12 clearfix">
+         <include file="public/login_footer" />
      </div>
 <script>
     // 提交订单

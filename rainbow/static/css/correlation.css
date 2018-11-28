@@ -10,6 +10,7 @@
 	/*background: url(../images/login_bg.jpg) no-repeat;
 	background-size:100% 100%;*/
 	border-top:1px solid #ddd;
+	margin-top: 30px;
 }
 .tp-correlation-container{
 	width: 100%;
@@ -93,7 +94,7 @@
 .bind_info{
 	color: #999;
 	font-size: 16px;
-	padding: 80px 20px 20px 50px;
+	padding: 50px 20px 20px 50px;
 }
 .bind_tip{
 	padding: 0px 20px 20px 150px;
@@ -219,8 +220,7 @@
 	cursor: pointer;
 	border: 1px solid #ccc;
 	border-radius: 2px;
-	background-color:#edf9ff;
-	color:#e2372d ;
+	background-color:#fff;
 	padding: 2px;
 }
 .tp-chenboxs{
