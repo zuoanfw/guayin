@@ -12,7 +12,7 @@
 		<div class="home-index-middle">
 			<div class="w1224">
 				<div class="g-crumbs">
-			       	<a href="{:U('User/index')}">我的商城</a>
+			       	<a href="{:U('User/index')}">呱呱印</a>
 			       	<i class="litt-xyb"></i>
 			       	<span>忘记密码</span>
 			    </div>
@@ -24,7 +24,7 @@
 						</div>
 			    		<div class="accouun"></div>
 			    		<div class="thirset ma-to-20">
-			    			<div class="wshef yellc">1.填写用户名<i class="spassw"></i></div>
+			    			<div class="wshef yellc">1.填写手机号<i class="spassw"></i></div>
 			    			<div class="wshef">1.验证身份<i class="spassw"></i></div>
 			    			<div class="wshef">2.设置新密码<i class="spassw"></i></div>
 			    			<div class="wshef">3.完成</div>
@@ -32,7 +32,7 @@
 			    		<div class="personerinfro verifyi">
 			    			<form action="" method="post" id="forget_pwd">
 			    				<ul class="birth_jz">
-									<li class="infor_wi_le"><a>账户名：</a></li>
+									<li class="infor_wi_le"><a>手机号：</a></li>
 									<li>
 										<a>
 										<input class="name_zjxs" type="text" name="username" id="username" value="" style="border:1px solid #ccc;" onblur="chkuser()"/>
@@ -79,7 +79,7 @@
 	function chkuser(){
 		var username = $('#username').val();
 		if(username == ''){
-			show_error('username','用户名不能为空');
+			show_error('username','手机号不能为空');
 			return false;
 		}else{
 			$.ajax({
@@ -91,7 +91,7 @@
 					if(t>=1){
 						uflag = true;
 					}else{
-						show_error('username','用户名错误');
+						show_error('username','手机号错误');
 					}
 				}
 			})
@@ -127,7 +127,7 @@
 
 	function gonext(){
 		if($('#username').val() == ''){
-			show_error('username','用户名不能为空');
+			show_error('username','手机号不能为空');
 			return;
 		}
 		if($('#captcha').val() == ''){
@@ -135,7 +135,7 @@
 			return;
 		}
 		if(!uflag){
-			show_error('username','用户名验证有误');
+			show_error('username','手机号验证有误');
 			return;
 		}else if(!cflag){
 			show_error('captcha','图形验证码有误');

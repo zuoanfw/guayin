@@ -13,7 +13,7 @@
 		<div class="home-index-middle">
 			<div class="w1224">
 				<div class="g-crumbs">
-			       	<a href="{:U('Home/User/index')}">我的商城</a>
+			       	<a href="{:U('Home/User/index')}">呱呱印</a>
 			       	<i class="litt-xyb"></i>
 			       	<span>个人信息</span>
 			    </div>
@@ -48,7 +48,7 @@
 										<li class="infor_wi_le"><a href="javascript:void(0);">性别：</a></li>
 										<li>
 											<a href="javascript:void(0);">
-												<input type="radio" name="sex" id="secret" <if condition="$user['sex'] eq '0'">checked</if> value="0"/><label for="secret">保密</label>
+												<!--<input type="radio" name="sex" id="secret" <if condition="$user['sex'] eq '0'">checked</if> value="0"/><label for="secret">保密</label>-->
 												<input type="radio" name="sex" id="man" <if condition="$user['sex'] eq '1'">checked</if> value="1"/><label for="man">男</label>
 												<input type="radio" name="sex" id="woman" <if condition="$user['sex'] eq '2'">checked</if> value="2"/><label for="woman">女</label>
 											</a>
@@ -69,10 +69,10 @@
 												<span><i class="em_c"></i>邮箱</span>
 												<span class="<if condition='$user[email_validated] eq 0'>change_e<else/>change_p</if>"><a href="{:U('Home/User/email_validate',array('type'=>'email','step'=>1))}" style="cursor:pointer;"><if condition="$user['email_validated'] eq 0">未绑定<else/>更换绑定</if></a></span>
 											</div>
-											<div class="careful">
+											<!--<div class="careful">
 												<span class="fir_sen">注：修改密码、手机等信息到</span>
 												<span class="co_blue"><a href="{:U('Home/User/safety_settings')}" style="cursor:pointer;">安全设置</a></span>
-											</div>
+											</div>-->
 											<div class="save_s">
 												<input class="save" type="submit" id="" name="" value="确认保存" />
 											</div>

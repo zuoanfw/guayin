@@ -992,8 +992,14 @@
 .security_passwd .block-02 .pub-ul li .con input {
   width: 126px;
   padding: 6px 12px;
-  margin-top: -3px;
+  margin-top: 0px;
   border-radius: 0px;
+}
+#btnemailAuthCode2{
+  margin-top: 0px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 5px 12px;
 }
 .security_passwd .block-02 .pub-ul li .btn-danger {
   width: 160px;
