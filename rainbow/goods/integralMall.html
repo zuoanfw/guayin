@@ -4,6 +4,8 @@
 		<meta charset="UTF-8">
 		<title>好礼兑换-{$tpshop_config['shop_info_store_name']}</title>
 		<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
 		<link rel="" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
 		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="__PUBLIC__/js/layer/layer-min.js"></script>
@@ -22,43 +24,131 @@
 		.litt-titt p{
 			font-size: 14px;
 		}
-		.opt-list .brand-big {
-			display: block;
-			width: 1224px;
-			height: 285px;
-			overflow: hidden;
-			margin-top: 10px;
-		}
 	</style>
 	<body>
 	<!--header-s-->
 	<include file="public/header" w='w1224'/>
 		<!--header-e-->
-		<div class="search-opt classify">
-			<div class="w1224">
-				<div class="opt-list">
-					<adv pid='402' limit='1' item='v'>
-						<a class="brand-big" href="{$v[ad_link]}"><img class="w-100" src="{$v[ad_code]}" alt="{$v[title]}" /></a>
+			<div id="myCarousel" class="carousel clearfix">
+				<ul class="carousel-inner">
+					<adv pid="402" item="v1" limit="5">
+						<li class="item" style="background:{$v1.bgcolor};">
+							<a class="item-pic" href="{$v1[ad_link]}" <if condition="$v1['target'] eq 1">target="_blank"</if>>
+							<img class="w-100" src="{$v1[ad_code]}" title="{$v1[title]}" alt="{$v1[title]}"></a>
+						</li>
 					</adv>
+				</ul>
+				<div class="pagination">
+
 				</div>
+				<a class="carousel-control left-btn t-all" href="javascript:;" data-slide="prev"></a>
+				<a class="carousel-control right-btn t-all" href="javascript:;" data-slide="next"></a>
+				<script>
+                    $(function() {
+                        function banner() {
+                            var windowWidth=$(window).width();  //获取轮播图的宽度（这里是全屏）
+                            window.onresize=function(){  //屏幕大小改变时 自适应
+                                windowWidth=$(window).width();
+                                $_banner.css({'width':windowWidth*(length+2),left:-windowWidth});
+                                $_banner.find('.item').css('width',windowWidth);
+                            };
+                            var $_bannerWrap=$('#myCarousel');
+                            var $_banner=$_bannerWrap.find('.carousel-inner');
+                            var length=$_banner.find('.item').length;
+                            var first=$_banner.find('.item').eq(0).clone();
+                            var last=$_banner.find('.item:last').clone();
+                            var timer; //定时器
+                            $_banner.append(first);
+                            $_banner.prepend(last);
+                            //初始化 轮播图列表宽度和列表项宽度
+                            $_banner.css({'width':windowWidth*(length+2),left:-windowWidth});
+                            $_banner.find('.item').css('width',windowWidth);
+
+                            var $_pagination=$_bannerWrap.find('.pagination');
+                            for(var i=0;i<length;i++){  //自动增加白色索引点击点
+                                $_pagination.append('<span class="pagination-item"></span>');
+                            }
+                            var iNow=1; //索引记录标志
+                            hoverActive(iNow); //初始化状态标记
+                            $_bannerWrap.find('.left-btn').click(function () {
+                                clearInterval(timer);
+                                iNow--;
+                                bannerRun();
+                            });
+                            $_bannerWrap.find('.right-btn').click(function () {
+                                clearInterval(timer);
+                                iNow++;
+                                bannerRun();
+                            });
+                            $_pagination.find('.pagination-item').click(function () {
+                                iNow=$(this).index()+1;
+                                $_banner.finish().animate({left:-iNow*windowWidth},500);
+                                hoverActive(iNow);
+                            });
+                            function bannerAutoRun(){  //轮播图自动循环播放 间隔4秒
+                                timer=setInterval(function() {
+                                    iNow++;
+                                    bannerRun();
+                                },4000)
+                            }
+                            bannerAutoRun();
+
+                            //移动上面去停止，移动出来继续轮播
+                            function hoverChangeRun(ele){
+                                ele.hover(function(){
+                                    clearInterval(timer);
+                                },function () {
+                                    bannerAutoRun();
+                                });
+                            }
+                            hoverChangeRun($_banner.find('.item-pic'));
+                            hoverChangeRun($_pagination.find('.pagination-item'));
+                            hoverChangeRun($_bannerWrap.find('.carousel-control'));
+
+                            function hoverActive(index){ //切换时改变状态
+                                $_banner.find('.item').eq(index).addClass('slide-active').siblings().removeClass('slide-active');
+                                $_pagination.find('.pagination-item').eq(index-1).addClass('active').siblings().removeClass('active');
+                            }
+                            function bannerRun(){ //点击切换图片
+                                if(iNow>length){
+                                    $_banner.finish().animate({left:-iNow*windowWidth},300,function(){
+                                        $_banner.css({left:-1*windowWidth});
+                                    });
+                                    iNow=1;
+                                }else if(iNow<1){
+                                    $_banner.finish().animate({left:-iNow*windowWidth},500,function(){
+                                        $_banner.css({left:-length*windowWidth});
+                                    });
+                                    iNow=length;
+                                }else{
+                                    $_banner.finish().animate({left:-iNow*windowWidth},300);
+                                }
+                                hoverActive(iNow);
+                            }
+                        }
+                        banner();
+                    })
+				</script>
 			</div>
-		</div>
+
 		<div class="shop-list-tour ma-to-20 p">
 			<div class="w1224">
 				<div class="stsho pre-sts intergra">
                     <!--商品-s-->
 					<div class="jpateki p">
 						<div class="litt-titt"><h2>精品推荐</h2> <p><a href="/haolis.html">更多</a></p></div>
-						<tpshop sql="select * from `__PREFIX__goods` where is_on_sale eq 1 and exchange_integral gt 0 and is_recommend eq 1 and is_virtual eq 0 limit 5" item="goods" key="k">
+						<tpshop sql="select * from `__PREFIX__goods` where is_on_sale eq 1 and exchange_integral gt 0 and is_recommend eq 1 and is_virtual eq 0 limit 5" item="goods" key="i">
+							<if condition="($i)%3 eq 0">
 								<ul>
-								<li class="mar0">
+							</if>
+								<li <if condition="($i+1)%3 eq 0">class="mar0"</if>>
 									<div class="sbox">
 										<div class="contelim">
 											<img src="{$goods['goods_id']|goods_thum_images=165,188}"/>
 										</div>
 										<div class="contifo">
 											<p class="shop_name"><a href="/haoli/{$goods['goods_id']}.html">{$goods['goods_name']}</a></p>
-											<p>参考价：￥<span class="lithe">{$goods['shop_price']}</span></p>
+											<p>参考价{$i}：￥<span class="lithe">{$goods['shop_price']}</span></p>
 											<p>换购价：<span class="red">￥<em>{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}</em>瓜豆</span></p>
 											<div class="duchan">
 												<span><em>{$goods['sales_sum']}</em>人换购</span>
@@ -67,13 +157,17 @@
 										</div>
 									</div>
 								</li>
+							<if condition="($i+1)%3 eq 0">
 								</ul>
+							</if>
 						</tpshop>
 
-						<div class="litt-titt"><h2>热门兑换</h2> <p><a href="/haolis.html">更多</a></p></div>
-						<tpshop sql="select * from `__PREFIX__goods` where is_on_sale eq 1 and exchange_integral gt 0 and is_hot eq 1 and is_virtual eq 0 limit 7" item="goods" key="k">
-							<ul>
-								<li class="mar0">
+						<div class="litt-titt" style="clear:both;"><h2>热门兑换</h2> <p><a href="/haolis.html">更多</a></p></div>
+						<tpshop sql="select * from `__PREFIX__goods` where is_on_sale eq 1 and exchange_integral gt 0 and is_hot eq 1 and is_virtual eq 0 limit 7" item="goods" key="i">
+							<if condition="($i)%3 eq 0">
+								<ul>
+							</if>
+								<li <if condition="($i+1)%3 eq 0">class="mar0"</if>>
 									<div class="sbox">
 										<div class="contelim">
 											<img src="{$goods['goods_id']|goods_thum_images=165,188}"/>
@@ -89,7 +183,9 @@
 										</div>
 									</div>
 								</li>
-							</ul>
+							<if condition="($i+1)%3 eq 0">
+								</ul>
+							</if>
 						</tpshop>
 					</div>
                     <!--商品-e-->
@@ -102,13 +198,7 @@
 		</div>
 		<!--footer-e-->
 <script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
-    $(function(){
-        $('.f-sort ul li').click(function(){
-            $(this).find('i').addClass('jta-w').parents('li').siblings().find('i').removeClass('jta-w');
-        })
-    })
 </script>
 </body>
 </html>

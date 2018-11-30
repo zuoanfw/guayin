@@ -45,38 +45,7 @@
 <div class="search-opt">
 	<div class="w1224">
 		<div class="opt-list">
-			<!-- 品牌筛选 start -->
-			<if condition="$filter_brand neq null">
-				<dl class="brand-section m-tr">
-					<dt>品牌</dt>
-					<dd class="ri-section">
-						<div class="lf-list">
-							<div class="brand-box brand-list">
-								<div class="clearfix p">
-									<foreach name="filter_brand" item="v" key="k">
-										<a href="{$v[href]}" data-href="{$v[href]}"  data-key='brand' data-val='{$v[id]}'>
-											<i class="litt-zd"></i>
-											<img src="{$v[logo]}"/>
-											<span>{$v[name]}</span>
-										</a>
-									</foreach>
-								</div>
-                                <div class="surclofix p">
-                                    <a href="javascript:;" class="u-confirm" onClick="submitMoreFilter('brand',this);">确定</a>
-                                    <a href="javascript:;" class="u-cancel">取消</a>
-                                </div>
-							</div>
-						</div>
-						<div class="lr-more">
-							<a href="javascript:void(0)"><span class="dx_choice">多选</span><i class="litt-pluscr"></i></a>
-							<if condition="count($filter_brand) gt 10">
-								<a href="javascript:void(0)"><span class="gd_more">更多</span><i class="litt-tcr"></i></a>
-							</if>
-						</div>
-					</dd>
-				</dl>
-			</if>
-			<!-- 品牌筛选 end -->
+
 			<!-- 规格筛选 start -->
             <if condition="$filter_spec neq null">
                 <foreach name="filter_spec" item="v" key="k">
@@ -160,7 +129,7 @@
 							<li>
 								<div class="s_xsall">
 									<div class="xs_img">
-										<a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+										<a href="/yinshua/{$v[goods_id]}.html">
 											<img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
 										</a>
 									</div>
@@ -176,7 +145,7 @@
 										<if condition="$v['goods_num']['0'] neq ''">
 											限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v['shop_price']['0']*$v['goods_num']['0']}</span>
 											<span class="old"><em>￥</em><em>{$v[market_price]*$v['goods_num']['0']}</em></span>
-											({$v['goods_num']['0']}张，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/张)
+											({$v['goods_num']['0']}{$v['unit']}，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/{$v['unit']})
 											<else/>
 											限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
 											<span class="old"><em>￥</em><em>{$v[market_price]}</em></span>
@@ -196,41 +165,6 @@
 		</div>
 	</div>
 </div>
-<!--<div class="underheader-floor p specilike">
-	<div class="w1430">
-		<div class="layout-title">
-			<span class="fl">猜你喜欢</span>
-            <span class="update_h fr" onclick="favourite();">
-                <i class="litt-hyh"></i>
-                换一换
-            </span>
-		</div>
-		<ul class="ul-li-column p" id="favourite_goods">
-		</ul>
-	</div>
-</div>
-<script>
-	/****猜你喜欢****/
-	var favorite_page = 0;
-	function favourite()
-	{
-		favorite_page++;
-		$.ajax({
-			type: "GET",
-			url: "/index.php?m=Home&c=Index&a=ajax_favorite&i=7&p="+favorite_page,//+tab,
-			success: function (data) {
-				if(data == ''&& favorite_page > 1){
-					favorite_page = 0;
-					favourite();
-				}else{
-					$('#favourite_goods').html(data);
-					lazy_ajax();
-				}
-
-			}
-		});
-	}
-</script>-->
 <!--footer-s-->
 <div class="footer p">
     <include file="public/footer" />

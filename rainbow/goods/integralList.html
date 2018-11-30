@@ -26,42 +26,16 @@
 				</div>-->
 			</div>
 		</div>
-    <!--分类-s-->
-		<!--<div class="search-opt classify">
-			<div class="w1224">
-				<div class="opt-list">
-					<dl class="brand-section">
-						<dt>分类:</dt>
-						<dd class="ri-section">
-							<div class="lf-list">
-								<div class="brand-list">
-									<div class="clearfix p">
-										<a href="{:U('Home/Goods/integralMall')}">
-											<span <if condition="$Request.param.id eq ''">class="red"</if>>全部</span>
-										</a>
-                                        <volist name="goods_category" id="gc">
-                                            <a href="{:U('Home/Goods/integralMall',array('id'=>$gc['id']))}">
-                                                <span <if condition="$Request.param.id eq $gc[id]">class="red"</if>>{$gc['name']}</span>
-                                            </a>
-                                        </volist>
-									</div>
-								</div>
-							</div>
-						</dd>
-					</dl>
-				</div>
-			</div>
-		</div>-->
-    <!--分类-e-->
+
 		<div class="shop-list-tour ma-to-20 p">
 			<div class="w1224">
 				<div class="stsho pre-sts intergra">
 					<div class="sx_topb presellall">
 						<div class="f-sort fl">
 							<ul>
-								<li <if condition="$Request.param.brandType eq '0'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>0))}">全部<i class="jta jta-w"></i></a></li>
-								<li <if condition="$Request.param.brandType eq '1'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>1))}">瓜豆+金额<i class="jta"></i></a></li>
-								<li <if condition="$Request.param.brandType eq '2'">class="red"</if>><a href="{:U('Home/Goods/integralMall',array('id'=>I('get.id'),'brandType'=>2))}">全瓜豆<i class="jta"></i></a></li>
+								<li <if condition="$Request.param.brandType eq '0'">class="red"</if>><a href="{:U('Home/Goods/integralList',array('id'=>I('get.id'),'brandType'=>0))}">全部<i class="jta jta-w"></i></a></li>
+								<li <if condition="$Request.param.brandType eq '1'">class="red"</if>><a href="{:U('Home/Goods/integralList',array('id'=>I('get.id'),'brandType'=>1))}">瓜豆+金额<i class="jta"></i></a></li>
+								<li <if condition="$Request.param.brandType eq '2'">class="red"</if>><a href="{:U('Home/Goods/integralList',array('id'=>I('get.id'),'brandType'=>2))}">全瓜豆<i class="jta"></i></a></li>
 							</ul>
 						</div>
 						<div class="f-total fr">

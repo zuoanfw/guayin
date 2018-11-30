@@ -436,21 +436,6 @@
         })
     }
 
-    //看了又看切换
-    /*var tmpindex = 0;
-    var look_see_length = $('#look_see').children().length;
-    function replace_look() {
-        var listr = '';
-        if (tmpindex * 2 >= look_see_length) tmpindex = 0;
-        $('#look_see').children().each(function (i, o) {
-            if ((i >= tmpindex * 2) && (i < (tmpindex + 1) * 2)) {
-                listr += '<div class="tjhot-shoplist type-bot">' + $(o).html() + '</div>';
-            }
-        });
-        tmpindex++;
-        $('#see_and_see').empty().append(listr);
-    }*/
-
     //缩略图切换
     $('.small-pic-li').mouseenter(function () {
         if ($('#video').length > 0) {
@@ -672,6 +657,7 @@
         $('#market_price').empty().html(market_price*buy_num);
         $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
         $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
+        console.log(goods_price);
         var integral = round(goods_price - (exchange_integral / point_rate), 2);
         $("#integral").html(integral + '+' + exchange_integral + '瓜豆'); //瓜豆显示
         $('#spec_store_count').html(store_count);
