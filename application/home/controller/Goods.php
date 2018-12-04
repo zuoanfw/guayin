@@ -134,7 +134,16 @@ class Goods extends Base
             $goods_price = explode(',',$goods['shop_price']);
             $goods->shop_price = $goods_price[$num_key];
         }
-        $this->ajaxReturn(['status' => 1, 'msg' => '该商品没有参与活动', 'result' => ['goods' => $goods]]);
+        //halt($specGoodsPrice);
+        if ($item_id) {  //印品时候用判断规格价格组合 是否有效
+            $specGoodsPrice = SpecGoodsPrice::get($item_id);
+        }
+        if($specGoodsPrice['is_active'] == '1'){
+            $this->ajaxReturn(['status' => 0, 'msg' => '无效组合', 'result' => '']);
+        }else{
+            $this->ajaxReturn(['status' => 1, 'msg' => '该商品没有参与活动', 'result' => ['goods' => $goods]]);
+        }
+
     }
 
     /**

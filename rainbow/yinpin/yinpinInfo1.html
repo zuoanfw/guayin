@@ -27,19 +27,19 @@
         width: 122px;
         letter-spacing: 6px;
     }
-    .detail-ggsl .spec_goods_price_div {
+    .detail-ggsl .spec_goods_price_div{
         padding-top: 0px;
+
     }
-    .standard .colo button {
+    .standard .colo a {
         display: inline-block;
         padding: 1px 2px;
         border: 1px solid #dadada;
-        margin: 0 15px 3px 0;
+        margin: 0 15px 6px 0;
         cursor: pointer;
         text-align: center;
         width: auto;
-        padding: 7px 10px;
-        background-color: #fff;
+        padding: 1px 10px;
     }
     .store-selector .text {
         padding: 2px 20px;
@@ -59,10 +59,6 @@
         font-family: FontAwesome;
         cursor: pointer;
         color: #999;
-    }
-    .standard .colo button.noactive{
-        border-color: #ddd;
-        color: #ddd;
     }
 </style>
 <body>
@@ -100,11 +96,9 @@
             <input type="hidden" name="activity_title" value=""/><!-- 活动标题 -->
             <input type="hidden" name="prom_detail" value=""/><!-- 促销活动的促销类型 -->
             <input type="hidden" name="activity_is_on" value=""/><!-- 活动是否正在进行中 -->
-            <input type="hidden" name="item_id" value="{$item_id}"/><!-- 商品规格表spec_goods_price的id -->
+            <input type="hidden" name="item_id" value="{$Request.param.item_id}"/><!-- 商品规格表spec_goods_price的id -->
             <input type="hidden" name="exchange_integral" value="{$goods.exchange_integral}"/><!-- 瓜豆 -->
             <input type="hidden" name="point_rate" value="{$point_rate}"/><!-- 瓜豆兑换比 -->
-            <input type="hidden" name="is_virtual" value="{$goods.is_virtual}"/><!-- 是否是虚拟商品 -->
-            <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
             <div class="detail-ggsl">
                 <h3>基本参数</h3>
                 <!-- 规格 start [[-->
@@ -115,14 +109,14 @@
                             <li class="lawir colo">
                                 <foreach name="v" item="v2" key="k2">
                                     <input type="radio" spec_val="{$k}" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
-                                    <button type="button" id="goods_spec_a_{$v2[item_id]}" class="spec_item">
+                                    <a id="goods_spec_a_{$v2[item_id]}" class="spec_item">
                                         <if condition="$v2[src] neq ''">
                                             <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
                                             <span class="dis_alintro">{$v2[item]}</span>
                                             <else/>
                                             {$v2[item]|htmlspecialchars_decode}
                                         </if>
-                                    </button>
+                                    </a>
                                 </foreach>
                             </li>
                         </ul>
@@ -535,7 +529,7 @@
         $('.spec_goods_price_div').each(function (i, o) {
             var firstSpecRadio = $(this).find("input[type='radio']").eq(0);
             firstSpecRadio.attr('checked', 'checked').prop('checked', 'checked');
-            firstSpecRadio.parent().find('button').eq(0).addClass('red');
+            firstSpecRadio.parent().find('a').eq(0).addClass('red');
         })
     }
 
@@ -602,7 +596,6 @@
     //初始化商品价格库存  进入页面自动执行
     function initGoodsPrice() {
         var goods_id = $('input[name="goods_id"]').val();
-        //console.log(goods_id);
         var goods_num = parseInt($('#number').val());
         var num_key = $("#num_key").val();
         if (!$.isEmptyObject(spec_goods_price)) {
@@ -652,10 +645,8 @@
                     price_ladder = data.result.goods.price_ladder;
                     goods_activity_theme();  //真正的设置商品价格 体重，生成周期等；
                     buy_button();
-                    doInitRegion();
-                }else {
-                    $('.buy_button').addClass('buy_bt_disable');
                 }
+                doInitRegion();
             }
         });
     }
@@ -705,7 +696,6 @@
         var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换瓜豆
         var point_rate = $("input[name='point_rate']").attr('value');// 瓜豆金额比
         // 如果有规格属性选择项 读取规格选项中的价格库存等
-        //console.log(spec_goods_price);
         if (!$.isEmptyObject(spec_goods_price)) {
             var goods_spec_arr = [];
             $("input[name^='goods_spec']").each(function () {
@@ -759,57 +749,18 @@
         if (spec_item_img_src != '') {
             $('#zoomimg').attr('jqimg', spec_item_img_src).attr('src', spec_item_img_src);
         }
-        var goods_id = $('input[name="goods_id"]').val();
-        var spec_item_id = $(this).prev('input').val();
-        //console.log(spec_item_id);
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            // 根据数量数组的key 获取当前数量的商品单价 num_key
-            data: {goods_id: goods_id, spec_item_id: spec_item_id},
-            url: "{:U('Home/Yinpin/spec_is_active')}",
-            success: function (data) {
-                //console.log(data);
-                if (data.status == 1) {
-                    $.each(spec_goods_price, function (i, o) {
-                            var spec_key_arr = o.key.split("_");
-                            $.each(spec_key_arr, function (index, item) {
-                                var spec_radio = $("#goods_spec_" + item);
-                                var goods_spec_a = $("#goods_spec_a_" + item);
-                                spec_radio.removeAttr("disabled");
-                                goods_spec_a.removeAttr("disabled");
-                                goods_spec_a.removeClass('noactive');
-                            })
-                    });
-                    $.each(data.result, function (index, item) {
-                        var spec_radio = $("#goods_spec_" + item);
-                        var goods_spec_a = $("#goods_spec_a_" + item);
-                        spec_radio.attr("disabled", "disabled");
-                        goods_spec_a.attr("disabled", "disabled");
-                        goods_spec_a.addClass('noactive');
-                    })
 
-                }else{
-                    $.each(spec_goods_price, function (i, o) {
-                            var spec_key_arr = o.key.split("_");
-                            $.each(spec_key_arr, function (index, item) {
-                                var spec_radio = $("#goods_spec_" + item);
-                                var goods_spec_a = $("#goods_spec_a_" + item);
-                                spec_radio.removeAttr("disabled");
-                                goods_spec_a.removeAttr("disabled");
-                                goods_spec_a.removeClass('noactive');
-                            })
-                    })
-                }
-            }
-        });
-        $(this).removeClass('noactive');
-        $(this).addClass('red').siblings('button').removeClass('red');
+        $(this).addClass('red').siblings('a').removeClass('red');
         $(this).siblings('input').removeAttr('checked');
         $(this).prev('input').attr('checked', 'checked').prop('checked', 'checked');
+        if ($('#video').length > 0) {
+            //判断是否有视频标签
+            $('#photoBody').addClass('picshow-ac');
+            video.pause();
+        }
         // 更新商品价格
         initGoodsPrice();
-        //doInitRegion();
+        doInitRegion();
     })
     //点击切换设计文件
     $(document).on('click', '.goods_file_item', function () {

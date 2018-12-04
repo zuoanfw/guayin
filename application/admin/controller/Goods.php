@@ -740,7 +740,8 @@ class Goods extends Base {
             $specList[$k]['spec_item'] = M('SpecItem')->where("spec_id = ".$v['id'])->order('id')->getField('id,item'); // 获取规格项                
         
         $items_id = M('SpecGoodsPrice')->where('goods_id = '.$goods_id)->getField("GROUP_CONCAT(`key` SEPARATOR '_') AS items_id");
-        $items_ids = explode('_', $items_id);       
+        //halt($items_id);15_18_36_66_16_18_36_66_17_18_36_66_18_36_66_77
+        $items_ids = explode('_', $items_id);
         
         // 获取商品规格图片                
         if($goods_id)

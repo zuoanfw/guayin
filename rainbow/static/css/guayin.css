@@ -3022,7 +3022,7 @@ ul.main_shop li img {
 	display: inline;
 }
 .paybybill:hover {
-	background:#ff8a5c
+	/*background:#ff8a5c*/
 }
 .addcar {
 	background:#e23435;
@@ -3035,8 +3035,8 @@ ul.main_shop li img {
 	display: inline;
 }
 .addcar:hover {
-	color:white;
-	background:#ec2c2d
+	/*color:white;
+	background:#ec2c2d*/
 }
 .addcar i {
 	display:inline-block;

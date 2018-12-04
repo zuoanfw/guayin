@@ -51,7 +51,7 @@
 		   $(this).addClass('btn-success');
 	   }
 	   ajaxGetSpecInput();	  	   	 
-});
+   });
 	
 
 /**
@@ -80,13 +80,25 @@ function ajaxGetSpecInput()
 
     $(function () {
         $(document).on("click", '.delete_item', function (e) {
-            if($(this).text() == '无效'){
-                $(this).parent().parent().find('input').attr('disabled','disabled');
+            var is_active = $(this).parent().parent().children().last().find("input:last-child").val();
+            if(is_active == '1'){
+                $(this).text('无效');
+                $(this).parent().parent().find('input').removeAttr('readonly');
+                $(this).parent().parent().children().last().find("input:last-child").val('0');
+            }else{
+                $(this).parent().parent().find('input').attr('readonly','readonly');
+                $(this).parent().parent().children().last().find("input:last-child").val('1');
+                $(this).text('有效');
+            }
+            /*if($(this).text() == '无效'){
+                $(this).parent().parent().find('input').attr('readonly','readonly');
+                $(this).parent().parent().children().last().find("input:last-child").val('1');
                 $(this).text('有效');
             }else{
                 $(this).text('无效');
-                $(this).parent().parent().find('input').removeAttr('disabled');
-            }
+                $(this).parent().parent().find('input').removeAttr('readonly');
+                $(this).parent().parent().children().last().find("input:last-child").val('0');
+            }*/
         })
     })
 	

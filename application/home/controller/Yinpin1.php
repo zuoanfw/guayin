@@ -77,16 +77,9 @@ class Yinpin extends Base {
             $goods_price = explode(',',$goods['shop_price']);
             $this->assign('goods_price',json_encode($goods_price,true));
         }
-        foreach ($spec_goods_price as $k=>$v){
-            if($v['is_active']=='1'){
-            }else{
-                $item_id = $v['item_id'];
-                break;
-            }
-        }
+
         $this->assign('freight_free', $freight_free);// 全场满多少免运费
         $this->assign('spec_goods_price', json_encode($spec_goods_price, true)); // 规格 对应 价格 库存表
-        $this->assign('item_id', $item_id); // 默认选中的有效的规格 对应 价格 库存表
         $this->assign('navigate_goods', navigate_goods($goods_id, 1));// 面包屑导航
         //$this->assign('commentStatistics', $commentStatistics);//评论概览
         $this->assign('goods_attribute', $goods_attribute);//属性值
@@ -102,32 +95,6 @@ class Yinpin extends Base {
         $this->assign('ShareLink', $ShareLink);
         $this->assign('point_rate', $point_rate);
         return $this->fetch();
-    }
-    /*判断商品规格价格是否有效*/
-    public  function spec_is_active(){
-        $goods_id = I("goods_id/d");
-        $spec_item_id = I("spec_item_id/d");
-        //echo $spec_item_id;
-        $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,is_active"); // 规格 对应 价格 库存表
-        //halt($spec_goods_price);
-        //遍历规格获取价格数组
-        foreach ($spec_goods_price as $key=>$vo){
-            if($vo['is_active'] == '1') {  //如果组合价格无效
-                $spec_is_actives = explode('_',$vo['key']);
-                if(in_array($spec_item_id,$spec_is_actives)){
-                    foreach ($spec_is_actives as $k=>$v){
-                        $spec_is_keys[] = $v;
-                    }
-                }
-            }
-        }
-        //halt($spec_is_keys);
-        if(count($spec_is_keys)>0){
-            $this->ajaxReturn(['status' => 1, 'msg' => '无效key', 'result' => array_unique($spec_is_keys)]);
-        }else{
-            $this->ajaxReturn(['status' => 0, 'msg' => '无数据', 'result' => '']);
-        }
-
     }
     
 }
