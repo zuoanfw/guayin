@@ -67,17 +67,23 @@ class Payment extends Base {
             if($order['pay_status'] == 1){
                 $this->error('此订单，已完成支付!');
             }
+            $pay_radio = $_REQUEST['pay_radio'];
+            if($pay_radio == 'pay_code=banktrans'){
+                if(trim($_REQUEST['banknum'])==''){
+                    $this->error('请填写回单编号!');
+                }
+            }
         	// 修改订单的支付方式
             $payment_arr = M('Plugin')->where("`type` = 'payment'")->getField("code,name");
             M('order')->where("order_id",$order_id)->save(array('pay_code'=>$this->pay_code,'pay_name'=>$payment_arr[$this->pay_code]));
 
             // 订单支付提交
-            $pay_radio = $_REQUEST['pay_radio'];
+
             $config_value = parse_url_param($pay_radio); // 类似于 pay_code=alipay&bank_code=CCB-DEBIT 参数
             $payBody = getPayBody($order_id);
             $config_value['body'] = $payBody;
             //银行转账
-            $config_value['banknum'] = $_REQUEST['banknum'];
+            $config_value['banknum'] = trim($_REQUEST['banknum']);
 
             //var_dump($config_value);exit;
             

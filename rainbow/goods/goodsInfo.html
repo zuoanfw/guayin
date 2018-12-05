@@ -8,10 +8,15 @@
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.jqzoom.css">
+
     <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="__STATIC__/js/jquery.jqzoom.js"></script>
     <script src="__PUBLIC__/js/global.js"></script>
-    <script src="__PUBLIC__/js/pc_common.js"></script>
+    <!--饼图-->
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.easy-pie-chart.css">
+    <script src="__STATIC__/js/excanvas.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/js/jquery.easy-pie-chart.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/js/myCanvas.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <style>
     .store-selector .text {
@@ -27,7 +32,7 @@
         color: #999;
     }
 </style>
-<body>
+<body onLoad="initPieChart();">
 <!--header-s-->
 <include file="public/header" w="w1224"/>
 <!--header-e-->
@@ -188,15 +193,18 @@
                 <div class="standard p"  style="padding-bottom: 15px;border-bottom:1px solid #ddd;">
                     <ul>
                         <li class="jaj"><span>用户评价</span></li>
-                        <li class="lawir_gailv" style="width: 80px;line-height: 18px;text-align: center">
-                            <canvas id="myCanvas" width="70" height="70">您的浏览器不支持canvas！</canvas>
-                            <span style="color: #ff8a5c">好评率</span>
+                        <li class="lawir_gailv" style="width: 100px;line-height: 18px;text-align: center">
+                            <div class="chart">
+                                <div class="percentage-light"  data-percent="92">
+                                    <div style="line-height: 25px;padding-top: 20px;"><span></span>%<div style="color: #ff8a5c">好评率</div></div>
+                                </div>
+                            </div>
                         </li>
-                        <li class="lawir">
+                        <li class="lawir" style="width: 480px;padding-right: 10px;">
                             <span class="service">{$goods['goods_comment']}</span>
                         </li>
                         <li class="lawir_gailv">
-                            <img  id="facecoment" width="65" src="__STATIC__/images/face/1.png" alt="">
+                            <img  id="facecoment" width="75" src="__STATIC__/images/face/1.png" alt="">
                         </li>
                     </ul>
                 </div>
@@ -472,7 +480,6 @@
         <div class="sbar-hover-txt">回到顶部</div>
     </a>
 </div>
-<script src="__STATIC__/js/myCanvas.js" type="text/javascript" charset="utf-8"></script>
 <script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="__STATIC__/js/headerfooter.js"></script>
 <script type="text/javascript">

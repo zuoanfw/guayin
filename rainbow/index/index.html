@@ -318,6 +318,7 @@
 			<input type="text" id="content" name="content" placeholder="填写您要印刷什么">
 			<button id="call_submit">呼叫客服</button>
 		</div>
+		<div style="text-align: right;padding-right: 300px;">已帮助 <span id="baojianum" style="color: #ff8a5c;font-weight: 700;">586988</span> 人免费报价</div>
 	</div>
 </div>
 <div class="tpshop-service">
@@ -370,6 +371,10 @@
 	}
 </style>
 <script>
+	$(function () {
+		var baojianum = $("#baojianum").text();
+        $("#baojianum").text(parseInt(baojianum)+1);
+    })
     //提交咨询信息
     $(document).on('click', '#call_submit', function () {
         var content = $.trim($('#content').val());

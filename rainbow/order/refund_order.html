@@ -35,7 +35,6 @@
                             <option value="操作有误（商品、地址等选错）">操作有误（商品、地址等选错）</option>
                             <option value="重复下单/误下单">重复下单/误下单</option>
                             <option value="其他渠道价格更低">其他渠道价格更低</option>
-                            <option value="该商品京东降价了">该商品京东降价了</option>
                             <option value="不想买了">不想买了</option>
                         </select>
                     </div>
@@ -74,7 +73,7 @@
         </div>
         <div class="item clearfix">
             <span class="label">联系方式：</span>
-            <input type="text" class="text text1 gray" name="consignee" value="{$user['realname']|default=$user['nickname']}"/>
+            <input type="text" class="text gray" name="consignee" value="{$user['realname']|default=$user['nickname']}"/>
             <input type="text" class="text gray" name="mobile" value="{$user['mobile']}"/>
             <div class="clr"></div>
         </div>

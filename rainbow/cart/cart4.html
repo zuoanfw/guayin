@@ -176,11 +176,11 @@
                                             </ul>
                                             <div class="zhuan_pay">
                                                 <p>为了及时处理您的订单，请您汇款时将订单号 xxxxxxx 填写至电汇凭证的［汇款用途］栏内。</p>
-                                                <p> 请您完成汇款后拨打 400-897-7678 或 在线客服 告诉我们，以便能及时确认您的款项到账情况。</p>
+                                                <p> 请您完成汇款后拨打 {$tpshop_config['shop_info_phone']} 或 在线客服 告诉我们，以便能及时确认您的款项到账情况。</p>
 
-                                                <p><input type="text" name="banknum" value="" placeholder="请填写回单编号"></p>
+                                                <p><input type="text" name="banknum" id="banknum" value="" placeholder="请填写回单编号"></p>
                                                 <p>
-                                                    <a class="button-style-5 button-confirm-payment" href="javascript:void(0);" onClick="$('#cart4_form').submit();">我已完成汇款</a>
+                                                    <a class="button-style-5 button-confirm-payment" href="javascript:void(0);" onClick="paysub()">我已完成汇款</a>
                                                 </p>
 
                                             </div>
@@ -203,7 +203,7 @@
     <div class="g-cartpay-content">
         <div class="g-h"><span class="u-close"></span></div>
         <div class="g-c">
-            <div class="g-t"> 使用微信支付<span>￥<small class='wx_amount'>118</small></span></div>
+            <div class="g-t"> 使用微信支付<span>￥<small class='wx_amount'></small></span></div>
             <div class="g-qrcode"><img alt="使用微信支付" src="images/loading.gif"/></div>
         </div>
         <div class="g-f fixed"><i class="icon_scan"></i>
@@ -241,6 +241,16 @@
     function change_pay(obj) {
         $("input[name='pay_radio']").siblings('label').removeClass('check_active');
         $(obj).addClass('check_active').siblings('input[name="pay_radio"]').trigger('click');
+    }
+    //银行转账的时候的提交
+    function paysub() {
+       var banknum = $.trim($("#banknum").val());
+       if(banknum == ''){
+           layer.alert("请填写回单编号",{icon:2});
+           return false;
+       }else {
+           $('#cart4_form').submit();
+       }
     }
 </script>
 </body>
