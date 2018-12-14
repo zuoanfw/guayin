@@ -2775,6 +2775,10 @@ ul.main_shop li img {
 	margin: 10px 0px;
 	float: left;
 }
+.detail-ggsl .goods_attr ul li span img{
+	width: 110px;
+	vertical-align: middle;
+}
 .detail-ggsl .goods_attr ul li{
 	padding: 3px 0px;
 }
@@ -2949,7 +2953,9 @@ ul.main_shop li img {
 	margin-left:16px;
 	vertical-align:middle
 }
-.standard .service {
+.standard .service img{
+	width: 110px;
+	vertical-align: middle;
 }
 .standard .service a {
 	margin:0 10px;

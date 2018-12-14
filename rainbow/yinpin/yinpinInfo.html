@@ -34,12 +34,13 @@
         display: inline-block;
         padding: 1px 2px;
         border: 1px solid #dadada;
-        margin: 0 15px 3px 0;
+        margin: 0 15px 7px 0;
         cursor: pointer;
         text-align: center;
         width: auto;
         padding: 7px 10px;
         background-color: #fff;
+        position: relative;
     }
     .store-selector .text {
         padding: 2px 20px;
@@ -64,7 +65,30 @@
         border-color: #ddd;
         color: #ddd;
     }
+    .spec_goods_price_div li em {
+        width: 168px;
+        height: 140px;
+        position: absolute;
+        top: -105px;
+        left: -15px;
+        text-align: center;
+        padding: 0px;
+        font-style: normal;
+        z-index: 200;
+        background-image: url(__STATIC__/images/gy.png);
+        display: none;
+    }
+
 </style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".spec_goods_price_div li button").hover(function() {
+            $(this).find("em").animate({opacity: "show", top: "-145"}, "slow");
+        }, function() {
+            $(this).find("em").animate({opacity: "hide", top: "-105"}, "fast");
+        });
+    });
+</script>
 <body>
 <!--header-s-->
 <include file="public/header" w="w1224"/>
@@ -117,9 +141,9 @@
                                     <input type="radio" spec_val="{$k}" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
                                     <button type="button" id="goods_spec_a_{$v2[item_id]}" class="spec_item">
                                         <if condition="$v2[src] neq ''">
-                                            <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
-                                            <span class="dis_alintro">{$v2[item]}</span>
-                                            <else/>
+                                            <em><img src="{$v2[src]}" style="width: 145px;margin-top: 4px;height: 120px;"/></em>
+                                            <span>{$v2[item]}</span>
+                                         <else/>
                                             {$v2[item]|htmlspecialchars_decode}
                                         </if>
                                     </button>
@@ -332,11 +356,11 @@
                                 "bdSize": "16"
                             },
                             "share": {},
-                            "image": {
+                            /*"image": {
                                 "viewList": ["qzone", "tsina", "tqq", "renren", "weixin"],
                                 "viewText": "分享到：",
                                 "viewSize": "16"
-                            },
+                            },*/
                             "selectShare": {
                                 "bdContainerClass": null,
                                 "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
@@ -493,38 +517,18 @@
     //有规格id的时候，解析规格id选中规格
     function initSpec() {
         var item_id = $("input[name='item_id']").val();
-        $.each(spec_goods_price, function (i, o) {
-            if (o.item_id == item_id) {
-                var spec_key_arr = o.key.split("_");
-                $.each(spec_key_arr, function (index, item) {
-                    var spec_radio = $("#goods_spec_" + item);
-                    var goods_spec_a = $("#goods_spec_a_" + item);
-                    spec_radio.attr("checked", "checked");
-                    goods_spec_a.addClass('red');
-                })
-            }
-        })
         if (item_id > 0 && !$.isEmptyObject(spec_goods_price)) { //点击规格切换的时候
-            var item_arr = [];
             $.each(spec_goods_price, function (i, o) {
-                item_arr.push(o.item_id);
+                if (o.item_id == item_id) {
+                    var spec_key_arr = o.key.split("_");
+                    $.each(spec_key_arr, function (index, item) {
+                        var spec_radio = $("#goods_spec_" + item);
+                        var goods_spec_a = $("#goods_spec_a_" + item);
+                        spec_radio.attr("checked", "checked");
+                        goods_spec_a.addClass('red');
+                    })
+                }
             })
-            //规格id不存在商品里
-            if ($.inArray(parseInt(item_id), item_arr) < 0) {
-                initFirstSpec();
-            } else {
-                $.each(spec_goods_price, function (i, o) {
-                    if (o.item_id == item_id) {
-                        var spec_key_arr = o.key.split("_");
-                        $.each(spec_key_arr, function (index, item) {
-                            var spec_radio = $("#goods_spec_" + item);
-                            var goods_spec_a = $("#goods_spec_a_" + item);
-                            spec_radio.attr("checked", "checked");
-                            goods_spec_a.addClass('red');
-                        })
-                    }
-                })
-            }
         } else { //刚进入页面的时候
             initFirstSpec();
         }

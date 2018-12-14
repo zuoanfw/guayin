@@ -427,9 +427,11 @@ class Goods extends Base
         $SearchWordLogic = new SearchWordLogic();
         $where = $SearchWordLogic->getSearchWordWhere($q);
         $where['is_on_sale'] = 1;
-        Db::name('search_word')->where('keywords', $q)->setInc('search_num');
+        /*Db::name('search_word')->where('keywords', $q)->setInc('search_num');
+        //通过搜索关键词
         $goodsHaveSearchWord = Db::name('goods')->where($where)->count();
         if ($goodsHaveSearchWord) {
+            //如果搜索的关键词商品存在记录关键词
             $SearchWordIsHave = Db::name('search_word')->where('keywords', $q)->find();
             if ($SearchWordIsHave) {
                 Db::name('search_word')->where('id', $SearchWordIsHave['id'])->update(['goods_num' => $goodsHaveSearchWord]);
@@ -443,58 +445,54 @@ class Goods extends Base
                 ];
                 Db::name('search_word')->insert($SearchWordData);
             }
-        }
+        }*/
+        //爆品分类下的商品id
         if ($id) {
             $cat_id_arr = getCatGrandson($id);//获取某个商品分类的 儿子 孙子  重子重孙 的 id
             $where['cat_id'] = array('in', implode(',', $cat_id_arr));
         }
         $search_goods = M('goods')->where($where)->getField('goods_id,cat_id');
-        $filter_goods_id = array_keys($search_goods);
-        $filter_cat_id = array_unique($search_goods); // 分类需要去重
-        if ($filter_cat_id) {
-            $cateArr = M('goods_category')->where("id", "in", implode(',', $filter_cat_id))->select();
-            $tmp = $filter_param;
-            foreach ($cateArr as $k => $v) {
-                $tmp['id'] = $v['id'];
-                $cateArr[$k]['href'] = U("/Home/Goods/search", $tmp);
-            }
-        }
-        // 过滤帅选的结果集里面找商品        
-        if ($brand_id || $price) {
-            // 品牌或者价格
-            $goods_id_1 = $goodsLogic->getGoodsIdByBrandPrice($brand_id, $price); // 根据 品牌 或者 价格范围 查找所有商品id
-            $filter_goods_id = array_intersect($filter_goods_id, $goods_id_1); // 获取多个帅选条件的结果 的交集
-        }
-        $filter_menu = $goodsLogic->get_filter_menu($filter_param, 'search'); // 获取显示的帅选菜单
-        $filter_price = $goodsLogic->get_filter_price($filter_goods_id, $filter_param, 'search'); // 帅选的价格期间
-        $filter_brand = $goodsLogic->get_filter_brand($filter_goods_id, $filter_param, 'search'); // 获取指定分类下的帅选品牌
+        $filter_goods_id1 = array_keys($search_goods);
 
-        $count = count($filter_goods_id);
-        $page = new Page($count, 20);
-        if ($count > 0) {
-            $goods_list = M('goods')->where(['is_on_sale' => 1, 'goods_id' => ['in', implode(',', $filter_goods_id)]])->order([$sort => $sort_asc])->limit($page->firstRow . ',' . $page->listRows)->select();
-            $filter_goods_id2 = get_arr_column($goods_list, 'goods_id');
-            if ($filter_goods_id2)
-                $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id2))->select();
+        //包装分类下的商品id
+        $id = 4;
+        if ($id) {
+            $cat_id_arr = getCatGrandson($id);//获取某个商品分类的 儿子 孙子  重子重孙 的 id
+            $where['cat_id'] = array('in', implode(',', $cat_id_arr));
         }
-        if($goods_list){
-            foreach ($goods_list as $key => $vo){
+        $search_goods = M('goods')->where($where)->getField('goods_id,cat_id');
+        $filter_goods_id2 = array_keys($search_goods);
+
+        $goods_list1 = M('goods')->where(['is_on_sale' => 1, 'goods_id' => ['in', implode(',', $filter_goods_id1)]])->order([$sort => $sort_asc])->select();
+        $goods_list2 = M('goods')->where(['is_on_sale' => 1, 'goods_id' => ['in', implode(',', $filter_goods_id2)]])->order([$sort => $sort_asc])->select();
+
+        if($goods_list1){
+            //爆品印品 要拆分数量和价格
+            foreach ($goods_list1 as $key => $vo){
                 if($vo['goods_num']){
-                    $goods_list[$key]['goods_num'] = explode(',',$vo['goods_num']);
-                    $goods_list[$key]['shop_price'] = explode(',',$vo['shop_price']);
+                    $goods_list1[$key]['goods_num'] = explode(',',$vo['goods_num']);
+                    $goods_list1[$key]['shop_price'] = explode(',',$vo['shop_price']);
                 }
             }
         }
+        if($goods_list2){
+            //包装商品 要加包装标示
+            foreach ($goods_list2 as $key => $vo){
+                    $goods_list2[$key]['goods_baozhuang'] = '1';
+            }
+        }
+
+        $goods_list = array_merge($goods_list1,$goods_list2);
+
+        $filter_goods_id_img = get_arr_column($goods_list, 'goods_id'); //获取数组中的某一列
+        if ($filter_goods_id_img)
+            $goods_images = M('goods_images')->where("goods_id", "in", implode(',', $filter_goods_id_img))->select();
+
 
         $this->assign('goods_list', $goods_list);
         $this->assign('goods_images', $goods_images);  // 相册图片
-        $this->assign('filter_menu', $filter_menu);  // 帅选菜单
-        $this->assign('filter_brand', $filter_brand);  // 列表页帅选属性 - 商品品牌
-        $this->assign('filter_price', $filter_price);// 帅选的价格期间
-        $this->assign('cateArr', $cateArr);
         $this->assign('filter_param', $filter_param); // 帅选条件
         $this->assign('cat_id', $id);
-        $this->assign('page', $page);// 赋值分页输出
         $this->assign('q', I('q'));
         C('TOKEN_ON', false);
         return $this->fetch();

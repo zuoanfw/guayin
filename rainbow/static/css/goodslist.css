@@ -28,6 +28,10 @@
     height: 300px;
     position: relative;
 }
+.s_xsall_text p img{
+    width: 110px;
+    vertical-align: middle;
+}
 .s_xsall_text p{
     padding: 10px 5px;
 }

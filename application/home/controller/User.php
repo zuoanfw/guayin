@@ -138,6 +138,9 @@ class User extends Base{
         if($this->user_id > 0){
             $this->redirect('Home/User/info');
         }
+        if(trim($_GET['mobile'])){
+            $this->assign('mobile',$_GET['mobile']);
+        }
         $redirect_url = Session::get('redirect_url');
         $referurl = $redirect_url ? $redirect_url : U("Home/User/index");
         $this->assign('referurl',$referurl);

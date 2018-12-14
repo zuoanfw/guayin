@@ -49,7 +49,14 @@ class Index extends Base {
         if($index_hot_goods2){
             $this->assign("index_first_goods2",$index_hot_goods2);
         }
-
+        $count=5896;$date='2018-12-13';
+        $now = strtotime(date('Y-m-d', time()));
+        if($now > strtotime($date))
+        {
+            $add = intval(($now-strtotime($date))/(24*3600));
+            $count += 10*$add;
+        }
+        $this->assign("count",$count);
         return $this->fetch();
     }
  

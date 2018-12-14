@@ -165,6 +165,15 @@ class Api extends Base
             $res = $logic->send_email_code($sender);
             ajaxReturn($res);
         } else {
+            //用户注册时候先判断用户手机号是否已经存在了
+            if($scene == '1'){
+              $user = get_user_info($mobile,2);
+              if($user['user_id']>='1'){
+                  $return_arr = array('status' => -1, 'msg' => '该手机号已注册请登录','url' => '/login.html?mobile='.$mobile);
+                  ajaxReturn($return_arr);
+              }
+            }
+
             //发送短信验证码
             $res = checkEnableSendSms($scene);
             if ($res['status'] != 1) {

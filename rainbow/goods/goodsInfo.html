@@ -12,11 +12,8 @@
     <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="__STATIC__/js/jquery.jqzoom.js"></script>
     <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/pc_common.js"></script>
     <!--饼图-->
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.easy-pie-chart.css">
-    <script src="__STATIC__/js/excanvas.js" type="text/javascript" charset="utf-8"></script>
-    <script src="__STATIC__/js/jquery.easy-pie-chart.js" type="text/javascript" charset="utf-8"></script>
-    <script src="__STATIC__/js/myCanvas.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <style>
     .store-selector .text {
@@ -32,7 +29,7 @@
         color: #999;
     }
 </style>
-<body onLoad="initPieChart();">
+<body>
 <!--header-s-->
 <include file="public/header" w="w1224"/>
 <!--header-e-->
@@ -134,11 +131,11 @@
                                 "bdSize": "16"
                             },
                             "share": {},
-                            "image": {
+                            /*"image": {
                                 "viewList": ["qzone", "tsina", "tqq", "renren", "weixin"],
                                 "viewText": "分享到：",
                                 "viewSize": "16"
-                            },
+                            },*/
                             "selectShare": {
                                 "bdContainerClass": null,
                                 "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
@@ -194,11 +191,7 @@
                     <ul>
                         <li class="jaj"><span>用户评价</span></li>
                         <li class="lawir_gailv" style="width: 100px;line-height: 18px;text-align: center">
-                            <div class="chart">
-                                <div class="percentage-light"  data-percent="92">
-                                    <div style="line-height: 25px;padding-top: 20px;"><span></span>%<div style="color: #ff8a5c">好评率</div></div>
-                                </div>
-                            </div>
+                            <img width="80" src="__STATIC__/images/haopin.png" alt="">
                         </li>
                         <li class="lawir" style="width: 480px;padding-right: 10px;">
                             <span class="service">{$goods['goods_comment']}</span>
