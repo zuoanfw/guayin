@@ -67,15 +67,16 @@
     }
     .spec_goods_price_div li em {
         width: 168px;
-        height: 140px;
+        /*height: 140px;*/
         position: absolute;
-        top: -105px;
+        bottom: 30px;
         left: -15px;
         text-align: center;
         padding: 0px;
         font-style: normal;
         z-index: 200;
-        background-image: url(__STATIC__/images/gy.png);
+        border: 1px solid #dddddd;
+        /*background-image: url(__STATIC__/images/gy.png);*/
         display: none;
     }
 
@@ -83,9 +84,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".spec_goods_price_div li button").hover(function() {
-            $(this).find("em").animate({opacity: "show", top: "-145"}, "slow");
+            $(this).find("em").animate({opacity: "show", bottom: "40"}, "slow");
         }, function() {
-            $(this).find("em").animate({opacity: "hide", top: "-105"}, "fast");
+            $(this).find("em").animate({opacity: "hide", bottom: "10"}, "fast");
         });
     });
 </script>
@@ -141,7 +142,7 @@
                                     <input type="radio" spec_val="{$k}" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
                                     <button type="button" id="goods_spec_a_{$v2[item_id]}" class="spec_item">
                                         <if condition="$v2[src] neq ''">
-                                            <em><img src="{$v2[src]}" style="width: 145px;margin-top: 4px;height: 120px;"/></em>
+                                            <em><img src="{$v2[src]}" style="width: 145px;margin-top: 4px;"/></em>
                                             <span>{$v2[item]}</span>
                                          <else/>
                                             {$v2[item]|htmlspecialchars_decode}

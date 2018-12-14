@@ -430,6 +430,6 @@ return [
     'COUPON_USER_TYPE'=>['全店通用','指定商品可用','指定分类商品可用'],
     'INVOUCE_TYPE'=>['普通发票','电子发票','增值税发票'],
     'image_upload_limit_size'=>1024 * 1024 * 5,//上传图片大小限制
-    'abolish_order'=>2,//订单自动取消时间 天
+    'abolish_order'=>7,//订单自动取消时间 天
    
 ];
