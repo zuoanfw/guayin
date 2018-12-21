@@ -65,7 +65,7 @@
 }
 .u-diaolog-login-content {
 	font-family: 'Microsoft YaHei','微软雅黑';
-	font-size: 12px;
+	font-size: 14px;
     margin-top: 30px;
     padding: 0 79px;
     width:305px;
@@ -199,7 +199,7 @@
 }
 .u-diaolog-login-content .u-authcode .u-txt02 {
     height: 16px;
-    width: 63px;
+    width: 93px;
     padding: 10px 0 11px 25px;
 }
 .u-diaolog-login-content .u-authcode .u-vcode-img {

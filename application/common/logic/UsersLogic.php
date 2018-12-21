@@ -50,7 +50,7 @@ class UsersLogic extends Model
         $user = Db::name('users')->where("mobile", $username)->whereOr('email', $username)->find();
         if (!$user) {
             $result = array('status' => -1, 'msg' => '账号不存在!');
-        } elseif (encrypt($password) != $user['password']) {
+        } elseif ($password != $user['password']) {
             $result = array('status' => -2, 'msg' => '密码错误!');
         } elseif ($user['is_lock'] == 1) {
             $result = array('status' => -3, 'msg' => '账号异常已被锁定！！！');

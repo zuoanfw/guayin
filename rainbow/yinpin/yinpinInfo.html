@@ -67,7 +67,7 @@
     }
     .spec_goods_price_div li em {
         width: 168px;
-        /*height: 140px;*/
+        height: 140px;
         position: absolute;
         bottom: 30px;
         left: -15px;
@@ -75,8 +75,8 @@
         padding: 0px;
         font-style: normal;
         z-index: 200;
-        border: 1px solid #dddddd;
-        /*background-image: url(__STATIC__/images/gy.png);*/
+        overflow: hidden;
+        background-image: url(__STATIC__/images/gy.png);
         display: none;
     }
 
@@ -142,7 +142,7 @@
                                     <input type="radio" spec_val="{$k}" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
                                     <button type="button" id="goods_spec_a_{$v2[item_id]}" class="spec_item">
                                         <if condition="$v2[src] neq ''">
-                                            <em><img src="{$v2[src]}" style="width: 145px;margin-top: 4px;"/></em>
+                                            <em><img src="{$v2[src]}" style="width: 145px;height:120px;margin-top: 6px;"/></em>
                                             <span>{$v2[item]}</span>
                                          <else/>
                                             {$v2[item]|htmlspecialchars_decode}
@@ -761,9 +761,9 @@
     //点击切换规格
     $(document).on('click', '.spec_item', function () {
         var spec_item_img_src = $(this).find('img').attr('src');
-        if (spec_item_img_src != '') {
+        /*if (spec_item_img_src != '') {
             $('#zoomimg').attr('jqimg', spec_item_img_src).attr('src', spec_item_img_src);
-        }
+        }*/
         var goods_id = $('input[name="goods_id"]').val();
         var spec_item_id = $(this).prev('input').val();
         //console.log(spec_item_id);

@@ -27,23 +27,51 @@ class Index extends Base {
         }*/
         //热销爆品一个楼层，定制印品一个楼层，包装盒1个楼层，现货一个楼层，
         $cat_id_arr = getCatGrandson('8'); //热销爆品  获取某个商品分类的 儿子 孙子  重子重孙 的 id
-        $index_hot_goods1 = S('index_hot_goods1');
+        //$index_hot_goods1 = S('index_hot_goods1');
         if(empty($index_hot_goods1))
         {
             $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
-            $index_hot_goods1 = Db::name('goods')->where($goods_where)->cache(true)->select();
+            $index_hot_goods1 = Db::name('goods')->where($goods_where)->cache(true)->limit(8)->select();
+            //爆品印品 要拆分数量和价格
+            foreach ($index_hot_goods1 as $key => $vo){
+                if($vo['goods_num']){
+                    $index_hot_goods1[$key]['goods_num'] = explode(',',$vo['goods_num']);
+                    $index_hot_goods1[$key]['shop_price'] = explode(',',$vo['shop_price']);
+                }
+            }
             S('index_hot_goods1',$index_hot_goods1,TPSHOP_CACHE_TIME);
         }
         if($index_hot_goods1){
             $this->assign("index_first_goods1",$index_hot_goods1);
         }
 
-        $cat_id_arr = getCatGrandson('4'); //包装盒  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+        //定制印品
+        $index_hot_goods3 = S('index_hot_goods3');
+        if(empty($index_hot_goods3))
+        {
+            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => 15];
+            $index_hot_goods3 = Db::name('goods')->where($goods_where)->cache(true)->limit(5)->select();
+
+            S('index_hot_goods3',$index_hot_goods3,TPSHOP_CACHE_TIME);
+        }
+        if($index_hot_goods3){
+            $this->assign("index_first_goods3",$index_hot_goods3);
+        }
+        //halt($index_hot_goods3);
+
+        //包装盒  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+        $cat_list = M('goods_category')->where(['is_show' => 1,'level'=>1,'cat_group'=>1])->field('id')->order('sort_order')->select();//所有分类
+        //halt($cat_list);
+        $cat_id_arrs = array();
+        foreach ($cat_list as $k=>$v){
+            $cat_id_arr = getCatGrandson($v['id']); //包装专区  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+            $cat_id_arrs = array_merge($cat_id_arrs,$cat_id_arr);
+        }
         $index_hot_goods2 = S('index_hot_goods2');
         if(empty($index_hot_goods2))
         {
-            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
-            $index_hot_goods2 = Db::name('goods')->where($goods_where)->cache(true)->select();
+            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arrs]];
+            $index_hot_goods2 = Db::name('goods')->where($goods_where)->cache(true)->limit(8)->select();
             S('index_hot_goods2',$index_hot_goods2,TPSHOP_CACHE_TIME);
         }
         if($index_hot_goods2){

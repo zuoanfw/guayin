@@ -16,6 +16,11 @@
 		-webkit-appearance: button;
 		cursor: pointer;
 	}
+	.old em {
+		font-size: 12px;
+		color: #999999;
+		text-decoration: line-through;
+	}
 </style>
 <body class="gray_f5">
 <!--header-s-->
@@ -125,7 +130,7 @@
 <div class="floor  w1224">
 	<div class="floor-top">
 		<h3 class="floor-title">热销印品</h3>
-
+		<a class="nav-more-btn" href="/yinshua.html">更多<i>></i></a>
 	</div>
 	<div class="floor-main">
 		<div class="floor-brand">
@@ -142,14 +147,35 @@
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
 					<div class="goods-pic"><img class="w-100" src="{$g['goods_id']|goods_thum_images=400,400}" alt=""></div>
-					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,50}</div>
+					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,45}</div>
+					<div class="googs-remark ellipsis-1">{$g['goods_rec_reason']}</div>
+					<div class="googs-price ellipsis-1">
+						<span style="color:#ffa000;font-size:14px;">{$g['shop_price']['0']*$g['goods_num']['0']}元起</span>
+						<span class="old"><em>{$g[market_price]*$g['goods_num']['0']}元</em></span>
+					</div>
 				</a>
 			</foreach>
 		</div>
 	</div>
+
+
+	<div class="floor-top">
+		<h3 class="floor-title">定制印品</h3>
+		<a class="nav-more-btn" href="/yinpin.html">更多<i>></i></a>
+	</div>
+	<div class="floor-main1">
+			<foreach name="index_first_goods3" item="g" key="gk">
+				<a class="floor-goods-item1" href="/yinpin/{$g['goods_id']}.html">
+					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
+					<div class="goods-pic"><img class="w-100" src="{$g['goods_id']|goods_thum_images=400,400}" alt=""></div>
+				</a>
+			</foreach>
+	</div>
+
+
 	<div class="floor-top">
 		<h3 class="floor-title">精品包装盒</h3>
-
+		<a class="nav-more-btn" href="/baozhuang.html">更多<i>></i></a>
 	</div>
 	<div class="floor-main">
 		<div class="floor-brand">
@@ -166,7 +192,8 @@
 
 					<!--<div class="googs-remark ellipsis-1">{$g[goods_remark]|getSubstr=0,40}</div>-->
 					<div class="goods-pic"><img class="w-100" src="{$g['goods_id']|goods_thum_images=400,400}" alt=""></div>
-					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,50}</div>
+					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,45}</div>
+					<div class="googs-remark" style="text-align:left;">{$g['goods_rec_reason']|getSubstr=0,32}</div>
 				</a>
 			</foreach>
 		</div>

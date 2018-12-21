@@ -7,17 +7,44 @@
    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
   <link rel="stylesheet" href="__STATIC__/css/fn_login.css">
   <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/layer/layer.js"></script>
 </head>
+<style>
+    #loginform{
+        display: none;
+    }
+    .btn {
+        display: inline-block;
+        padding: 4px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 31px;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+    }
+</style>
 <body>
 <div class="u-diaolog-login-content">
-  <form action="#" name="" class="J-login" method="post">
+  <form action="#" name="" id="loginform" class="J-login" method="post">
     <input type="hidden" value="" id="refer">
     <div class="u-reg mb13">
-    <a class="f12" href="{:U('Home/User/reg')}" target="_blank">免费注册</a>
+    <span><a href="javascript:void(0)" id="telphonelogin">手机动态码登录</a></span>
     </div>
-    <div class="u-message-error mb10 pl30 f12 u-msg-wrap" id="u-mb-msg" ><i></i>
-    	<span class="J-errorMsg">公共场所不建议自动登录，以防帐号丢失</span>
-    </div>
+      <div class="u-message-error mb10 pl30 f12 u-msg-wrap" id="u-mb-msg" ><i></i>
+          <span class="J-errorMsg">公共场所不建议自动登录，以防帐号丢失</span>
+      </div>
     <div class="u-input mb20">
       <label for="loginname" class="u-label u-name"></label>
       <input id="username" type="text" class="u-txt J-txt"   value="" name="username" tabindex="1" placeholder="请输入手机号">
@@ -38,21 +65,131 @@
           <input id="verify_code" type="text" tabindex="3" class="u-txt u-txt02 J-txt" name="verify_code" placeholder="验证码">
         </div>
         <div class="u-vcode-img ml5"><img height="40" src="/index.php/Home/User/verify.html" id="verify_code_img"></div>
-        <a class="u-change f12" href="javascript:void(0)" onclick="verify(this);">看不清换一张</a>
+        <a class="u-change f12" href="javascript:void(0)" onclick="verify(this);">换一张</a>
     </div>
     <div class="u-btn mt20">
-  <input id="J_sbmbtn" type="button" tabindex="4" onclick="checkSubmit()" value="登  录">
-</div>
+        <input id="J_sbmbtn" type="button" tabindex="4" onclick="checkSubmit()" value="登  录">
+    </div>
 </form>
+
+
+    <form action="#" name="" id="loginform1" class="J-login" method="post">
+        <input type="hidden" name="referurl" id="referurl1" value="{$referurl}">
+        <div class="u-reg mb13">
+            <span><a href="javascript:void(0)" id="telphonelogin1">普通方式登录</a></span>
+        </div>
+        <div class="u-message-error mb10 pl30 f12 u-msg-wrap" id="u-mb-msg" ><i></i>
+            <span class="J-errorMsg">公共场所不建议自动登录，以防帐号丢失</span>
+        </div>
+        <div class="u-input mb20">
+            <label for="loginname" class="u-label u-name"></label>
+            <input id="username1" type="text" class="u-txt J-txt"   value="" name="username" tabindex="1" placeholder="请输入手机号">
+        </div>
+        <div class="u-input u-authcode mt10" id="logincaptcha">
+            <div class="u-vcode">
+                <input id="verify_code1" type="text" tabindex="3" class="u-txt u-txt02 J-txt" name="verify_code" placeholder="动态码">
+            </div>
+            <div class="u-vcode-img ml5">
+                <button class="btn btn-default" onclick="sendcode(this)" type="button">获取动态码</button></div>
+        </div>
+
+        <div class="u-btn mt20">
+            <input type="button" tabindex="4" onclick="checkSubmit1()" value="登  录">
+        </div>
+    </form>
 <div class="u-qq">
 	<span>您可以用合作伙伴账号登录：</span>
     <a href="{:U('LoginApi/login',array('oauth'=>'qq'))}"  class="qq" title="QQ"></a>
     <!--<a href="{:U('LoginApi/login',array('oauth'=>'alipay'))}"  class="pay" title="支付宝"></a>-->
     <a href="{:U('LoginApi/login',array('oauth'=>'weixin'))}" class="weixin" title="weixin"></a>
+    <div><a href="{:U('Home/User/reg')}" target="_blank">免费注册</a></div>
 </div>
 </div>
 </body>
-<script>	
+<script>
+    $(function(){
+        $("#telphonelogin").click(function () {
+            $("#loginform").hide();
+            $("#loginform1").show();
+        })
+        $("#telphonelogin1").click(function () {
+            $("#loginform1").hide();
+            $("#loginform").show();
+        })
+    })
+    function sendcode(o){
+        if($.trim($('#username1').val())==''){
+            showErrorMsg('手机号不能为空!');
+            return false;
+        }
+        $.ajax({
+            url:'/index.php?m=Home&c=Api&a=send_validate_code&scene=6&t='+Math.random(),
+            type:'get',
+            dataType:'json',
+            data:{type:"phone",send:$('#username1').val()},
+            success:function(res){
+                if(res.status==1){
+                    layer.alert(res.msg, {icon: 1});
+                    timer(o);
+                }else{
+                    layer.alert(res.msg, {icon: 2});
+                }
+            }
+        })
+    }
+
+    var wait={$tpshop_config['sms_sms_time_out']|default=60};
+    function timer(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.value="获取验证码";
+            wait = {$tpshop_config['sms_sms_time_out']|default=60};
+        } else {
+            o.setAttribute("disabled", true);
+            $(o).text("重新发送(" + wait + ")");
+            wait--;
+            setTimeout(function() {
+                timer(o)
+            }, 1000)
+        }
+    }
+    function checkSubmit1()
+    {
+        $('.u-msg-wrap').hide();
+        $('.J-errorMsg').empty();
+        var username = $.trim($('#username1').val());
+        var referurl = $('#referurl1').val();
+        var verify_code = $.trim($('#verify_code1').val());
+        if(username == ''){
+            showErrorMsg('手机号不能为空!');
+            return false;
+        }
+        if(!checkMobile(username) && !checkEmail(username)){
+            showErrorMsg('手机号格式不匹配!');
+            return false;
+        }
+        if(verify_code == ''){
+            showErrorMsg('验证码不能为空!');
+            return false;
+        }
+        //$('#login-form').submit();
+        $.ajax({
+            type : 'post',
+            url : '/index.php?m=Home&c=User&a=do_login_code&t='+Math.random(),
+            data : {username:username,referurl:referurl,verify_code:verify_code},
+            dataType : 'json',
+            success : function(res){
+                if(res.status == 1){
+                    top.location.href = res.url;
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                showErrorMsg('网络失败，请刷新页面后重试');
+            }
+        })
+    }
 function checkSubmit()
 {
 	$('.u-msg-wrap').hide();
@@ -62,11 +199,11 @@ function checkSubmit()
 	var referurl = $('#referurl').val();
 	var verify_code = $.trim($('#verify_code').val());
 	if(username == ''){
-		showErrorMsg('用户名不能为空!');
+		showErrorMsg('手机号不能为空!');
 		return false;
 	}
 	if(!checkMobile(username) && !checkEmail(username)){
-		showErrorMsg('账号格式不匹配!');
+		showErrorMsg('手机号格式不匹配!');
 		return false;
 	}
 	if(password == ''){

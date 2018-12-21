@@ -26,12 +26,19 @@ class Baozhuang extends Base {
         if(isMobile()){
             redirect(U('Mobile/Index/index'));
         }
-        $cat_id_arr = getCatGrandson('4'); //包装专区  获取某个商品分类的 儿子 孙子  重子重孙 的 id
-
+        //cat_group  分组1是包装盒分类   获取包装盒一级分类
+        $cat_list = M('goods_category')->where(['is_show' => 1,'level'=>1,'cat_group'=>1])->field('id')->order('sort_order')->select();//所有分类
+        //halt($cat_list);
+        $cat_id_arrs = array();
+        foreach ($cat_list as $k=>$v){
+            $cat_id_arr = getCatGrandson($v['id']); //包装专区  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+            $cat_id_arrs = array_merge($cat_id_arrs,$cat_id_arr);
+        }
+        // halt($cat_id_arrs);
         $index_hot_goods = S('index_hot_goods');
         if(empty($index_hot_goods))
         {
-            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
+            $goods_where = ['is_on_sale' => 1,'is_hot' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arrs]];
             $index_hot_goods = Db::name('goods')->where($goods_where)->cache(true)->select();
             S('index_hot_goods',$index_hot_goods,TPSHOP_CACHE_TIME);
         }

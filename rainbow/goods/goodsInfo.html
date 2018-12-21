@@ -28,6 +28,15 @@
         cursor: pointer;
         color: #999;
     }
+    .goods_num_input{
+        border: 1px solid #ddd;
+        padding: 4px;
+        line-height: 25px;
+    }
+    input.red {
+        color: #ff8a5c;
+        border-color: #ff8a5c;
+    }
 </style>
 <body>
 <!--header-s-->
@@ -236,6 +245,7 @@
                                         {$n}
                                     </a>
                                 </foreach>
+                                <input type="text" class="goods_num_input" placeholder="自定义数量" name="goods_num_input">
                             </li>
                         </ul>
                     </div>
@@ -890,11 +900,11 @@
         $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
         //$('#yuji_send_date').empty().html();
         //get_send_date('20170528');
-        $('#goods_weight').empty().html(goods_weight*buy_num/1000);// 商品体重
+        $('#goods_weight').empty().html(parseFloat(goods_weight*buy_num/1000).toFixed(2));// 商品体重
         $('#goods_volume').empty().html(goods_volume*buy_num);
 
-        $('#market_price').empty().html(market_price*buy_num);
-        $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
+        $('#market_price').empty().html(parseFloat(market_price*buy_num).toFixed(2));
+        $('#goods_price_all').empty().html("<em>￥</em>" +parseFloat(goods_price*buy_num).toFixed(2));
         $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
         var integral = round(goods_price - (exchange_integral / point_rate), 2);
         $("#integral").html(integral + '+' + exchange_integral + '瓜豆'); //瓜豆显示
@@ -1064,8 +1074,52 @@
         var goods_num_key = $(this).attr('val');
         var buy_num = $.trim($(this).text());
         $('#number').val(buy_num);//据规格改变商品数量
-        $('#num_key').val(goods_num_key);//商品数量数组的key值
+        $('#num_key').val(goods_num_key);//商品数量数组的key值 根据这个值获取价格
         $(this).addClass('red').siblings('a').removeClass('red');
+        $(this).siblings('input').removeAttr('checked');
+        $(this).siblings('input').removeClass('red');
+        initGoodsPrice();
+        doInitRegion();//重新获取运费
+    })
+    //爆品印品自定义数量 获取 数量 和 数量对应的价格
+    $(document).on('keyup', '.goods_num_input', function () {
+        var re = /^[1-9]+[0-9]*]*$/;
+        var buy_num = parseInt($.trim($(this).val()));
+        if (!re.test(buy_num)) {
+            layer.msg("请输入有效的数字", {icon: 3});
+            $(this).removeClass('red');
+            $(this).siblings('a').first().addClass('red');
+            var goods_num_key1 = $(this).siblings('a').first().attr('val');
+            var buy_num1 = $.trim($(this).siblings('a').first().text());
+            $('#number').val(buy_num1);//据规格改变商品数量
+            $('#num_key').val(goods_num_key1);//商品数量数组的key值 根据这个值获取价格
+            initGoodsPrice();
+            doInitRegion();//重新获取运费
+            return false;
+        }
+        $(this).addClass('red');
+        var goods_num = "{$goods_num_str}";
+        var goods_nums = goods_num.split(',');
+        /*if(buy_num<parseInt(goods_nums[0])){
+            layer.msg('购买数量不得低于'+goods_nums[0], {icon: 3});
+            return false;
+        }*/
+        var goods_num_key = 0;
+        for (var i = 0; i < goods_nums.length; i++) {
+            if(buy_num<parseInt(goods_nums[i])){
+                if(i != 0){
+                    goods_num_key = i-1;
+                }else {
+                    goods_num_key = i;
+                }
+                break;
+            }else {
+                goods_num_key = goods_nums.length -1;
+            }
+        }
+        $('#number').val(buy_num);//据规格改变商品数量
+        $('#num_key').val(goods_num_key);//商品数量数组的key值 根据这个值获取价格
+        $(this).siblings('a').removeClass('red');
         $(this).siblings('input').removeAttr('checked');
         initGoodsPrice();
         doInitRegion();//重新获取运费

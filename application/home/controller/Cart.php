@@ -218,7 +218,7 @@ class Cart extends Base
         $goods_file_id = I("goods_file_id/d");
         $action = input("action"); // 行为
         if ($this->user_id == 0) {
-            $this->error('请先登录', U('Home/User/login'));
+            $this->error('请先登录', '/login.html');
         }
         //获取支付方式
         $payment_type = C('payment_type');
@@ -503,7 +503,7 @@ class Cart extends Base
             $this->error('购买商品数量不能为0', U('Home/Activity/pre_sell', array('act_id' => $act_id)));
         }
         if ($this->user_id == 0) {
-            $this->error('请先登录', U('Home/User/login'));
+            $this->error('请先登录', U('User/login'));
         }
         $pre_sell_info = M('goods_activity')->where(array('act_id' => $act_id, 'act_type' => 1))->find();
         if (empty($pre_sell_info)) {

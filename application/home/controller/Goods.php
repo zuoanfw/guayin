@@ -71,6 +71,7 @@ class Goods extends Base
         if($goods['goods_num']){
             $goods_num =  explode(',',$goods['goods_num']);
             $this->assign('goods_num',$goods_num);
+            $this->assign('goods_num_str',$goods['goods_num']);
             $goods_price = explode(',',$goods['shop_price']);
             $this->assign('goods_price',json_encode($goods_price,true));
         }
@@ -455,11 +456,14 @@ class Goods extends Base
         $filter_goods_id1 = array_keys($search_goods);
 
         //包装分类下的商品id
-        $id = 4;
-        if ($id) {
-            $cat_id_arr = getCatGrandson($id);//获取某个商品分类的 儿子 孙子  重子重孙 的 id
-            $where['cat_id'] = array('in', implode(',', $cat_id_arr));
+        $cat_list = M('goods_category')->where(['is_show' => 1,'level'=>1,'cat_group'=>1])->field('id')->order('sort_order')->select();//所有分类
+        //halt($cat_list);
+        $cat_id_arrs = array();
+        foreach ($cat_list as $k=>$v){
+            $cat_id_arr = getCatGrandson($v['id']); //包装专区  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+            $cat_id_arrs = array_merge($cat_id_arrs,$cat_id_arr);
         }
+        $where['cat_id'] = array('in', implode(',', $cat_id_arrs));
         $search_goods = M('goods')->where($where)->getField('goods_id,cat_id');
         $filter_goods_id2 = array_keys($search_goods);
 

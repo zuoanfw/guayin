@@ -50,7 +50,7 @@ class User extends Base{
             $this->assign('user_message_count', $user_message_count);
         }else{
         	$nologin = array(
-        			'login','pop_login','do_login','logout','verify','set_pwd','finished',
+        			'login','pop_login','do_login','do_login_code','logout','verify','set_pwd','finished',
         			'verifyHandle','reg','send_sms_reg_code','identity','check_validate_code',
                 'forget_pwd', 'check_captcha', 'check_username', 'send_validate_code','bind_account','bind_guide','bind_reg',
         	);
@@ -169,7 +169,7 @@ class User extends Base{
         }
     	         
     	$logic = new UsersLogic();
-    	$res = $logic->login($username,$password);
+    	$res = $logic->login($username,encrypt($password));
 
     	if($res['status'] == 1){
     		$res['url'] =  htmlspecialchars_decode(I('post.referurl'));
@@ -187,6 +187,47 @@ class User extends Base{
             $orderLogic->abolishOrder();
     	}
     	exit(json_encode($res));
+    }
+    public function do_login_code(){
+        $username = trim(I('post.username'));
+        $verify_code = I('post.verify_code');
+        $session_id = I('unique_id', session_id());
+        $logic = new UsersLogic();
+        $ress = $logic->check_validate_code($verify_code, $username, 'phone', $session_id, '6');
+        //var_dump($ress);
+        if($ress['status'] != '1'){
+            exit(json_encode($ress));
+        }
+
+        //判断用户是否已经注册
+        $user_info = get_user_info($username,'2');
+        if($user_info['user_id']>0){
+            $res = $logic->login($username,$user_info['password']);
+        }else{
+            $data = $logic->reg($username,encrypt('123456'),0); //注册插入数据库
+            if($data['status'] != 1){
+                $this->ajaxReturn($data);
+            }else{
+                $res = $logic->login($username,encrypt('123456'));
+            }
+        }
+
+        if($res['status'] == 1){
+            $res['url'] =  htmlspecialchars_decode(I('post.referurl'));
+            session('user',$res['result']);
+            setcookie('user_id',$res['result']['user_id'],null,'/');
+            setcookie('is_distribut',$res['result']['is_distribut'],null,'/');
+            $nickname = empty($res['result']['nickname']) ? $username : $res['result']['nickname'];
+            setcookie('uname',urlencode($nickname),null,'/');
+            setcookie('cn',0,time()-3600,'/');
+            $cartLogic = new CartLogic();
+            $cartLogic->setUserId($res['result']['user_id']);
+            $cartLogic->doUserLoginHandle();// 用户登录后 需要对购物车 一些操作
+            $orderLogic = new OrderLogic();
+            $orderLogic->setUserId($res['result']['user_id']); //登录后将超时未支付订单给取消掉
+            $orderLogic->abolishOrder();
+        }
+        exit(json_encode($res));
     }
     /**
      *  注册

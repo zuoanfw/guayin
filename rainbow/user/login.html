@@ -17,6 +17,9 @@
         float: left;
         list-style: none;
     }
+    #loginform1{
+        display: none;
+    }
 </style>
 <body>
 <div class="container reg_head">
@@ -49,7 +52,8 @@
     <div class="col-md-5">
         <form class="form-horizontal reg_form" id="loginform" method="post" action="">
             <div class="form-group">
-                <h4>账号登录</h4>
+                <span style="font-size: 16px;float: left;">账号登录</span>
+                <span style="float: right;"><a href="javascript:void(0)" id="telphonelogin">手机动态码登录</a></span>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control J_cellphone"  placeholder="手机号" value="{$mobile}" name="username" id="username" autocomplete="off">
@@ -118,6 +122,69 @@
                 <p>还没有账号 &nbsp;&nbsp;<a href="/register.html">点击注册</a></p>
             </div>
         </form>
+        <form class="form-horizontal reg_form" id="loginform1" method="post" action="">
+            <div class="form-group">
+                <span style="font-size: 16px;float: left;">账号登录</span>
+                <span style="float: right;"><a href="javascript:void(0)" id="commonlogin">普通方式登录</a></span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control J_cellphone"  placeholder="手机号" value="{$mobile}" name="username" id="username1" autocomplete="off">
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" placeholder="动态码" name="verify_code" id="verify_code1" autocomplete="off">
+                    </div>
+                    <div class="col-sm-5">
+                        <button class="btn btn-default" onclick="sendcode(this)" type="button">获取动态码</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="row">
+                <div class="foget_pwt col-sm-12">
+                    <a href="{:U('Home/User/forget_pwd')}" class="checkbox">忘记密码？</a>
+                </div>
+            </div>-->
+            <div class="form-group">
+                <button type="button" onClick="checkSubmit1();" class="btn btn-success btn-block">登录</button>
+            </div>
+            <div class="form-group tecant_c">
+                <ul>
+                    <tpshop sql="select * from __PREFIX__plugin where type='login' AND status = 1" item="v" key="k">
+                        <if condition="$v['code'] eq 'weixin'">
+                            <li class="spacer"></li>
+                            <li>
+                                <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'weixin'))}" title="weixin">
+                                    <i class="judgp co_wechat"></i>
+                                    <span>微信</span>
+                                </a>
+                            </li>
+                        </if>
+                        <if condition="$v['code'] eq 'qq'">
+                            <li class="spacer"></li>
+                            <li>
+                                <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'qq'))}" title="QQ">
+                                    <i class="judgp co_qq"></i>
+                                    <span>QQ</span>
+                                </a>
+                            </li>
+                        </if>
+                        <if condition="$v['code'] eq 'alipay'">
+                            <li>
+                                <a class="justclix" href="{:U('LoginApi/login',array('oauth'=>'alipay'))}" title="支付宝">
+                                    <i class="judgp co_alipay"></i>
+                                    <span>支付宝</span>
+                                </a>
+                            </li>
+                        </if>
+                    </tpshop>
+                </ul>
+            </div>
+            <div class="form-group clearfix">
+                <p>还没有账号 &nbsp;&nbsp;<a href="/register.html">点击注册</a></p>
+            </div>
+        </form>
     </div>
 
     </div>
@@ -129,15 +196,86 @@
 <!--footer-e-->
 <script>
     $(function(){
-        $('.text_cmu').focus(function(){
-            //焦点获取
-            $(this).parents('.text_uspa').addClass('text_uspa_focus');
+        $("#telphonelogin").click(function () {
+            $("#loginform").hide();
+            $("#loginform1").show();
         })
-        $('.text_cmu').blur(function(){
-            //失去焦点
-            $(this).parents('.text_uspa').removeClass('text_uspa_focus');
+        $("#commonlogin").click(function () {
+            $("#loginform1").hide();
+            $("#loginform").show();
         })
     })
+    function sendcode(o){
+        if($.trim($('#username1').val())==''){
+            showErrorMsg('手机号不能为空!');
+            return false;
+        }
+        $.ajax({
+            url:'/index.php?m=Home&c=Api&a=send_validate_code&scene=6&t='+Math.random(),
+            type:'get',
+            dataType:'json',
+            data:{type:"phone",send:$('#username1').val()},
+            success:function(res){
+                if(res.status==1){
+                    layer.alert(res.msg, {icon: 1});
+                    timer(o);
+                }else{
+                    layer.alert(res.msg, {icon: 2});
+                }
+            }
+        })
+    }
+
+    var wait={$tpshop_config['sms_sms_time_out']|default=60};
+    function timer(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.value="获取验证码";
+            wait = {$tpshop_config['sms_sms_time_out']|default=60};
+        } else {
+            o.setAttribute("disabled", true);
+            $(o).text("重新发送(" + wait + ")");
+            wait--;
+            setTimeout(function() {
+                timer(o)
+            }, 1000)
+        }
+    }
+
+    function checkSubmit1()
+    {
+        var username = $.trim($('#username1').val());
+        var verify_code = $.trim($('#verify_code1').val());
+        if(username == ''){
+            showErrorMsg('手机号不能为空!');
+            return false;
+        }
+        if(!checkMobile(username) && !checkEmail(username)){
+            showErrorMsg('手机号格式不匹配!');
+            return false;
+        }
+        if(verify_code == ''){
+            showErrorMsg('验证码不能为空!');
+            return false;
+        }
+        $.ajax({
+            type : 'post',
+            url : '/index.php?m=Home&c=User&a=do_login_code&t='+Math.random(),
+            data : $('#loginform1').serialize(),
+            dataType : 'json',
+            success : function(res){
+                if(res.status == 1){
+                    window.location.href = res.url;
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                showErrorMsg('网络失败，请刷新页面后重试');
+            }
+        })
+
+    }
 
     function checkSubmit()
     {
@@ -146,11 +284,11 @@
         var referurl = $('#referurl').val();
         var verify_code = $.trim($('#verify_code').val());
         if(username == ''){
-            showErrorMsg('用户名不能为空!');
+            showErrorMsg('手机号不能为空!');
             return false;
         }
         if(!checkMobile(username) && !checkEmail(username)){
-            showErrorMsg('账号格式不匹配!');
+            showErrorMsg('手机号格式不匹配!');
             return false;
         }
         if(password == ''){

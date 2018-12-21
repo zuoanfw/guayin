@@ -17,7 +17,7 @@
 <div class="search-box p">
 	<div class="w1224">
 		<div class="search-path fl">
-			<a href="{:U('Home/Goods/goodsList',array('id'=>$cat_id))}">全部结果</a>
+			<a href="/yinshuas/{$cat_id}.html">全部结果</a>
 			<i class="litt-xyb"></i>
 			<!--如果当前分类是三级分类 则二级也要显示-->
 			<if condition="$goodsCate[level] eq 3">
@@ -248,7 +248,7 @@
                                         <if condition="$v['goods_num']['0'] neq ''">
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v['shop_price']['0']*$v['goods_num']['0']}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]*$v['goods_num']['0']}</em></span>
-                                            ({$v['goods_num']['0']}{$v['unit']['0']|default='张'}，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/{$v['unit']['0']|default='张'})
+                                            ({$v['goods_num']['0']}{$v['unit']|default='张'}，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/{$v['unit']|default='张'})
                                         <else/>
                                             限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
                                             <span class="old"><em>￥</em><em>{$v[market_price]}</em></span>

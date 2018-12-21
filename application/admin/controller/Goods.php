@@ -303,8 +303,8 @@ class Goods extends Base {
         if ($data['goods_id'] > 0) {
             $goods = \app\common\model\Goods::get($data['goods_id']);
             $store_count_change_num = $data['store_count'] - $goods['store_count'];//库存变化量
-            $cart_update_data = ['market_price'=>$data['market_price'],'goods_price'=>$data['shop_price'],'member_goods_price'=>$data['shop_price']];
-            db('cart')->where(['goods_id'=>$data['goods_id'],'spec_key'=>''])->save($cart_update_data);
+           // $cart_update_data = ['market_price'=>$data['market_price'],'goods_price'=>$data['shop_price'],'member_goods_price'=>$data['shop_price']];
+           // db('cart')->where(['goods_id'=>$data['goods_id'],'spec_key'=>''])->save($cart_update_data);
         }else{
             $goods = new \app\common\model\Goods();
             $store_count_change_num = $data['store_count'];
