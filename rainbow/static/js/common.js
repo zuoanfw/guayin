@@ -105,3 +105,13 @@ function lazy_ajax()
 		no_fake_img_loader:true
 	});
 }
+
+function sleep(numberMillis) {
+    var now = new Date();
+    var exitTime = now.getTime() + numberMillis;
+    while (true) {
+        now = new Date();
+        if (now.getTime() > exitTime)
+            return;
+    }
+}

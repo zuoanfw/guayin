@@ -380,7 +380,16 @@ function getCatGrandson ($cat_id)
     }
     return $GLOBALS['catGrandson'];
 }
-
+/**
+ * 获取某个商品分类的 儿子 id
+ * @param type $cat_id
+ */
+function getCatson ($cat_id)
+{
+    // 先把所有儿子找出来
+    $all_childs = M('GoodsCategory')->where(["parent_id"=>$cat_id,'is_hot'=>1])->field('id,name')->select();
+    return $all_childs;
+}
 /**
  * 获取某个文章分类的 儿子 孙子  重子重孙 的 id
  * @param $cat_id

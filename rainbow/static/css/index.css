@@ -277,10 +277,9 @@
     padding-left: 8px;
 }
 .floor-nav-list{
-    float: left;
-    width: 720px;
+    float: right;
     height: 35px;
-    margin-left: 4px;
+    margin-right: 4px;
     overflow: hidden;
 }
 .floor-nav-item{
@@ -297,6 +296,8 @@
     float: right;
     font-size: 14px;
     color: #666;
+    height: 20px;
+    line-height: 20px;
 }
 .nav-more-btn>i{
     font-family: consolas;
@@ -323,30 +324,31 @@
     text-align: center;
 }
 .floor-main{
-    height: 578px;
+    /*height: 578px;*/
+    height: 660px;
 }
 .floor-brand{
     float: left;
-    width: 300px;
+    width: 220px;
     min-height:1px;
 }
 .floor-brand .brand-big{
     display: block;
-    width: 300px;
-    height: 385px;
+    width: 220px;
+    height: 325px;
     overflow: hidden;
     margin-bottom: 13px;
 }
 .floor-brand .brand-samll{
     display: block;
-    width: 300px;
-    height: 180px;
+    width: 220px;
+    height: 325px;
     overflow: hidden;
 }
 .floor-goods-list{
     float: left;
-    width: 910px;
-    height: 578px;
+    width: 990px;
+    height: 660px;
     margin-left: 13px;
     overflow: hidden;
     background-color: #fff;
@@ -354,9 +356,9 @@
 }
 .floor-goods-item{
     float: left;
-    width: 222px;
-    padding: 0 2px;
-    height: 288px;
+    width: 246px;
+    padding: 0px;
+    height: 329px;
     border-bottom: 1px solid #eee;
     border-right: 1px solid #eee;
     overflow: hidden;
@@ -367,15 +369,15 @@
 }
 .floor-goods-item .googs-title{
     font-size: 14px;
-    width: 210px;
-    padding: 5px 0px;
+    width: 236px;
+    padding-top: 15px;
     color: #333;
     text-align: center;
 }
 .floor-goods-item .googs-remark{
     font-size:12px;
-    width: 210px;
-    padding-left: 6px;
+    width: 236px;
+    padding: 5px 5px;
     color: #999999;
 }
 .floor-goods-item .goods-pic{
@@ -384,6 +386,9 @@
     padding-top: 8px;
     margin:auto;
     overflow: hidden;
+}
+.floor-goods-item .googs-price{
+    padding: 5px 0px;
 }
 
 .call_service{

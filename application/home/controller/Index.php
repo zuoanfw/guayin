@@ -63,10 +63,14 @@ class Index extends Base {
         $cat_list = M('goods_category')->where(['is_show' => 1,'level'=>1,'cat_group'=>1])->field('id')->order('sort_order')->select();//所有分类
         //halt($cat_list);
         $cat_id_arrs = array();
+        $cat_sons = array();
         foreach ($cat_list as $k=>$v){
+            $cat_son = getCatson($v['id']);
+            $cat_sons = array_merge($cat_sons,$cat_son);
             $cat_id_arr = getCatGrandson($v['id']); //包装专区  获取某个商品分类的 儿子 孙子  重子重孙 的 id
             $cat_id_arrs = array_merge($cat_id_arrs,$cat_id_arr);
         }
+        $this->assign("cat_sons",$cat_sons);
         $index_hot_goods2 = S('index_hot_goods2');
         if(empty($index_hot_goods2))
         {

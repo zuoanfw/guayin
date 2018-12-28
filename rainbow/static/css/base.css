@@ -553,7 +553,7 @@ user-select:none;
 }
 .categorys .dd{
     padding-top: 2px;
-    height: 447px;
+    height: 503px;
     background: #fff;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -669,7 +669,7 @@ user-select:none;
     top:39px;
     left: 209px;
     width: 813px;
-    min-height: 449px;
+    min-height: 505px;
     border: 1px solid #ddd;
     background: white;
     display: none;

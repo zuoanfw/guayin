@@ -14,14 +14,22 @@
     <div class="ncap-form-default">
       <dl class="row">
         <dt class="tit">
-          <label for="ac_name"><em>*</em>规格名称</label>
+            <label for="ac_name"><em>*</em>规格名称</label>
         </dt>
         <dd class="opt">
-          <input type="text" value="{$spec.name}" name="name"   class="input-txt"/>
-          <span id="err_name" class="err" style="color:#F00; display:none;"></span>        
-          <p class="notic"></p>
+            <input type="text" value="{$spec.name}" name="name"   class="input-txt"/>
+            <span id="err_name" class="err" style="color:#F00; display:none;"></span>
+            <p class="notic"></p>
         </dd>
-      </dl>
+    </dl>
+        <dl class="row">
+            <dt class="tit">
+                <label for="ac_name">规格描述</label>
+            </dt>
+            <dd class="opt">
+                <textarea cols="50" rows="30" name="des">{$spec.des}</textarea>
+            </dd>
+        </dl>
       <dl class="row">
         <dt class="tit">
           <label for="parent_id">所属商品模型：</label>

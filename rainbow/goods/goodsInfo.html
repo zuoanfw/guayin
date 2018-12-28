@@ -402,58 +402,14 @@
                         </ul>
                     </div>
                 </if>
-                <!-- 预售 s -->
-                <div class="allpre-ne-ter pre_sell_div" style=" margin-top: 15px; min-height: 100px;display: none">
-                    <div class="presell_allpri" style="display:block">
-                        <ul id="price_ladder_html"></ul>
-                    </div>
-                    <a href="javascript:" class="jieti-anniu price_ladder_more">
-                        展开
-                    </a>
-                    <script>
-                        function satrhide() {
-                            var b = $('.presell_allpri ul li').length;
-                            for (var i = 4; i < b; i++) {
-                                $('.presell_allpri ul li').eq(i).hide();
-                            }
-                        };
 
-                        function satrshow() {
-                            var b = $('.presell_allpri ul li').length;
-                            for (var i = 4; i < b; i++) {
-                                $('.presell_allpri ul li').eq(i).show();
-                            }
-                        };
-                        satrhide();
-                        $(function () {
-                            $('.jieti-anniu').click(function () {
-                                satrshow();
-                                $(this).hide();
-                            });
-
-                            $('.allpre-ne-ter').mouseleave(function () {
-                                satrhide();
-                                if (price_ladder.length > 4) {
-                                    $('.jieti-anniu').show();
-                                } else {
-                                    $('.jieti-anniu').hide();
-                                }
-                            });
-                        })
-                    </script>
-                </div>
-                <!-- 预售 e -->
                 <div class="standard p">
                     <div class="standard p">
-                        <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">立即购买</a>
+                        <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">马上抢</a>
                         <a id="join_cart" class="addcar buy_button" href="javascript:;" style="display: none"><i class="sk"></i>加入购物车</a>
+
                     </div>
                 </div>
-                <!--<div class="standard p">
-                    <div class="standard p">
-                        <img width="750" src="__STATIC__/images/goodinfo_15.png" alt="">
-                    </div>
-                </div>-->
             </div>
         </form>
     </div>
@@ -545,19 +501,7 @@
         var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
         buy_now.hide();
         join_cart.hide();
-        if(is_virtual == 1){
-            buy_now.html('立即购买').show();
-            return;
-        }
-        if(exchange_integral > 0){
-            buy_now.html('立即兑换').show();
-            return;
-        }
-        if(goods_prom_type == 4 && activity_is_on == 1){
-            buy_now.html('立即预订').show();
-            return;
-        }
-        buy_now.html('立即购买').show();
+        buy_now.html('马上抢').show();
         join_cart.show();
     }
 
@@ -1097,13 +1041,22 @@
             doInitRegion();//重新获取运费
             return false;
         }
-        $(this).addClass('red');
         var goods_num = "{$goods_num_str}";
         var goods_nums = goods_num.split(',');
-        /*if(buy_num<parseInt(goods_nums[0])){
-            layer.msg('购买数量不得低于'+goods_nums[0], {icon: 3});
+        //sleep(2000);
+        if(buy_num<parseInt(goods_nums[0])){
+            layer.msg('数量低于'+goods_nums[0]+'，请联系客服哦', {icon: 3});
+            $(this).removeClass('red');
+            $(this).siblings('a').first().addClass('red');
+            var goods_num_key1 = $(this).siblings('a').first().attr('val');
+            var buy_num1 = $.trim($(this).siblings('a').first().text());
+            $('#number').val(buy_num1);//据规格改变商品数量
+            $('#num_key').val(goods_num_key1);//商品数量数组的key值 根据这个值获取价格
+            initGoodsPrice();
+            doInitRegion();//重新获取运费
             return false;
-        }*/
+        }
+        $(this).addClass('red');
         var goods_num_key = 0;
         for (var i = 0; i < goods_nums.length; i++) {
             if(buy_num<parseInt(goods_nums[i])){

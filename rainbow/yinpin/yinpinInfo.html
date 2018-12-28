@@ -15,6 +15,20 @@
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__PUBLIC__/js/pc_common.js"></script>
 </head>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".spec_goods_price_div li button").hover(function() {
+            $(this).find("em").animate({opacity: "show", bottom: "40"}, "slow");
+        }, function() {
+            $(this).find("em").animate({opacity: "hide", bottom: "10"}, "fast");
+        });
+    });
+</script>
+<body>
+<!--header-s-->
+<include file="public/header" w="w1224"/>
+<!--header-e-->
 <style>
     .standard img {
         border: 0;
@@ -45,7 +59,7 @@
     .store-selector .text {
         padding: 2px 20px;
     }
-   .detail-ggsl div{
+    .detail-ggsl div{
         margin: 0px;
         padding: 0px;
     }
@@ -79,21 +93,18 @@
         background-image: url(__STATIC__/images/gy.png);
         display: none;
     }
-
+    .detail-ggsl .goods_price {
+        line-height: 30px;
+    }
+    .standard .colo .red{
+        color: #ff8a5c;
+        border-color: #ff8a5c;
+    }
+    #consultForm .nickname {
+        line-height: 30px;
+        padding: 10px 0px 5px 0px;
+    }
 </style>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".spec_goods_price_div li button").hover(function() {
-            $(this).find("em").animate({opacity: "show", bottom: "40"}, "slow");
-        }, function() {
-            $(this).find("em").animate({opacity: "hide", bottom: "10"}, "fast");
-        });
-    });
-</script>
-<body>
-<!--header-s-->
-<include file="public/header" w="w1224"/>
-<!--header-e-->
 <div class="search-box p">
     <div class="w1224">
         <div class="search-path fl">
@@ -231,26 +242,30 @@
                         <ul>
                             <li class="jaj"><span class="product_week" title="货物货期说明&#10;1、货期即出货周期，是指订单从投入生产到生产完成的时间（不包含配送时间）；&#10;2、货期=生产天数+加工天数，不包含周日和法定节假日；&#10;3、17:00前支付并上传文件的订单，若印刷文件通过审核，当晚投入生产，17:00后支付并上传文件的订单，次日投入生产；">生产周期：</span></li>
                             <li class="lawir">
-                                <span id="goods_send_date" class="service">{$goods.send_date}</span>天
+                                <span id="goods_send_date" class="service">{$goods.send_date}</span>天<span id="yuji_send_date">（预计{$goods.send_date|get_send_date_arr}出货）</span>
                             </li>
                         </ul>
                     </div>
                 </notempty>
 
-                <div class="standard p">
+                <!--<div class="standard p">
                     <ul>
                         <li class="jaj"><span>商品金额：</span></li>
                         <li class="lawir">
                             <span class="service though-line"><span><em>￥</em><span id="market_price">{$goods.market_price}</span></span></span>
                         </li>
                     </ul>
-                </div>
+                </div>-->
                     <div class="standard p" style="padding-top:10px; ">
-                        <img src="__STATIC__/images/goodinfo_11.jpg" alt="">
+                        <ul>
+                        <li class="jaj"><span>商品金额：</span></li>
+                        <li class="lawir">
                         <span class="goods_price">
                            <span id="goods_price_all"><em>￥</em>{$goods_price['0']*$goods_num['0']}</span>
                            <span>（平均<span id="goods_price">{$goods_price['0']}</span>元/{$goods['unit']|default="张"}）</span>
                         </span>
+                        </li>
+                        </ul>
                     </div>
                 <div class="shop-price-cou p" style="display: none">
                     <div class="shop-price-le">
@@ -273,8 +288,9 @@
 
                 <div class="standard p">
                     <div class="standard p">
-                        <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">立即购买</a>
+                        <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">我要定制</a>
                         <a id="join_cart" class="addcar buy_button" href="javascript:;" style="display: none"><i class="sk"></i>加入购物车</a>
+                        <span style="padding-left: 40px;">没有您要的？<a style="color: blue" id="connect_kefu" href="javascript:void(0)">点此呼叫客服</a> </span>
                     </div>
                 </div>
             </div>
@@ -402,6 +418,57 @@
 <script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="__STATIC__/js/headerfooter.js"></script>
 <script type="text/javascript">
+    $(function () {
+        //提交咨询信息
+        $(document).on('click', '#connect_kefu', function () {
+            var consult = '<form method="post" id="consultForm">\n' +
+                '                            <input type="hidden" name="goods_id" value="{$goods.goods_id}"/>\n' +
+                '                            <input type="hidden" name="consult_type" value="1"/>\n' +
+                '                            <div class="publish-cont">\n' +
+                '<div style="color: #999;padding-top: 15px;">填写联系方式，客服将在28分钟内联系您，为您专属报价。</div>\n' +
+                '                                <div class="nickname">\n' +
+                '                                        <input type="text" id="content" name="content" placeholder="您想印什么？" value=""/>\n' +
+                '                                </div>\n' +
+                '                                <div class="nickname">\n' +
+                '                                        <input type="text" name="username" placeholder="请输入您的手机号，座机请加区号" value="{$username}"/>\n' +
+                '                                </div>\n' +
+                '                                <input class="consult_sub" id="consult_submit" type="button"\n' +
+                '                                       value="免费呼叫"/>\n' +
+                '                                <div class="consult_num"><img style="vertical-align: center;" src="__STATIC__/images/telephone.png">&nbsp;&nbsp;<span style="font-size: 20px;color: #999">{$tpshop_config["shop_info_phone"]}&nbsp;&nbsp;免费咨询</span></div>\n' +
+                '                            </div>\n' +
+                '                        </form>';
+            lay_index = layer.open({
+                type: 1,
+                title: '<b></b>',
+                //skin: 'layui-layer-rim', //加上边框
+                area: ['500px', '450px'], //宽高
+                content: consult
+            });
+        })
+    })
+    //商品咨询提交
+    $(document).on('click', '#consult_submit', function () {
+        var content = $.trim($('#content').val());
+        if (content=='') {
+            layer.msg('咨询内容不能为空！', {icon: 3});
+            $('#content').focus();
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "{:U('Goods/consult')}",
+            data: $('#consultForm').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.close(lay_index);
+                    layer.msg("客服已收到您的呼叫请求，稍后给您回电。", {icon: 1});
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    });
     rightBar();
     function rightBar(){  //右侧边栏
         var $_slidebar4 = $('.ico-slidebar4');
@@ -458,19 +525,7 @@
         var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
         buy_now.hide();
         join_cart.hide();
-        if(is_virtual == 1){
-            buy_now.html('立即购买').show();
-            return;
-        }
-        if(exchange_integral > 0){
-            buy_now.html('立即兑换').show();
-            return;
-        }
-        if(goods_prom_type == 4 && activity_is_on == 1){
-            buy_now.html('立即预订').show();
-            return;
-        }
-        buy_now.html('立即购买').show();
+        buy_now.html('我要定制').show();
         join_cart.show();
     }
 
