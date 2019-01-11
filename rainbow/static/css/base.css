@@ -553,7 +553,7 @@ user-select:none;
 }
 .categorys .dd{
     padding-top: 2px;
-    height: 503px;
+    height: 449px;
     background: #fff;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
@@ -565,7 +565,7 @@ user-select:none;
     display: none;
 }
 .categorys .item-left{
-    padding: 14px 30px;
+    padding: 11px 30px;
     border-bottom: 1px solid #ddd;
 }
 .categorys .item-left:hover {
@@ -669,7 +669,7 @@ user-select:none;
     top:39px;
     left: 209px;
     width: 813px;
-    min-height: 505px;
+    min-height: 451px;
     border: 1px solid #ddd;
     background: white;
     display: none;
@@ -681,7 +681,7 @@ user-select:none;
     float: left;
     width: 687px;
     padding-left: 25px;
-    padding-bottom: 40px;
+    padding-bottom: 12px;
 }
 .cata-nav-left .cata-layer-title{
     padding-top: 18px;
@@ -708,7 +708,7 @@ user-select:none;
 }
 .cata-nav-left dl{
     font-size: 12px;
-    padding-top: 20px;
+    padding-top: 10px;
     line-height: 14px;
 }
 .cata-nav-left dt{
@@ -840,6 +840,7 @@ user-select:none;
 }
 .right-contact-us .foot-wechat{
     float: left;
+    text-align: center;
 }
 .right-contact-us .foot-contact{
     float: left;

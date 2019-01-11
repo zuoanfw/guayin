@@ -771,7 +771,7 @@ class Goods extends Base
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
-        $filter_spec = $goodsLogic->get_spec($goods_id);//规格参数
+        //$filter_spec = $goodsLogic->get_spec($goods_id);//规格参数
         $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,price,store_count,goods_send_date,goods_weight,goods_volume,market_price"); // 规格 对应 价格 库存表
         M('Goods')->where("goods_id", $goods_id)->save(array('click_count' => $goods['click_count'] + 1)); //统计点击数
@@ -783,15 +783,15 @@ class Goods extends Base
         //$this->assign('commentStatistics', $commentStatistics);//评论概览
         $this->assign('goods_attribute', $goods_attribute);//属性值
         $this->assign('goods_attr_list', $goods_attr_list);//属性列表
-        $this->assign('filter_spec', $filter_spec);//规格参数
+        //$this->assign('filter_spec', $filter_spec);//规格参数
         //var_dump($filter_spec);exit;
         $this->assign('goods_images_list', $goods_images_list);//商品缩略图
-        $this->assign('siblings_cate', $goodsLogic->get_siblings_cate($goods['cat_id']));//相关分类
+        //$this->assign('siblings_cate', $goodsLogic->get_siblings_cate($goods['cat_id']));//相关分类
         //$this->assign('look_see', $goodsLogic->get_look_see($goods));//看了又看
         $this->assign('goods', $goods);
         //构建手机端URL
-        $ShareLink = urlencode("http://{$_SERVER['HTTP_HOST']}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods['goods_id']}");
-        $this->assign('ShareLink', $ShareLink);
+        //$ShareLink = urlencode("http://{$_SERVER['HTTP_HOST']}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods['goods_id']}");
+        //$this->assign('ShareLink', $ShareLink);
         $this->assign('point_rate', $point_rate);
         return $this->fetch();
     }

@@ -58,7 +58,8 @@ class Yinpin extends Base {
         $goods_images_list = M('GoodsImages')->where("goods_id", $goods_id)->select(); // 商品 图册
         $goods_attribute = M('GoodsAttribute')->getField('attr_id,attr_name'); // 查询属性
         $goods_attr_list = M('GoodsAttr')->where("goods_id", $goods_id)->select(); // 查询商品属性表
-        $filter_spec = $goodsLogic->get_spec($goods_id);//规格参数
+        $filter_spec = $goodsLogic->get_spec_yinpin($goods_id);//规格参数
+        //halt($filter_spec);
         $freight_free = tpCache('shopping.freight_free'); // 全场满多少免运费
         $spec_goods_price = M('spec_goods_price')->where("goods_id", $goods_id)->getField("key,item_id,goods_num,price,store_count,goods_send_date,goods_weight,goods_volume,market_price,is_active"); // 规格 对应 价格 库存表
         //遍历规格获取价格数组

@@ -567,7 +567,7 @@ class Cart extends Base
     public function integral()
     {
         $goods_id = input('goods_id/d');
-        $item_id = input('item_id/d');
+        $item_id = input('item_id/d',0);
         $goods_num = input('goods_num/d');
         if (empty($this->user)) {
             $this->error('请登录');
@@ -617,7 +617,7 @@ class Cart extends Base
             $this->ajaxReturn(['status' => -100, 'msg' => "登录超时请重新登录!", 'result' => null]);
         }
         $goods_id = input('goods_id/d');
-        $item_id = input('item_id/d');
+        $item_id = input('item_id/d',0);
         $goods_num = input('goods_num/d');
         $goods_file_id = input('goods_file_id/d');
         $address_id = input("address_id/d"); //  收货地址id
@@ -643,6 +643,7 @@ class Cart extends Base
         try {
             $integral->checkBuy();
             $pay = $integral->pay();
+            //echo 'a';exit;
             // 提交订单
             if ($_REQUEST['act'] == 'submit_order') {
                 $placeOrder = new PlaceOrder($pay);

@@ -154,27 +154,7 @@
             <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
             <div class="detail-ggsl">
                 <h1>{$goods.goods_name}</h1>
-                <!-- 规格 start [[-->
-                <foreach name="filter_spec" item="v" key="k">
-                    <div class="spec_goods_price_div standard p">
-                        <ul>
-                            <li class="jaj"><span>{$k}：</span></li>
-                            <li class="lawir colo">
-                                <foreach name="v" item="v2" key="k2">
-                                    <input type="radio" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
-                                    <a id="goods_spec_a_{$v2[item_id]}" class="spec_item">
-                                        <if condition="$v2[src] neq ''">
-                                            <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
-                                            <span class="dis_alintro">{$v2[item]}</span>
-                                            <else/>
-                                            {$v2[item]}
-                                        </if>
-                                    </a>
-                                </foreach>
-                            </li>
-                        </ul>
-                    </div>
-                </foreach>
+
                 <div class="standard p">
                     <ul>
                         <li class="jaj"><span>市场价：</span></li>
@@ -260,7 +240,7 @@
 
                 <div class="standard p">
                     <div class="standard p">
-                        <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">立即购买</a>
+                        <a id="buy_now" class="paybybill buy_button" href="javascript:;">立即兑换</a>
                     </div>
                 </div>
                 <!--<div class="standard p">
@@ -329,28 +309,9 @@
             preload: 1,
             lens: 1
         });
-        //replace_look();
-        initSpec();
-        initGoodsPrice();
+        doInitRegion();
         changeImg();
     });
-
-    var buy_now = $('#buy_now');
-    var join_cart = $('#join_cart');
-    //购买按钮显示
-    function buy_button(){
-        var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
-        var exchange_integral = $("input[name='exchange_integral']").val();//是否是为瓜豆商品
-        var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');//活动商品
-        var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
-        buy_now.hide();
-        join_cart.hide();
-        if(exchange_integral > 0){
-            buy_now.html('立即兑换').show();
-            return;
-        }
-        join_cart.show();
-    }
 
     //购买按钮
     $(function () {
@@ -377,64 +338,9 @@
                 return;
             }
         })
-        //加入购物车
-        $(document).on('click', '#join_cart', function () {
-            if ($(this).hasClass('buy_bt_disable')) {
-                return;
-            }
-            var goods_id = $("input[name='goods_id']").val();
-            AjaxAddCart(goods_id, 1);
-        })
     })
 
-    //有规格id的时候，解析规格id选中规格
-    function initSpec() {
-        var item_id = $("input[name='item_id']").val();
-        $.each(spec_goods_price, function (i, o) {
-            if (o.item_id == item_id) {
-                var spec_key_arr = o.key.split("_");
-                $.each(spec_key_arr, function (index, item) {
-                    var spec_radio = $("#goods_spec_" + item);
-                    var goods_spec_a = $("#goods_spec_a_" + item);
-                    spec_radio.attr("checked", "checked");
-                    goods_spec_a.addClass('red');
-                })
-            }
-        })
-        if (item_id > 0 && !$.isEmptyObject(spec_goods_price)) {
-            var item_arr = [];
-            $.each(spec_goods_price, function (i, o) {
-                item_arr.push(o.item_id);
-            })
-            //规格id不存在商品里
-            if ($.inArray(parseInt(item_id), item_arr) < 0) {
-                initFirstSpec();
-            } else {
-                $.each(spec_goods_price, function (i, o) {
-                    if (o.item_id == item_id) {
-                        var spec_key_arr = o.key.split("_");
-                        $.each(spec_key_arr, function (index, item) {
-                            var spec_radio = $("#goods_spec_" + item);
-                            var goods_spec_a = $("#goods_spec_a_" + item);
-                            spec_radio.attr("checked", "checked");
-                            goods_spec_a.addClass('red');
-                        })
-                    }
-                })
-            }
-        } else {
-            initFirstSpec();
-        }
-    }
 
-    //默认让每种规格 和 设计文件第一个选中
-    function initFirstSpec() {
-        $('.spec_goods_price_div').each(function (i, o) {
-            var firstSpecRadio = $(this).find("input[type='radio']").eq(0);
-            firstSpecRadio.attr('checked', 'checked').prop('checked', 'checked');
-            firstSpecRadio.parent().find('a').eq(0).addClass('red');
-        })
-    }
 
     //缩略图切换
     $('.small-pic-li').mouseenter(function () {
@@ -513,156 +419,6 @@
         $('#number').val(num);
         doInitRegion();
         /*        initGoodsPrice();*/
-    }
-
-    //初始化商品价格库存
-    function initGoodsPrice() {
-        var goods_id = $('input[name="goods_id"]').val();
-        var goods_num = parseInt($('#number').val());
-        if (!$.isEmptyObject(spec_goods_price)) {
-            var goods_spec_arr = [];
-            $("input[name^='goods_spec']").each(function () {
-                if ($(this).attr('checked') == 'checked') {
-                    goods_spec_arr.push($(this).val());
-                }
-            });
-            var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
-            //console.log(spec_goods_price[spec_key]);
-            if (spec_goods_price[spec_key] != undefined) {
-                var item_id = spec_goods_price[spec_key]['item_id'];
-                $('input[name=item_id]').val(item_id);/*商品规格id*/
-            } else {
-                $("#goods_price").html("<em>￥</em>" + 0); //变动价格显示
-                $('#spec_store_count').html(0);
-                $('input[name="shop_price"]').attr('value', 0);//商品价格
-                $('input[name="store_count"]').attr('value', 0);//商品库存
-                $('.buy_button').addClass('buy_bt_disable');
-                return false;
-            }
-        }
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            data: {goods_id: goods_id, item_id: item_id, goods_num: goods_num},
-            url: "{:U('Home/Goods/activity')}",  /*判断商品是否参加活动了*/
-            success: function (data) {
-                if (data.status == 1) {
-                    $('input[name="goods_prom_type"]').attr('value', data.result.goods.prom_type);//商品活动类型
-                    $('input[name="shop_price"]').attr('value', data.result.goods.shop_price);//商品价格
-                    $('input[name="store_count"]').attr('value', data.result.goods.store_count);//商品库存
-                    $('input[name="goods_weight"]').attr('value', data.result.goods.goods_weight);//商品重量
-                    $('input[name="goods_volume"]').attr('value', data.result.goods.goods_volume);//商品体积
-                    $('input[name="goods_send_date"]').attr('value', data.result.goods.goods_send_date);//商品出货周期
-                    $('input[name="market_price"]').attr('value', data.result.goods.market_price);//商品原价
-                    $('input[name="start_time"]').attr('value', data.result.goods.start_time);//活动开始时间
-                    $('input[name="end_time"]').attr('value', data.result.goods.end_time);//活动结束时间
-                    $('input[name="activity_title"]').attr('value', data.result.goods.activity_title);//活动标题
-                    $('input[name="prom_detail"]').attr('value', data.result.goods.prom_detail);//促销详情
-                    $('input[name="activity_is_on"]').attr('value', data.result.goods.activity_is_on);//活动是否正在进行中
-                    price_ladder = data.result.goods.price_ladder;
-                    goods_activity_theme();
-                    buy_button();
-                }
-                doInitRegion();
-            }
-        });
-    }
-
-    //价格阶梯显示
-    var price_ladder = null;
-    function priceLadderShow() {
-        var price_ladder_html = '';
-        if (price_ladder != null && price_ladder != '') {
-            $.each(price_ladder, function (i, o) {
-                price_ladder_html += '<li class="pre_undred">满<span>' + o.amount + '件</span><br/><span>' + o.price + '</span></li>';
-            });
-            $('#price_ladder_html').empty().html(price_ladder_html);
-            if (price_ladder.length > 3) {
-                $('.price_ladder_more').show();
-            } else {
-                $('.price_ladder_more').hide();
-            }
-            $('.pre_sell_div').show();
-        }
-    }
-
-    //商品价格库存显示
-    function goods_activity_theme() {
-        $('.pre_sell_div').hide();
-        var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');
-        var activity_is_on = $('input[name="activity_is_on"]').attr('value');
-        if (activity_is_on == 0) {
-            setNormalGoodsPrice();
-        } else {
-            if (goods_prom_type == 0 || goods_prom_type == 6) {
-                //普通商品
-                setNormalGoodsPrice();
-            } else {
-
-            }
-        }
-        var buy_num = parseInt($('#number').val());//购买数
-        var store = parseInt($('input[name="store_count"]').val());//实际库存数量
-        if (store <= 0) {
-            $('.buy_button').addClass('buy_bt_disable');
-        } else {
-            $('.buy_button').removeClass('buy_bt_disable');
-        }
-        if (buy_num > store) {
-            $('.buyNum').val(store);
-        }
-    }
-
-    //普通商品库存和价格, 重量 ，体积，出货周期
-    function setNormalGoodsPrice() {
-        var goods_price, store_count,goods_send_date,goods_weight,goods_volume;//商品价,商品库存
-        var buy_num = parseInt($('#number').val());//购买数
-        var market_price = $("input[name='market_price']").attr('value');// 商品市场价
-        var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换瓜豆
-        var point_rate = $("input[name='point_rate']").attr('value');// 瓜豆金额比
-        // 如果有规格属性选择项 读取规格选项中的价格库存等
-        if (!$.isEmptyObject(spec_goods_price)) {
-            var goods_spec_arr = [];
-            $("input[name^='goods_spec']").each(function () {
-                if ($(this).attr('checked') == 'checked') {
-                    goods_spec_arr.push($(this).val());
-                }
-            });
-            var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
-            goods_price = spec_goods_price[spec_key]['price']; // 找到对应规格的价格(单个的价格)
-            store_count = spec_goods_price[spec_key]['store_count']; // 找到对应规格的库存
-            market_price = spec_goods_price[spec_key]['market_price']; // 找到对应规格的市场价(单个的价格)
-            goods_send_date =  spec_goods_price[spec_key]['goods_send_date']; // 商品出货周期
-            goods_weight = spec_goods_price[spec_key]['goods_weight']; //
-            goods_volume = spec_goods_price[spec_key]['goods_volume']; //
-            $("input[name='shop_price']").attr('value', goods_price);
-            $("input[name='store_count']").attr('value', store_count);
-            $("input[name='goods_weight']").attr('value', goods_weight);
-            $("input[name='goods_send_date']").attr('value', goods_send_date);
-            $("input[name='goods_volume']").attr('value', goods_volume);
-            $("input[name='market_price']").attr('value', market_price);
-        } else {
-            priceLadderShow();
-        }
-        goods_price = $("input[name='shop_price']").attr('value');// 商品本店价
-        store_count = $("input[name='store_count']").attr('value');// 商品库存
-        goods_send_date =  $("input[name='goods_send_date']").attr('value'); // 商品出货周期
-        goods_weight = $("input[name='goods_weight']").attr('value'); //商品单个的重量
-        goods_volume = $("input[name='goods_volume']").attr('value');//商品单个的体检
-        $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
-        //get_send_date('20170528');
-        $('#goods_weight').empty().html(goods_weight*buy_num);// 商品体重
-        $('#goods_volume').empty().html(goods_volume*buy_num);
-
-        $('#market_price').empty().html(market_price*buy_num);
-        $('#goods_price_all').empty().html("<em>￥</em>" +goods_price*buy_num);
-        $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
-        console.log(goods_price);
-        var integral = round(goods_price - (exchange_integral / point_rate), 2);
-        $("#integral").html(integral + '+' + exchange_integral + '瓜豆'); //瓜豆显示
-        $('#spec_store_count').html(store_count);
-        $('.presale-time').hide();
-        $('#number').attr('max', store_count);
     }
 
     //sort排序用

@@ -27,6 +27,14 @@ class Index extends Base {
         }*/
         //热销爆品一个楼层，定制印品一个楼层，包装盒1个楼层，现货一个楼层，
         $cat_id_arr = getCatGrandson('8'); //热销爆品  获取某个商品分类的 儿子 孙子  重子重孙 的 id
+        $cat_son_print = getCatson('8');//分类的 儿子 id
+        $cat_prints = array();
+        foreach ($cat_son_print as $k=>$v){
+            $cat_son = getCatson($v['id']);//分类的 儿子 id
+            $cat_prints = array_merge($cat_prints,$cat_son);
+        }
+        //halt($cat_prints);
+        $this->assign("cat_prints",$cat_prints);
         //$index_hot_goods1 = S('index_hot_goods1');
         if(empty($index_hot_goods1))
         {
@@ -36,7 +44,11 @@ class Index extends Base {
             foreach ($index_hot_goods1 as $key => $vo){
                 if($vo['goods_num']){
                     $index_hot_goods1[$key]['goods_num'] = explode(',',$vo['goods_num']);
-                    $index_hot_goods1[$key]['shop_price'] = explode(',',$vo['shop_price']);
+                    if($vo['shop_price']){
+                        $shop_prices = explode(',',$vo['shop_price']);
+                        $index_hot_goods1[$key]['shop_price'] = end($shop_prices);
+                    }
+
                 }
             }
             S('index_hot_goods1',$index_hot_goods1,TPSHOP_CACHE_TIME);
@@ -60,12 +72,12 @@ class Index extends Base {
         //halt($index_hot_goods3);
 
         //包装盒  获取某个商品分类的 儿子 孙子  重子重孙 的 id
-        $cat_list = M('goods_category')->where(['is_show' => 1,'level'=>1,'cat_group'=>1])->field('id')->order('sort_order')->select();//所有分类
+        $cat_list = M('goods_category')->where(['is_show' => 1,'level'=>1,'cat_group'=>1])->field('id')->order('sort_order')->select();//所有第一级分类
         //halt($cat_list);
         $cat_id_arrs = array();
         $cat_sons = array();
         foreach ($cat_list as $k=>$v){
-            $cat_son = getCatson($v['id']);
+            $cat_son = getCatson($v['id']);//分类的 儿子 id
             $cat_sons = array_merge($cat_sons,$cat_son);
             $cat_id_arr = getCatGrandson($v['id']); //包装专区  获取某个商品分类的 儿子 孙子  重子重孙 的 id
             $cat_id_arrs = array_merge($cat_id_arrs,$cat_id_arr);

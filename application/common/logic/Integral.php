@@ -188,7 +188,9 @@ class Integral
         $pay->setUserId($this->user['user_id']);
         $pay->setShopById($this->shop['shop_id']);
         $pay->payGoodsList($goodsList);
+        //echo 'a';exit;
         $pay->delivery($this->userAddress['district']);
+        //echo 'a';exit;
         $pay->usePayPoints($total_integral, true);
         $pay->useUserMoney($this->userMoney);
         return $pay;

@@ -131,6 +131,11 @@
 	<div class="floor-top">
 		<h3 class="floor-title">热销印品</h3>
 		<a class="nav-more-btn" href="/yinshua.html">更多<i>></i></a>
+		<div class="floor-nav-list clearfix">
+			<foreach name="cat_prints" item="v2" key="k2">
+				<a class="floor-nav-item" href="/yinshuas/{$v2[id]}.html">{$v2[name]}</a>
+			</foreach>
+		</div>
 	</div>
 	<div class="floor-main">
 		<div class="floor-brand">
@@ -150,8 +155,8 @@
 					<div class="googs-title ellipsis-1">{$g['goods_name']|getSubstr=0,45}</div>
 					<div class="googs-remark ellipsis-1">{$g['goods_rec_reason']}</div>
 					<div class="googs-price ellipsis-1">
-						<span style="color:#ffa000;font-size:14px;">{$g['shop_price']['0']*$g['goods_num']['0']}元起</span>
-						<span class="old"><em>{$g[market_price]*$g['goods_num']['0']}元</em></span>
+						<em style="color:#ffa000;">￥</em><span style="color:#ffa000;font-size:20px;">{$g['shop_price']}</span><span style="color:#999;">/{$g['unit']|default='张'}起</span>
+						<!--<span class="old"><em>{$g[market_price]}元</em></span>-->
 					</div>
 				</a>
 			</foreach>
@@ -342,7 +347,7 @@
                 })
 			</script>
 		</div>
-		<div style="font-size: 20px;padding-bottom: 10px;">超十万企业在使用</div>
+		<div style="font-size: 20px;padding-bottom: 10px;">名企也在用</div>
 		<div class="call_input">
 			<img src="__STATIC__/images/manycoms.png">
 		</div>
@@ -382,21 +387,8 @@
 <include file="public/footer_index"/>
 
 <!--侧边栏-s-->
-<div class="slidebar-right">
-	<a class="slidebar-item ico-slidebar1" target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$tpshop_config['shop_info_qq2']}&site=qq&menu=yes" >
-		<div class="sbar-hover-txt">客服服务</div>
-	</a>
-	<a class="slidebar-item ico-slidebar2" target="_blank" href="javascript:;" >
-		<div class="sbar-hover-txt">关注微信</div>
-		<div class="sbar-hover-pic">
-			<div class="qrcode-wrap"><img class="w-100" src="__STATIC__/images/foot-wechat.jpg" alt="" /></div>
-			<p class="qrcode-des"> 扫一扫，免费领名片</p>
-		</div>
-	</a>
-	<a class="slidebar-item ico-slidebar4 t-all" target="_blank" href="javascript:;" >
-		<div class="sbar-hover-txt">回到顶部</div>
-	</a>
-</div>
+<include file="public/kefu"/>
+
 <style>
 	.layui-layer-title {
 		border-bottom: 0px;
@@ -471,26 +463,11 @@ function init(){  //初始化函数
     //推荐列表自动滚动
     carouselList('.floor-recommend-wrap','.floor-recommend-list','.floor-recommend-item');
 
-    //右侧边栏
-    rightBar();
-
     //楼层导航切换
     sidebarRollChange();
 }
 
-function rightBar(){  //右侧边栏
-    var $_slidebar4 = $('.ico-slidebar4');
-    $(window).scroll(function(){
-        if($(window).scrollTop()>100){
-            $_slidebar4.css('height',40);
-        }else{
-            $_slidebar4.css('height',0);
-        }
-    })
-    $_slidebar4.click(function () {
-        $('html,body').animate({'scrollTop':0},500)
-    });
-}
+
 function carouselList(wrap,list,item,timeWait,timeRun){ //推荐列表滚动
     /*
      * wrap：包裹容器

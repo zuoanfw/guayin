@@ -250,12 +250,42 @@ class GoodsLogic extends Model
         if ($keys) {
             $specImage = M('SpecImage')->where(['goods_id'=>$goods_id,'src'=>['<>','']])->getField("spec_image_id,src");// 规格对应的 图片表， 例如颜色
             $keys = str_replace('_', ',', $keys);
-            $sql = "SELECT a.name,a.order,b.* FROM __PREFIX__spec AS a INNER JOIN __PREFIX__spec_item AS b ON a.id = b.spec_id WHERE b.id IN($keys) ORDER BY a.order desc,b.id";
+            $sql = "SELECT a.name,a.order,a.des,b.* FROM __PREFIX__spec AS a INNER JOIN __PREFIX__spec_item AS b ON a.id = b.spec_id WHERE b.id IN($keys) ORDER BY a.order desc,b.id";
             $filter_spec2 = \think\Db::query($sql);
             //var_dump($filter_spec2);exit;
             //array(1) { [0]=> array(5) { ["name"]=> string(15) "数量（张）" ["order"]=> int(50) ["id"]=> int(1) ["spec_id"]=> int(1) ["item"]=> string(3) "500" }
             foreach ($filter_spec2 as $key => $val) {
                 $filter_spec[$val['name']][] = array(
+                    'item_id' => $val['id'],
+                    'item' => $val['item'],
+                    'src' => $specImage[$val['id']],
+                );
+            }
+        }
+        return $filter_spec;
+    }
+    /**
+     * 获取商品规格
+     * @param $goods_id|商品id
+     * @return array
+     */
+    public function get_spec_yinpin($goods_id)
+    {
+        //商品规格 价钱 库存表 找出 所有 规格项id
+        $keys = M('SpecGoodsPrice')->where("goods_id", $goods_id)->getField("GROUP_CONCAT(`key` ORDER BY store_count desc SEPARATOR '_') ");
+        //var_dump($keys); string(11) "6_5_3_1_4_2"
+        $filter_spec = array();
+        if ($keys) {
+            $specImage = M('SpecImage')->where(['goods_id'=>$goods_id,'src'=>['<>','']])->getField("spec_image_id,src");// 规格对应的 图片表， 例如颜色
+            $keys = str_replace('_', ',', $keys);
+            $sql = "SELECT a.name,a.order,a.des,b.* FROM __PREFIX__spec AS a INNER JOIN __PREFIX__spec_item AS b ON a.id = b.spec_id WHERE b.id IN($keys) ORDER BY a.order desc,b.id";
+            $filter_spec2 = \think\Db::query($sql);
+            //var_dump($filter_spec2);exit;
+            //array(1) { [0]=> array(5) { ["name"]=> string(15) "数量（张）" ["order"]=> int(50) ["id"]=> int(1) ["spec_id"]=> int(1) ["item"]=> string(3) "500" }
+            foreach ($filter_spec2 as $key => $val) {
+                $filter_spec[$val['name']][] = $val['name'];
+                $filter_spec[$val['name']][] = $val['des'];
+                $filter_spec[$val['name']]['item'][] = array(
                     'item_id' => $val['id'],
                     'item' => $val['item'],
                     'src' => $specImage[$val['id']],
