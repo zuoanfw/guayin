@@ -20,7 +20,7 @@ use think\Loader;
 use think\Page;
 use think\Db;
 
-class Goods extends Base {
+class Sheji extends Base {
     
     /**
      *  商品分类列表
@@ -179,10 +179,10 @@ class Goods extends Base {
      */
     public function goodsList(){      
         $GoodsLogic = new GoodsLogic();        
-        $brandList = $GoodsLogic->getSortBrands();
+        //$brandList = $GoodsLogic->getSortBrands();
         $categoryList = $GoodsLogic->getSortCategory();
         $this->assign('categoryList',$categoryList);
-        $this->assign('brandList',$brandList);
+        //$this->assign('brandList',$brandList);
         return $this->fetch();
     }
     
@@ -192,7 +192,7 @@ class Goods extends Base {
     public function ajaxGoodsList(){            
         
         $where = ' 1 = 1 '; // 搜索条件
-        $where = "$where and is_sheji != 1" ;  //设计条件
+        $where = "$where and is_sheji = 1" ;  //设计条件
         I('intro')    && $where = "$where and ".I('intro')." = 1" ;        
         I('brand_id') && $where = "$where and brand_id = ".I('brand_id') ;
         (I('is_on_sale') !== '') && $where = "$where and is_on_sale = ".I('is_on_sale') ;                
@@ -318,7 +318,7 @@ class Goods extends Base {
         }
         $GoodsLogic = new GoodsLogic();
         $GoodsLogic->afterSave($goods['goods_id']); //商品数据提交保存   规格等
-        $GoodsLogic->saveGoodsAttr($goods['goods_id'], $goods['goods_type']); // 处理商品 属性
+        //$GoodsLogic->saveGoodsAttr($goods['goods_id'], $goods['goods_type']); // 处理商品 属性
         $return_arr = ['status' => 1, 'msg' => '操作成功'];
         $this->ajaxReturn($return_arr);
     }

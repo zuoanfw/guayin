@@ -67,6 +67,7 @@ return	array(
 				array('name' => '商品','child' => array(
 				    array('name' => '商品列表', 'act'=>'goodsList', 'op'=>'Goods'),
 				    /*array('name' => '淘宝导入', 'act'=>'index', 'op'=>'Import'),*/
+                    array('name' => '设计列表', 'act'=>'goodsList', 'op'=>'sheji'),
 					array('name' => '商品分类', 'act'=>'categoryList', 'op'=>'Goods'),
 					array('name' => '库存日志', 'act'=>'stock_list', 'op'=>'Goods'),
 					array('name' => '商品模型', 'act'=>'goodsTypeList', 'op'=>'Goods'),

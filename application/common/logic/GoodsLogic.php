@@ -647,7 +647,7 @@ class GoodsLogic extends Model
         foreach ($goodsArr as $cartKey => $cartVal) {
             foreach ($goodsList as $goodsKey => $goodsVal) {
                 if ($cartVal['goods_id'] == $goodsVal['goods_id']) {
-                    if($cartVal['item_id']){
+                    if(isset($cartVal['item_id'])){
                         $specGoodsPriceModel = new SpecGoodsPrice();
                         $specGoodsPrice = $specGoodsPriceModel::get($cartVal['item_id'], '', 10);
                         $goodsArr[$cartKey]['volume'] = $specGoodsPrice['goods_volume'];

@@ -37,6 +37,42 @@
         color: #ff8a5c;
         border-color: #ff8a5c;
     }
+    .publish-cont{
+        padding: 50px;
+        text-align: center;
+    }
+    .buynum input{
+        border: 1px solid #ddd;
+        line-height: 32px;
+        width: 260px;
+        margin: 10px;
+        padding: 4px;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .publish-cont .num_sub{
+        background: #ff8a5c;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        width: 100px;
+        height: 35px;
+        border: 1px solid #ff8a5c;
+        color: #fff;
+    }
+    .publish-cont .num_res{
+        background: #fff;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        width: 100px;
+        height: 35px;
+        border: 1px solid #ddd;
+        margin-left: 20px;
+    }
 </style>
 <body>
 <!--header-s-->
@@ -989,6 +1025,7 @@
     })
     //爆品印品点击切换数量 获取 数量 和 数量对应的价格
     $(document).on('click', '.goods_num_item', function () {
+        $(".goods_num_input").val('');
         var goods_num_key = $(this).attr('val');
         var buy_num = $.trim($(this).text());
         $('#number').val(buy_num);//据规格改变商品数量
@@ -999,7 +1036,69 @@
         initGoodsPrice();
         doInitRegion();//重新获取运费
     })
-    //爆品印品自定义数量 获取 数量 和 数量对应的价格
+    //爆品印品自定义数量信息
+    $(document).on('click', '.goods_num_input', function () {
+        $(this).blur();
+        $(this).val('');
+        $('#num_content').focus();
+        var consult = '<div class="publish-cont">\n' +
+            '                                <div class="buynum">\n' +
+            '                                        <input type="text" id="num_content" name="num_content" placeholder="自定义数量" value=""/>\n' +
+            '                                </div>\n' +
+            '                                <input class="num_sub" id="num_sub" type="button"\n' +
+            '                                       value="提交"/>\n' +
+            '                                <input class="num_res" id="num_res" type="button"\n' +
+            '                                       value="取消"/>\n' +
+            '                            </div>';
+        lay_num = layer.open({
+            type: 1,
+            title: '<b></b>',
+            area: ['400px', '300px'], //宽高
+            content: consult
+        });
+    })
+    //爆品印品自定义数量提交
+    $(document).on('click', '#num_sub', function () {
+        var re = /^[1-9]+[0-9]*]*$/;
+        var buy_num = parseInt($.trim($('#num_content').val()));
+        if (!re.test(buy_num)) {
+            layer.msg("请输入有效的数字", {icon: 3});
+            return false;
+        }
+        var goods_num = "{$goods_num_str}";
+        var goods_nums = goods_num.split(',');
+        //sleep(2000);
+        if(buy_num<parseInt(goods_nums[0])){
+            layer.msg('数量低于'+goods_nums[0]+'，请联系客服哦', {icon: 3});
+            return false;
+        }
+        var goods_num_key = 0;
+        for (var i = 0; i < goods_nums.length; i++) {
+            if(buy_num<parseInt(goods_nums[i])){
+                if(i != 0){
+                    goods_num_key = i-1;
+                }else {
+                    goods_num_key = i;
+                }
+                break;
+            }else {
+                goods_num_key = goods_nums.length -1;
+            }
+        }
+        $('#number').val(buy_num);//据规格改变商品数量
+        $('#num_key').val(goods_num_key);//商品数量数组的key值 根据这个值获取价格
+        $(".goods_num_input").val(buy_num);
+        $(".goods_num_input").addClass('red');
+        $(".goods_num_input").siblings('a').removeClass('red');
+        $(".goods_num_input").siblings('input').removeAttr('checked');
+        initGoodsPrice();
+        doInitRegion();//重新获取运费
+        layer.closeAll();
+    });
+    $(document).on('click', '#num_res', function () {
+        layer.closeAll();
+    })
+    /*//爆品印品自定义数量 获取 数量 和 数量对应的价格
     $(document).on('keyup', '.goods_num_input', function () {
         var re = /^[1-9]+[0-9]*]*$/;
         var buy_num = parseInt($.trim($(this).val()));
@@ -1050,7 +1149,7 @@
         $(this).siblings('input').removeAttr('checked');
         initGoodsPrice();
         doInitRegion();//重新获取运费
-    })
+    })*/
 </script>
 </body>
 </html>
