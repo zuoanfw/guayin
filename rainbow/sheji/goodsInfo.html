@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$goods.goods_name}-{$tpshop_config['shop_info_store_name']}</title>
+    <meta name="keywords" content="{$goods.keywords}"/>
+    <meta name="description" content="{$goods.goods_remark}"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.jqzoom.css">
+
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.jqzoom.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/pc_common.js"></script>
+    <!--饼图-->
+</head>
+<style>
+    .store-selector .text {
+        color: #666;
+    }
+    .product_week:after {
+        content: "\f059";
+        text-align: center;
+        padding-right: 5px;
+        font-size: 14px;
+        font-family: FontAwesome;
+        cursor: pointer;
+        color: #999;
+    }
+    .goods_num_input{
+        border: 1px solid #ddd;
+        padding: 4px;
+        line-height: 25px;
+    }
+    input.red {
+        color: #ff8a5c;
+        border-color: #ff8a5c;
+    }
+    .publish-cont{
+        padding: 50px;
+        text-align: center;
+    }
+    .buynum input{
+        border: 1px solid #ddd;
+        line-height: 32px;
+        width: 260px;
+        margin: 10px;
+        padding: 4px;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .publish-cont .num_sub{
+        background: #ff8a5c;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        width: 100px;
+        height: 35px;
+        border: 1px solid #ff8a5c;
+        color: #fff;
+    }
+    .publish-cont .num_res{
+        background: #fff;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        width: 100px;
+        height: 35px;
+        border: 1px solid #ddd;
+        margin-left: 20px;
+    }
+</style>
+<body>
+<!--header-s-->
+<include file="public/header" w="w1224"/>
+<!--header-e-->
+<style>
+    .formstyle {
+        border: 1px solid #DDD;
+        padding: 5px 10px;
+        border-radius:3px;
+    }
+    .forminput{
+        width: 250px;
+        margin-top: 10px;
+    }
+    .nextb{
+        background: #ff8a5c;
+        color: white;
+        font-size: 16px;
+        padding: 10px 20px;
+        line-height: 70px;
+        border-radius: 4px;
+        margin-left: 20px;
+        display: inline;
+    }
+    .buyb{
+        border: 1px solid #ff8a5c;
+        background: #fff;
+        color: #333;
+        font-size: 16px;
+        padding: 10px 20px;
+        line-height: 70px;
+        border-radius: 4px;
+        margin-left: 20px;
+        display: inline;
+    }
+</style>
+
+<div class="search-box p">
+    <div class="w1224">
+        <div class="search-path fl">
+            <foreach name="navigate_goods" key="k" item="v">
+                <a href="/shejis/{$k}.html">{$v}</a>
+                <i class="litt-xyb"></i>
+            </foreach>
+            <div class="havedox">
+                <span>{$goods.goods_name}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="details-bigimg p">
+    <div class="w1224">
+        <div class="detail-img">
+            <div class="product-gallery">
+                <div class="product-photo" id="photoBody">
+                    <div class="product-video">
+                        <if condition="$goods.video">
+                            <video id="video" src="{$goods.video}" controls="controls" preload="preload"
+                                   onended="this.load();">
+                                您的浏览器不支持查看此视频，请升级浏览器到最新版本
+                            </video>
+                        </if>
+                    </div>
+                    <i class="close-video"></i>
+                    <i class="video-play"></i>
+                    <!-- 商品大图介绍 start [[-->
+                    <div class="product-img jqzoom">
+                        <img id="zoomimg" src="{$goods.goods_id|goods_thum_images=800,800}"
+                             jqimg="{$goods.goods_id|goods_thum_images=800,800}">
+                    </div>
+                    <!-- 商品大图介绍 end ]]-->
+                    <!-- 商品小图介绍 start [[-->
+                    <div class="product-small-img fn-clear">
+                        <a href="javascript:;" class="next-left next-btn fl disabled"><</a>
+                        <div class="pic-hide-box fl">
+                            <ul class="small-pic" id="small-pic" style="left:0;">
+                                <volist name="goods_images_list" id="img">
+                                    <li class="small-pic-li <if condition='$i eq 0'>active</if>">
+                                    <a href="javascript:;"><img src="{$img|get_sub_images=$img[goods_id],60,60}"
+                                                                data-img="{$img|get_sub_images=$img[goods_id],800,800}"
+                                                                data-big="{$img|get_sub_images=$img[goods_id],800,800}">
+                                        <i></i></a>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </div>
+                        <a href="javascript:;" class="next-right next-btn fl">></a></div>
+                    <!-- 商品小图介绍 end ]]-->
+                </div>
+                <!-- 分享商品 -->
+                <div class="share">
+                    <div class="jiathis_style">
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren"></a>
+                            <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+                        </div>
+                    </div>
+                    <script>
+                        var bd_url = "http://{$_SERVER[HTTP_HOST]}/yinshua/{$_GET[id]}.html";
+                        var bd_pic = "http://{$_SERVER[HTTP_HOST]}{$goods[goods_id]|goods_thum_images=400,400}";
+                        var bdText = "{$goods.goods_name}";
+                        var is_distribut = getCookie('is_distribut');
+                        var user_id = getCookie('user_id');
+                        // 如果已经登录了, 并且是分销商
+                        if (parseInt(is_distribut) == 1 && parseInt(user_id) > 0) {
+                            bd_url = bd_url + "&first_leader=" + user_id;
+                        }
+
+                        function setShareConfig(id, config) {
+                            config.bdUrl = bd_url;
+                            config.bdPic = bd_pic;
+                            config.bdText = bdText;
+                            return config;
+                        }
+
+                        window._bd_share_config = {
+                            "common": {
+                                onBeforeClick: setShareConfig,
+                                "bdSnsKey": {},
+                                "bdText": "",
+                                "bdMini": "2",
+                                "bdPic": "",
+                                "bdStyle": "0",
+                                "bdSize": "16"
+                            },
+                            "share": {},
+                            /*"image": {
+                                "viewList": ["qzone", "tsina", "tqq", "renren", "weixin"],
+                                "viewText": "分享到：",
+                                "viewSize": "16"
+                            },*/
+                            "selectShare": {
+                                "bdContainerClass": null,
+                                "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+                            }
+                        };
+                        with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                    </script>
+                </div>
+            </div>
+        </div>
+        <form id="buy_goods_form" name="buy_goods_form" method="post" action="">
+            <input type="hidden" name="goods_id" value="{$goods.goods_id}">
+            <input type="hidden" name="goods_prom_type" value="{$goods.prom_type}"/>
+            <input type="hidden" name="shop_price" value="{$goods.shop_price}"/>
+            <input type="hidden" name="store_count" value="{$goods.store_count}"/>
+            <input type="hidden" name="market_price" value="{$goods.market_price}"/>
+
+            <input type="hidden" name="goods_send_date" value="{$goods.send_date}"/>
+            <input type="hidden" name="goods_weight" value="{$goods.weight}"/>
+            <input type="hidden" name="goods_volume" value="{$goods.volume}"/>
+
+            <input type="hidden" name="start_time" value=""/>
+            <input type="hidden" name="end_time" value=""/>
+            <input type="hidden" name="activity_title" value=""/>
+            <input type="hidden" name="prom_detail" value=""/>
+            <input type="hidden" name="activity_is_on" value=""/>
+            <input type="hidden" name="item_id" value="{$Request.param.item_id}"/>
+            <input type="hidden" name="exchange_integral" value="{$goods.exchange_integral}"/>
+            <input type="hidden" name="point_rate" value="{$point_rate}"/>
+            <input type="hidden" name="is_virtual" value="{$goods.is_virtual}"/>
+            <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
+            <input  id="number" type="hidden" name="goods_num" value="1">
+            <input  id="cat_id" type="hidden" name="cat_id" value="{$goods.cat_id|default=0}">
+            <div class="detail-ggsl">
+                <h1>{$goods.goods_name}</h1>
+
+                <div class="standard p">
+                <ul>
+                    <li class="jaj"><span>设计金额</span></li>
+                    <li class="lawir">
+                        <span class="service"><span><em>￥</em><span id="market_price">{$goods.shop_price}</span></span></span>
+                    </li>
+                </ul>
+                </div>
+                <div class="standard p">
+                    <textarea cols="80" name="shejicontent" class="formstyle" placeholder="按照示例，填写要替换的文字，以及图片位置说明。" rows="8"></textarea>
+                </div>
+                <div class="standard p">
+                    <input type="text" class="formstyle forminput" style="margin-right:20px; " name="mobile" placeholder="请填写手机号">
+                    <input class="formstyle forminput" type="text" name="linkqq" placeholder="请填写QQ号">
+                </div>
+                <div class="standard p">
+                    <div class="standard p">
+                        <a id="join_cart" class="nextb buy_button" href="javascript:;" style="display: none">加入购物车</a>
+                        <a id="buy_now" class="buyb buy_button"  href="javascript:;" style="display: none;margin-left: 10px;">下单印刷</a>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--搭配购组合套餐 s-->
+<!--搭配购组合套餐 e-->
+<div class="detail-main p">
+    <div class="w1224">
+        <include file="goods/goodsInfoDetail"/>
+    </div>
+</div>
+<!--footer-s-->
+<include file="public/footer"/>
+<!--footer-e-->
+<!--侧边栏-s-->
+<include file="public/kefu"/>
+
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="__STATIC__/js/headerfooter.js"></script>
+<script type="text/javascript">
+    //判断是否有视频标签
+    if ($('#video').length > 0) {
+        $('#photoBody').addClass('videoshow-ac');
+    }
+    //点击关闭视频
+    $('.video-play').click(function (event) {
+        $('#photoBody').addClass('videoshow-ac').removeClass('picshow-ac');
+        video.play();
+    });
+    //点击播放视频
+    $('.close-video').click(function (event) {
+        $('#photoBody').addClass('picshow-ac').removeClass('videoshow-ac');
+        video.pause();
+    });
+    var goods_price_arr = {$goods_price | default = 'null'} //爆品印品对应的价格数组
+    var spec_goods_price = {$spec_goods_price |default= 'null'};//规格库存价格
+    $(document).ready(function () {
+        /*商品缩略图放大镜*/
+        $(".jqzoom").jqueryzoom({
+            xzoom: 500,
+            yzoom: 500,
+            offset: 1,
+            position: "right",
+            preload: 1,
+            lens: 1
+        });
+        changeImg();
+        buy_button();
+    });
+
+    var buy_now = $('#buy_now');
+    var join_cart = $('#join_cart');
+    //购买按钮显示
+    function buy_button(){
+        var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
+        var exchange_integral = $("input[name='exchange_integral']").val();//是否是为瓜豆商品
+        var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');//活动商品
+        var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
+        buy_now.hide();
+        join_cart.hide();
+        buy_now.html('下单印刷').show();
+        join_cart.show();
+    }
+
+    //购买按钮
+    $(function () {
+        //立即购买
+        $(document).on('click', '#buy_now', function () {
+            if ($(this).hasClass('buy_bt_disable')) {
+                return;
+            }
+            if (getCookie('user_id') == '') {
+                pop_login();
+                return;
+            }
+            var shejicontent = $("textarea[name='shejicontent']").val();
+            var mobile = $("input[name='mobile']").val();
+            var linkqq = $("input[name='linkqq']").val();
+            if (shejicontent == '') {
+                layer.msg('请填写要替换的文字', {icon: 3});
+                return;
+            }
+            if (mobile == '') {
+                layer.msg('请填写手机号码', {icon: 3});
+                return;
+            }
+            if (linkqq == '') {
+                layer.msg('请填写QQ号', {icon: 3});
+                return;
+            }
+            var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
+            var exchange_integral = $("input[name='exchange_integral']").val();//是否是瓜豆兑换商品
+            var goods_id = $("input[name='goods_id']").val();
+            var store_count = $("input[name='store_count']").attr('value');// 商品原始库存
+            var goods_num = parseInt($("input[name='goods_num']").val());
+            var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');//活动商品
+            var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
+            var form = $('#buy_goods_form');
+            if (is_virtual == 1) {
+                var virtual_limit = parseInt($('#virtual_limit').val());
+                if ((goods_num <= store_count && goods_num <= virtual_limit) || (goods_num < store_count && virtual_limit == 0)) {
+                    form.attr('action', "{:U('Home/Cart/cart2',['action'=>'buy_now'])}").submit();
+                } else {
+                    layer.msg('购买数量超过此商品购买上限', {icon: 3});
+                }
+                return;
+            }
+            if (exchange_integral > 0) {
+                buyIntegralGoods(goods_id, 1);
+                return;
+            }
+//            if(goods_prom_type == 4 && activity_is_on == 1){
+//                form.attr('action', "{:U('Home/Cart/pre_sell')}").submit();
+//                return;
+//            }
+            //普通流程
+            //if (goods_num <= store_count) {
+                form.attr('action', "{:U('Home/Cart/cart2',['action'=>'buy_now'])}").submit();
+            /*} else {
+                layer.msg('购买数量超过此商品购买上限', {icon: 3});
+            }*/
+        })
+        //加入购物车
+        $(document).on('click', '#join_cart', function () {
+            if ($(this).hasClass('buy_bt_disable')) {
+                return;
+            }
+            var shejicontent = $("textarea[name='shejicontent']").val();
+            var mobile = $("input[name='mobile']").val();
+            var linkqq = $("input[name='linkqq']").val();
+            if (shejicontent == '') {
+                layer.msg('请填写要替换的文字', {icon: 3});
+                return;
+            }
+            if (mobile == '') {
+                layer.msg('请填写手机号码', {icon: 3});
+                return;
+            }
+            if (linkqq == '') {
+                layer.msg('请填写QQ号', {icon: 3});
+                return;
+            }
+            var goods_id = $("input[name='goods_id']").val();
+            var cat_id = $("input[name='cat_id']").val();//是否是虚拟商品
+            AjaxAddCart(goods_id, 1);
+            // 如果有商品规格 说明是商品详情页提交
+           /* var form = $("#buy_goods_form");
+            var cart_quantity = $("#cart_quantity");
+            var data;//post数据
+            data = form.serialize();
+            $.ajax({
+                type: "POST",
+                url: "/index.php?m=Home&c=Cart&a=ajaxAddCart",
+                data: data,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status <= 0) {
+                        if(!$.isEmptyObject(data.result)){
+                            if(!$.isEmptyObject(data.result.url)){
+                                location.href = data.result.url;
+                                return false;
+                            }
+                        }
+                        layer.alert(data.msg, {icon: 2});
+                        return false;
+                    }else {
+                        location.href = "/index.php?m=Home&c=Goods&a=goodsList&id=" + cat_id;
+                        return false;
+                    }
+                }
+            });*/
+        })
+    })
+
+    //缩略图切换
+    $('.small-pic-li').mouseenter(function () {
+        if ($('#video').length > 0) {
+            $('.close-video').trigger('click');
+        }
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        $('#zoomimg').attr('src', $(this).find('img').attr('data-img')).attr('jqimg', $(this).find('img').attr('data-big'));
+    });
+
+    //缩略图切换
+    function changeImg() {
+        var $picBox = $('#small-pic');
+        var $picList = $picBox.find('.small-pic-li');
+        var length = $picList.length;
+        $picBox.css('width', 70 * length);
+        if ($('#video').length > 0) { //判断是否有视频标签
+            $('#photoBody').addClass('videoshow-ac');
+        }
+        $('.video-play').click(function (event) { //点击关闭视频
+            $('#photoBody').addClass('videoshow-ac').removeClass('picshow-ac');
+            video.play();
+        });
+        $('.close-video').click(function (event) {  //点击播放视频
+            $('#photoBody').addClass('picshow-ac').removeClass('videoshow-ac');
+            video.pause();
+        });
+        //缩略图切换
+        $picList.mouseenter(function () {
+            if ($('#video').length > 0) {
+                $('.close-video').trigger('click');
+            }
+            $(this).addClass('active').siblings().removeClass('active');
+            $('#zoomimg').attr('src', $(this).find('img').attr('data-img')).attr('jqimg', $(this).find('img').attr('data-big'));
+        })
+        var i = 0;
+        if (length <= 5) {
+            $('.product-gallery .next-btn').css('display', 'none');
+        } else {
+            //前一张缩略图
+            $('.next-left').click(function () {
+                i--;
+                if (i < 0) {
+                    i = 0;
+                    return;
+                }
+                $picBox.animate({left: -i * 70}, 500);
+            })
+            //后前一张缩略图
+            $('.next-right').click(function () {
+                i++;
+                if (i > length - 5) {
+                    i = length - 5;
+                    return;
+                }
+                $picBox.animate({left: -i * 70}, 500);
+            })
+        }
+    }
+
+    //收藏商品
+    $('#collectLink').click(function () {
+        if (getCookie('user_id') == '') {
+            layer.msg('请先登录！', {icon: 1});
+        } else {
+            var goods_arr = new Array();
+            //单个收藏
+            goods_arr.push($('input[name="goods_id"]').val());
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                data: {goods_ids: goods_arr},
+                url: "{:U('Home/Goods/collect_goods')}",
+                success: function (res) {
+                    if (res.status == 1) {
+                        layer.msg(res.msg, {icon: 1});
+                    } else {
+                        layer.msg(res.msg, {icon: 3});
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

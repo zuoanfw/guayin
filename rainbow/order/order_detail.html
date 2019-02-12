@@ -333,11 +333,34 @@
                                                 <default/> 未审核<br>
                                                 <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
                                                 <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
-                                                <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                                <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp; <br>&nbsp;
+                                                <a href="javascript:void(0)" style="color: #0000ee"  onclick="delfile('{$goods.rec_id}')">删除</a>
                                             </switch>
                                             </span>
                                         </case>
-                                        <default />平台提供
+                                        <default />
+                                        <switch $goods.shejicontent>
+                                            <case value="">
+                                                平台提供
+                                            </case>
+                                            <default/><switch $goods.goods_file_state>
+                                            <case value="1">
+                                                审核通过
+                                            </case>
+                                            <case value="2">
+                                                审核不通过<br>
+                                                <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                                <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                                <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <a href="javascript:void(0)" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                            </case>
+                                            <default/> 未审核<br>
+                                            <button type="button" class="upload_file" <if condition="$goods.goods_file_url neq ''">style="display: none"</if> val="{$goods.rec_id}" id="upload_file{$goods.rec_id}" onClick="GetUploadify3(1,'goods_file{$goods.rec_id}','goods_file','add_goods_file')">上传文件</button>
+                                            <span id="goods_file{$goods.rec_id}" val="{$goods.goods_file_url}" <if condition="$goods.goods_file_url eq ''"> style="display: none" </if>>
+                                            <span id="goods_name{$goods.rec_id}">{$goods.goods_file_name}</span> &nbsp;&nbsp; <br>
+                                            <a href="javascript:void(0)" class="" style="color: #0000ee" onclick="delfile('{$goods.rec_id}')">删除</a>
+                                            </span>
+                                        </switch>
+                                        </switch>
                                     </switch>
                                     <!--<if condition="($order.order_button['comment_btn'] eq 1) and ($goods['is_comment'] eq 0)">
                                         <a href="{:U('Home/Order/comment_list',array('order_id'=>$order['order_id'],'rec_id'=>$goods['rec_id']))}">评价</a>

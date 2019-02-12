@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{$filter_param['q']}定制设计价格_呱呱印</title>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css" />
+	<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/pc_common.js"></script>
+    <style>
+		@media screen and (min-width:1260px) and (max-width: 1465px) {
+			.w1430{width: 1224px;}
+		}
+		@media screen and (max-width: 1260px) {
+			.w1430{width: 983px;}
+		}
+    </style>
+</head>
+<body>
+<!--header-s-->
+<include file="public/header" w='w1224'/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/goodslist.css" />
+<!--header-e-->
+<div class="search-box p">
+	<div class="w1224">
+		<div class="search-path fl">
+			<a href="{:U('Home/Goods/search',array('q'=>$filter_param['q']))}">搜索结果</a>
+			<i class="litt-xyb"></i>
+			<a href="{:U('Home/Goods/search',array('q'=>$filter_param['q']))}">{$filter_param['q']}</a>
+			<!--<i class="litt-xyb"></i>
+            <foreach name="filter_menu" item="v" key="k">
+                <a title="{$v['text']}" href="{$v['href']}" class="u-av-label">
+                    <em>{$v[text]}</em>
+                    <i>x</i>
+                </a>
+            </foreach>-->
+		</div>
+		<!--<div class="search-clear fr">
+			<span><a href="{:U('Home/Goods/search',array('q'=>$filter_param['q']))}">清空筛选条件</a></span>
+		</div>-->
+	</div>
+</div>
+<!-- 筛选 start -->
+<div class="search-opt">
+	<div class="w1224">
+		<div class="opt-list">
+
+		</div>
+	</div>
+</div>
+<!-- 筛选 end -->
+<div class="shop-list-tour ma-to-20 p">
+	<div class="w1224">
+		<div class="stsho fl">
+
+			<div class="shop-list-splb p">
+				<ul>
+                    <empty name="goods_list">
+                        <p class="ncyekjl" style="font-size: 16px;margin:100px auto;text-align: center;">-- 抱歉没找到您要搜索的商品，换个条件试试！--</p>
+                    <else/>
+						<foreach name="goods_list" item="v" key="k">
+							<li>
+								<if condition="$v['goods_baozhuang'] eq '1'">
+									<div class="s_xsall">
+										<div class="xs_img">
+											<a href="/baozhuang/{$v[goods_id]}.html">
+												<img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
+											</a>
+										</div>
+									</div>
+									<div class="s_xsall_text">
+										<h4 class="media-heading">
+											<a href="/baozhuang/{$v[goods_id]}.html" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+										<p style="color:#ffa000;"> {$v.goods_remark}</p>
+										<p>●&nbsp;设计理念：{$v.goods_use_scene}</p>
+										<p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
+										<p>●&nbsp;包装方法：{$v.goods_rec_reason}</p>
+										<div class="media-bottom">
+											<a href="/baozhuang/{$v[goods_id]}.html" class="btn-warning"> 马上询价</a>
+										</div>
+									</div>
+								<else/>
+									<div class="s_xsall">
+										<div class="xs_img">
+											<a href="/yinshua/{$v[goods_id]}.html">
+												<img class="lazy-list" data-original="{$v.goods_id|goods_thum_images=400,400}"/>
+											</a>
+										</div>
+									</div>
+									<div class="s_xsall_text">
+										<h4 class="media-heading">
+											<a href="/yinshua/{$v[goods_id]}.html" style="color:#333;padding-bottom:10px;"> {$v[goods_name]}</a></h4>
+										<p style="color:#ffa000;"> {$v.goods_remark}</p>
+										<p>●&nbsp;使用场景：{$v.goods_use_scene}</p>
+										<p>●&nbsp;推荐指数：<img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$v['goods_rec_star']}.gif" alt=""></p>
+										<p>●&nbsp;推荐理由：{$v.goods_rec_reason}</p>
+										<div class="media-bottom">
+											<if condition="$v['goods_num']['0'] neq ''">
+												限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v['shop_price']['0']*$v['goods_num']['0']}</span>
+												<span class="old"><em>￥</em><em>{$v[market_price]*$v['goods_num']['0']}</em></span>
+												({$v['goods_num']['0']}{$v['unit']}，平均&nbsp;<span style="color:#ffa000;font-size:16px;">{$v['shop_price']['0']}</span>&nbsp;元/{$v['unit']})
+												<else/>
+												限时促销：<span style="color:#ffa000;font-size:18px;">￥{$v[shop_price]}</span>
+												<span class="old"><em>￥</em><em>{$v[market_price]}</em></span>
+											</if>
+
+											<a href="/yinshua/{$v[goods_id]}.html" class="btn-warning"> 马上抢</a>
+										</div>
+									</div>
+								</if>
+							</li>
+						</foreach>
+                    </empty>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!--footer-s-->
+<div class="footer p">
+    <include file="public/footer" />
+</div>
+<!--footer-e-->
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/popt.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

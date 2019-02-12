@@ -46,7 +46,9 @@ function navigate_goods($id, $type = 0)
     foreach($categoryList as $category){
         $cat_id = $categoryList[$cat_id]['parent_id'];
         if($cat_id > 0 && array_key_exists($cat_id, $categoryList)){
-            $arr[$cat_id] = $categoryList[$cat_id]['name'];
+            if($categoryList[$cat_id]['parent_id']!='0'){
+                $arr[$cat_id] = $categoryList[$cat_id]['name'];
+            }
         }else{
             break;
         }

@@ -156,6 +156,9 @@ class Cart extends Base
         $num_key = I("num_key/d");  //商品数量数组 当前数量的key
         $item_id = I("item_id/d"); // 商品规格id
         $goods_file_id = I("goods_file_id/d");
+        $linkqq = I("linkqq/d");  //设计商品加入购物车
+        $shejicontent = I("shejicontent");
+        $mobile = I("mobile/d");
         if (empty($goods_id)) {
             $this->ajaxReturn(['status' => 0, 'msg' => '请选择要购买的商品', 'result' => '']);
         }
@@ -172,6 +175,9 @@ class Cart extends Base
         $cartLogic->setGoodsBuyNum($goods_num);//设置购买数量
         $cartLogic->setNumKey($num_key);//设置购买数量 key
         $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
+        $cartLogic->setlinkqq($linkqq);
+        $cartLogic->setshejicontent($shejicontent);
+        $cartLogic->setmobile($mobile);
         try {
             $cartLogic->addGoodsToCart();
             $this->ajaxReturn(['status' => 1, 'msg' => '加入购物车成功']);
@@ -216,6 +222,9 @@ class Cart extends Base
         $num_key = input('num_key');
         $item_id = input("item_id/d"); // 商品规格id
         $goods_file_id = I("goods_file_id/d");
+        $linkqq = I("linkqq/d");  //设计商品加入购物车
+        $shejicontent = I("shejicontent");
+        $mobile = I("mobile/d");
         $action = input("action"); // 行为
         if ($this->user_id == 0) {
             $this->error('请先登录', '/login.html');
@@ -233,6 +242,9 @@ class Cart extends Base
             $cartLogic->setGoodsBuyNum($goods_num);
             $cartLogic->setNumKey($num_key);
             $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
+            $cartLogic->setlinkqq($linkqq);
+            $cartLogic->setshejicontent($shejicontent);
+            $cartLogic->setmobile($mobile);
             $buyGoods = [];
             try {
                 $buyGoods = $cartLogic->buyNow();
@@ -319,6 +331,9 @@ class Cart extends Base
         $goods_num = input("goods_num/d");// 商品数量  立即购买 单个类型的商品时候
         $num_key = input("num_key");// 商品数量key
         $goods_file_id = input('goods_file_id'); //印刷文件 立即购买 单个类型的商品时候
+        $linkqq = I("linkqq/d");  //设计商品加入购物车
+        $shejicontent = I("shejicontent");
+        $mobile1 = I("mobile/d");//设计页面提交的
         $item_id = input("item_id/d"); // 商品规格价格重量组合id,立即购买的时候有值，购物车中的没有值
         $action = input("action"); // 立即购买
         $shop_id = input('shop_id/d', 0);//自提点id
@@ -344,6 +359,9 @@ class Cart extends Base
                 $cartLogic->setGoodsBuyNum($goods_num);
                 $cartLogic->setNumKey($num_key);
                 $cartLogic->setGoodsFileId($goods_file_id);
+                $cartLogic->setlinkqq($linkqq);
+                $cartLogic->setshejicontent($shejicontent);
+                $cartLogic->setmobile($mobile1);
                 $buyGoods = $cartLogic->buyNow();
                 $cartList[0] = $buyGoods;
                 $pay->payGoodsList($cartList);  //立即购买 订单提交
