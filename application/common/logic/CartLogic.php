@@ -37,6 +37,10 @@ class CartLogic extends Model
     protected $goodsBuyNum;//购买的商品数量
     protected $num_key;//购买的商品数量 的key
     protected $goods_file_id; //印刷文件
+    protected $is_sheji; //印刷文件
+    protected $linkqq; //印刷文件
+    protected $shejicontent; //印刷文件
+    protected $mobile; //印刷文件
     protected $session_id;//session_id
     protected $user_id = 0;//user_id
     protected $userGoodsTypeCount = 0;//用户购物车的全部商品种类
@@ -134,6 +138,18 @@ class CartLogic extends Model
 
     public function setGoodsFileId($goods_file_id){
         $this->goods_file_id = $goods_file_id;
+    }
+    public function setlinkqq($linkqq){
+        $this->linkqq = $linkqq;
+    }
+    public function setshejicontent($shejicontent){
+        $this->shejicontent = $shejicontent;
+    }
+    public function setmobile($mobile){
+        $this->mobile = $mobile;
+    }
+    public function setIsSheji($is_sheji){
+        $this->is_sheji = $is_sheji;
     }
     /**
      * 立即购买
@@ -366,6 +382,7 @@ class CartLogic extends Model
                 'goods_num' => $this->goodsBuyNum, // 购买数量
                 'num_key' => $this->num_key, // 购买数量
                 'goods_file_id' => $this->goods_file_id, // 购买数量
+                'is_sheji' => $this->is_sheji, // 是否是设计商品
                 'add_time' => time(), // 加入购物车时间
                 'prom_type' => 0,   // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
                 'prom_id' => 0,   // 活动id
@@ -631,10 +648,10 @@ class CartLogic extends Model
     {
         if ($this->user_id) {
             $goods_num = Db::name('cart')->where(['user_id' => $this->user_id])->sum('goods_num');
-            $goods_type_num = Db::name('cart')->where(['user_id' => $this->user_id])->count();
+            $goods_type_num = Db::name('cart')->where(['user_id' => $this->user_id,'is_sheji'=>'0'])->count();
         } else {
             $goods_num = Db::name('cart')->where(['session_id' => $this->session_id])->sum('goods_num');
-            $goods_type_num = Db::name('cart')->where(['session_id' => $this->session_id])->count();
+            $goods_type_num = Db::name('cart')->where(['session_id' => $this->session_id,'is_sheji'=>'0'])->count();
         }
         $goods_num = empty($goods_num) ? 0 : $goods_num;
         setcookie('cn', $goods_num, null, '/');
@@ -675,6 +692,7 @@ class CartLogic extends Model
             $cartWhere['selected'] = 1;
         }
         $cartWhere['combination_group_id'] = 0;
+        $cartWhere['is_sheji'] = 0;
         $cartList = $cart->where($cartWhere)->select();  // 获取购物车商品
         $cartCheckAfterList = $this->checkCartList($cartList);
         foreach ($cartCheckAfterList as $cartKey =>$cart){
@@ -690,6 +708,40 @@ class CartLogic extends Model
         }
         //var_dump($cartCheckAfterList);exit;
         return $cartCheckAfterList;
+    }
+    /**
+     * @param int $selected |是否被用户勾选中的 0 为全部 1为选中  一般没有查询不选中的商品情况
+     * 获取用户的购物车列表
+     * @return false|\PDOStatement|string|\think\Collection
+     */
+    public function getCartShejiList($is_sheji = 0)
+    {
+        $cart = new Cart();
+        // 如果用户已经登录则按照用户id查询
+        if ($this->user_id) {
+            $cartWhere['user_id'] = $this->user_id;
+        } else {
+            $cartWhere['session_id'] = $this->session_id;
+        }
+        if ($is_sheji != 0) {
+            $cartWhere['is_sheji'] = 1;
+        }
+        $cartWhere['combination_group_id'] = 0;
+        $cartList = $cart->where($cartWhere)->find();  // 获取购物车商品
+        //$cartCheckAfterList = $this->checkCartList($cartList);
+       // foreach ($cartCheckAfterList as $cartKey =>$cart){
+            /*foreach ($cart['combination_cart'] as $k=>$v ){
+                $cartCheckAfterList[$cartKey]['count_price'] = $cart['goods_price'] - $cart['member_goods_price'];
+                if($v['prom_type']==7){
+                    $cartCheckAfterList[$cartKey]['count_price'] += $v['goods_price'] - $v['member_goods_price'];
+                }
+            }*/
+            $map['goods_id'] = $cartList['goods_id'];
+            //echo $cart['goods_id'];exit;
+           $cartList['cat_id'] =  Db::name('goods')->where($map)->value("cat_id");
+        //}
+        //var_dump($cartCheckAfterList);exit;
+        return $cartList;
     }
 
     /**

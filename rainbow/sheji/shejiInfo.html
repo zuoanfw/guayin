@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$goods.goods_name}-{$tpshop_config['shop_info_store_name']}</title>
+    <meta name="keywords" content="{$goods.keywords}"/>
+    <meta name="description" content="{$goods.goods_remark}"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/guayin.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/jquery.jqzoom.css">
+
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.jqzoom.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/pc_common.js"></script>
+    <!--饼图-->
+</head>
+<style>
+    .store-selector .text {
+        color: #666;
+    }
+    .product_week:after {
+        content: "\f059";
+        text-align: center;
+        padding-right: 5px;
+        font-size: 14px;
+        font-family: FontAwesome;
+        cursor: pointer;
+        color: #999;
+    }
+    .goods_num_input{
+        border: 1px solid #ddd;
+        padding: 4px;
+        line-height: 25px;
+    }
+    input.red {
+        color: #ff8a5c;
+        border-color: #ff8a5c;
+    }
+    .publish-cont{
+        padding: 50px;
+        text-align: center;
+    }
+    .buynum input{
+        border: 1px solid #ddd;
+        line-height: 32px;
+        width: 260px;
+        margin: 10px;
+        padding: 4px;
+        font-size: 14px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .publish-cont .num_sub{
+        background: #ff8a5c;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        width: 100px;
+        height: 35px;
+        border: 1px solid #ff8a5c;
+        color: #fff;
+    }
+    .publish-cont .num_res{
+        background: #fff;
+        font-size: 16px;
+        padding: 6px 30px;
+        border-radius: 4px;
+        display: inline;
+        width: 100px;
+        height: 35px;
+        border: 1px solid #ddd;
+        margin-left: 20px;
+    }
+    .shejiinfo{
+        border-top:1px solid #ddd;
+        padding-top: 15px;
+    }
+</style>
+<body>
+<!--header-s-->
+<include file="public/header" w="w1224"/>
+<!--header-e-->
+<div class="search-box p">
+    <div class="w1224">
+        <div class="search-path fl">
+            <foreach name="navigate_goods" key="k" item="v">
+                <if condition="$goods.cat_id eq '3'">
+                    <!--现货通用品数量计算-->
+                    <a href="/xianhuo.html">{$v}</a>
+                 <else/>
+                    <a href="/yinshuas/{$k}.html">{$v}</a>
+                 </if>
+                <i class="litt-xyb"></i>
+            </foreach>
+            <div class="havedox">
+                <span>{$goods.goods_name}</span>
+            </div>
+        </div>
+    </div>
+    <div class="w1224" style="clear: both;">
+        <div class="shejiinfo">
+            已选择设计  <span style="color:#ffa000;padding-left: 10px;padding-right: 20px;">{$shejiinfo.goods_name}</span>
+            价格：￥{$shejiinfo.goods_price}
+            <a href="/sheji.html" style="padding-left: 15px;color: #0066FF;">重新选择</a>
+        </div>
+    </div>
+</div>
+<div class="details-bigimg p">
+    <div class="w1224">
+        <div class="detail-img">
+            <div class="product-gallery">
+                <div class="product-photo" id="photoBody">
+                    <div class="product-video">
+                        <if condition="$goods.video">
+                            <video id="video" src="{$goods.video}" controls="controls" preload="preload"
+                                   onended="this.load();">
+                                您的浏览器不支持查看此视频，请升级浏览器到最新版本
+                            </video>
+                        </if>
+                    </div>
+                    <i class="close-video"></i>
+                    <i class="video-play"></i>
+                    <!-- 商品大图介绍 start [[-->
+                    <div class="product-img jqzoom">
+                        <img id="zoomimg" src="{$goods.goods_id|goods_thum_images=800,800}"
+                             jqimg="{$goods.goods_id|goods_thum_images=800,800}">
+                    </div>
+                    <!-- 商品大图介绍 end ]]-->
+                    <!-- 商品小图介绍 start [[-->
+                    <div class="product-small-img fn-clear">
+                        <a href="javascript:;" class="next-left next-btn fl disabled"><</a>
+                        <div class="pic-hide-box fl">
+                            <ul class="small-pic" id="small-pic" style="left:0;">
+                                <volist name="goods_images_list" id="img">
+                                    <li class="small-pic-li <if condition='$i eq 0'>active</if>">
+                                    <a href="javascript:;"><img src="{$img|get_sub_images=$img[goods_id],60,60}"
+                                                                data-img="{$img|get_sub_images=$img[goods_id],800,800}"
+                                                                data-big="{$img|get_sub_images=$img[goods_id],800,800}">
+                                        <i></i></a>
+                                    </li>
+                                </volist>
+                            </ul>
+                        </div>
+                        <a href="javascript:;" class="next-right next-btn fl">></a></div>
+                    <!-- 商品小图介绍 end ]]-->
+                </div>
+                <!-- 分享商品 -->
+                <div class="share">
+                    <div class="jiathis_style">
+                        <div class="bdsharebuttonbox">
+                            <a href="#" class="bds_more" data-cmd="more"></a>
+                            <a href="#" class="bds_qzone" data-cmd="qzone"></a>
+                            <a href="#" class="bds_tsina" data-cmd="tsina"></a>
+                            <a href="#" class="bds_tqq" data-cmd="tqq"></a>
+                            <a href="#" class="bds_renren" data-cmd="renren"></a>
+                            <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+                        </div>
+                    </div>
+                    <script>
+                        var bd_url = "http://{$_SERVER[HTTP_HOST]}/yinshua/{$_GET[id]}.html";
+                        var bd_pic = "http://{$_SERVER[HTTP_HOST]}{$goods[goods_id]|goods_thum_images=400,400}";
+                        var bdText = "{$goods.goods_name}";
+                        var is_distribut = getCookie('is_distribut');
+                        var user_id = getCookie('user_id');
+                        // 如果已经登录了, 并且是分销商
+                        if (parseInt(is_distribut) == 1 && parseInt(user_id) > 0) {
+                            bd_url = bd_url + "&first_leader=" + user_id;
+                        }
+
+                        function setShareConfig(id, config) {
+                            config.bdUrl = bd_url;
+                            config.bdPic = bd_pic;
+                            config.bdText = bdText;
+                            return config;
+                        }
+
+                        window._bd_share_config = {
+                            "common": {
+                                onBeforeClick: setShareConfig,
+                                "bdSnsKey": {},
+                                "bdText": "",
+                                "bdMini": "2",
+                                "bdPic": "",
+                                "bdStyle": "0",
+                                "bdSize": "16"
+                            },
+                            "share": {},
+                            /*"image": {
+                                "viewList": ["qzone", "tsina", "tqq", "renren", "weixin"],
+                                "viewText": "分享到：",
+                                "viewSize": "16"
+                            },*/
+                            "selectShare": {
+                                "bdContainerClass": null,
+                                "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]
+                            }
+                        };
+                        with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                    </script>
+                </div>
+            </div>
+        </div>
+        <form id="buy_goods_form" name="buy_goods_form" method="post" action="">
+            <input type="hidden" name="goods_id" value="{$goods.goods_id}">
+            <input type="hidden" name="goods_prom_type" value="{$goods.prom_type}"/>
+            <input type="hidden" name="shop_price" value="{$goods.shop_price}"/>
+            <input type="hidden" name="store_count" value="{$goods.store_count}"/>
+            <input type="hidden" name="market_price" value="{$goods.market_price}"/>
+
+            <input type="hidden" name="goods_send_date" value="{$goods.send_date}"/>
+            <input type="hidden" name="goods_weight" value="{$goods.weight}"/>
+            <input type="hidden" name="goods_volume" value="{$goods.volume}"/>
+
+            <input type="hidden" name="start_time" value=""/>
+            <input type="hidden" name="end_time" value=""/>
+            <input type="hidden" name="activity_title" value=""/>
+            <input type="hidden" name="prom_detail" value=""/>
+            <input type="hidden" name="activity_is_on" value=""/>
+            <input type="hidden" name="item_id" value="{$Request.param.item_id}"/>
+            <input type="hidden" name="exchange_integral" value="{$goods.exchange_integral}"/>
+            <input type="hidden" name="point_rate" value="{$point_rate}"/>
+            <input type="hidden" name="is_virtual" value="{$goods.is_virtual}"/>
+            <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
+            <input type="hidden" name="is_sheji" value="1"/>
+            <div class="detail-ggsl">
+                <h1>{$goods.goods_name}</h1>
+                <p style="color: #fd4f3e;">{$goods.goods_remark}</p>
+                <div class="goods_attr">
+
+                        <ul>
+                            <li style="float:left;clear: both;"><span style="padding-right: 20px;width: 62px;display: inline-block;float: left;">使用场景</span>
+                                <span style="width: 700px;display: inline-block;float: left;">{$goods.goods_use_scene}</span></li>
+                            <li><span style="padding-right: 20px">推荐指数</span>
+                                <span><img style="vertical-align: center;" src="__PUBLIC__/images/start/stars{$goods['goods_rec_star']}.gif" alt=""></span></li>
+                            <li  style="float:left;clear: both;"><span style="padding-right: 20px;width: 62px;display: inline-block;float: left;">推荐理由</span>
+                                <span  style="width: 700px;display: inline-block;float: left;">{$goods.goods_rec_reason}</span></li>
+                        </ul>
+                </div>
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>产品规格</span></li>
+                        <li style="width: 670px;"><span class="service">{$goods['goods_spec']}</span></li>
+                    </ul>
+                </div>
+                <div class="standard p"  style="padding-bottom: 15px;border-bottom:1px solid #ddd;">
+                    <ul>
+                        <li class="jaj"><span>用户评价</span></li>
+                        <li class="lawir_gailv" style="width: 100px;line-height: 18px;text-align: center">
+                            <img width="80" src="__STATIC__/images/haopin.png" alt="">
+                        </li>
+                        <li class="lawir" style="width: 480px;padding-right: 10px;">
+                            <span class="service">{$goods['goods_comment']}</span>
+                        </li>
+                        <li class="lawir_gailv">
+                            <img  id="facecoment" width="75" src="__STATIC__/images/face/1.png" alt="">
+                        </li>
+                    </ul>
+                </div>
+                <!-- 规格 start [[-->
+                <foreach name="filter_spec" item="v" key="k">
+                    <div class="spec_goods_price_div standard p">
+                        <ul>
+                            <li class="jaj"><span>{$k}</span></li>
+                            <li class="lawir colo">
+                                <foreach name="v" item="v2" key="k2">
+                                    <input type="radio" spec_val="{$k}" hidden id="goods_spec_{$v2[item_id]}" name="goods_spec[{$k}]" value="{$v2[item_id]}"/>
+                                    <a id="goods_spec_a_{$v2[item_id]}" class="spec_item">
+                                        <if condition="$v2[src] neq ''">
+                                            <img src="{$v2[src]}" style="width: 40px;height: 40px;"/>
+                                            <span class="dis_alintro">{$v2[item]}</span>
+                                            <else/>
+                                            {$v2[item]}
+                                        </if>
+                                    </a>
+                                </foreach>
+                            </li>
+                        </ul>
+                    </div>
+                </foreach>
+                <!-- 规格end ]]-->
+                <if condition="$goods_num neq ''">
+                    <!--爆款印品 如果没有规格 就按详情里填的数量走 默认按这个取第一值。如果有规格就按照规格的数量计算-->
+                    <input  id="number" type="hidden" name="goods_num" value="{$goods_num['0']}">
+                    <input id="num_key" type="hidden" name="num_key" value="0">
+                    <div class="spec_goods_price_div standard p">
+                        <ul>
+                            <li class="jaj"><span>数量({$goods['unit']|default="张"})</span></li>
+                            <li class="lawir colo">
+                                <foreach name="goods_num" item="n" key="m">
+                                    <a val="{$m}" <if condition="$m eq '0'"> class="goods_num_item red"<else/>class="goods_num_item"</if>>
+                                        {$n}
+                                    </a>
+                                </foreach>
+                                <input type="text" class="goods_num_input" placeholder="自定义数量" name="goods_num_input">
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="hidden" id="goods_file_id" name="goods_file_id" value="2"/>
+                    <!--<div class="spec_goods_price_div standard p">
+                        <ul>
+                            <li class="jaj"><span>印刷文件</span></li>
+                            <li class="lawir colo1">
+                                <input type="hidden" id="goods_file_id" name="goods_file_id" value="1"/>
+                                <a val="1" class="goods_file_item red">
+                                    使用自己的设计
+                                    <span style="padding-left: 10px;" title="文件格式为Ai、Psd、Cdr、Pdf、Jpg、Tif格式的文件，分辨率需要300-350dpi。&#10;一个商品只能上传一个文件，若您正反面为2个文件，请压缩为rar或者zip的压缩包后在上传。" class="product_week"></span>
+                                </a>
+                                &lt;!&ndash;<a val="2" class="goods_file_item">
+                                    需要帮我设计
+                                </a>&ndash;&gt;
+                            </li>
+                        </ul>
+                    </div>-->
+                 <else/>
+                    <!--现货通用品数量计算-->
+                    <div class="standard" style="padding: 13px 10px">
+                        <ul class="p">
+                            <li class="jaj"><span>数&nbsp;&nbsp;量</span></li>
+                            <li class="lawir">
+                                <div class="minus-plus">
+                                    <a class="mins" href="javascript:void(0);" onclick="altergoodsnum(-1)">-</a>
+                                    <input class="buyNum" id="number" type="text" name="goods_num" value="1"
+                                           onblur="altergoodsnum(0)" max=""/>
+                                    <a class="add" href="javascript:void(0);" onclick="altergoodsnum(1)">+</a>
+                                </div>
+                                <div class="sav_shop">库存<span id="spec_store_count">{$goods['store_count']}</span></div>
+                            </li>
+                        </ul>
+                    </div>
+                </if>
+                <if condition="$goods[is_virtual] eq 0">
+                    <div class="standard p">
+                        <!-- 收货地址，物流运费 -start-->
+                        <ul class="list1">
+                            <li class="jaj"><span>配送至</span></li>
+                            <li class="summary-stock though-line">
+                                <div class="dd shd_address">
+                                    <!--<div class="addrID"><div></div><b></b></div>-->
+                                    <div class="store-selector add_cj_p">
+                                        <div class="text" style="width: 150px;">
+                                            <div></div>
+                                            <b></b></div>
+                                        <div onclick="$(this).parent().removeClass('hover')" class="close"></div>
+                                    </div>
+                                    <span id="dispatching_msg" style="display: none;">可配送</span>
+                                    <span id="dispatching_desc"
+                                          style="vertical-align: middle;position: relative;top: -4px;left: 9px;color: #666"></span>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- 收货地址，物流运费 -end-->
+                    </div>
+                </if>
+                <notempty name="$goods['weight']">
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj"><span>预估净重</span></li>
+                        <li class="lawir"><span id="goods_weight" class="service">{$goods.weight}</span>千克
+                        </li>
+                    </ul>
+                </div>
+                </notempty>
+                <if condition="$goods['volume'] gt '0'">
+                    <div class="standard p">
+                        <ul>
+                            <li class="jaj"><span>预估体积</span></li>
+                            <li class="lawir"><span id="goods_volume" class="service">{$goods.volume}</span>立方
+                            </li>
+                        </ul>
+                    </div>
+                </if>
+                <notempty name="$goods['send_date']">
+                <div class="standard p">
+                    <ul>
+                        <li class="jaj">
+                            <span class="product_week" title="货物货期说明&#10;1、货期即出货周期，是指订单从投入生产到生产完成的时间（不包含配送时间）；&#10;2、货期=生产天数+加工天数，不包含周日和法定节假日；&#10;3、17:00前支付并上传文件的订单，若印刷文件通过审核，当晚投入生产，17:00后支付并上传文件的订单，次日投入生产；">生产周期</span></li>
+                        <li class="lawir">
+                            <span id="goods_send_date" class="service">{$goods.send_date}</span>天 <span id="yuji_send_date">（预计{$goods.send_date|get_send_date_arr}出货）</span>
+                        </li>
+                    </ul>
+                </div>
+                </notempty>
+                <div class="presale-time" style="display: none">
+                    <div class="pre-icon fl">
+                        <span class="ys"><i class="detai-ico"></i><span id="activity_type">抢购活动</span></span>
+                    </div>
+                    <div class="pre-icon fr">
+                        <span class="per" style="display: none"><i class="detai-ico"></i><em id="order_user_num">0</em>人预定</span>
+                        <span class="ti" id="activity_time"><i class="detai-ico"></i>剩余时间<span id="overTime"></span></span>
+                        <span class="ti" id="prom_detail"></span>
+                    </div>
+                </div>
+                <div class="standard p">
+                <ul>
+                    <li class="jaj"><span>商品金额</span></li>
+                    <li class="lawir">
+                        <span class="service though-line"><span><em>￥</em><span id="market_price">{$goods.market_price}</span></span></span>
+                    </li>
+                </ul>
+                </div>
+                <if condition="$goods.cat_id eq '3'">
+                    <!--现货通用分类id 3 的价格显示-->
+                    <div class="standard p">
+                        <ul>
+                            <li class="jaj"><span>限时促销</span></li>
+                            <li class="lawir">
+                                <span class="service"><span><span id="goods_price">{$goods.shop_price}</span></span></span>
+                            </li>
+                        </ul>
+                    </div>
+                 <else/>
+                    <!--爆品印品-->
+                    <div class="standard p" style="padding-top:10px; ">
+                        <img src="__STATIC__/images/goodinfo_11.jpg" style="vertical-align: top;" alt="">
+                        <span class="goods_price">
+                           <span id="goods_price_all"><em>￥</em>{$goods_price['0']*$goods_num['0']}</span>
+                           <span>（平均<span id="goods_price">{$goods_price['0']}</span>元/{$goods['unit']|default="张"}）</span>
+                        </span>
+                    </div>
+                </if>
+                <div class="shop-price-cou p" style="display: none">
+                    <div class="shop-price-le">
+                        <ul id="activity_title_div" style="display: none">
+                            <li class="jaj"><span id="activity_label"></span></li>
+                            <li><span id="activity_title"
+                                      style="color: #df3033;background: 0 0;border: 1px solid #df3033;padding: 2px 3px;"></span>
+                            </li>
+                        </ul>
+                        <if condition="$goods['give_integral'] gt 0">
+                            <ul>
+                                <li class="jaj ls4"><span>赠送瓜豆：</span></li>
+                                <li><span class="fullminus">{$goods.give_integral}</span></li>
+                            </ul>
+                        </if>
+                    </div>
+
+                </div>
+
+                <!--is_virtual是否为虚拟商品 1是，0否   exchange_integral 瓜豆兑换：0不参与瓜豆兑换，瓜豆和现金的兑换比例见后台配置-->
+                <if condition="$goods['is_virtual'] eq 0 and $goods['exchange_integral'] gt 0">
+                    <div class="standard p">
+                        <ul>
+                            <li class="jaj"><span>可&nbsp;&nbsp;用：</span></li>
+                            <li class="lawir">
+                                <span class="service" id="integral">
+                                    {:round($goods['shop_price']-$goods['exchange_integral']/$point_rate,2)}
+                                    +{$goods['exchange_integral']}瓜豆
+                                </span></li>
+                        </ul>
+                    </div>
+                </if>
+
+                <div class="standard p">
+                    <div class="standard p">
+                        <a id="buy_now" class="paybybill buy_button" href="javascript:;" style="display: none">下单印刷</a>
+                        <!--<a id="join_cart" class="addcar buy_button" href="javascript:;" style="display: none"><i class="sk"></i>加入购物车</a>-->
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--搭配购组合套餐 s-->
+<!--搭配购组合套餐 e-->
+<div class="detail-main p">
+    <div class="w1224">
+        <include file="goods/goodsInfoDetail"/>
+    </div>
+</div>
+<!--footer-s-->
+<include file="public/footer"/>
+<!--footer-e-->
+<!--侧边栏-s-->
+<include file="public/kefu"/>
+
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="__STATIC__/js/headerfooter.js"></script>
+<script type="text/javascript">
+    //随机生成头像
+    var facenum = Math.floor(Math.random()*10+1);
+    $("#facecoment").attr("src","__STATIC__/images/face/"+facenum+".png");
+    //判断是否有视频标签
+    if ($('#video').length > 0) {
+        $('#photoBody').addClass('videoshow-ac');
+    }
+    //点击关闭视频
+    $('.video-play').click(function (event) {
+        $('#photoBody').addClass('videoshow-ac').removeClass('picshow-ac');
+        video.play();
+    });
+    //点击播放视频
+    $('.close-video').click(function (event) {
+        $('#photoBody').addClass('picshow-ac').removeClass('videoshow-ac');
+        video.pause();
+    });
+    var goods_price_arr = {$goods_price | default = 'null'} //爆品印品对应的价格数组
+    var spec_goods_price = {$spec_goods_price |default= 'null'};//规格库存价格
+    $(document).ready(function () {
+        /*商品缩略图放大镜*/
+        $(".jqzoom").jqueryzoom({
+            xzoom: 500,
+            yzoom: 500,
+            offset: 1,
+            position: "right",
+            preload: 1,
+            lens: 1
+        });
+        //replace_look();
+        initSpec();
+        initGoodsPrice();
+        changeImg();
+    });
+
+    var buy_now = $('#buy_now');
+    var join_cart = $('#join_cart');
+    //购买按钮显示
+    function buy_button(){
+        var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
+        var exchange_integral = $("input[name='exchange_integral']").val();//是否是为瓜豆商品
+        var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');//活动商品
+        var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
+        buy_now.hide();
+        //join_cart.hide();
+        buy_now.html('下单印刷').show();
+        //join_cart.show();
+    }
+
+    //购买按钮
+    $(function () {
+        //立即购买
+        $(document).on('click', '#buy_now', function () {
+            if ($(this).hasClass('buy_bt_disable')) {
+                return;
+            }
+            if (getCookie('user_id') == '') {
+                pop_login();
+                return;
+            }
+            var is_virtual = $("input[name='is_virtual']").val();//是否是虚拟商品
+            var exchange_integral = $("input[name='exchange_integral']").val();//是否是瓜豆兑换商品
+            var goods_id = $("input[name='goods_id']").val();
+            var store_count = $("input[name='store_count']").attr('value');// 商品原始库存
+            var goods_num = parseInt($("input[name='goods_num']").val());
+            var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');//活动商品
+            var activity_is_on = $('input[name="activity_is_on"]').attr('value'); //活动是否进行中
+            var form = $('#buy_goods_form');
+            if (is_virtual == 1) {
+                var virtual_limit = parseInt($('#virtual_limit').val());
+                if ((goods_num <= store_count && goods_num <= virtual_limit) || (goods_num < store_count && virtual_limit == 0)) {
+                    form.attr('action', "{:U('Home/Cart/cart2',['action'=>'buy_now'])}").submit();
+                } else {
+                    layer.msg('购买数量超过此商品购买上限', {icon: 3});
+                }
+                return;
+            }
+            if (exchange_integral > 0) {
+                buyIntegralGoods(goods_id, 1);
+                return;
+            }
+//            if(goods_prom_type == 4 && activity_is_on == 1){
+//                form.attr('action', "{:U('Home/Cart/pre_sell')}").submit();
+//                return;
+//            }
+            //普通流程
+            //if (goods_num <= store_count) {
+                form.attr('action', "{:U('Home/Cart/cart2',['action'=>'buy_now'])}").submit();
+            /*} else {
+                layer.msg('购买数量超过此商品购买上限', {icon: 3});
+            }*/
+        })
+        //加入购物车
+        /*$(document).on('click', '#join_cart', function () {
+            if ($(this).hasClass('buy_bt_disable')) {
+                return;
+            }
+            var goods_id = $("input[name='goods_id']").val();
+            AjaxAddCart(goods_id, 1);
+        })*/
+    })
+
+    //有规格id的时候，解析规格id选中规格
+    function initSpec() {
+        var item_id = $("input[name='item_id']").val();
+        $.each(spec_goods_price, function (i, o) {
+            if (o.item_id == item_id) {
+                var spec_key_arr = o.key.split("_");
+                $.each(spec_key_arr, function (index, item) {
+                    var spec_radio = $("#goods_spec_" + item);
+                    var goods_spec_a = $("#goods_spec_a_" + item);
+                    spec_radio.attr("checked", "checked");
+                    goods_spec_a.addClass('red');
+                })
+            }
+        })
+        if (item_id > 0 && !$.isEmptyObject(spec_goods_price)) { //点击规格切换的时候
+            var item_arr = [];
+            $.each(spec_goods_price, function (i, o) {
+                item_arr.push(o.item_id);
+            })
+            //规格id不存在商品里
+            if ($.inArray(parseInt(item_id), item_arr) < 0) {
+                initFirstSpec();
+            } else {
+                $.each(spec_goods_price, function (i, o) {
+                    if (o.item_id == item_id) {
+                        var spec_key_arr = o.key.split("_");
+                        $.each(spec_key_arr, function (index, item) {
+                            var spec_radio = $("#goods_spec_" + item);
+                            var goods_spec_a = $("#goods_spec_a_" + item);
+                            spec_radio.attr("checked", "checked");
+                            goods_spec_a.addClass('red');
+                        })
+                    }
+                })
+            }
+        } else { //刚进入页面的时候
+            initFirstSpec();
+        }
+    }
+
+    //默认让每种规格 和 设计文件第一个选中
+    function initFirstSpec() {
+        $('.spec_goods_price_div').each(function (i, o) {
+            var firstSpecRadio = $(this).find("input[type='radio']").eq(0);
+            firstSpecRadio.attr('checked', 'checked').prop('checked', 'checked');
+            firstSpecRadio.parent().find('a').eq(0).addClass('red');
+
+            // 判断数量 赋值默认印刷数量
+           /* var spec_val = firstSpecRadio.attr('spec_val');
+            if(spec_val == "数量(张)"){
+                $('#number').val($.trim(firstSpecRadio.parent().find('a').eq(0).text()));
+            }*/
+        })
+    }
+
+    //缩略图切换
+    $('.small-pic-li').mouseenter(function () {
+        if ($('#video').length > 0) {
+            $('.close-video').trigger('click');
+        }
+        $(this).siblings().removeClass('active');
+        $(this).addClass('active');
+        $('#zoomimg').attr('src', $(this).find('img').attr('data-img')).attr('jqimg', $(this).find('img').attr('data-big'));
+    });
+
+    //缩略图切换
+    function changeImg() {
+        var $picBox = $('#small-pic');
+        var $picList = $picBox.find('.small-pic-li');
+        var length = $picList.length;
+        $picBox.css('width', 70 * length);
+        if ($('#video').length > 0) { //判断是否有视频标签
+            $('#photoBody').addClass('videoshow-ac');
+        }
+        $('.video-play').click(function (event) { //点击关闭视频
+            $('#photoBody').addClass('videoshow-ac').removeClass('picshow-ac');
+            video.play();
+        });
+        $('.close-video').click(function (event) {  //点击播放视频
+            $('#photoBody').addClass('picshow-ac').removeClass('videoshow-ac');
+            video.pause();
+        });
+        //缩略图切换
+        $picList.mouseenter(function () {
+            if ($('#video').length > 0) {
+                $('.close-video').trigger('click');
+            }
+            $(this).addClass('active').siblings().removeClass('active');
+            $('#zoomimg').attr('src', $(this).find('img').attr('data-img')).attr('jqimg', $(this).find('img').attr('data-big'));
+        })
+        var i = 0;
+        if (length <= 5) {
+            $('.product-gallery .next-btn').css('display', 'none');
+        } else {
+            //前一张缩略图
+            $('.next-left').click(function () {
+                i--;
+                if (i < 0) {
+                    i = 0;
+                    return;
+                }
+                $picBox.animate({left: -i * 70}, 500);
+            })
+            //后前一张缩略图
+            $('.next-right').click(function () {
+                i++;
+                if (i > length - 5) {
+                    i = length - 5;
+                    return;
+                }
+                $picBox.animate({left: -i * 70}, 500);
+            })
+        }
+    }
+
+    //购买数量加减
+    function altergoodsnum(n) {
+        var num = parseInt($('#number').val());
+        var maxnum = parseInt($('#number').attr('max'));
+        /*if (maxnum > 200) {
+            maxnum = 200;
+        }*/
+        num += n;
+        num <= 0 ? num = 1 : num;
+        if (num >= maxnum) {
+            $(this).addClass('no-mins');
+            num = maxnum;
+        }
+        $('#store_count').text(maxnum - num); //更新库存数量
+        $('#number').val(num);
+        doInitRegion();
+        /*        initGoodsPrice();*/
+    }
+
+    //初始化商品价格库存  进入页面自动执行
+    function initGoodsPrice() {
+        var goods_id = $('input[name="goods_id"]').val();
+        var goods_num = parseInt($('#number').val());
+        var num_key = $("#num_key").val();
+        if (!$.isEmptyObject(spec_goods_price)) {
+            //如果商品规格不为空，获取商品规格id
+            var goods_spec_arr = [];
+            $("input[name^='goods_spec']").each(function () {
+                if ($(this).attr('checked') == 'checked') {
+                    goods_spec_arr.push($(this).val());
+                }
+            });
+            var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
+            //console.log(spec_goods_price[spec_key]);
+            if (spec_goods_price[spec_key] != undefined) {
+                var item_id = spec_goods_price[spec_key]['item_id'];
+                $('input[name=item_id]').val(item_id);/*商品规格id*/
+            } else {
+                $("#goods_price").html("<em>￥</em>" + 0); //变动价格显示
+                $('#spec_store_count').html(0);
+                $('input[name="shop_price"]').attr('value', 0);//商品价格
+                $('input[name="store_count"]').attr('value', 0);//商品库存
+                $('.buy_button').addClass('buy_bt_disable');
+                return false;
+            }
+        }
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            // 根据数量数组的key 获取当前数量的商品单价 num_key
+            data: {goods_id: goods_id, item_id: item_id, goods_num: goods_num,num_key:num_key},
+            url: "{:U('Home/Goods/activity')}",  /*判断商品是否参加活动了*/
+            success: function (data) {
+                //console.log(data);
+                if (data.status == 1) {
+                    //在读取规格数量价格的时候 先从详情里读取数据，兼容没有规格的商品
+                    $('input[name="goods_prom_type"]').attr('value', data.result.goods.prom_type);//商品活动类型
+                    $('input[name="shop_price"]').attr('value', data.result.goods.shop_price);//商品价格
+                    $('input[name="store_count"]').attr('value', data.result.goods.store_count);//商品库存
+                    $('input[name="goods_weight"]').attr('value', data.result.goods.goods_weight);//商品重量
+                    $('input[name="goods_volume"]').attr('value', data.result.goods.goods_volume);//商品体积
+                    $('input[name="goods_send_date"]').attr('value', data.result.goods.goods_send_date);//商品出货周期
+                    $('input[name="market_price"]').attr('value', data.result.goods.market_price);//商品原价
+                    $('input[name="start_time"]').attr('value', data.result.goods.start_time);//活动开始时间
+                    $('input[name="end_time"]').attr('value', data.result.goods.end_time);//活动结束时间
+                    $('input[name="activity_title"]').attr('value', data.result.goods.activity_title);//活动标题
+                    $('input[name="prom_detail"]').attr('value', data.result.goods.prom_detail);//促销详情
+                    $('input[name="activity_is_on"]').attr('value', data.result.goods.activity_is_on);//活动是否正在进行中
+                    price_ladder = data.result.goods.price_ladder;
+                    goods_activity_theme();  //真正的设置商品价格 体重，生成周期等；
+                    buy_button();
+                }
+                doInitRegion();
+            }
+        });
+    }
+
+    //价格阶梯显示
+    var price_ladder = null;
+    function priceLadderShow() {
+        var price_ladder_html = '';
+        if (price_ladder != null && price_ladder != '') {
+            $.each(price_ladder, function (i, o) {
+                price_ladder_html += '<li class="pre_undred">满<span>' + o.amount + '件</span><br/><span>' + o.price + '</span></li>';
+            });
+            $('#price_ladder_html').empty().html(price_ladder_html);
+            if (price_ladder.length > 3) {
+                $('.price_ladder_more').show();
+            } else {
+                $('.price_ladder_more').hide();
+            }
+            $('.pre_sell_div').show();
+        }
+    }
+
+    //商品价格库存显示
+    function goods_activity_theme() {
+        $('.pre_sell_div').hide();
+        var goods_prom_type = $('input[name="goods_prom_type"]').attr('value');
+        var activity_is_on = $('input[name="activity_is_on"]').attr('value');
+        if (activity_is_on == 0) {
+            setNormalGoodsPrice();  //没有参加活动设置正常的价格
+        } else {
+            if (goods_prom_type == 0 || goods_prom_type == 6) {
+                //普通商品
+                setNormalGoodsPrice();
+            }  else {
+
+            }
+        }
+        var buy_num = parseInt($('#number').val());//购买数
+        var store = parseInt($('input[name="store_count"]').val());//实际库存数量
+        if (store <= 0) {
+            $('.buy_button').addClass('buy_bt_disable');
+        } else {
+            $('.buy_button').removeClass('buy_bt_disable');
+        }
+        if (buy_num > store) {
+            $('.buyNum').val(store);
+        }
+    }
+
+    //普通商品库存和价格, 重量 ，体积，出货周期
+    function setNormalGoodsPrice() {
+        var num_key = $("#num_key").val();
+        var goods_price, store_count,goods_send_date,goods_weight,goods_volume;//商品价,商品库存
+        var buy_num = parseInt($('#number').val());//购买数
+        var market_price = $("input[name='market_price']").attr('value');// 商品市场价
+        var exchange_integral = $("input[name='exchange_integral']").attr('value');// 兑换瓜豆
+        var point_rate = $("input[name='point_rate']").attr('value');// 瓜豆金额比
+        // 如果有规格属性选择项 读取规格选项中的价格库存等
+        if (!$.isEmptyObject(spec_goods_price)) {
+            var goods_spec_arr = [];
+            $("input[name^='goods_spec']").each(function () {
+                if ($(this).attr('checked') == 'checked') {
+                    goods_spec_arr.push($(this).val());
+                }
+            });
+            var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
+            goods_price = spec_goods_price[spec_key]['price'][num_key]; // 找到对应规格的价格(单个的价格)
+            store_count = spec_goods_price[spec_key]['store_count']; // 找到对应规格的库存
+            market_price = spec_goods_price[spec_key]['market_price']; // 找到对应规格的市场价(单个的价格)
+            goods_send_date =  spec_goods_price[spec_key]['goods_send_date']; // 商品出货周期
+            goods_weight = spec_goods_price[spec_key]['goods_weight']; //
+            goods_volume = spec_goods_price[spec_key]['goods_volume']; //
+            $("input[name='shop_price']").attr('value', goods_price);
+            $("input[name='store_count']").attr('value', store_count);
+            $("input[name='goods_weight']").attr('value', goods_weight);
+            $("input[name='goods_send_date']").attr('value', goods_send_date);
+            $("input[name='goods_volume']").attr('value', goods_volume);
+            $("input[name='market_price']").attr('value', market_price);
+        } else {
+            priceLadderShow();
+        }
+        goods_price = $("input[name='shop_price']").attr('value');// 商品本店价
+        store_count = $("input[name='store_count']").attr('value');// 商品库存
+        goods_send_date =  $("input[name='goods_send_date']").attr('value'); // 商品出货周期
+        goods_weight = $("input[name='goods_weight']").attr('value'); //商品单个的重量
+        goods_volume = $("input[name='goods_volume']").attr('value');//商品单个的体检
+        $('#goods_send_date').empty().html(goods_send_date);// 商品出货周期
+        //$('#yuji_send_date').empty().html();
+        //get_send_date('20170528');
+        $('#goods_weight').empty().html(parseFloat(goods_weight*buy_num/1000).toFixed(2));// 商品体重
+        $('#goods_volume').empty().html(goods_volume*buy_num);
+
+        $('#market_price').empty().html(parseFloat(market_price*buy_num).toFixed(2));
+        $('#goods_price_all').empty().html("<em>￥</em>" +parseFloat(goods_price*buy_num).toFixed(2));
+        $("#goods_price").html("<em>￥</em>" + goods_price); //变动价格显示
+        var integral = round(goods_price - (exchange_integral / point_rate), 2);
+        $("#integral").html(integral + '+' + exchange_integral + '瓜豆'); //瓜豆显示
+        $('#spec_store_count').html(store_count);
+        $('.presale-time').hide();
+        $('#number').attr('max', store_count);
+    }
+
+    //sort排序用
+    function sortNumber(a, b) {
+        return a - b;
+    }
+
+    //点击切换规格
+    $(document).on('click', '.spec_item', function () {
+        var spec_item_img_src = $(this).find('img').attr('src');
+        if (spec_item_img_src != '') {
+            $('#zoomimg').attr('jqimg', spec_item_img_src).attr('src', spec_item_img_src);
+        }
+        $(this).addClass('red').siblings('a').removeClass('red');
+        $(this).siblings('input').removeAttr('checked');
+        $(this).prev('input').attr('checked', 'checked').prop('checked', 'checked');
+        if ($('#video').length > 0) {
+            //判断是否有视频标签
+            $('#photoBody').addClass('picshow-ac');
+            video.pause();
+        }
+        // 更新商品价格
+        initGoodsPrice();
+        doInitRegion();
+    })
+    //点击切换设计文件
+    /*$(document).on('click', '.goods_file_item', function () {
+        var goods_file_item = $(this).attr('val');
+        $("#goods_file_id").val(goods_file_item);//根据规格改变商品数量
+        $(this).addClass('red').siblings('a').removeClass('red');
+        $(this).siblings('input').removeAttr('checked');
+    })*/
+    //爆品印品点击切换数量 获取 数量 和 数量对应的价格
+    $(document).on('click', '.goods_num_item', function () {
+        $(".goods_num_input").val('');
+        var goods_num_key = $(this).attr('val');
+        var buy_num = $.trim($(this).text());
+        $('#number').val(buy_num);//据规格改变商品数量
+        $('#num_key').val(goods_num_key);//商品数量数组的key值 根据这个值获取价格
+        $(this).addClass('red').siblings('a').removeClass('red');
+        $(this).siblings('input').removeAttr('checked');
+        $(this).siblings('input').removeClass('red');
+        initGoodsPrice();
+        doInitRegion();//重新获取运费
+    })
+    //爆品印品自定义数量信息
+    $(document).on('click', '.goods_num_input', function () {
+        $(this).blur();
+        $(this).val('');
+        $('#num_content').focus();
+        var consult = '<div class="publish-cont">\n' +
+            '                                <div class="buynum">\n' +
+            '                                        <input type="text" id="num_content" name="num_content" placeholder="自定义数量" value=""/>\n' +
+            '                                </div>\n' +
+            '                                <input class="num_sub" id="num_sub" type="button"\n' +
+            '                                       value="提交"/>\n' +
+            '                                <input class="num_res" id="num_res" type="button"\n' +
+            '                                       value="取消"/>\n' +
+            '                            </div>';
+        lay_num = layer.open({
+            type: 1,
+            title: '<b></b>',
+            area: ['400px', '300px'], //宽高
+            content: consult
+        });
+    })
+    //爆品印品自定义数量提交
+    $(document).on('click', '#num_sub', function () {
+        var re = /^[1-9]+[0-9]*]*$/;
+        var buy_num = parseInt($.trim($('#num_content').val()));
+        if (!re.test(buy_num)) {
+            layer.msg("请输入有效的数字", {icon: 3});
+            return false;
+        }
+        var goods_num = "{$goods_num_str}";
+        var goods_nums = goods_num.split(',');
+        //sleep(2000);
+        if(buy_num<parseInt(goods_nums[0])){
+            layer.msg('数量低于'+goods_nums[0]+'，请联系客服哦', {icon: 3});
+            return false;
+        }
+        var goods_num_key = 0;
+        for (var i = 0; i < goods_nums.length; i++) {
+            if(buy_num<parseInt(goods_nums[i])){
+                if(i != 0){
+                    goods_num_key = i-1;
+                }else {
+                    goods_num_key = i;
+                }
+                break;
+            }else {
+                goods_num_key = goods_nums.length -1;
+            }
+        }
+        $('#number').val(buy_num);//据规格改变商品数量
+        $('#num_key').val(goods_num_key);//商品数量数组的key值 根据这个值获取价格
+        $(".goods_num_input").val(buy_num);
+        $(".goods_num_input").addClass('red');
+        $(".goods_num_input").siblings('a').removeClass('red');
+        $(".goods_num_input").siblings('input').removeAttr('checked');
+        initGoodsPrice();
+        doInitRegion();//重新获取运费
+        layer.closeAll();
+    });
+    $(document).on('click', '#num_res', function () {
+        layer.closeAll();
+    })
+    /*//爆品印品自定义数量 获取 数量 和 数量对应的价格
+    $(document).on('keyup', '.goods_num_input', function () {
+        var re = /^[1-9]+[0-9]*]*$/;
+        var buy_num = parseInt($.trim($(this).val()));
+        if (!re.test(buy_num)) {
+            layer.msg("请输入有效的数字", {icon: 3});
+            $(this).removeClass('red');
+            $(this).siblings('a').first().addClass('red');
+            var goods_num_key1 = $(this).siblings('a').first().attr('val');
+            var buy_num1 = $.trim($(this).siblings('a').first().text());
+            $('#number').val(buy_num1);//据规格改变商品数量
+            $('#num_key').val(goods_num_key1);//商品数量数组的key值 根据这个值获取价格
+            initGoodsPrice();
+            doInitRegion();//重新获取运费
+            return false;
+        }
+        var goods_num = "{$goods_num_str}";
+        var goods_nums = goods_num.split(',');
+        //sleep(2000);
+        if(buy_num<parseInt(goods_nums[0])){
+            layer.msg('数量低于'+goods_nums[0]+'，请联系客服哦', {icon: 3});
+            $(this).removeClass('red');
+            $(this).siblings('a').first().addClass('red');
+            var goods_num_key1 = $(this).siblings('a').first().attr('val');
+            var buy_num1 = $.trim($(this).siblings('a').first().text());
+            $('#number').val(buy_num1);//据规格改变商品数量
+            $('#num_key').val(goods_num_key1);//商品数量数组的key值 根据这个值获取价格
+            initGoodsPrice();
+            doInitRegion();//重新获取运费
+            return false;
+        }
+        $(this).addClass('red');
+        var goods_num_key = 0;
+        for (var i = 0; i < goods_nums.length; i++) {
+            if(buy_num<parseInt(goods_nums[i])){
+                if(i != 0){
+                    goods_num_key = i-1;
+                }else {
+                    goods_num_key = i;
+                }
+                break;
+            }else {
+                goods_num_key = goods_nums.length -1;
+            }
+        }
+        $('#number').val(buy_num);//据规格改变商品数量
+        $('#num_key').val(goods_num_key);//商品数量数组的key值 根据这个值获取价格
+        $(this).siblings('a').removeClass('red');
+        $(this).siblings('input').removeAttr('checked');
+        initGoodsPrice();
+        doInitRegion();//重新获取运费
+    })*/
+</script>
+</body>
+</html>

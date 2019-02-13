@@ -156,6 +156,7 @@ class Cart extends Base
         $num_key = I("num_key/d");  //商品数量数组 当前数量的key
         $item_id = I("item_id/d"); // 商品规格id
         $goods_file_id = I("goods_file_id/d");
+        $is_sheji = I("is_sheji/d");
         $linkqq = I("linkqq/d");  //设计商品加入购物车
         $shejicontent = I("shejicontent");
         $mobile = I("mobile/d");
@@ -175,6 +176,7 @@ class Cart extends Base
         $cartLogic->setGoodsBuyNum($goods_num);//设置购买数量
         $cartLogic->setNumKey($num_key);//设置购买数量 key
         $cartLogic->setGoodsFileId($goods_file_id);//设置印刷文件
+        $cartLogic->setIsSheji($is_sheji);
         $cartLogic->setlinkqq($linkqq);
         $cartLogic->setshejicontent($shejicontent);
         $cartLogic->setmobile($mobile);
@@ -222,6 +224,7 @@ class Cart extends Base
         $num_key = input('num_key');
         $item_id = input("item_id/d"); // 商品规格id
         $goods_file_id = I("goods_file_id/d");
+        $is_sheji = I("is_sheji/d"); // 设计商品也提交上 的
         $linkqq = I("linkqq/d");  //设计商品加入购物车
         $shejicontent = I("shejicontent");
         $mobile = I("mobile/d");
@@ -254,6 +257,12 @@ class Cart extends Base
             }
             //halt($buyGoods);exit;
             $cartList['cartList'][0] = $buyGoods;
+            if($is_sheji == '1'){
+                //需要从购物车中把设计文件合拼
+                $shejiinfo = $cartLogic->getCartShejiList(1); // 获取用户选中的购物车商品
+                //halt($shejiinfo);
+                $cartList['cartList'][1] = $shejiinfo;
+            }
             $cartGoodsTotalNum = $goods_num;
         } else {
             if ($cartLogic->getUserCartOrderCount() == 0) {

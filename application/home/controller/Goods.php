@@ -197,7 +197,7 @@ class Goods extends Base
 
         // 帅选 品牌 规格 属性 价格
         $cat_id_arr = getCatGrandson($id);
-        $goods_where = ['is_on_sale' => 1, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
+        $goods_where = ['is_on_sale' => 1,'is_sheji' => 0, 'exchange_integral' => 0, 'cat_id' => ['in', $cat_id_arr]];
         $filter_goods_id = Db::name('goods')->where($goods_where)->cache(true)->getField("goods_id", true);
         // 过滤帅选的结果集里面找商品        
         if ($brand_id || $price)// 品牌或者价格

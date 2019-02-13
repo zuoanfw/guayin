@@ -241,6 +241,7 @@
             <input type="hidden" name="is_virtual" value="{$goods.is_virtual}"/>
             <input type="hidden" name="virtual_limit" id="virtual_limit" value="{$goods.virtual_limit|default=0}"/>
             <input  id="number" type="hidden" name="goods_num" value="1">
+            <input  id="is_sheji" type="hidden" name="is_sheji" value="1">
             <input  id="cat_id" type="hidden" name="cat_id" value="{$goods.cat_id|default=0}">
             <div class="detail-ggsl">
                 <h1>{$goods.goods_name}</h1>
@@ -262,7 +263,7 @@
                 </div>
                 <div class="standard p">
                     <div class="standard p">
-                        <a id="join_cart" class="nextb buy_button" href="javascript:;" style="display: none">加入购物车</a>
+                        <a id="join_cart" class="nextb buy_button" href="javascript:;" style="display: none">下一步选择印刷品</a>
                         <a id="buy_now" class="buyb buy_button"  href="javascript:;" style="display: none;margin-left: 10px;">下单印刷</a>
 
                     </div>
@@ -411,9 +412,9 @@
             }
             var goods_id = $("input[name='goods_id']").val();
             var cat_id = $("input[name='cat_id']").val();//是否是虚拟商品
-            AjaxAddCart(goods_id, 1);
+            //AjaxAddCart(goods_id, 1);
             // 如果有商品规格 说明是商品详情页提交
-           /* var form = $("#buy_goods_form");
+            var form = $("#buy_goods_form");
             var cart_quantity = $("#cart_quantity");
             var data;//post数据
             data = form.serialize();
@@ -433,11 +434,11 @@
                         layer.alert(data.msg, {icon: 2});
                         return false;
                     }else {
-                        location.href = "/index.php?m=Home&c=Goods&a=goodsList&id=" + cat_id;
+                        location.href = "/index.php?m=Home&c=Sheji&a=shejiList&id=" + cat_id;
                         return false;
                     }
                 }
-            });*/
+            });
         })
     })
 
